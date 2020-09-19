@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+// 英雄设置
+message HeroSettingsProto {
+    repeated bool settings = 1 [packed = false]; // 设置，对应某个类型的设置，SettingType.ST_BUILDING 对应数组第一个
+    repeated PrivacySettingType privacy_settings = 2 [packed = false]; // 隐私设置，列表里有的是开启状态，没有的都是关闭状态
+}
+
+enum SettingType {
+    InvalidSettingType = 0;
+    ST_BUILDING = 1; // 建筑闲置
+    ST_TECH = 2; // 书院闲置
+    ST_RECRUIT_SOLDIER_FULL = 3; // 征兵次数已满
+    ST_TRAINING = 4; // 武将修炼馆	修炼馆经验条满了
+    ST_FARM = 5; // 农场	粮食成熟时
+    ST_BEEN_ATTACKING = 6; // 敌军入侵	被人入侵
+    ST_GUILD_MEMBER_BEEN_ATTACKING = 7; // 盟友被攻击
+    ST_TIE_JIANG_PU_TIMES = 8; // 铁匠	锻造次数已刷新（策划配置某几个时间点推送）
+    ST_TIE_JIANG_PU_FORGE_COLLECT = 9; //  铁匠	锻造完成可领取
+    ST_DUNGEON_TIMES = 10; // 将魂幻境（PVE）	挑战次数已满
+    ST_MULTI_LEVEL_NPC = 11; // 讨伐（PVE）	讨伐次数已满
+    ST_BAI_ZHAN = 12; // 百战（PVE）	发送次数前的N分钟（策划配置某几个时间点推送）
+    ST_INVESTIGATE = 13; // 瞭望	被人瞭望
+    ST_BEEN_ROBBING = 14; // 持续掠夺	被人持续掠夺时推送1次
+    ST_GUILD_MEMBER_BEEN_ROBBING = 15; // 盟友被持续掠夺	盟友被人持续掠夺推送1次
+    ST_TROOP_BACK_HOME = 16; // 部队返回	部队回城后通知
+    ST_COUNTDOWN_PRIZE = 17; // 马车	定时礼包可领时
+    ST_TREASURE_TREE = 18; // 摇钱树奖励可领	摇钱树奖励可领
+    ST_GUILD_BIG_BOX = 19; // 联盟聚宝盆	有未领的联盟大礼包奖励
+    ST_GUILD_XIONG_NU = 20; // 联盟-匈奴入侵	联盟开启了匈奴入侵
+    ST_GUILD_IMPEACH = 21; // 联盟弹劾	联盟开始弹劾盟主时，推送给所有成员
+    ST_CHAT_PRIVATE = 22; // 聊天-私聊	有新的任意未读的私聊信息
+    ST_ZHENG_WU_REFRESH = 23; // 任务-君主政务	政务已刷新（策划配置某几个时间点推送）
+}
+
+// 隐私设置
+enum PrivacySettingType {
+    InvalidPrivacySettingType = 0;
+
+    PST_SHOW_VIP_LEVEL = 1; // 是否开启贵族等级外显
+    PST_SHOW_VIP_HEAD_FRAME = 2; // 是否开启贵族头像框外显
+    PST_SHOW_VIP_CHAT_BUBBLE = 3; // 是否开启贵族聊天气泡外显
+
+    PST_SHARE_GUILD_GIFT_GIVER = 11; // 是否开启购买礼包分享
+}

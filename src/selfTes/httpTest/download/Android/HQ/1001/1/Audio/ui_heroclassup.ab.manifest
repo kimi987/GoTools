@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3040245193
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 35f7fcfb2fa1f715bb94302a37e8c82d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Audio/ui_heroclassup.mp3
+Dependencies: []

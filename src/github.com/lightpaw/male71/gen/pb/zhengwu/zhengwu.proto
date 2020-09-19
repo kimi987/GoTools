@@ -1,0 +1,38 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "zhengwu";
+option optimize_for = SPEED;
+
+
+message C2SStartProto {
+
+    int32 id = 1; // 政务id
+
+}
+
+message S2CStartProto {
+
+    bytes zheng_wu = 1; // 客户端解析成 ZhengWuProto，收到该消息后，将 ZhengWuProto.data.id从  todoList 中移除掉
+
+}
+
+message S2CRefreshProto {
+
+    bytes new_zheng_wu = 1; // 解析成 HeroZhengWuProto
+
+}
+
+message C2SVipCollectProto {
+
+    int32 id = 1; // 政务id
+
+}
+
+message S2CVipCollectProto {
+
+    int32 id = 1; // 政务id
+
+}
+

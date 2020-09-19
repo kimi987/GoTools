@@ -1,0 +1,12 @@
+# 元宝换点券
+exchange:
+  c2s:
+    times: int // 兑换次数
+  s2c:
+    times: int // 兑换次数
+    amount: int // 获得的点券
+  s2c_fail:
+    invalid_times: 兑换次数错误
+    cost_not_enough: 消耗不足
+    server_err: 服务器错误
+

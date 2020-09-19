@@ -1,0 +1,94 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "game2login";
+option optimize_for = SPEED;
+
+
+message C2SVerifyLoginTokenProto {
+
+    int64 hero_id = 1; // 英雄id
+
+    string token = 2; // 登陆token
+
+    string client_ip = 3; // 客户端ip
+
+    uint32 pf = 4; // 平台
+
+}
+
+message S2CVerifyLoginTokenProto {
+
+    bool success = 1; // 1
+
+    string err_msg = 2; // 错误消息
+
+}
+
+message C2SWriteTlogProto {
+
+    int64 hero_id = 1; // 英雄id
+
+}
+
+message S2CWriteTlogProto {
+
+    bool success = 1; // 1
+
+    string err_msg = 2; // 错误消息
+
+}
+
+message C2SPushProto {
+
+    int64 hero_id = 1; // 推送英雄id
+
+    uint32 sid = 2; // 服务器id
+
+    string title = 3; // 标题
+
+    string content = 4; // 正文
+
+    int64 start_time = 5; // 开始推送时间，0表示立即推送（unix时间戳）
+
+    int64 expire_time = 6; // 过期时间，超过这个时间不再推送(unix时间戳)
+
+}
+
+message S2CPushProto {
+
+    bool success = 1; // 1
+
+    string err_msg = 2; // 错误消息
+
+    bool dont_push = 3; // true表示停止此账号推送（已绑定其他区服）
+
+}
+
+message C2SPushMultiProto {
+
+    repeated int64 hero_ids = 1 [packed = false]; // 推送英雄id
+
+    uint32 sid = 2; // 服务器id
+
+    string title = 3; // 标题
+
+    string content = 4; // 正文
+
+    int64 start_time = 5; // 开始推送时间，0表示立即推送（unix时间戳）
+
+    int64 expire_time = 6; // 过期时间，超过这个时间不再推送(unix时间戳)
+
+}
+
+message S2CPushMultiProto {
+
+    bool success = 1; // 1
+
+    string err_msg = 2; // 错误消息
+
+    repeated int64 dont_push_hero_ids = 3 [packed = false]; // 停止推送这些账号
+
+}
+

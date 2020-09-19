@@ -1,0 +1,234 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "farm";
+option optimize_for = SPEED;
+
+
+message C2SPlantProto {
+
+    int32 cube_x = 1; // 地块坐标x
+
+    int32 cube_y = 2; // 地块坐标y
+
+    int32 res_id = 3; // 种植资源id。 FarmResConfigProto.id
+
+}
+
+message S2CPlantProto {
+
+    int32 cube_x = 1; // 地块坐标x
+
+    int32 cube_y = 2; // 地块坐标y
+
+    int32 res_id = 3; // 种植资源id。 FarmResConfigProto.id
+
+}
+
+message C2SHarvestProto {
+
+    int32 cube_x = 1; // 地块坐标x
+
+    int32 cube_y = 2; // 地块坐标y
+
+}
+
+message S2CHarvestProto {
+
+    int32 cube_x = 1; // 地块坐标x
+
+    int32 cube_y = 2; // 地块坐标y
+
+    int32 current_output = 3; // 当前收获的产量
+
+}
+
+message C2SChangeProto {
+
+    int32 cube_x = 1; // 地块坐标x
+
+    int32 cube_y = 2; // 地块坐标y
+
+    int32 res_id = 3; // 改建的种植资源id。 FarmResConfigProto.id
+
+}
+
+message S2CChangeProto {
+
+    int32 cube_x = 1; // 地块坐标x
+
+    int32 cube_y = 2; // 地块坐标y
+
+    int32 res_id = 3; // 改建的种植资源id。 FarmResConfigProto.id
+
+    int32 old_res_id = 5; // 原来的资源id   FarmResConfigProto.id
+
+    int32 old_output = 6; // 原来资源收获的产量
+
+}
+
+message C2SOneKeyPlantProto {
+
+    int32 gold_conf_id = 1; // 铜币资源id. FarmResConfigProto.id
+
+    int32 stone_conf_id = 2; // 石料资源id. FarmResConfigProto.id
+
+    int32 gold_count = 3; // 铜币数量
+
+    int32 stone_count = 4; // 石料数量
+
+}
+
+message S2COneKeyPlantProto {
+
+    repeated int32 cube_x = 1 [packed = false]; // 地块坐标x cube_x，cube_y，res_id，max_output 一一对应
+
+    repeated int32 cube_y = 2 [packed = false]; // 地块坐标y
+
+    repeated int32 res_id = 3 [packed = false]; // 种植资源id。 FarmResConfigProto.id
+
+}
+
+message C2SOneKeyHarvestProto {
+
+    int32 res_type = 1; // 要收获的资源类型， shared_proto.ResType. 发0表示全收
+
+}
+
+message S2COneKeyHarvestProto {
+
+    repeated int32 cube_x = 3 [packed = false]; // 地块坐标x
+
+    repeated int32 cube_y = 4 [packed = false]; // 地块坐标y, 与 cube_x 一一对应
+
+    repeated int32 gold_output = 1 [packed = false]; // 这块地的铜币产量, 与 cube_x 一一对应
+
+    repeated int32 stone_output = 2 [packed = false]; // 这块地的石料产量, 与 cube_x 一一对应
+
+}
+
+message S2COneKeyResetProto {
+
+    repeated int32 cube_x = 1 [packed = false]; // 地块坐标x
+
+    repeated int32 cube_y = 2 [packed = false]; // 地块坐标y, 与 cube_x 一一对应
+
+    repeated int32 gold_output = 3 [packed = false]; // 这块地的铜币产量, 与 cube_x 一一对应
+
+    repeated int32 stone_output = 4 [packed = false]; // 这块地的石料产量, 与 cube_x 一一对应
+
+}
+
+message C2SViewFarmProto {
+
+    bytes target = 1; // 目标id
+
+    bool open_win = 2; // 玩家打开窗口
+
+}
+
+message S2CViewFarmProto {
+
+    bytes target = 1;
+
+    bytes target_basic = 11; // HeroBasicProto, 查看别人农场有效。因为从缓存里取可能不是最新的
+
+    bytes hero_farm = 2; // 农场 HeroFarmProto
+
+    repeated int32 next_level_cube_x = 7 [packed = false]; // 即将开启的地块坐标x，查看自己的农场时有效
+
+    repeated int32 next_level_cube_y = 8 [packed = false]; // 即将开启的地块坐标y，查看自己的农场时有效
+
+    bool can_steal = 12; // 能不能偷，查看别人农场有效
+
+}
+
+message C2SStealProto {
+
+    bytes target = 1; // 目标id
+
+    int32 cube_x = 2; // 地块坐标x
+
+    int32 cube_y = 3; // 地块坐标y
+
+}
+
+message S2CStealProto {
+
+    bytes target = 1; // 目标id
+
+    int32 cube_x = 2; // 地块坐标x
+
+    int32 cube_y = 3; // 地块坐标y
+
+    int32 steal_output = 4; // 偷了多少
+
+}
+
+message S2CWhoStealFromMeProto {
+
+    bytes target = 1; // 谁来偷菜
+
+    int32 gold_output = 7; // 偷了多少铜币
+
+    int32 stone_output = 8; // 偷了多少石料
+
+}
+
+message C2SOneKeyStealProto {
+
+    bytes target = 1; // 目标id
+
+}
+
+message S2COneKeyStealProto {
+
+    int32 gold_output = 1; // 当前收获的铜币总量
+
+    int32 stone_output = 2; // 当前收获的石料总量
+
+    repeated int32 cube_x = 3 [packed = false]; // 单块地偏移X
+
+    repeated int32 cube_y = 4 [packed = false]; // 单块地偏移Y， 与cube_x 一一对应
+
+    repeated int32 cube_gold_output = 5 [packed = false]; // 这块地的铜币产量, 与cube_x，cube_y 一一对应
+
+    repeated int32 cube_stone_output = 6 [packed = false]; // 这块地的石料产量, 与cube_x，cube_y 一一对应
+
+}
+
+message S2CWhoOneKeyStealFromMeProto {
+
+    bytes target_id = 4; // 关系玩家 id
+
+    repeated int32 cube_x = 1 [packed = false]; // 地块坐标x cube_x，cube_y，steal_times 一一对应
+
+    repeated int32 cube_y = 2 [packed = false]; // 地块坐标y
+
+    repeated int32 steal_times = 3 [packed = false]; // 一共被偷了多少次
+
+}
+
+message C2SStealLogListProto {
+
+    bytes target = 2; // 目标id
+
+    bool newest = 3; // 只请求最新一条
+
+}
+
+message S2CStealLogListProto {
+
+    bool newest = 2; // 只请求最新一条
+
+    bytes logs = 1; // shared_proto.FarmStealLogListProto
+
+}
+
+message S2CCanStealListProto {
+
+    repeated bytes can_steal_id = 3; // 能被偷的关系玩家 id
+
+}
+

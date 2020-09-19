@@ -1,0 +1,144 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/combat.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+// 请求打架
+message CombatRequestServerProto {
+
+    int64 seed = 1; // 随机数种子
+    string upload_file_path = 2; // 文件上传到哪
+    bool return_result = 3; // 返回result
+
+    // 初始数据 进攻方 防守方
+    int64 attacker_id = 9;
+    int64 defenser_id = 10;
+    CombatPlayerProto attacker = 11;
+    CombatPlayerProto defenser = 12;
+
+    // 配置
+
+    // 地图资源
+    string map_res = 13;
+    int32 map_x_len = 14;
+    int32 map_y_len = 15;
+
+    int32 max_round = 21;
+    int32 coef = 23; // 战斗常数系数，万分比
+    int32 crit_rate = 24; // 暴击几率，万分比
+    int32 restraint_rate = 32; // 克制技伤害系数，万分比
+
+    repeated RaceDataProto races = 25; // 优先级从低到高
+
+    int32 min_wall_attack_round = 30; // 最小城墙攻击轮次
+    int32 max_wall_attach_fix_damage_round = 29; // 最大城墙附加固定伤害轮次
+    int32 max_wall_been_hurt_percent = 33; // 城墙受到攻击，损失最大值，万分比
+
+    // 评价
+    repeated uint64 score_percent = 31;
+}
+
+message CombatResponseServerProto {
+
+    int32 return_code = 1; // 0表示正常，其他的都不用看下面的内容了，有错误
+    string return_msg = 2; // returnCode != 0 时，返回错误信息
+
+    string link = 5; // 战斗数据存放位置
+
+    CombatShareProto attacker_share = 6; // 进攻方分享
+    CombatShareProto defenser_share = 7; // 防守方分享
+
+    // 胜利方 true表示进攻方胜利了
+    int64 attacker_id = 9;
+    int64 defenser_id = 10;
+    bool attacker_win = 11;
+
+    // 双方剩余兵力 key是武将id，value是剩余兵力
+    map<int32, int32> attacker_alive_soldier = 12;
+    map<int32, int32> defenser_alive_soldier = 13;
+
+    map<int32, int32> attacker_kill_soldier = 15;
+    map<int32, int32> defenser_kill_soldier = 16;
+
+    // 评分，0-险胜 1-小胜 2-大胜 3-完胜
+    int32 score = 14;
+
+    CombatProto result = 99; // 正式来说没有这玩意的
+
+}
+
+// 请求打架
+message MultiCombatRequestServerProto {
+
+    int64 seed = 1; // 随机数种子
+    string upload_file_path = 2; // 文件上传到哪
+    bool return_result = 3; // 返回result
+
+    // 初始数据 进攻方 防守方
+    repeated int64 attacker_id = 9;
+    repeated int64 defenser_id = 10;
+    repeated CombatPlayerProto attacker = 11;
+    repeated CombatPlayerProto defenser = 12;
+
+    // 配置
+
+    // 地图资源
+    string map_res = 13;
+    int32 map_x_len = 14;
+    int32 map_y_len = 15;
+
+    int32 max_round = 21;
+    int32 coef = 23; // 战斗常数系数，万分比
+    int32 crit_rate = 24; // 暴击几率，万分比
+    int32 restraint_rate = 32; // 克制技伤害系数，万分比
+
+    repeated RaceDataProto races = 25; // 优先级从低到高
+
+    int32 concurrent_fight_count = 26; // 同时战斗的人数
+    int32 attacker_continue_win_count = 27; // 进攻方连胜的最大次数
+    int32 defenser_continue_win_count = 28; // 防守方连胜的最大次数
+
+    int32 min_wall_attack_round = 30; // 最小城墙攻击轮次
+    int32 max_wall_attach_fix_damage_round = 29; // 最大城墙附加固定伤害轮次
+    int32 max_wall_been_hurt_percent = 33; // 城墙受到攻击，损失最大值，万分比
+
+    // 评价
+    repeated uint64 score_percent = 31;
+}
+
+message MultiCombatResponseServerProto {
+
+    int32 return_code = 1; // 0表示正常，其他的都不用看下面的内容了，有错误
+    string return_msg = 2; // returnCode != 0 时，返回错误信息
+
+    string link = 5; // 战斗数据存放位置
+
+    CombatShareProto attacker_share = 6; // 进攻方分享
+    CombatShareProto defenser_share = 7; // 防守方分享
+
+    // 胜利方 true表示进攻方胜利了
+    repeated int64 attacker_id = 9;
+    repeated int64 defenser_id = 10;
+    bool attacker_win = 11;
+
+    // 双方剩余兵力 key是index，value是剩余兵力
+    repeated AliveSoldierProto alive_soldiers = 12;
+
+    // 胜利次数map
+    map<int64, int64> winTimesMap = 13;
+
+    // 评分，0-险胜 1-小胜 2-大胜 3-完胜
+    int32 score = 14;
+
+    MultiCombatProto result = 99; // 正式来说没有这玩意的
+
+}
+
+message AliveSoldierProto {
+    int64 id = 1; // 玩家id
+    map<int32, int32> alive_soldier = 2; // 剩余兵力
+}

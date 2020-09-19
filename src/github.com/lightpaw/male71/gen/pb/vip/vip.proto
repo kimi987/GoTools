@@ -1,0 +1,72 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "vip";
+option optimize_for = SPEED;
+
+
+message S2CVipLevelUpgradeNoticeProto {
+
+    int32 vip_level = 1; // 新等级
+
+    int32 vip_exp = 2; // 新经验
+
+}
+
+message S2CVipAddExpNoticeProto {
+
+    int32 vip_exp = 1; // 新经验
+
+}
+
+message S2CVipDailyLoginNoticeProto {
+
+    int32 vip_level = 1; // vip等级
+
+    int32 vip_exp = 2; // 获得的vip经验
+
+    int32 continue_days = 3; // 连续登录天数
+
+    int32 tomorrow_exp = 4; // 明天能获得的vip经验
+
+}
+
+message C2SVipCollectDailyPrizeProto {
+
+    int32 vip_level = 1; // 礼包的vip等级
+
+}
+
+message S2CVipCollectDailyPrizeProto {
+
+    int32 vip_level = 2; // 礼包的vip等级
+
+}
+
+message C2SVipCollectLevelPrizeProto {
+
+    int32 vip_level = 1; // 礼包的vip等级
+
+}
+
+message S2CVipCollectLevelPrizeProto {
+
+    int32 vip_level = 1; // 礼包的vip等级
+
+}
+
+message C2SVipBuyDungeonTimesProto {
+
+    int32 dungeon_id = 1; // 推图关卡 id
+
+}
+
+message S2CVipBuyDungeonTimesProto {
+
+    int32 dungeon_id = 3; // 推图关卡 id
+
+    int32 new_times = 2; // 购买总次数
+
+}
+

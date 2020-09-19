@@ -1,0 +1,7 @@
+MsgId#: 2
+MsgId#robot_ping#c2s: 1
+MsgId#robot_ping#s2c: 2
+MsgProtoFieldId#robot_ping#c2s#: 1
+MsgProtoFieldId#robot_ping#c2s#time#int32: 1
+MsgProtoFieldId#robot_ping#s2c#: 1
+MsgProtoFieldId#robot_ping#s2c#time#int32: 1

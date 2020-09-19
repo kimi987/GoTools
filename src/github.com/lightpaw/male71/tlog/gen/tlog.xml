@@ -1,0 +1,808 @@
+<metalib tagsetversion="1" name="Log" version="2">
+    <struct name="GameSvrState" version="1" desc="服务器状态日志">
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameIP" type="string" size="32" desc="(必填)服务器IP"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+    </struct>
+
+    <struct name="PlayerRegister" version="1" desc="(必填)玩家注册(注册完成时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="ClientVersion" type="string" size="64" desc="(必填)客户端版本"/>
+        <entry name="RegChannel" type="string" desc="(必填)注册渠道"/>
+        <entry name="SystemSoftware" type="string" size="64" desc="(必填)移动终端操作系统版本"/>
+        <entry name="SystemHardware" type="string" size="64" desc="(必填)移动终端机型"/>
+        <entry name="TelecomOper" type="string" size="64" desc="(必填)运营商"/>
+        <entry name="Network" type="string" size="64" desc="(必填)3G/WIFI/2G"/>
+        <entry name="ScreenWidth" type="int" desc="(可选)显示屏宽度"/>
+        <entry name="ScreenHight" type="int" desc="(可选)显示屏高度"/>
+        <entry name="Density" type="float" desc="(可选)像素密度"/>
+        <entry name="CpuHardware" type="string" size="64" desc="(可选)cpu类型|频率|核数"/>
+        <entry name="Memory" type="int" desc="(可选)内存信息单位M"/>
+        <entry name="GLRender" type="string" size="64" desc="(可选)opengl render信息"/>
+        <entry name="GLVersion" type="string" size="64" desc="(可选)opengl版本信息"/>
+        <entry name="DeviceId" type="string" size="64" desc="(可选)设备ID"/>
+    </struct>
+
+    <struct name="PlayerLogin" version="1" desc="(必填)玩家登陆(进入游戏时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="LoginChannel" type="string" desc="(必填)登录渠道"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="ClientVersion" type="string" size="64" desc="(必填)客户端版本"/>
+        <entry name="SystemSoftware" type="string" size="64" desc="(必填)移动终端操作系统版本"/>
+        <entry name="SystemHardware" type="string" size="64" desc="(必填)移动终端机型"/>
+        <entry name="TelecomOper" type="string" size="64" desc="(必填)运营商"/>
+        <entry name="Network" type="string" size="64" desc="(必填)3G/WIFI/2G/4G"/>
+        <entry name="ScreenWidth" type="int" desc="(可选)显示屏宽度"/>
+        <entry name="ScreenHight" type="int" desc="(可选)显示屏高度"/>
+        <entry name="Density" type="float" desc="(可选)像素密度"/>
+        <entry name="CpuHardware" type="string" size="64" desc="(可选)cpu类型|频率|核数"/>
+        <entry name="Memory" type="int" desc="(可选)内存信息单位M"/>
+        <entry name="GLRender" type="string" size="64" desc="(可选)opengl render信息"/>
+        <entry name="GLVersion" type="string" size="64" desc="(可选)opengl版本信息"/>
+        <entry name="DeviceId" type="string" size="64" desc="(可选)设备ID"/>
+        <entry name="iGuildID" type="int" desc="(必填)联盟ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="Citys" type="int" desc="(必填)玩家分城数量"/>
+        <entry name="FriendsNum" type="int" desc="(必填)玩家好友数量"/>
+        <entry name="QianChongLevel" type="int" desc="(必填)玩家达到千重楼最高层数"/>
+        <entry name="BaizhanLevel" type="int" desc="(必填)百战军衔"/>
+        <entry name="MiShiLevel" type="int" desc="(必填)玩家达到千重楼密室最高层数"/>
+        <entry name="TopPlayerLevel" type="int" desc="(必填)玩家最高等级武将的等级"/>
+        <entry name="TopLevelPlayerId" type="int" desc="(必填)玩家最高等级武将的武将ID"/>
+        <entry name="TopFightPower" type="int" desc="(必填)玩家最高战力武将的战力值"/>
+        <entry name="TopFightPowerPlayerId" type="int" desc="(必填)玩家最高战力武将的武将ID"/>
+        <entry name="Vip" type="int" desc="(必填)VIP等级"/>
+        <entry name="PlayerCount" type="int" desc="(必填)玩家所有武将总数量"/>
+        <entry name="TotalFightPower" type="int" desc="(必填)玩家所有武将总战力值(不算临时武将)"/>
+        <entry name="TopTeamFightPower" type="int" desc="(必填)玩家最高战力小队的战力"/>
+        <entry name="Team1" type="int数组" desc="(必填)玩家队伍1武将ID数组"/>
+        <entry name="TeamFightPower1" type="int" desc="(必填)玩家队伍1所有武将总战力值"/>
+        <entry name="Team2" type="int数组" desc="(必填)玩家队伍2武将ID数组"/>
+        <entry name="Team1FightPower2" type="int" desc="(必填)玩家队伍2所有武将总战力值"/>
+        <entry name="Team3" type="int数组" desc="(必填)玩家队伍3武将ID数组"/>
+        <entry name="Team1FightPower3" type="int" desc="(必填)玩家队伍3所有武将总战力值"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="PlayerLogout" version="1" desc="(必填)玩家登出游戏时记录(包括所有登出类型)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="OnlineTime" type="int" desc="(必填)本次登录在线时长"/>
+        <entry name="ClientVersion" type="string" size="64" desc="(必填)客户端版本"/>
+        <entry name="SystemSoftware" type="string" size="64" desc="(必填)移动终端操作系统版本"/>
+        <entry name="SystemHardware" type="string" size="64" desc="(必填)移动终端机型"/>
+        <entry name="TelecomOper" type="string" size="64" desc="(必填)运营商"/>
+        <entry name="Network" type="string" size="64" desc="(必填)3G/WIFI/2G"/>
+        <entry name="ScreenWidth" type="int" desc="(可选)显示屏宽度"/>
+        <entry name="ScreenHight" type="int" desc="(可选)显示高度"/>
+        <entry name="Density" type="float" desc="(可选)像素密度"/>
+        <entry name="LoginChannel" type="string" desc="(可选)登录渠道"/>
+        <entry name="CpuHardware" type="string" size="64" desc="(可选)cpu类型|频率|核数"/>
+        <entry name="Memory" type="int" desc="(可选)内存信息单位M"/>
+        <entry name="GLRender" type="string" size="64" desc="(可选)opengl render信息"/>
+        <entry name="GLVersion" type="string" size="64" desc="(可选)opengl版本信息"/>
+        <entry name="DeviceId" type="string" size="64" desc="(可选)设备ID"/>
+        <entry name="LogoutType" type="int" desc="(必填)登出类型"/>
+        <entry name="CurOnlineTime" type="int" desc="(必填)本次登录在线时长"/>
+        <entry name="iGuildID" type="int" desc="(必填)联盟ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="Citys" type="int" desc="(必填)玩家分城数量"/>
+        <entry name="FriendsNum" type="int" desc="(必填)玩家好友数量"/>
+        <entry name="QianChongLevel" type="int" desc="(必填)玩家达到千重楼最高层数"/>
+        <entry name="BaizhanLevel" type="int" desc="(必填)百战军衔"/>
+        <entry name="MiShiLevel" type="int" desc="(必填)玩家达到千重楼密室最高层数"/>
+        <entry name="TopPlayerLevel" type="int" desc="(必填)玩家最高等级武将的等级"/>
+        <entry name="TopLevelPlayerId" type="int" desc="(必填)玩家最高等级武将的武将ID"/>
+        <entry name="TopFightPower" type="int" desc="(必填)玩家最高战力武将的战力值"/>
+        <entry name="TopFightPowerPlayerId" type="int" desc="(必填)玩家最高战力武将的武将ID"/>
+        <entry name="Vip" type="int" desc="(必填)VIP等级"/>
+        <entry name="PlayerCount" type="int" desc="(必填)玩家所有武将总数量"/>
+        <entry name="TotalFightPower" type="int" desc="(必填)玩家所有武将总战力值(不算临时武将)"/>
+        <entry name="TopTeamFightPower" type="int" desc="(必填)玩家最高战力小队的战力"/>
+        <entry name="Team1" type="int数组" desc="(必填)玩家队伍1武将ID数组"/>
+        <entry name="TeamFightPower1" type="int" desc="(必填)玩家队伍1所有武将总战力值"/>
+        <entry name="Team2" type="int数组" desc="(必填)玩家队伍2武将ID数组"/>
+        <entry name="Team1FightPower2" type="int" desc="(必填)玩家队伍2所有武将总战力值"/>
+        <entry name="Team3" type="int数组" desc="(必填)玩家队伍3武将ID数组"/>
+        <entry name="Team1FightPower3" type="int" desc="(必填)玩家队伍3所有武将总战力值"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="MoneyFlow" version="1" desc="(必填)货币流水(货币获得/消耗时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="iMoneyType" type="int" desc="(必填)货币类型( 铜币 石料 点券 元宝 联盟贡献 预备兵 )"/>
+        <entry name="AfterMoney" type="int" desc="(必填)动作后的货币数量"/>
+        <entry name="iMoney" type="int" desc="(必填)动作涉及的货币数量"/>
+        <entry name="Reason" type="int" desc="(必填)流动原因"/>
+        <entry name="AddOrReduce" type="int" desc="(必填)操作类型(0-增加；1-减少)"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="ItemFlow" version="1" desc="(必填)道具流水表(道具获得/消耗时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="ItemType" type="int" desc="(必填)道具类型(道具、装备、碎片、宝石)"/>
+        <entry name="ItemId" type="int" desc="(必填)道具ID"/>
+        <entry name="Count" type="int" desc="(必填)数量"/>
+        <entry name="AfterCount" type="int" desc="(必填)动作后的物品数量"/>
+        <entry name="Reason" type="int" desc="(必填)流动原因"/>
+        <entry name="AddOrReduce" type="int" desc="(必填)操作类型(0-增加；1-减少)"/>
+        <entry name="QualityLevel" type="int" desc="(必填)道具品质"/>
+        <entry name="iItemId" type="int" desc="(必填)本次行为涉及的变动道具ID(道具不确定是哪个，但不会有同时2种道具)"/>
+        <entry name="ItemDeltaCount" type="int" desc="(必填)本次行为涉及的道具变动数量(道具消耗值小于0；道具获得值大于0)"/>
+    </struct>
+
+    <struct name="KingExpFlow" version="1" desc="（必填)君主等级流水表（君主等级提升时记录）">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="KingBeforeLevel" type="int" desc="(必填)动作前君主等级"/>
+        <entry name="KingAfterLevel" type="int" desc="(必填)动作后君主等级"/>
+        <entry name="KingReason" type="int" desc="(必填)流动原因"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="CityExpFlow" version="1" desc="(必填)主城等级流水表(主城等级提升时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityBeforeLevel" type="int" desc="(必填)动作前主城等级"/>
+        <entry name="CityAfterLevel" type="int" desc="(必填)动作后主城等级"/>
+        <entry name="CityReason" type="int" desc="(必填)流动原因"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="PlayerCultivateFlow" version="1" desc="(必填)武将培养流水表(武将升级、成长、册封、转职时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="PlayerId" type="int" desc="(必填)当前武将ID"/>
+        <entry name="PlayerOpType" type="int" desc="(必填)操作类型（升级、成长、册封、转职）"/>
+        <entry name="BeforeLevel" type="int" desc="(必填)动作前等级"/>
+        <entry name="AfterLevel" type="int" desc="(必填)动作后等级"/>
+        <entry name="GrowBeforeLevel" type="int" desc="(必填)动作前成长"/>
+        <entry name="GrowAfterLevel" type="int" desc="(必填)动作后成长"/>
+        <entry name="OccupationBefore" type="int" desc="(必填)转职前职业"/>
+        <entry name="OccupationAfter" type="int" desc="(必填)转职后职业"/>
+        <entry name="PositionBefore" type="int" desc="(必填)册封前官职"/>
+        <entry name="PositionAfter" type="int" desc="(必填)册封后官职"/>
+        <entry name="PlayerReason" type="int" desc="(必填)流动原因"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="PlayerEquipFlow" version="1" desc="(必填)武将穿装备(穿/脱装备成功时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="PlayerId" type="int" desc="(必填)当前武将ID"/>
+        <entry name="PlayerLevel" type="int" desc="(必填)当前武将等级"/>
+        <entry name="EquipId" type="int" desc="(必填)装备ID"/>
+        <entry name="QualityLevel" type="int" desc="(必填)装备品级"/>
+        <entry name="SlotIndex" type="int" desc="(必填)装备槽位ID"/>
+        <entry name="OpType" type="int" desc="(必填)操作类型(0-脱；1-穿)"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="StrenghEquipmentFlow" version="1" desc="(必填)强化装备流水(强化/升星装备操作时)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="PlayerId" type="int" desc="(必填)当前武将ID"/>
+        <entry name="PlayerLevel" type="int" desc="(必填)当前武将等级"/>
+        <entry name="EquipId" type="int" desc="(必填)装备ID"/>
+        <entry name="OpType" type="int" desc="(必填)操作类型（升级、升星）"/>
+        <entry name="IfInherit" type="int" desc="(必填)继承类型（0-非继承、1-继承）"/>
+        <entry name="BeforeLevel" type="int" desc="(必填)动作前等级"/>
+        <entry name="AfterLevel" type="int" desc="(必填)动作后等级"/>
+        <entry name="BeforeStarLevel" type="int" desc="(必填)动作前星级"/>
+        <entry name="AfterStarLevel" type="int" desc="(必填)动作后星级"/>
+        <entry name="SlotIndex" type="int" desc="(必填)装备槽位ID"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="EquipmentAddStarFlow" version="1" desc="(必填)装备宝石流水(宝石镶嵌成功时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="PlayerId" type="int" desc="(必填)当前武将ID"/>
+        <entry name="PlayerLevel" type="int" desc="(必填)当前武将等级"/>
+        <entry name="BeforeLevel" type="int" desc="(必填)动作前等级"/>
+        <entry name="AfterLevel" type="int" desc="(必填)动作后等级"/>
+        <entry name="GemSlotIndex" type="int" desc="(必填)武将宝石槽槽位ID"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="GuildFlow" version="1" desc="(必填)联盟流水(玩家有联盟行为时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="iActType" type="int" desc="(必填)操作类型(类型很多，详见配置表)"/>
+        <entry name="iGuildID" type="int" desc="(必填)联盟ID"/>
+        <entry name="iGuildLevel" type="int" desc="(必填)联盟等级"/>
+        <entry name="iMemberNum" type="int" desc="(必填)当前联盟人数"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="MailFlow" version="1" desc="(必填)邮件流水(玩家有邮件行为时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="MailType" type="int" desc="(必填)收到/阅读/删除等"/>
+        <entry name="MailId" type="string" size="64" desc="(必填)邮件id"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="StrenghBuildingFlow" version="1" desc="(必填)建筑升级流水(升级建筑成功时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="BuildingID" type="int" desc="(必填)建筑ID"/>
+        <entry name="BeforeLevel" type="int" desc="(必填)动作前等级"/>
+        <entry name="AfterLevel" type="int" desc="(必填)动作后等级"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="CareFlow" version="1" desc="(必填)摇钱树照顾流水(摇钱树照顾时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="CareType" type="int" desc="(必填)照顾形式（自己、他人）"/>
+        <entry name="pRoleID" type="int" size="64" desc="(必填)被照顾玩家君主ID"/>
+        <entry name="pRoleName" type="string" size="64" desc="(必填)被照顾玩家君主名"/>
+        <entry name="BeforeLevel" type="int" desc="(必填)动作前照顾度"/>
+        <entry name="AfterLevel" type="int" desc="(必填)动作后照顾度"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="RefreshFlow" version="1" desc="(必填)刷新流水(刷新时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="BuildingID" type="int" desc="(必填)建筑ID（铁匠铺、珍宝阁）"/>
+        <entry name="RefreshType" type="int" desc="(必填)刷新方式（自然刷新、点券刷新等）"/>
+        <entry name="ReFreshID" type="int" desc="(必填)刷新商城、道具的ID"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="SpeedUpFlow" version="1" desc="(必填)加速流水表">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="SpeedUpType" type="int" desc="(必填)操作类型（加速方式，使用道具、元宝、他人帮助）"/>
+        <entry name="SpeedUpTime" type="int" desc="(必填)加速时间"/>
+        <entry name="SpeedUpTimeBefore" type="int" desc="(必填)加速前剩余时间"/>
+        <entry name="SpeedUpTimeAfter" type="int" desc="(必填)加速后剩余时间"/>
+        <entry name="Reason" type="int" desc="(必填)流动原因（对象分类）"/>
+        <entry name="HelperRoleID" type="int" size="64" desc="(可选)帮助者玩家君主ID"/>
+    </struct>
+
+    <struct name="SnsFlow" version="1" desc="(必填)SNS流水">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="SNSType" type="int" desc="(必填)社交类型"/>
+        <entry name="pRoleID" type="int" desc="(必填)社交对象的君主ID"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="GuideFlow" version="1" desc="(必填)新手引导信息表(触发/结束时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="iGuideID" type="int" desc="(必填)新手指引ID"/>
+        <entry name="Status" type="int" desc="(必填)触发状态(0-开始；1-结束)"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="RoundFlow" version="1" desc="单局结束数据流水(非任务类活动结束时触发日志)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="BattleType" type="int" desc="(必填)战斗类型 （详见battletype）"/>
+        <entry name="BattleID" type="int" desc="(必填)关卡id"/>
+        <entry name="BattleSource" type="int" desc="(必填)开战方式（挑战、扫荡等）"/>
+        <entry name="PlayerType" type="int" desc="(必填)玩家组队类型，（队长，队员）"/>
+        <entry name="Round" type="int" desc="(必填)回合数"/>
+        <entry name="Result" type="int" desc="(必填)单局战斗结果，参考Result（PVE：成功、失败、PVP召回、被驱逐、流亡、瞭望、救援、救援败退）"/>
+        <entry name="Score" type="int" desc="(必填)本关评分,无得分的填0"/>
+        <entry name="PlayerNum" type="int" desc="(必填)出战武将数"/>
+        <entry name="Player1" type="int" desc="(必填)武将1ID"/>
+        <entry name="Player2" type="int" desc="(必填)武将2ID"/>
+        <entry name="Player3" type="int" desc="(必填)武将3ID"/>
+        <entry name="Player4" type="int" desc="(必填)武将4ID"/>
+        <entry name="Player5" type="int" desc="(必填)武将5ID"/>
+        <entry name="Player1Occupation" type="int" desc="(必填)出战武将1兵种"/>
+        <entry name="Player1Num" type="int" desc="(必填)出战武将1兵力"/>
+        <entry name="Player2Occupation" type="int" desc="(必填)出战武将2兵种"/>
+        <entry name="Player2Num" type="int" desc="(必填)出战武将2兵力"/>
+        <entry name="Player3Occupation" type="int" desc="(必填)出战武将3兵种"/>
+        <entry name="Player3Num" type="int" desc="(必填)出战武将3兵力"/>
+        <entry name="Player4Occupation" type="int" desc="(必填)出战武将4兵种"/>
+        <entry name="Player4Num" type="int" desc="(必填)出战武将4兵力"/>
+        <entry name="Player5Occupation" type="int" desc="(必填)出战武将5兵种"/>
+        <entry name="Player5Num" type="int" desc="(必填)出战武将5兵力"/>
+        <entry name="Player1NumLeft" type="int" desc="(必填)出战武将1兵力剩余"/>
+        <entry name="Player2NumLeft" type="int" desc="(必填)出战武将2兵力剩余"/>
+        <entry name="Player3NumLeft" type="int" desc="(必填)出战武将3兵力剩余"/>
+        <entry name="Player4NumLeft" type="int" desc="(必填)出战武将4兵力剩余"/>
+        <entry name="Player5NumLeft" type="int" desc="(必填)出战武将5兵力剩余"/>
+        <entry name="UniqueId" type="int" desc="(必填)一场战斗唯一ID"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="BaiZhanFlow" version="1" desc="(必选)百战千军军衔流水表">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="BaiJiangLevelBefore" type="int" desc="(必填)结算前军衔"/>
+        <entry name="BaiJiangLevelAfter" type="int" desc="(必填)结算后军衔"/>
+    </struct>
+
+    <struct name="ResearchFlow" version="1" desc="(可选)兵种、科技流水表">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="ResearchType" type="int" desc="(必填)研究类型（兵种进阶、书院科技等)"/>
+        <entry name="ResearchID" type="int" desc="(必填)研究ID（兵种进阶、书院科技等具体ID)"/>
+        <entry name="iBeforeVipLevel" type="int" desc="(必填)操作前等级"/>
+        <entry name="iAfterVipLevel" type="int" desc="(必填)操作后等级"/>
+    </struct>
+
+    <struct name="VipLevelFlow" version="1" desc="(可选)VIP等级流水表">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="iBeforeVipLevel" type="int" desc="(必填)动作前等级"/>
+        <entry name="iAfterVipLevel" type="int" desc="(必填)动作后等级"/>
+    </struct>
+
+    <struct name="TaskFlow" version="1" desc="(必填)任务流水(任务接取/完成/领取奖励时记录,不包括做了还没交,即还未开启下一个任务时的状态)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="iTaskType" type="int" desc="(必填)任务类型(主线任务/霸业、君主任务、活跃、成就）"/>
+        <entry name="iTaskID" type="int" desc="(必填)任务ID"/>
+        <entry name="iState" type="int" desc="(必填)操作类型(1-接；2-完成/可接下一个；3-点击界面领奖励;4-刷新任务)"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="FishFlow" version="1" desc="(必填)钓鱼表(点击钓鱼触发日志)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="FishType" type="int" desc="(必填)抽取类型（普通钓鱼，元宝免费，元宝半价，元宝十连）"/>
+        <entry name="iMoney" type="int" desc="(必填)金额"/>
+    </struct>
+
+    <struct name="PlayerExpDrugFlow" version="1" desc="(必填)武将修炼表(修炼涨经验经验时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="PlayerId" type="int" desc="(必填)当前武将ID"/>
+        <entry name="BeforeLevel" type="int" desc="(必填)动作前等级"/>
+        <entry name="AfterLevel" type="int" desc="(必填)动作后等级"/>
+    </struct>
+
+    <struct name="ChangeCaptainFlow" version="1" desc="(必填)更换上阵武将流水">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="Team" type="int" desc="(必填)改变的队伍"/>
+        <entry name="Place" type="int" desc="(必填)改变的位置"/>
+        <entry name="OldPlayerOccupation" type="int" desc="(必填)原武将职业"/>
+        <entry name="OldPlayerFightPower" type="int" desc="(必填)原武将战力值"/>
+        <entry name="OldPlayerID" type="int" desc="(必填)原武将ID"/>
+        <entry name="PlayerOccupation" type="int" desc="(必填)新武将职业"/>
+        <entry name="PlayerFightPower" type="int" desc="(必填)新武将战力值"/>
+        <entry name="PlayerID" type="int" desc="(必填)新武将ID"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="ChatFlow" version="1" desc="（必填)聊天流水">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="Channel" type="int" desc="(必填)聊天频道"/>
+        <entry name="ChatTo" type="int" desc="(必填)聊天对象"/>
+        <entry name="ChatType" type="int" desc="(必填)聊天方式(0-文本；1-语音)"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="MountRefreshFlow" version="1" desc="(必填)装备熔炼/重铸流水(装备熔炼/重铸成功时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="OpType" type="int" desc="(必填)操作类型（熔炼、重铸）"/>
+        <entry name="inherit" type="int" desc="(必填)继承类型（非继承、继承）"/>
+        <entry name="ItemId" type="int" desc="(必填)装备模板ID"/>
+        <entry name="QualityLevel" type="int" desc="(必填)装备品级"/>
+        <entry name="ItemIndex" type="int" desc="(必填)装备indexID"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="GameplayFlow" version="1" desc="(必填)活动玩法流水(参与非任务类活动结束时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="GameplayType" type="int" desc="(必填)活动类型"/>
+        <entry name="Difficulty" type="int" desc="(必填)难度"/>
+        <entry name="DuaringTime" type="int" desc="(必填)持续时间"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="PlayerHaunterFlow" version="1" desc="(必填)武将将魂附身(穿/脱将魂成功时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="PlayerId" type="int" desc="(必填)当前武将ID"/>
+        <entry name="PlayerLevel" type="int" desc="(必填)当前武将等级"/>
+        <entry name="Soul" type="int" desc="(必填)将魂模板ID"/>
+        <entry name="QualityLevel" type="int" desc="(必填)装备品级"/>
+        <entry name="IndexID" type="int" desc="(必填)将魂indexID"/>
+        <entry name="OpType" type="int" desc="(必填)操作类型(0-脱；1-穿)"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="AdvanceSoulFlow" version="1" desc="(必填)将魂进阶流水(将魂进阶时)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="PlayerId" type="int" desc="(必填)当前武将ID"/>
+        <entry name="PlayerLevel" type="int" desc="(必填)当前武将等级"/>
+        <entry name="SoulId" type="int" desc="(必填)将魂ID"/>
+        <entry name="OpType" type="int" desc="(必填)操作类型（进阶）"/>
+        <entry name="inherit" type="int" desc="(必填)继承类型（非继承、继承）"/>
+        <entry name="BeforeStarLevel" type="int" desc="(必填)动作前星级"/>
+        <entry name="AfterStarLevel" type="int" desc="(必填)动作后星级"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="ResourceStockFlow" version="1" desc="(必填)资源存量(每日0点记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="MT_Ingot" type="int" desc="通宝(RMB)"/>
+        <entry name="MT_MONEY" type="int" desc="点券"/>
+        <entry name="MT_SOLDIER" type="int" desc="预备兵"/>
+        <entry name="MT_COPPER" type="int" desc="铜币"/>
+        <entry name="MT_STONE" type="int" desc="石料"/>
+        <entry name="MT_CONTRIBUTION" type="int" desc="联盟贡献"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="GUOGUANFlow" version="1" desc="(必填)过关斩将流水(挑战成功时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="PlayerId" type="int" desc="(必填)当前武将ID"/>
+        <entry name="PlayerLevel" type="int" desc="(必填)当前武将等级"/>
+        <entry name="BeforeGrowth" type="int" desc="(必填)动作前成长值"/>
+        <entry name="AfterGrowth" type="int" desc="(必填)动作后成长值"/>
+        <entry name="Progress" type="int" desc="(必填)成长进度变化值"/>
+        <entry name="Honor" type="int" desc="(必填)功勋获取值"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="FarmFlow" version="1" desc="(必填)农场流水(农场操作时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="LotId" type="int" desc="(必填)地块id"/>
+        <entry name="OpRpleID" type="string" size="64" desc="(必填)行动玩家ID（如果是自己收，则和自己的一样。如果是别人偷，则记录偷的玩家id）"/>
+        <entry name="FarmOpType" type="int" desc="(必填)操作类型（种植，收获，提前收获，改建，偷菜）"/>
+        <entry name="BeforeMoneyType" type="int" desc="(必填)行动前资源类型"/>
+        <entry name="AfterMoneyType" type="int" desc="(必填)行动后资源类型"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="NationalFlow" version="1" desc="(必填)国家流水(国家操作时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="FarmOpType" type="int" desc="(必填)操作类型（直接选国，姓氏选国，推荐选国，叛国）"/>
+        <entry name="BeforeNationalID" type="int" desc="(必填)行动前国家id"/>
+        <entry name="AfterNationalID" type="int" desc="(必填)行动后国家id"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="MoveCitylFlow" version="1" desc="(必填)迁城流水(迁城操作时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="MoveType" type="int" desc="(必填)操作类型（高迁，随迁，盟迁）"/>
+        <entry name="BeforelocationX" type="int64" desc="(必填)行动前坐标X"/>
+        <entry name="BeforelocationY" type="int64" desc="(必填)行动前坐标Y"/>
+        <entry name="AfterlocationX" type="int64" desc="(必填)行动后坐标X"/>
+        <entry name="AfterlocationY" type="int64" desc="(必填)行动后坐标Y"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="AnswerFlow" version="1" desc="(必填)答题流水(答题时记录)">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="vRoleID" type="string" size="64" desc="(必填)玩家君主ID"/>
+        <entry name="vRoleName" type="string" size="64" desc="(必填)玩家君主名"/>
+        <entry name="KingLevel" type="int" desc="(必填)玩家君主等级"/>
+        <entry name="CityLevel" type="int" desc="(必填)玩家主城等级"/>
+        <entry name="QuestionID" type="int" desc="(必填)问题ID"/>
+        <entry name="Result" type="bool" desc="(必填)答题结果（true/false）"/>
+        <entry name="TotalOnlineTime" type="int" desc="(必填)玩家在线总时长"/>
+    </struct>
+
+    <struct name="AccountRegister" version="1" desc="账号注册表">
+        <entry name="GameSvrId" type="string" size="25" desc="(必填)登录的游戏服务器编号"/>
+        <entry name="dtEventTime" type="datetime" desc="(必填)游戏事件的时间, 格式 YYYY-MM-DD HH:MM:SS"/>
+        <entry name="vGameAppid" type="string" size="32" desc="(必填)游戏APPID"/>
+        <entry name="PlatID" type="int" desc="(必填)ios 0/android 1"/>
+        <entry name="iZoneAreaID" type="int" desc="(必填)针对分区分服的游戏填写分区id，用来唯一标示一个区；非分区分服游戏请填写0"/>
+        <entry name="vopenid" type="string" size="64" desc="(必填)用户OPENID号"/>
+        <entry name="ClientVersion" type="string" size="64" desc="(必填)客户端版本"/>
+        <entry name="RegChannel" type="string" desc="(必填)注册渠道"/>
+        <entry name="SystemSoftware" type="string" size="64" desc="(必填)移动终端操作系统版本"/>
+        <entry name="SystemHardware" type="string" size="64" desc="(必填)移动终端机型"/>
+        <entry name="TelecomOper" type="string" size="64" desc="(必填)运营商"/>
+        <entry name="Network" type="string" size="64" desc="(必填)3G/WIFI/2G"/>
+        <entry name="ScreenWidth" type="int" desc="(可选)显示屏宽度"/>
+        <entry name="ScreenHight" type="int" desc="(可选)显示屏高度"/>
+        <entry name="Density" type="float" desc="(可选)像素密度"/>
+        <entry name="CpuHardware" type="string" size="64" desc="(可选)cpu类型|频率|核数"/>
+        <entry name="Memory" type="int" desc="(可选)内存信息单位M"/>
+        <entry name="GLRender" type="string" size="64" desc="(可选)opengl render信息"/>
+        <entry name="GLVersion" type="string" size="64" desc="(可选)opengl版本信息"/>
+        <entry name="DeviceId" type="string" size="64" desc="(可选)设备ID"/>
+    </struct>
+
+
+</metalib>

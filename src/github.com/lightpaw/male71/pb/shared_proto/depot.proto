@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/goods.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message HeroDepotProto {
+    repeated Int32Pair goods = 1; // 普通使用物品（堆叠起来那种），key是id，value是个数
+
+    repeated EquipmentProto equipments = 2;
+
+    repeated Int32Pair temp_expired_time = 3; // 临时背包过期时间，key是装备/宝石的id，value是过期删除时间
+
+    repeated Int32Pair baowu = 4; // 宝物，key是id，value是个数
+
+    int32 unlock_baowu = 5; // 解锁中的宝物id
+    int32 unlock_baowu_end_time = 6; // 解锁中的宝物结束时间
+    int32 miao_baowu_times = 7; // 秒宝物次数
+
+    repeated bytes baowu_log = 8; // 宝物日志 shared_proto.BaowuLogProto
+}
+
+// 开启了的装备合成
+message HeroOpenCombineEquipProto {
+    // 已经开启了了的装备合成, EquipCombineDataProto.的id
+    repeated int32 open_equip_combine = 1 [packed = false];
+}
+
+enum BaowuOpType {
+    BOTInvalid = 0; // 无效类型
+    BOTRobHero = 1; // 你抢别人
+    BOTRobNpc = 2; // 你抢Npc
+    BOTBeenRob = 3; // 别人抢你
+    BOTAuto = 4; // 自动合成
+    BOTAdd = 5; // 5-获得宝物
+}
+
+message BaowuLogProto {
+
+    BaowuOpType op = 1; // 操作类型
+
+    int32 baowu = 2; // 宝物id
+
+    int32 count = 3; // 个数
+
+    int32 time = 4; // unix时间戳
+
+    string other_name = 6; // 名字
+    int32 other_x = 7; // 坐标
+    int32 other_y = 8;
+
+    bool is_rare = 9; // 稀有宝物
+}

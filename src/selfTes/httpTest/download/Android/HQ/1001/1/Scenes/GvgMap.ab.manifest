@@ -1,0 +1,57 @@
+ManifestFileVersion: 0
+CRC: 1179793352
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f7b90218758018086af908d1531266dd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5dcc49a0f87131b44574342d53da4865
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 89
+  Script: {instanceID: 0}
+- Class: 104
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -98529514, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 20ea265ef01b7704aaa024728db78a63, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d60c017246963b14c9806a06670568b5, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 157
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+- Class: 258
+  Script: {instanceID: 0}
+Assets:
+- Assets/Scenes/GvgMap.unity
+Dependencies:
+- '/Users/kimiwang/Documents/ResPath/Dev
+
+  /Android/HQ/audio/btm_form.ab'

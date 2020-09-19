@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 2008331045
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5b03b4a9e1ecdee82fc564d5c01efedb
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6441f4c48b8293a736413520ea1a9530
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_yezhuQS_skill02hitBAK.prefab
+Dependencies: []

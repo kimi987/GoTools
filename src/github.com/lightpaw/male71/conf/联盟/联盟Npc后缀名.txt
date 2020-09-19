@@ -1,0 +1,3 @@
+npc帮派旗号后缀配置，如npc帮派目标里面配置了 高%s，在正式创建的时候，会将%s替换成下面配置的内容，如 高A 高B 高C，这里这些旗号用完就不再创建新帮派																
+name	name	name	name	name	name	name	name	name	name	name	name	name	name	name	name	name
+1	2	3	4	5	6	7	8	9	A	B	C	D	E	F	G	H

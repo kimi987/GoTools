@@ -1,0 +1,38 @@
+ManifestFileVersion: 0
+CRC: 1347375889
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0b8c1ce9d50e656da1e10ce1c652b9a9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ae1e0ba1d318b9516a5d270c23b961a9
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/UI_loading_shalong2.prefab
+Dependencies: []

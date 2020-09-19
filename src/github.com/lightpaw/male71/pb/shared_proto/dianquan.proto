@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+message DianquanMiscProto {
+    int32 exchange_base_yuanbao = 1; // 兑换点券，单次元宝花费
+    int32 exchange_base_dianquan = 2; // 兑换点券，单次点券获得
+}

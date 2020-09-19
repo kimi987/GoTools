@@ -1,0 +1,5 @@
+职称id	职称名字	允许邀请他人入盟	允许同意申请入盟	允许修改联盟宣言	允许修改联盟内部宣言	修改友盟	修改敌盟	允许修改联盟标签	允许修改阶级名称	允许修改联盟旗帜	允许修改低等级盟友的职位	允许修改职称	允许踢人（低阶级盟友）	允许修改入盟条件	允许弹劾NPC帮主	允许升级帮派等级	允许加速升级帮派	允许升级建筑	允许升级科技	能否变更联盟目标	允许开启匈奴入侵	允许发全体消息	科技加速	修改联盟名称	修改联盟简称	退出联盟	解散联盟	禅让盟主	更新联盟标识	使用银两	召集成员	查看在线情况	联盟工坊	推荐营建名城
+id	name	invate_other	agree_join	update_text	update_internal_text	update_friend_guild	update_enemy_guild	update_label	update_class_name	update_flag_type	update_lower_member_class_level	update_class_title	kick_lower_member	update_join_condition	impeach_npc_leader	upgrade_level	upgrade_level_cdr	upgrade_building	upgrade_technology	update_prestige_target	open_resist_xiong_nu	send_to_all_members	upgrade_technology_cdr	update_name	update_flag_name	leave_guild	dismiss_guild	change_leader	update_mark	change_yinliang	convene_member	get_online_info	workshop	recommend_mc_build
+1	外交官					1	1																											
+2	人事官	1	1																															
+3	内政官															1	0	1	1															

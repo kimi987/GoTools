@@ -1,0 +1,177 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "task";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/task.proto";
+
+
+message S2CUpdateTaskProgressProto {
+
+    int32 id = 1; // 任务id
+
+    int32 progress = 2; // 任务进度
+
+    bool complete = 3; // true表示任务完成，可以领取奖励了
+
+}
+
+message C2SCollectTaskPrizeProto {
+
+    int32 id = 1; // 任务id
+
+}
+
+message S2CCollectTaskPrizeProto {
+
+    int32 id = 1; // 任务id，提示领取了奖励，如果是霸业目标任务，不要把任务删除了，继续显示，只是显示奖励已经领取，如果任务是成就任务：客户端不要删除任务，继续显示，只是显示奖励已经领取，删除任务走协议 remove_task
+
+}
+
+message S2CNewTaskProto {
+
+    int32 id = 1; // 任务id
+
+    int32 progress = 3; // 任务进度
+
+    bool complete = 4; // true表示任务完成，可以领取奖励了
+
+    bool main = 2; // true表示主线任务
+
+}
+
+message C2SCollectTaskBoxPrizeProto {
+
+    int32 id = 1; // 任务宝箱id
+
+}
+
+message S2CCollectTaskBoxPrizeProto {
+
+    int32 id = 1; // 任务宝箱id
+
+}
+
+message S2CCollectBaYeStagePrizeProto {
+
+    bytes stage = 1; // 领取霸业目标阶段奖励成功(客户端提示)，同时返回新的霸业目标，数组长度为0表示没有霸业目标了，解析成 HeroBaYeStageProto
+
+}
+
+message C2SCollectActiveDegreePrizeProto {
+
+    int32 collect_index = 1; // 领取的活跃度奖励的下标，下标从0开始
+
+}
+
+message S2CCollectActiveDegreePrizeProto {
+
+    int32 collect_index = 2; // 领取的活跃度奖励的下标，下标从0开始
+
+}
+
+message C2SCollectAchieveStarPrizeProto {
+
+    int32 star_count = 1; // 领取的星数奖励
+
+}
+
+message S2CCollectAchieveStarPrizeProto {
+
+    int32 star_count = 1; // 领取的星数奖励，将 star_count 加入 HeroTaskProto.achieve_task_list.collect_star_count 中
+
+}
+
+message S2CAchieveReachProto {
+
+    int32 id = 1; // 成就任务的id，客户端 读取 AchieveTaskDataProto 中的 id
+
+    int32 reach_time = 2; // 达成时间
+
+}
+
+message C2SChangeSelectShowAchieveProto {
+
+    int32 achieve_type = 1; // 成就任务类型
+
+    bool add_or_remove = 2; // true 表示添加，false 表示移除
+
+}
+
+message S2CChangeSelectShowAchieveProto {
+
+    int32 achieve_type = 1; // 成就任务类型
+
+    bool add_or_remove = 2; // true 表示添加，false 表示移除
+
+}
+
+message S2CRemoveTaskProto {
+
+    int32 id = 1; // 任务id
+
+}
+
+message C2SCollectBwzlPrizeProto {
+
+    int32 complete_count = 1; // 完成的数量
+
+}
+
+message S2CCollectBwzlPrizeProto {
+
+    int32 complete_count = 1; // 完成的数量
+
+}
+
+message C2SViewOtherAchieveTaskListProto {
+
+    bytes id = 1; // 请求的人的id
+
+}
+
+message S2CViewOtherAchieveTaskListProto {
+
+    bytes id = 1; // 请求的人的id
+
+    OtherAchieveTaskListProto list = 2;
+
+}
+
+message C2SGetTroopTitleFightAmountProto {
+
+    int32 troop_index = 1; // 队伍id
+
+    int32 title_id = 2; // 称号id
+
+}
+
+message S2CGetTroopTitleFightAmountProto {
+
+    int32 troop_index = 1; // 队伍id
+
+    int32 title_id = 2; // 称号id
+
+    int32 fight_amount = 3; // 提升的战力
+
+}
+
+message S2CUpgradeTitleProto {
+
+    int32 complete_title_id = 1; // 完成的称号id
+
+}
+
+message C2SCompleteBoolTaskProto {
+
+    int32 bool_type = 1; // shared_proto.HeroBoolType
+
+}
+
+message S2CCompleteBoolTaskProto {
+
+    int32 bool_type = 1; // shared_proto.HeroBoolType
+
+}
+

@@ -1,0 +1,80 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "mingc";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/guild.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/mingc.proto";
+
+
+message C2SMingcListProto {
+
+    int32 ver = 2; // 版本，刚上线，版本发送0
+
+}
+
+message S2CMingcListProto {
+
+    int32 ver = 3; // 版本，这个为0或者nil，表示你的版本没有变化
+
+    MingcsProto mingcs = 2; // 所有名城
+
+}
+
+message C2SViewMingcProto {
+
+    int32 id = 1;
+
+}
+
+message S2CViewMingcProto {
+
+    MingcProto mingc = 1;
+
+}
+
+message C2SMcBuildProto {
+
+    int32 mc_id = 1;
+
+}
+
+message S2CMcBuildProto {
+
+    int32 mc_id = 1;
+
+    int32 new_level = 3; // 名城民心等级
+
+    int32 new_support = 4; // 名城民心
+
+    int32 new_daily_added_support = 7; // 今天名城加过的民心
+
+    int32 next_time = 5; // 下次营建时间
+
+}
+
+message C2SMcBuildLogProto {
+
+    int32 mc_id = 1;
+
+}
+
+message S2CMcBuildLogProto {
+
+    GuildMcBuildProto logs = 1; // 营建记录
+
+}
+
+message C2SMingcHostGuildProto {
+
+    int32 mc_id = 1; // 名城Id
+
+}
+
+message S2CMingcHostGuildProto {
+
+    GuildSnapshotProto guild = 1; // 占领盟
+
+}
+

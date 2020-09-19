@@ -1,0 +1,32 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "teach";
+option optimize_for = SPEED;
+
+
+message C2SFightProto {
+
+    int32 id = 1; // TeachDataProto.Id
+
+}
+
+message S2CFightProto {
+
+    int32 id = 1; // TeachDataProto.Id
+
+}
+
+message C2SCollectPrizeProto {
+
+    int32 id = 1; // TeachDataProto.Id
+
+}
+
+message S2CCollectPrizeProto {
+
+    int32 id = 1; // TeachDataProto.Id
+
+}
+

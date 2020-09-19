@@ -1,0 +1,14 @@
+Id	名字	图标	外显头像	外显形象	内政加成	武将 buff	官职效果描述	数量	俸禄	展示俸禄	"Cd, 国王表示禅让CD"	下属类型 id										
+id	name	icon	head	body	building_effect	buff	effect_desc	count	salary	show_salary	cd	sub_officials	sub_officials	sub_officials	sub_officials	sub_officials						
+1	国君	骑士	19	76	1000	1000	"部队伤害提升[color=#e2e2e2]+10%[/color] \n部队伤害减免[color=#e2e2e2]+10%[/color]\n建造速度提升[color=#e2e2e2]+10%[/color] \n科技速度提升[color=#e2e2e2]+10%[/color]
+"	1	11501001	1433	24h	2	3	4	5	6						
+2	王后	禁卫	20	77	1001	1001	"部队伤害提升[color=#e2e2e2]+5%[/color] \n部队伤害减免[color=#e2e2e2]+5%[/color]\n建造速度提升[color=#e2e2e2]+5%[/color] \n科技速度提升[color=#e2e2e2]+5%[/color]
+"	1	11501001	1433	24h											
+3	丞相	先锋			1002	90	建造速度提升[color=#e2e2e2]+8%[/color] \n科技速度提升[color=#e2e2e2]+8%[/color]	1	11501001	1433	24h	5										COT_KING = 1; // 国王
+4	将军	将军			310001	1002	"部队伤害提升[color=#e2e2e2]+8%[/color] \n部队伤害减免[color=#e2e2e2]+8%[/color]
+"	1	11501001	1433	24h	6										COT_QUEEN = 2; // 王后
+5	司马	元帅			1003	90	建造速度提升[color=#e2e2e2]+5%[/color] \n科技速度提升[color=#e2e2e2]+5%[/color]	2	11501001	1433	24h											COT_MINISTER = 3; // 丞相
+6	都尉	诸侯			310001	1003	"部队伤害提升[color=#e2e2e2]+5%[/color] \n部队伤害减免[color=#e2e2e2]+5%[/color]
+"	2	11501001	1433	24h											COT_GENERAL = 4; // 将军
+																						COT_CENSOR = 5; // 御史
+																						COT_SIMA = 6; // 司马

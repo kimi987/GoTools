@@ -1,0 +1,9 @@
+"PVE组队类型：    TOWER = 1; // 千重楼    SECRET_TOWER = 2; // 重楼密室    DUNGEON = 3; // 推图    BAI_ZHAN = 4; // 百战千军"	名字	队伍容量，最多几个人	战斗开始需要的最少队伍人数，当总的武将数量<该数值时，玩家可以在把所有武将都放入的情况下进去战斗
+pve_troop_type	name	capacity	min_captain_count
+TOWER	千机楼	5	5
+SECRET_TOWER 	千机密室	5	5
+DUNGEON	推图	5	5
+BAI_ZHAN	横扫千军	5	5
+PVE_XUAN_YUAN	群雄会武	5	5
+HE_BI	云台合璧	1	1
+MINGC_WAR	名城战	5	5

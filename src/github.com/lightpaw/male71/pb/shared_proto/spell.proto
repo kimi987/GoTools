@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message SpellProto {
+    int32 id = 1; // 技能id
+    string name = 2; // 技能名字
+    string icon_id = 5; // 图标id
+    string desc = 4; // 技能描述
+}
+
+message SpellIdProto {
+    int32 id = 1; // 技能id
+    int32 spell = 2; // 主动技能id
+    repeated int32 passive_spell = 3 [packed = false]; // 被动技能id列表
+}
+
+enum SpellTargetType {
+    InvalidSpellTarget = 0;
+    STEnemy = 1; // 敌方目标
+    STFriend = 2; // 友方目标
+    STSelf = 3; // 对自己释放
+}
+
+enum SpellTargetSubType {
+    SSTNone = 0; // 无特殊类型
+    SSTRandom = 1; // 随机目标
+    STTMaxLifePercent = 2; // 血量比例最高
+    STTMinLifePercent = 3; // 血量比例最低
+    SSTMaxRage = 4; // 怒气最高
+    SSTMinRage = 5; // 怒气最低
+    // 奇袭目标
+}
+
+//enum SpellEffectType {
+//    InvalidSpellEffect = 0;
+//    SEFire = 1; // 燃烧
+//    SEPoison = 2; // 中毒
+//    SEBleed = 3; // 流血
+//}
+
+enum StateStackType {
+    SSNone = 0; // 不堆叠
+    SSReplace = 1; // 替换
+    SSStack = 2; // 堆叠
+}
+
+enum SpellTriggerType {
+    STNone = 0; // 无触发
+    STBeginRelease = 1; // 开局释放
+    STFirstHit = 2; // 首次攻击触发
+    STHitN = 3; // 攻击N次触发
+    STBeenHit = 4; // 被攻击触发
+    STShieldBroken = 5; // 护盾被击破触发
+    STFirstHitTarget = 6; // 首次攻击目标触发
+}

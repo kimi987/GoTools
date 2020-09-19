@@ -1,0 +1,604 @@
+gen_error_msg: true
+
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+- "github.com/lightpaw/male7/pb/shared_proto/base.proto"
+- "github.com/lightpaw/male7/pb/shared_proto/guild.proto"
+- "github.com/lightpaw/male7/pb/shared_proto/mingc_war.proto"
+
+
+# 查看名城战中自己联盟的相关数据，有权限操作名城战的人请求
+# 打开面板时定时请求
+view_mc_war_self_guild:
+  c2s:
+  s2c:
+    self_guild: shared_proto.McWarGuildProto // 自己联盟相关数据
+  s2c_fail:
+    no_guild: 没有联盟
+    server_err: 服务器错误
+
+
+# 查看名城战相关数据
+# 打开面板时定时请求
+view_mc_war:
+  c2s:
+    ver: int // 版本号，从1开始递增
+  s2c:
+    ver: int // 当前数据的版本号。等于0时表示数据没有变化，war为nil
+    war: shared_proto.McWarProto // 名城战相关数据
+
+# 报名进攻
+apply_atk:
+  c2s:
+    mcid: int // 报名攻打的名城id
+    cost: int // 押注虎符
+  s2c:
+    mcid: int // 报名攻打的名城id
+    cost: int // 押注虎符
+  s2c_fail:
+    invalid_time: 当前不是名城战报名时间
+    invalid_mcid: 无效的名城
+    applied: 已经报名攻打别的名城
+    is_host: 城主不能攻打自己的名城
+    hufu_not_enough: 虎符不足
+    hufu_limit: 虎符未达最低要求
+    not_leader: 盟主才能申请
+    guild_level_limit: 联盟等级不够
+    du_cheng_not_open: 本国都城没开启
+    server_err: 服务器错误
+    other_du_cheng_not_open: 他国都城没开启
+    other_country_has_other_mc: 他国还在占领其他名城
+    not_hold_capital: 没有占领本国都城
+
+# 报名进攻成功
+apply_atk_succ:
+  s2c:
+    mcid: int // 报名攻打的名城id
+
+# 报名进攻失败
+apply_atk_fail:
+  s2c:
+    mcid: int // 报名攻打的名城id
+    cost: int // 退回的虎符
+
+# 报名协助
+apply_ast:
+  c2s:
+    mcid: int // 报名协助的名城id
+    atk: bool // true:助攻；false:协防
+  s2c:
+    mcid: int // 报名协助的名城id
+    atk: bool // true:助攻；false:协防
+  s2c_fail:
+    invalid_time: 当前不是名城战报名时间
+    invalid_mcid: 无效的名城
+    is_host: 城主不能攻打自己的名城
+    not_leader: 盟主才能申请
+    mcid_cannot_ast: 这座城不能协助
+    mc_ast_limit: 这座城协助已达上限
+    applied_limit: 达到申请上限
+    already_ast: 已经申请
+    server_err: 服务器错误
+
+# 收到协助报名
+receive_apply_ast:
+  s2c:
+    mcid: int // 报名协助的名城id
+
+# 取消报名协助
+cancel_apply_ast:
+  c2s:
+    mcid: int // 取消报名协助的名城id
+  s2c:
+    mcid: int // 取消报名协助的名城id
+  s2c_fail:
+    invalid_time: 当前不是名城战报名时间
+    invalid_mcid: 无效的名城
+    not_apply: 没有申请
+    not_leader: 盟主才能操作
+    server_err: 服务器错误
+
+# 取消报名通知
+receive_cancel_apply_ast:
+  s2c:
+    mcid: int // 报名协助的名城id
+
+# 协助报名审批
+reply_apply_ast:
+  c2s:
+    mcid: int // 报名协助的名城id
+    gid: int // 报名协助的联盟id
+    agree: bool // 是否同意
+  s2c:
+    mcid: int // 报名协助的名城id
+    gid: int // 报名协助的联盟id
+    agree: bool // 是否同意
+  s2c_fail:
+    invalid_time: 当前不是名城战报名时间
+    invalid_mcid: 无效的名城
+    not_leader: 盟主才能审批
+    reply_permission_denied: 无权审批
+    not_apply: 联盟id 错误
+    ast_limit: 协助的联盟数已经到最大了
+    target_ast_limit: 对方协助的名城数已经最大了
+    target_already_ast: 对方已经协助这座名城了
+    server_err: 服务器错误
+
+# 审批通过通知
+apply_ast_pass:
+  s2c:
+    mcid: int // 报名协助的名城id
+    agree: bool // 是否同意
+
+# 名城战战斗准备阶段开始
+mingc_war_fight_prepare_start:
+  s2c:
+    start_time: int // 战斗准备阶段的开始时间
+    end_time: int // 战斗准备阶段的结束时间
+
+# 名城战战斗开始
+mingc_war_fight_start:
+  s2c:
+    start_time: int // 战斗阶段的开始时间
+    end_time: int // 战斗阶段的结束时间
+
+# 在名城战中参战了。登录时推送
+is_joining_fight_on_login:
+  s2c:
+    mcid: int // 名城id
+
+# 名城战推送红点
+# 收到消息时展示红点
+red_point_notice:
+  s2c:
+
+# 请求名城战的名城信息
+view_mingc_war_mc:
+  c2s:
+    mcid: int // 名城id
+  s2c:
+    mc: shared_proto.McWarMcProto
+  s2c_fail:
+    invalid_mcid: 无效的名城
+    server_err: 服务器错误
+
+# 参战
+join_fight:
+  c2s:
+    mcid: int // 名城id
+    captain_id: int[] // 武将id，0表示这个位置没有武将
+    x_index: int[] // 武将偏移
+  s2c:
+    mcid: int // 名城id
+    atk: bool // 是否是攻方
+  s2c_fail:
+    invalid_time: 当前不是名城战战斗时间
+    invalid_mcid: 无效的名城
+    mc_war_end: 这座城的名城战已经结束了
+    not_apply: 没有申请攻打/协助名城或不是占领盟
+    already_in_war: 已经在其他名城参战了
+    invalid_captain_id: 武将不存在
+    join_guild_too_late: 战斗开始后加入不让进
+    hero_level_limit: 君主等级不够
+    server_err: 服务器错误
+
+# 参战通知
+other_join_fight:
+  s2c:
+    mcid: int // 名城 id
+    hero_id: bytes // 玩家 id
+    data: shared_proto.McWarTroopProto // 这个字段客户端不处理，所以永远传nil
+
+# 离开战场
+quit_fight:
+  c2s:
+  s2c:
+    mcid: int // 离开的名城id
+  s2c_fail:
+    invalid_time: 当前不是名城战战斗时间
+    not_join_fight: 没有参战
+    server_err: 服务器错误
+
+# 离开战场通知
+other_quit_fight:
+  s2c:
+    mcid: int // 名城 id
+    hero_id: bytes // 玩家 id
+
+# 建筑减繁荣度通知
+scene_building_destroy_prosperity:
+  s2c:
+    pos_x: int // 建筑坐标x
+    pos_y: int  // 建筑坐标y
+    new_prosperity: int // 最新繁荣度
+
+# 名城战战斗准备阶段结束通知
+scene_fight_prepare_end:
+  s2c:
+    start_time: int // 战斗准备阶段结束时间
+
+# 名城战结束通知
+# 客户端收到后，把人踢出场景
+scene_war_end:
+  s2c:
+    mc_id: int // 名城id
+
+# 移动
+# 客户端需要计算移动路径和到达时间
+# 客户端只管发开始移动消息，到达目的地后的不同行为由服务器计算后推送通知
+scene_move:
+  c2s:
+    dest_pos_x: int // 终点坐标x
+    dest_pos_y: int // 终点坐标y
+  s2c:
+    dest_pos_x: int // 终点坐标x
+    dest_pos_y: int // 终点坐标y
+    end_time: int // 到达时间
+  s2c_fail:
+    invalid_time: 当前不是名城战战斗时间
+    invalid_mcid: 无效的名城
+    not_in_scene: 没有参战
+    mc_war_end: 这座城的名城战已经结束了
+    in_prepare_duration: 在准备时间
+    in_join_duration: 在入场时间
+    not_station: 不在驻扎状态
+    already_on_dest_pos: 已经在目的地了
+    server_err: 服务器错误
+    dest_cannot_arrive: 目的地不能直接到达
+    not_destroy: 当前占领据点没有被摧毁
+    is_moving: 在行军中
+    is_relive: 在补兵中
+
+# 召回
+# 客户端需要计算移动路径和到达时间
+# 客户端只管发开始移动消息，到达目的地后的不同行为由服务器计算后推送通知
+scene_back:
+  c2s:
+  s2c:
+    dest_pos_x: int // 终点坐标x
+    dest_pos_y: int // 终点坐标y
+    end_time: int // 到达时间
+  s2c_fail:
+    invalid_time: 当前不是名城战战斗时间
+    invalid_mcid: 无效的名城
+    not_in_scene: 没有参战
+    mc_war_end: 这座城的名城战已经结束了
+    in_prepare_duration: 在准备时间
+    in_join_duration: 在入场时间
+    not_move: 不是移动状态
+    server_err: 服务器错误
+
+# 部队行军加速
+scene_speed_up:
+  c2s:
+    id: bytes // 玩家id
+    goods_id: int // 使用的物品id
+    money: bool // true表示点券购买
+  s2c:
+    id: bytes // 玩家id
+    end_time: int // 新的结束时间
+  s2c_fail:
+    invalid_goods: 发送的不是行军加速道具
+    goods_not_enough: 物品个数不足
+    cost_not_support: 不支持点券购买
+    cost_not_enough: 点券购买，点券不足
+    invalid_time: 当前不是名城战战斗时间
+    invalid_mcid: 无效的名城
+    not_in_scene: 没有参战
+    mc_war_end: 这座城的名城战已经结束了
+    in_prepare_duration: 在准备时间
+    in_join_duration: 在入场时间
+    no_moving: 部队不是行军中，不能加速
+    server_error: 服务器忙，请稍后再试
+
+# 有人移动通知，自己也会收到这条
+# 到达后，会根据据点和战斗情况推送 scene_move_station 驻扎或 scene_other_move 移动通知。
+scene_other_move:
+  s2c:
+    hero_id: bytes
+    start_pos_x: int // 起点坐标x
+    start_pos_y: int // 起点坐标y
+    dest_pos_x: int // 终点坐标x
+    dest_pos_y: int // 终点坐标y
+    end_time: int // 到达时间
+
+# 驻扎通知
+scene_move_station:
+  s2c:
+    hero_id: bytes // 驻扎的玩家
+    pos_x: int // 据点坐标x
+    pos_y: int // 据点坐标y
+
+# 据点战斗结果通知。把据点所属变更为胜利一方。
+# 触发战斗的玩家胜利，会收到 scene_move_station 通知。
+# 所有战斗失败的队伍会收到 scene_other_move 通知，移动目标为各自复活点。
+scene_building_fight:
+  s2c:
+    hero_id: bytes // 触发战斗的玩家
+    gid: int // 触发战斗的玩家所属联盟id
+    win: bool // 是否胜利
+    pos_x: int // 据点坐标x
+    pos_y: int // 据点坐标y
+
+# 复活点补兵
+scene_troop_relive:
+  c2s:
+  s2c:
+    end_time: int // 补兵结束时间
+  s2c_fail:
+    invalid_time: 当前不是名城战战斗时间
+    invalid_mcid: 无效的名城
+    not_in_scene: 没有参战
+    mc_war_end: 这座城的名城战已经结束了
+    in_prepare_duration: 在准备时间
+    in_join_duration: 在入场时间
+    not_station: 不是驻扎状态
+    not_in_relive_pos: 不在复活点
+    full_solider: 兵是满的
+    server_err: 服务器错误
+
+# 复活点补兵通知
+scene_other_troop_relive:
+  s2c:
+    hero_id: bytes
+    end_time: int32 // 结束时间
+
+# 部队兵力变化通知。
+# 据点战斗结束后和补兵完成时推送
+scene_troop_update:
+  s2c:
+    hero_id: bytes // 玩家id
+    data: shared_proto.McWarTroopProto
+
+# 查看战场
+# 只需在进入副本时请求一次，之后在副本过程中会收到其他通知类消息来更新相关数据
+# 只要发不退出副本协议，服务器就一直会发通知类消息给副本内的其他玩家
+# 观战也请求这条，观战的人会和参战的人一样，收到战场内的所有推送消息
+view_mc_war_scene:
+  c2s:
+    mc_id: int
+  s2c:
+    compress: snappy
+    scene: shared_proto.McWarSceneProto
+  s2c_fail:
+    invalid_time: 当前不是名城战战斗时间
+    invalid_mcid: 无效的名城
+    server_err: 服务器错误
+
+# 观战
+watch:
+  c2s:
+    mc_id: int
+  s2c:
+  s2c_fail:
+    invalid_time: 当前不是名城战战斗时间
+    invalid_mcid: 无效的名城
+    server_err: 服务器错误
+
+# 退出观战
+quit_watch:
+  c2s:
+    mc_id: int
+  s2c:
+  s2c_fail:
+    invalid_time: 当前不是名城战战斗时间
+    invalid_mcid: 无效的名城
+    server_err: 服务器错误
+
+# 结算界面通知
+mc_war_end_record:
+  s2c:
+    war_id: int // 名城战id
+    record: shared_proto.McWarFightRecordProto
+
+# 查看历史战绩中的战报记录
+view_mc_war_record:
+  c2s:
+    war_id: int // 名城战id
+    mc_id: int // 名城id
+  s2c:
+    war_id: int // 名城战id
+    record: shared_proto.McWarFightRecordProto
+  s2c_fail:
+    no_record: 找不到记录
+
+# 查看历史战绩中的对战详细
+# 返回这个查询玩家的战场战报
+view_mc_war_troop_record:
+  c2s:
+    war_id: int // 名城战id
+    mc_id: int // 名城id
+  s2c:
+    record: shared_proto.McWarTroopAllRecordProto
+  s2c_fail:
+    no_record: 找不到记录
+
+# 战场中请求自己的战场战报
+view_scene_troop_record:
+  c2s:
+  s2c:
+    record: bytes[] // []shared_proto.McWarTroopRecordProto
+  s2c_fail:
+    invalid_time: 当前不是名城战战斗时间
+    not_in_scene: 没有参战
+    mc_war_end: 这座城的名城战已经结束了
+    server_err: 服务器错误
+
+# 战场中有新战报
+# 客户端收到后，把红点数字+1
+scene_troop_record_add_notice:
+  s2c:
+
+# 我自己的排名
+my_rank:
+  s2c:
+    info: shared_proto.McWarTroopRankProto
+
+# 申请刷新战场部队排行（服务器发现客户端版本号不一致会推送新的version过来，否则version为0）
+apply_refresh_rank:
+  c2s:
+    version: int // 客户端第一次发0，以后发服务器迭代更新的值
+  s2c:
+    version: int // 服务器返回0说明版本一致(rank数据为空，不需要读取)，非0则要记录version并读取rank数据并刷新排行
+    rank: shared_proto.McWarTroopsRankProto
+  s2c_fail:
+    server_err: 服务器错误
+    invalid_time: 当前不是名城战战斗时间
+    not_in_scene: 没有参战
+
+# 请求查看历史战绩中的本联盟成员的战绩及信息
+view_my_guild_member_rank:
+  c2s:
+    war_id: int // 名城战id
+    mc_id: int // 名城id
+  s2c:
+    rank: shared_proto.McWarTroopsInfoProto
+  s2c_fail:
+    no_record: 找不到记录
+
+# 连斩数刷新
+cur_multi_kill:
+  s2c:
+    multi_kill: int // 当前连斩数
+
+# 广播玩家的特殊连斩值（根据配置）
+special_multi_kill:
+  s2c:
+    hero_id: bytes
+    multi_kill: int
+
+# 改变形态
+scene_change_mode:
+  c2s:
+    mode: int // 新形态
+  s2c:
+    mode: int // 新形态
+  s2c_fail:
+    invalid_mode: mode 不存在
+    invalid_time: 当前不是名城战战斗时间
+    not_in_scene: 没有参战
+    mc_war_end: 这座城的名城战已经结束了
+    same_mode: 已经是新形态了
+    not_station: 不是驻扎状态
+    not_in_relive_pos: 不在复活点
+    server_err: 服务器错误
+
+# 改变形态广播
+# 广播给所有人，包括自己
+scene_change_mode_notice:
+  s2c:
+      hero_id: bytes // 改变形态的玩家ID
+      mode: int // 新形态
+
+# 投石机转向
+scene_tou_shi_building_turn_to:
+  c2s:
+    pos_x: int // 投石机坐标 x
+    pos_y: int // 投石机坐标 y
+    left: bool // 向左转
+  s2c:
+    pos_x: int // 投石机坐标 x
+    pos_y: int // 投石机坐标 y
+    left: bool // 向左转
+    new_target_index: int // 新的目标索引
+    turn_end_time: int // 转向结束时间
+  s2c_fail:
+    invalid_time: 当前不是名城战战斗时间
+    not_in_scene: 没有参战
+    mc_war_end: 这座城的名城战已经结束了
+    invalid_pos: 坐标错误或不是投石机
+    not_host: 不是占领者
+    no_target: 没有目标
+    in_turn_cd: 正在转向中
+    in_prepare_cd: 正在装填中
+    server_err: 服务器错误
+
+# 投石机转向广播
+# 发给所有人，包括自己
+scene_tou_shi_building_turn_to_notice:
+    s2c:
+      pos_x: int // 投石机坐标 x
+      pos_y: int // 投石机坐标 y
+      left: bool // 向左转（目标索引-1）
+      new_target_index: int // 新的目标索引
+      turn_end_time: int // 转向结束时间
+
+# 投石机开炮
+scene_tou_shi_building_fire:
+  c2s:
+    pos_x: int // 投石机坐标 x
+    pos_y: int // 投石机坐标 y
+  s2c:
+    pos_x: int // 投石机坐标 x
+    pos_y: int // 投石机坐标 y
+    target_index: int // 目标索引
+    prepare_end_time: int // 装填结束时间
+    bomb_explode_time: int // 炮弹爆炸时间
+  s2c_fail:
+    invalid_time: 当前不是名城战战斗时间
+    not_in_scene: 没有参战
+    mc_war_end: 这座城的名城战已经结束了
+    invalid_pos: 坐标错误或不是投石机
+    not_host: 不是占领者
+    no_target: 没有目标
+    in_turn_cd: 正在转向中
+    in_prepare_cd: 正在装填中
+    server_err: 服务器错误
+
+# 投石机开炮广播
+# 发给所有人，包括自己
+scene_tou_shi_building_fire_notice:
+  s2c:
+    pos_x: int // 投石机坐标 x
+    pos_y: int // 投石机坐标 y
+    target_index: int // 目标索引
+    prepare_end_time: int // 装填结束时间
+    bomb_explode_time: int // 炮弹爆炸时间
+    fire_hero_name: string // 开炮玩家名字
+    fire_hero_country: int // 开炮玩家国家
+
+# 投石机炮弹爆炸广播
+# 发给所有人，包括自己
+scene_tou_shi_bomb_explode_notice:
+  s2c:
+    fire_troop_id: bytes // 开炮的队伍 ID
+
+# 击鼓
+scene_drum:
+  c2s:
+  s2c:
+    drum_desc: string // 击鼓描述（肃杀之音等）
+    next_drum_time: int // 自己下次击鼓时间
+    add_drum_stat: shared_proto.SpriteStatProto // 本次击鼓的加成
+  s2c_fail:
+    not_in_scene: 没有参战
+    invalid_time: 击鼓时间已经结束
+    in_cd: 还在击鼓 CD 中
+    bai_zhan_level_limit: 百战千军等级不够
+    server_err: 服务器错误
+
+# 击鼓通知
+# 发给所有人
+scene_drum_notice:
+  s2c:
+    hero_id: bytes // 击鼓的人
+    is_atk: bool // 是否攻方
+    new_drum_times: int // 击鼓方阵营最新的鼓舞数
+    add_drum_stat: shared_proto.SpriteStatProto // 本次击鼓的加成
+    new_drum_stat: shared_proto.SpriteStatProto // 击鼓方阵营最新的总加成
+
+
+# 场景内所有部队鼓舞加成通知
+# 战斗开始时推送
+scene_drum_add_stat_notice:
+  s2c:
+    troops: bytes[] // []shared_proto.McWarTroopProto 有加成的队伍
+
+# 名城所属变化通知
+mingc_host_update_notice:
+  s2c:
+    mc_id: int // 名城Id
+    new_host: shared_proto.GuildBasicProto // 新占领盟
+

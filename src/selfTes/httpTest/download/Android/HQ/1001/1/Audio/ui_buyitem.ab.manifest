@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3211612228
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d346afe1335ec5f8e9ddd8d4275eb501
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Audio/ui_buyitem.mp3
+Dependencies: []

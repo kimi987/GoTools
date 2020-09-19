@@ -1,0 +1,91 @@
+不要改			文字内容		说明（说明这个在哪用，给配表的人看的）				
+id			text		sm				
+MRDRFinished4a			时间已到，破坏结束						
+MRDRFinished4d			破坏时间已到，破坏结束						
+MRDRRecall4a			进攻方主动召回，破坏结束						
+MRDRRecall4d			进攻方主动召回，破坏结束						
+MRDRExpelled4a			进攻方被驱逐，破坏结束						
+MRDRExpelled4d			进攻方被驱逐，破坏结束						
+MRDRMoveBase4a			防守方迁城，破坏结束						
+MRDRMoveBase4d			防守方迁城，破坏结束						
+MRDRAttMoveBase4a			进攻方迁城，破坏结束						
+MRDRAttMoveBase4d			进攻方迁城，破坏结束						
+MRDRBroken4a			防守方主城流亡，破坏结束						
+MRDRBroken4d			防守方主城流亡，破坏结束						
+MRDRAttBroken4a			进攻方主城流亡，破坏结束						
+MRDRAttBroken4d			进攻方主城流亡，破坏结束						
+MRDRMian4a			防守方开启免战，破坏结束						
+MRDRMian4d			防守方开启免战，破坏结束						
+MRDRProtected4a			防守方今日繁荣度损失已达上限，破坏结束						
+MRDRProtected4d			防守方今日繁荣度损失已达上限，破坏结束						
+MailReportWinnerDesc			战胜获得						
+MailReportLoserDesc			战败损失						
+MailReduceProsperityDesc			摧毁繁荣度						
+MailLostProsperityDesc			损失繁荣度						
+MailAddHateDesc			反击度增加						
+MiscHelpGuildMember			{{member_name}}已帮您减少休息时间{{reduce_minute}}分钟						
+RealmInvadeTargetLost			{{troop_index}}队的目标已不存在，队伍返回中						目标迁城或者流亡，队伍返回
+RealmInvadeSuccess			{{troop_index}}队战斗胜利，开始破坏						战斗胜利，开始破坏
+RealmInvadeSuccessBack			{{troop_index}}队战斗胜利，开始返回						战斗胜利，没有破坏位置，返回
+RealmInvadeFail			{{troop_index}}队战斗失败，队伍已返回主城						战斗失败
+RealmInvadeFinished			{{troop_index}}队开始返回						破坏结束
+RealmExpelledSuccess			{{troop_index}}队战斗胜利						驱逐胜利
+RealmExpelledFail			{{troop_index}}队战斗失败						驱逐失败
+RealmAssistArrivedStay			{{troop_index}}队开始驻守						援助到达，驻守
+RealmAssistArrivedBack			{{troop_index}}队开始返回						援助到达，没有驻守位置，返回
+RealmAssistSuccess			{{troop_index}}队战斗胜利，开始驻守						援助到达，战斗胜利，驻守
+RealmAssistFail			{{troop_index}}队战斗失败，队伍已返回主城						援助到达，战斗失败
+RealmAssistDefSuccess			{{troop_index}}队战斗胜利						驻守战斗胜利
+RealmAssistDefFail			{{troop_index}}队战斗失败						驻守战斗失败
+RealmTroopBacked			{{troop_index}}队已返回主城						部队到家
+RealmTroopRecall			{{troop_index}}队开始返回						召回
+RealmTroopRepatriate			{{troop_index}}队开始返回						遣返
+RealmTroopBaozRepatriate			{{troop_index}}队被{{killer}}遣返，队伍开始返回 						宝藏遣返
+RealmTroopSpeedUp			{{troop_index}}队行军加速						行军加速
+RealmMonsterInvasion			{{monster}}的反击度已满，即将对你发起入侵，请注意防守。						
+RealmAssemblyCanceled			{{hero}}解散了本次集结，队伍{{troop_index}}开始返回。						集结解散
+RealmAssemblyMemberDestroy			由于集结中成员主城发生迁移，本次集结被强制解散。						成员迁城/流亡解散
+RealmAssemblyTargetDestroy			集结目标状态发生改变，本次集结被强制解散。						目标迁城/流亡解散
+RealmAssemblyMemberCountNotEnough			本次集结没有成员参与，集结已解散						集结人数不足解散
+RealmAssemblyBackTimeout			{{troop_index}}队没有赶到集结地，开始返回						没赶到集结地返回
+RealmAssemblyArrived			{{troop_index}}队到达集结地，等待集结出发						到达集结地
+RealmAssemblyStart			集结队伍开始出发						集结出发
+									
+GuildSayHi			在下初入联盟，愿与诸位共创霸业						
+SysChatSenderName			系统消息						
+SysChatFriendAdded			你已将[color=#ffeb8f]{{hero_name}}[/color]加为好友，开始聊天吧						
+									
+BannerBaseSuccess			[color=#79B3F3]您[/color]的主城受到[color=#E7566B]{{attacker}}[/color]的攻击，防守胜利。						
+BannerBaseFail			[color=#79B3F3]您[/color]的主城受到[color=#E7566B]{{attacker}}[/color]的进攻，防守失败。						
+BannerTroopSuccess			队伍{{troop_index}}受到了{{attacker}}的攻击，战斗胜利。						
+BannerTroopFail			队伍{{troop_index}}受到了{{attacker}}的攻击，战斗失败。						
+									
+McWarAtkFail			攻击失败：你攻击了{{building}}，被{{hero}}击败						
+McWarDefFail			防守失败：你防守了 {{building}}，被 {{hero}}击败。						
+McWarReliveSucc			您的队伍已经完成补兵，可以行动了。						
+									
+GuildPleaseHelpMe			我的城池遭到了敌人的攻击，请求支援						
+XiongNuResistBroadcast			匈奴大营免战结束，联盟所有成员可以在10分钟内前往反击匈奴大营！		联盟频道广播匈奴反击开始				
+									
+McWarChatOurAtkBuildingDestroy			[color=#79B3F3]攻方阵营[/color]{{building}}被摧毁！						
+McWarChatOurDefBuildingDestroy			[color=#79B3F3]守方阵营[/color]{{building}}被摧毁！						
+McWarChatEnemyAtkBuildingDestroy			[color=#E7566B]攻方阵营[/color]{{building}}被摧毁！						
+McWarChatEnemyDefBuildingDestroy			[color=#E7566B]守方阵营[/color]{{building}}被摧毁！						
+									
+MysticAlly			神秘盟友						
+									
+GuildGongfangBuilding			{{class_name}}[color=#79B3F3]{{name}}[/color]放置了联盟工坊，开始修建中！						
+GuildGongfangBuildTimeAdd			[color=#E7566B]{{name}}[/color]破坏了联盟工坊，修建时间增加{{num}}分钟！						
+GuildGongfangBuildTimeReduce			盟友[color=#79B3F3]{{name}}[/color]加速了修建，修建时间减少{{num}}分钟！						
+GuildGongfangBuildComplete			联盟工坊修建成功！						
+GuildGongfangEfficiencyReduce			[color=#E7566B]{{name}}[/color]破坏了联盟工坊，工坊效率减少{{num}}。						
+GuildGongfangEfficiencyAdd			盟友[color=#79B3F3]{{name}}[/color]参与了联盟工坊生产，工坊效率增加{{num}}。						
+GuildGongfangPrizeSend			生产次数达到需求，所有盟友获得1个工坊奖励！						
+									
+GuildWorkshopCreatedChat			我们正在修建联盟工坊！大家快来加速吧！						
+GuildWorkshopCompletedChat			联盟工坊竣工了！大家快来生产吧！						
+GuildWorkshopBuildShow			已帮联盟工坊修建加速{{num}}分钟						
+GuildWorkshopProdShow			已帮联盟工坊生产1次						
+GuildWorkshopPrizeShow			已领取当前联盟工坊奖励！						
+									
+MultiMonsterPrizeCount			{{count}}倍次数收益						

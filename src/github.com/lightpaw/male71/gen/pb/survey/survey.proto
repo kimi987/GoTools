@@ -1,0 +1,20 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "survey";
+option optimize_for = SPEED;
+
+
+message C2SCompleteProto {
+
+    int32 to_del = 1; // 要删除掉
+
+}
+
+message S2CCompleteProto {
+
+    string id = 1; // 完成了问卷调查，即 SurveyDataProto.id，客户端在 HeroSurveyProto 的 complete_survey 列表中加入该id，完成后，客户端自己在检查是不是还有问卷调查可以弹出，如果有，刷新icon，否则隐藏掉答题icon
+
+}
+

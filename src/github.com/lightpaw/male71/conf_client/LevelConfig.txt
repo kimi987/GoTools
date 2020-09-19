@@ -1,0 +1,12 @@
+索引	类型	脚本	场景名字	移动时间，单位为秒	轮次间隔	回合间隔	地图一个格子宽度	地图一个格子高度							
+id	Type	LogicScript	SceneName	MoveStepDuration	RoundInterval	BoutInterval	MapGridWidth	MapGridHeight							
+0	0	LevelLogic.BootupLevelLogic	Bootup												
+1	1	LevelLogic.MainCityLevelLogic	MainCity												
+2	2	LevelLogic.WorldMapLevelLogic	WorldMap												
+3	3	LevelLogic.BattleLevelLogic	BattleField	1	1	2	1	1							
+													LevelType = {		
+													"    Bootup = 0,"		
+													"    MainCity = 1,"		
+													"    WorldMap = 2,"		
+													"    Battle = 3,"		
+													}		

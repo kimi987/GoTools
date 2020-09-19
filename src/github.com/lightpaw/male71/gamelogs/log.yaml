@@ -1,0 +1,129 @@
+
+# 创建英雄日志
+create_hero_log:
+  desc: 创建英雄日志，每个英雄只在第一次创建时候记录
+  aggregate_table: full_hero
+  id: int64 // 玩家id
+  create_time: int64 max // 英雄创建时间，unix秒
+  since_day: uint64 // 开服第X天
+
+# 英雄登陆日志
+hero_online_log:
+  desc: |
+    在线日志，以下3种情况都记录这个日志（state字段区分）
+    1、玩家上线
+    2、玩家离线
+    3、定时每小时的0分0秒，所有在线用户记录一次
+  aggregate_table: full_hero
+  _time: int64 max // 登陆时间
+  id: int64 // 玩家id
+  online: int64 sum // 在线时长，单位秒
+
+# 新手引导日志
+new_guide_log:
+  desc: 新手引导日志，记录新手引导的过程
+  aggregate_table: full_hero
+  id: int64 // 玩家id
+  progress: int32 max // 引导进度
+  completed: bool // true表示已完成新手引导
+
+# 设备号登陆日志
+device_login_log:
+  desc: 设备登陆日志
+  id: int64 // 玩家id
+  device_id: string // 设备唯一标识
+  os_type: string // 客户端操作系统版本
+
+# 充值日志
+recharge_log:
+  desc: 充值订单日志
+  order_id: string // 订单id
+  order_type: uint64 // 订单类型（内购类型）
+  order_amount: uint64 // 订单金额（以平台为准，海外为美元，国内为人民币）
+  id: int64 // 玩家id
+
+# 元宝消耗日志
+yuanbao_reduce_log:
+  desc: 元宝进出流水日志
+  aggregate_table: full_hero
+  _time: int64 max // 时间
+  id: int64 // 玩家id
+  t: uint64 // 操作日志
+  amount: uint64 sum // 元宝数
+
+# 点券消耗日志
+dianquan_reduce_log:
+  desc: 点券进出流水日志
+  aggregate_table: full_hero
+  _time: int64 max // 时间
+  id: int64 // 玩家id
+  t: uint64 // 操作日志
+  amount: uint64 sum // 元宝数
+
+# 君主升级日志
+upgrade_hero_level_log:
+  desc: 君主升级日志
+  aggregate_table: full_hero
+  _time: int64 max // 时间
+  id: int64 // 玩家id
+  level: uint64 max // 君主等级
+
+# 主城等级变化日志
+update_base_level_log:
+  desc: 主城等级日志
+#  aggregate_table: full_hero
+#  _time: int64 max // 时间
+  id: int64 // 玩家id
+  level: uint64 // 主城等级
+
+# 任务完成日志
+complete_task_log:
+  desc: 任务完成日志
+  id: int64 // 玩家id
+  t: uint64 // 任务类型
+  task_id: uint64 // 任务id
+
+# 解锁武将日志
+unlock_captain_log:
+  desc: 武将解锁日志
+  id: int64 // 玩家id
+  captain_id: uint64 // 武将id
+  quality: uint64 // 武将品质
+
+# 建筑升级日志
+upgrade_building_log:
+  desc: 武将解锁日志
+  id: int64 // 玩家id
+  t: uint64 // 建筑类型
+  level: uint64 // 建筑等级
+
+# 科技升级日志
+upgrade_tech_log:
+  desc: 武将解锁日志
+  id: int64 // 玩家id
+  t: uint64 // 科技类型
+  level: uint64 // 科技等级
+
+# 物品流水日志
+
+# 千重楼通关日志
+tower_challenge_log:
+  desc: 武将解锁日志
+  id: int64 // 玩家id
+  floor: uint64 // 层数
+  pass: bool // 是否通关
+
+# 推图通关日志
+dungeon_challenge_log:
+  desc: 武将解锁日志
+  id: int64 // 玩家id
+  chapter: uint64 // 推图副本章节
+  dungeon_id: uint64 // 副本id
+  difficult: uint64 // 难度 1-普通 2-精英
+  star: uint64 // 星数
+  pass: bool // 是否通关
+
+# 服务器在线日志
+server_online_log:
+  desc: 服务器在线日志
+  count: uint64 // 在线人数

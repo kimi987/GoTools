@@ -1,0 +1,6 @@
+id	名称	类型	初始仇恨	最大仇恨值	怪物攻城仇恨，>=这个值怪物发动攻城	怪物攻城出兵后，减少多少仇恨值	怪物攻城出兵最小距离
+id	name	type	init_hate	max_hate	fight_hate	fight_reduce_hate	fight_must_distance
+1	叛军	PAN_JUN	70	100	100	50	200
+2	戍卒	HAI_DAO	70	100	100	50	200
+3	流寇	LIU_KOU	70	100	100	50	200
+4	蛮族	JIE_FEI	70	100	100	50	200

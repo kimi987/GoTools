@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message FishingCostProto {
+    int32 times = 1; // 钓鱼次数
+    CostProto cost = 2; // 消耗
+    int32 free_times = 3; // 免费次数
+    int32 discount_times = 4; // 5折次数
+    CostProto discount_cost = 5; // 五折消耗
+
+    int32 fish_type = 11; // 钓鱼类型 0-高级 1-普通钓鱼
+    int32 daily_times = 12; // 每日最大次数，0表示不限次数
+}
+
+message FishingShowProto {
+    string desc = 2; // 描述
+    int32 goods_data = 3; // 物品
+    int32 gem_data = 4; // 宝石
+    int32 equipment_data = 5; // 装备
+    int32 captain_soul_data = 6; // 将魂
+
+    int32 fish_type = 11; // 钓鱼类型 0-高级 1-普通钓鱼
+    bool out = 12; // true表示在外面展示
+    int32 show_type = 13; // 展示类型 1-普通 2-罕见 3-稀有 4-超稀有
+}
+
+// 玩家钓鱼
+message HeroFishingProto {
+    repeated int32 times = 1 [packed = false]; // 钓鱼次数，即：FishingCostProto.times
+    repeated int32 fishing_times = 2 [packed = false]; // 次数类型对应的钓鱼次数，跟 times 一一对应
+    repeated int32 fish_type = 3 [packed = false]; // 钓鱼类型，即：FishingCostProto.fish_type
+    repeated int32 countdown = 4 [packed = false]; // 钓鱼倒计时
+    int32 captain_set = 5; // 金杆钓设置
+}

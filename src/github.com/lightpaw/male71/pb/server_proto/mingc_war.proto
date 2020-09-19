@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/mingc_war.proto";
+import "github.com/lightpaw/male7/pb/server_proto/bid.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/military.proto";
+
+
+message MingcWarServerProto {
+    int32 id = 10;
+
+    MingcWarState state = 1;
+
+    int64 start_time = 2;
+    int64 end_time = 3;
+
+    MingcStageProto not_start = 9;
+    MingcApplyAtkProto apply_atk = 4;
+    MingcApplyAstProto apply_ast = 5;
+    MingcFightProto fight = 6;
+    MingcStageProto fight_end = 7;
+
+    map<uint64, MingcObjProto> mingc = 8;
+}
+
+message MingcApplyAtkProto {
+    int64 start_time = 1;
+    int64 end_time = 2;
+
+    map<uint64, BidInfoProto> bids = 3;
+    map<int64, uint64> applicant = 4;
+    map<uint64, int64> winners = 5;
+}
+
+message MingcApplyAstProto {
+    int64 start_time = 1;
+    int64 end_time = 2;
+    map<uint64, MingcObjProto> mingc = 3;
+}
+
+message MingcObjProto {
+    uint64 id = 1;
+    int64 def_id = 2;
+    int64 atk_id = 3;
+    repeated int64 ast_def = 4;
+    repeated int64 ast_atk = 5;
+    map<int64, bool> apply_ast = 6;
+    uint64 country = 10;
+
+    BidInfoProto bid = 8; // 竞价数据
+    McWarSceneServerProto scene = 9;
+}
+
+message MingcFightProto {
+    int64 start_time = 1;
+    int64 end_time = 2;
+}
+
+message MingcStageProto {
+    int64 start_time = 1;
+    int64 end_time = 2;
+}
+
+message McWarSceneServerProto {
+    uint64 mc_id = 1;
+    repeated McWarBuildingServerProto building = 2;
+    repeated McWarNpcTroop npc = 7;
+    int64 start_time = 8;
+    bool ended = 3;
+    bool atk_win = 4;
+    bool ended_noticed = 5;
+    McWarFightRecordServerProto record = 6;
+
+    uint64 atk_drum_times = 9; // 攻方击鼓次数
+    uint64 def_drum_times = 10; // 守方击鼓次数
+
+    SpriteStatProto atk_drum_stat = 11; // 攻方击鼓加成
+    SpriteStatProto def_drum_stat = 12; // 守方击鼓加成
+}
+
+message McWarBuildingServerProto {
+    bool atk = 1;
+    uint64 pos = 2;
+    uint64 prosperity = 3;
+    int64 last_destroy_time = 4;
+    repeated McWarTroopServerProto troop = 5;
+    MingcWarBuildingType type = 6;
+    string name = 7;
+
+    int64 tou_shi_turn_end_time = 10;
+    int64 tou_shi_prepare_end_time = 11;
+    int32 tou_shi_target_index = 12;
+    string last_fire_hero_name = 13; // 上次开炮的玩家名字
+    int32 last_fire_hero_country = 14; // 上次开炮的玩家国家
+}
+
+message McWarTroopServerProto {
+    int64 hero_id = 15;
+    HeroBasicProto hero = 1;
+    int64 gid = 2;
+    bool atk = 3;
+    int64 join_time = 4;
+    uint64 kill_amount = 11;
+    uint64 wounded_amount = 12;
+    uint64 destroy_building = 16;
+    int64 next_drum_time = 18; // 下次击鼓时间
+
+    uint64 npc_data_id = 19;
+
+    map<int32, CaptainInfoProto> captain = 13;
+    repeated McWarTroopRecordProto record = 14;
+    MingcWarModeType mode = 17;
+    MingcWarTroopState state = 5;
+    int64 start_time = 6;
+    int64 end_time = 7;
+    uint64 pos = 8;
+    uint64 start_pos = 9;
+    uint64 dest_pos = 10;
+}
+
+message McWarFightRecordServerProto {
+    repeated McWarFightGuildRecordServerProto guild_record = 1;
+}
+
+message McWarFightGuildRecordServerProto {
+    int64 gid = 1;
+    uint64 joined_count = 2 [deprecated = true];
+    uint64 killed_amount = 3;
+    uint64 wounded_amount = 4;
+    uint64 destroyed = 5;
+    map<int64, bool> joined_troops = 6;
+}
+
+message McWarNpcTroop {
+    McWarAiType ai_type = 1;
+    int64 troop_id = 2;
+}
+
+enum McWarAiType {
+    MC_AI_STATION = 0;
+    MC_AI_ATK = 1;
+    MC_AI_DEF_HOME = 2;
+    MC_AI_DEF_CASTLE = 3;
+    MC_AI_DEF_GATE = 4;
+}

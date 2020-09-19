@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2548489216
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 76704b1ab536f594446d89f5b0322c56
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c73412a662fd4e4f36af34cbdf078b85
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIImage/Loading/ui_loading_guide_10.png
+Dependencies: []

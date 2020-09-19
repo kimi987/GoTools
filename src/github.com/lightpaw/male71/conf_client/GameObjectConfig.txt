@@ -1,0 +1,27 @@
+索引	描述	预设	槽位	脚本	自动销毁	远程攻击	速度	存在时间	关联槽位						
+id	desc	prefab	SlotType	script	autoDestroy	rangedAttack	velocity	lifeTime	attachTarget						
+1	弓箭手普攻	Prefabs/Particle/Eff_cha_gongjianshou_pugong_tuowei	1	Actor/FlyObjectBase	FALSE	TRUE	5		TRUE						
+2	骑兵普攻	Prefabs/Particle/Eff_cha_qibing_pugong	0	Actor/MeleeAttackBase	TRUE	FALSE	0	2	TRUE						
+3	步兵普攻	Prefabs/Particle/Eff_cha_zhanshi_pugong	0	Actor/MeleeAttackBase	TRUE	FALSE	0	2	TRUE						
+4	战车普攻	Prefabs/Particle/Eff_cha_zhanche_pugong	0	Actor/MeleeAttackBase	TRUE	FALSE	0	2	TRUE						
+5	投石车普攻	Prefabs/Particle/Eff_cha_toushiche_shitou	5	Actor/FlyObjectBase	FALSE	TRUE	5		TRUE						
+6	弓箭手普攻命中特效	Prefabs/Particle/Eff_cha_shoujibaodian	1	SpawnerObjectBase	TRUE	FALSE	0	2	FALSE					#NAME?	
+7	投石车普攻命中特效	Prefabs/Particle/Eff_cha_toushiche_baodian	0	SpawnerObjectBase	TRUE	FALSE	0	2	FALSE					ActorSlotType =	
+8	近战普攻命中特效	Prefabs/Particle/Eff_cha_shoujibaodian	1	SpawnerObjectBase	TRUE	FALSE	0	2	TRUE					{	
+														"    None = - 1,"	
+														    -- 脚底	
+														"    Base = 0,"	
+														    -- 中心	
+														"    Center = 1,"	
+														    -- 头部	
+														"    Head = 2,"	
+														    -- 左手	
+														"    LeftHand = 3,"	
+														    -- 右手	
+														"    RightHand = 4,"	
+														    -- 武器01	
+														"    Weapon01 = 5,"	
+														    -- 武器02	
+														"    Weapon02 = 6,"	
+														}	
+															

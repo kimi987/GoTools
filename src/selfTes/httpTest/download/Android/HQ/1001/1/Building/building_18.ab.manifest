@@ -1,0 +1,40 @@
+ManifestFileVersion: 0
+CRC: 613184464
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c7511959d1615cf1dbdc25bea0fb4e41
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 8fee6788ee06503af70e06900a834995
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: baa829e4ad2fc6748a05a292827a6119, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d53c6bebee5960342b1be2dfc5406555, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Building/building_18.prefab
+Dependencies: []

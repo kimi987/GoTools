@@ -1,0 +1,3 @@
+最大扫荡次数	恢复扫荡次数的间隔	默认的扫荡次数
+max_auto_times	recover_auto_duration	default_auto_times
+10	1h	5

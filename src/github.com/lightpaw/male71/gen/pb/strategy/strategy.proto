@@ -1,0 +1,53 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "strategy";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/hero.proto";
+
+
+message C2SUseStratagemProto {
+
+    int32 id = 1; // 计策id
+
+    bytes target = 2; // 施计对象
+
+    int32 data_id = 3; // 配置id
+
+    int32 pos_x = 4; // 坐标
+
+    int32 pos_y = 5;
+
+}
+
+message S2CUseStratagemProto {
+
+    int32 id = 2; // 计策id
+
+    string name = 5; // 策略名
+
+    int32 daily_used_times = 3; // 今日已使用次数
+
+    int32 next_useable_time = 4; // 下次可使用的时间
+
+    string target_name = 6; // 目标名称
+
+}
+
+message S2CTrappedStratagemProto {
+
+    TrappedStratagemProto stratagem = 1; // 中计数据
+
+}
+
+message S2CUseStratagemFailProto {
+
+    int32 id = 1; // 计策id
+
+    string name = 2; // 策略名
+
+    string target_name = 3; // 目标名称
+
+}
+

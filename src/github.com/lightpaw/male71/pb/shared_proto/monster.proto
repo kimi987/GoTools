@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/military.proto";
+
+// npc城池数据
+message NpcBaseDataProto {
+
+    int32 id = 1; // id
+
+    string name = 11; // 名字
+
+    MonsterMasterDataProto npc = 2; // npc
+
+    int32 base_level = 3; // 城池等级
+
+    string model = 7; // 外观配置
+
+    string def_model = 12; // 防守模型
+
+    int32 prosperity_capcity = 4; // 繁荣度上限
+
+    bool is_tent = 5; // true表示行营，false表示主城
+
+    PrizeProto show_prize = 6; // 展示奖励，可能为空
+    PrizeProto show_sub_prize = 10; // 展示奖励，可能为空
+
+    int32 rob_max_duration = 8; // 最大掠夺时长
+
+    int32 tick_duration = 9; // 持续掠夺收益间隔
+    repeated string tick_icon = 14; // 持续掠夺收益图标（没有就不飘图标）
+
+    int32 lost_prosperity_duration = 13; // 繁荣度损失间隔
+}
+
+message MonsterMasterDataProto {
+
+    int32 id = 1;
+    string name = 2; // 名字
+    string icon_id = 6; // 头像
+    bool male = 4; // true表示男
+    int32 level = 5; // 君主等级
+
+    // 防守武将信息
+    repeated MonsterCaptainDataProto captains = 21;
+}
+
+message MonsterCaptainDataProto {
+    int32 id = 1;
+    CaptainNameProto name = 12; // 名字
+    string icon_id = 11; // 图标id
+    bool male = 10; // true表示男
+    Race race = 4; // 兵种
+    Quality quality = 5; // 品质
+    int32 soldier = 6; // 士兵数/最大士兵数
+    int32 fight_amount = 7; // 战斗力
+
+    int32 level = 8; // 武将等级
+    int32 soldier_level = 9; // 士兵等级
+
+    int32 rebirth_level = 13; // 转生等级
+
+    SpriteStatProto total_stat = 14; // 总属性
+
+    // tip，用于做一些特殊的表示，比如千重楼里的首领
+    int32 label = 31; // 0-普通 1-首领
+
+    int32 index = 15; // 位置，从1开始
+
+    int32 x_index = 16; // 横向位移，从0开始
+
+    int32 captain_id = 17; // 武将id
+
+    bool is_nameless = 18; // true表示无名武将
+
+    int32 star = 19; // 武将星数
+
+    int32 unlock_spell_count = 20; // 解锁技能个数
+}

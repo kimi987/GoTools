@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 1260168821
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4a7e00642f3a1617fcdaffc9591bb8de
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 46368c2997dc319ce16552cda76e70a6
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 124
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/DragonBossPrefab.prefab
+Dependencies: []

@@ -1,0 +1,102 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "garden";
+option optimize_for = SPEED;
+
+
+message S2CListTreasuryTreeHeroProto {
+
+    repeated bytes hero_id = 1; // 玩家id
+
+    repeated string hero_name = 2; // 玩家名字
+
+    repeated string hero_head = 3; // 玩家头像
+
+    repeated int32 hero_guild = 4 [packed = false]; // 玩家联盟id，拿id到下面的联盟旗号列表查找旗号
+
+    repeated bool hero_friend = 5 [packed = false]; // 跟玩家是否是好友
+
+    repeated int32 hero_water_times = 6 [packed = false]; // 玩家摇钱树次数
+
+    repeated int32 guild_id = 7 [packed = false]; // 联盟id，跟联盟旗号一一对应
+
+    repeated string flag_name = 8; // 联盟旗号
+
+    repeated bytes help_me_hero_id = 9; // 帮助过我的玩家id
+
+    repeated string help_me_hero_name = 10; // 帮助过我的玩家名字
+
+    repeated int32 help_me_hero_guild = 11 [packed = false]; // 帮助过我的玩家联盟id
+
+    repeated int32 help_me_hero_season = 12 [packed = false]; // 帮助过我的季节
+
+}
+
+message C2SListHelpMeProto {
+
+    bytes target_id = 1; // 玩家 id
+
+}
+
+message S2CListHelpMeProto {
+
+    bytes target_id = 5; // 玩家 id
+
+    repeated bytes help_me_hero_id = 1; // 帮我的玩家id
+
+    repeated string help_me_hero_name = 2; // 帮我的玩家名字
+
+    repeated int32 help_me_hero_guild = 6 [packed = false]; // 帮我的玩家联盟id
+
+    repeated string help_me_hero_flag_name = 7; // 联盟旗号
+
+    repeated int32 help_me_hero_season = 4 [packed = false]; // 帮助过我的季节
+
+}
+
+message S2CListTreasuryTreeTimesProto {
+
+    repeated bytes hero_id = 1; // 玩家id
+
+    repeated int32 water_times = 2 [packed = false]; // 玩家摇钱树次数
+
+}
+
+message C2SWaterTreasuryTreeProto {
+
+    bytes target = 1; // 给谁浇水
+
+}
+
+message S2CWaterTreasuryTreeProto {
+
+    bytes target = 1; // 给谁浇水
+
+    int32 water_times = 2; // 浇水之后树的健康度
+
+}
+
+message S2CUpdateSelfTreasuryTreeTimesProto {
+
+    int32 water_times = 1; // 树的健康度
+
+    bytes help_me_hero_id = 2; // 帮我的玩家id
+
+    string help_me_hero_name = 3; // 帮我的玩家名字
+
+    int32 help_me_hero_guild = 4; // 帮我的玩家联盟id
+
+    string help_me_hero_flag_name = 5; // 联盟旗号
+
+}
+
+message S2CUpdateSelfTreasuryTreeFullProto {
+
+    int32 season = 1; // 奖励季节
+
+    int32 collect_time = 2; // 可以领取奖励的unix时间戳
+
+}
+

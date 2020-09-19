@@ -1,0 +1,170 @@
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+ - "github.com/lightpaw/male7/pb/shared_proto/hebi.proto"
+ - "github.com/lightpaw/male7/pb/shared_proto/base.proto"
+
+# 收到用每日重置的消息 RESET_DAILY_S2C 时，删除背包里的玉璧
+
+# 房间列表
+# 客户端打开界面时定时请求
+room_list:
+  c2s:
+    v: int32 // 上一次收到的版本号，第一次请求发0
+  s2c:
+    compress: snappy
+    v: int32 // 本次数据的版本号。版本相同时，list 为空
+    list: shared_proto.HebiInfoProto // 合璧数据
+
+# 合璧战斗记录
+hero_record_list:
+  c2s:
+  s2c:
+    records: shared_proto.HebiHeroRecordProto // 合璧战斗记录
+
+# 更换武将
+change_captain:
+  c2s:
+    captain_id: int32 // 武将id
+  s2c:
+    captain_id: int32 // 武将id
+  s2c_fail:
+    invalid_captain_id: 武将不存在
+
+# 更换房间武将通知
+# 只有更换成功时才会推送
+change_room_captain:
+  s2c:
+    room_id: int32 // 房间id
+    cpatain: shared_proto.HebiCaptainProto // 新武将
+
+# 创建房间
+check_in_room:
+  c2s:
+    room_id: int32 // 房间号
+    goods_id: int32 // 玉璧 id。GoodsDataProto.Id
+  s2c:
+    room_id: int32 // 房间号
+    goods_id: int32 //玉璧 id。GoodsDataProto.Id
+  s2c_fail:
+    invalid_room_id: 房间号错误
+    room_id_not_empty: 不是空房间
+    already_in_room: 已经在房间里
+    goods_invalid: 物品错误或没在背包
+    captain_err: 武将没有设置
+    server_err: 服务器错误
+
+# 分身
+# 成功后自动开始合璧
+copy_self:
+  c2s:
+    room_id: int32 // 房间号
+    goods_id: int32 // 分身物品id。GoodsDataProto.Id
+  s2c:
+    room_id: int32 // 房间号
+  s2c_fail:
+    invalid_room_id: 房间号错误
+    room_state_not_wait: 当前房间状态不能分身
+    goods_invalid: 物品不存在或不是分身物品
+    server_err: 服务器错误
+
+# 加入房间
+# 加入后自动开始合璧
+join_room:
+  c2s:
+    room_id: int32 // 房间号
+    goods_id: int32 // 玉璧 id。GoodsDataProto.Id
+  s2c:
+    room_id: int32 // 房间号
+    goods_id: int32 //玉璧 id。GoodsDataProto.Id
+    prize_id: int32 // 合璧成功的奖励 id, HebiPrizeProto.Id
+  s2c_fail:
+    invalid_room_id: 房间号错误
+    already_in_room: 已经在房间里
+    goods_invalid: 玉璧错误，类型或左右错误
+    captain_err: 武将没有设置
+    heshibi_not_same_guild: 联盟成员才能进和氏璧房间
+    server_err: 服务器错误
+
+# 有人加入了自己的房间
+someone_joined_room:
+  s2c:
+    room_id: int32 // 房间号
+
+# 抢位
+rob_pos:
+  c2s:
+    room_id: int32 //房间号
+  s2c:
+    room_id: int32 //房间号
+    succ: bool // 是否成功
+    link: string // 战斗回放地址
+  s2c_fail:
+    already_in_room: 已经在房间里了
+    invalid_room_id: 错误的房间号
+    invalid_room_state: 错误的房间状态
+    no_yubi: 没有玉璧，不能抢
+    same_guild: 同联盟
+    in_rob_cd: 在抢夺 CD 中
+    captain_err: 武将没有设置
+    server_err: 服务器错误
+
+# 有人抢了自己房间的位置
+someone_robbed_my_pos:
+  s2c:
+    room_id: int32 // 房间号
+
+# 离开房间
+leave_room:
+  c2s:
+    room_id: int32 // 房间 id
+  s2c:
+    room_id: int32 // 房间 id
+  s2c_fail:
+    not_in_room: 没在房间里
+    invalid_room_state: 房间里有别人
+    server_err: 服务器错误
+
+# 抢夺
+rob:
+  c2s:
+    room_id: int32 //房间号
+  s2c:
+    room_id: int32 // 房间号
+    first_succ: bool // 打第一个是否成功
+    first_link: string // 打第一个战斗回放地址
+    second_succ: bool // 打第二个是否成功
+    second_link: string // 打第二个战斗回放地址
+    prize: shared_proto.PrizeProto // 抢夺奖励
+  s2c_fail:
+    in_cd: 在 CD 中
+    no_times: 没有次数
+    invalid_room_id: 错误的房间号
+    already_in_room: 已经在房间里
+    room_not_in_hebi: 房间没在合璧中
+    in_same_guild: 同联盟不能抢
+    captain_err: 武将没有设置
+    server_err: 服务器错误
+
+# 有人抢了自己房间的奖励
+someone_robbed_my_prize:
+  s2c:
+    room_id: int32 // 房间号
+
+# 合璧完成
+complete:
+  s2c:
+    room_id: int32 //房间号
+
+# 展示奖励
+view_show_prize:
+  c2s:
+    hero_level: int32 // 两个玩家等级中最高的
+    goods: int32 // 两个玉璧中品质最高的
+  s2c:
+    prize: shared_proto.PrizeProto // 抢夺奖励
+  s2c_fail:
+    invalid_hero_level: 等级错误
+    invalid_goods: 物品错误
+    no_prize: 没找到奖励

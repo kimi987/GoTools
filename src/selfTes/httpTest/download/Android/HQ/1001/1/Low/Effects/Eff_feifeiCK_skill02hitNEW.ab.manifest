@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 2640954175
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 20c01efa7e8a367a29211595bf4618dc
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_feifeiCK_skill02hitNEW.prefab
+Dependencies: []

@@ -1,0 +1,1070 @@
+# module_name:  # 默认使用文件夹名字作为模块名，当模块名与文件夹名字不一致时候，通过这个值指定
+
+client_pb_import:
+  "shared.proto"
+
+#server_pb_import:
+#- "github.com/lightpaw/male7/pb/shared_proto/base.proto"
+#- "github.com/lightpaw/male7/pb/shared_proto/military.proto"
+
+# 升级兵营或者科技导致变化时收到此消息
+update_soldier_capcity:
+  s2c:
+    soldier_capcity: int // 士兵最大容量
+    wounded_soldier_capcity: int // 伤兵最大容量
+    new_soldier_capcity: int // 新兵最大容量
+    new_soldier_output: int // 新兵产量，每小时
+    new_recruit_soldier_count: int // 每次能够征兵的数量
+
+# 招募新兵，新兵数通过时间计算获得，新兵数 = 单位产出 * ((当前时间 - 最后招募时间) / 单位产出间隔)
+recruit_soldier:
+  c2s:
+    count: int // 招募数量
+  s2c:
+    new_soldier: int // 新兵数量
+    free_soldier: int // 空闲士兵数量
+  s2c_fail:
+    soldier_not_enough: 新兵数量没这么多
+    soldier_capcity_overflow: 超出最大士兵上限
+    resource_not_enough: 消耗资源不足
+    invalid_count: 招募数量无效
+    server_busy: 服务器忙，请稍后再试
+
+# 招募新兵V2
+recruit_soldier_v2:
+  c2s:
+    all: bool // 全征
+  s2c:
+    add_soldier: int // 增加的士兵数量，用于客户端提示
+  s2c_fail:
+    soldier_capcity_overflow: 超出最大士兵上限
+    no_jun_ying: 没有军营
+    no_times: 没有次数了
+    server_busy: 服务器忙，请稍后再试
+
+# 自动补兵
+auto_recover_soldier:
+  s2c:
+    free_soldier: int // 空闲士兵数量
+    captain_id: int[] // 武将id
+    captain_soldier_count: int[] // 武将士兵数量
+
+# 招募新兵次数变化
+# 计算招募新兵次数变化
+# JunYingLevelDataProto 通过军营等级去取 BuildingType = JUN_YING
+# 当前时间 ctime，次数 = min((ctime - start_recovey_time) / JunYingLevelDataProto.recovery_duration, JunYingLevelDataProto.max_times)
+# 剩余恢复时间：
+# if 次数 >= JunYingLevelDataProto.max_times 显示已满，不需要恢复时间了
+# else 剩余恢复时间 = （次数+1）* JunYingLevelDataProto.recovery_duration + start_recovey_time - ctime
+recruit_soldier_times_changed:
+  s2c:
+    start_recovery_time: int // 开始恢复时间
+
+# 增加伤兵，服务器主动推送
+add_wounded_soldier:
+  s2c:
+    toAdd: int
+    total: int
+
+# 治疗伤兵
+heal_wounded_soldier:
+  c2s:
+    count: int // 伤兵数量
+  s2c:
+    count: int // 治疗数量，空闲士兵 += count 伤兵数量 -= count
+  s2c_fail:
+    soldier_not_enough: 伤兵数量没这么多
+    soldier_capcity_overflow: 超出最大士兵上限
+    resource_not_enough: 消耗资源不足
+    invalid_count: 治疗数量无效
+    server_busy: 服务器忙，请稍后再试
+
+# 补兵
+captain_change_soldier:
+  c2s:
+    id: int // 武将id
+    count: int // 补兵数，负数表示减兵
+  s2c:
+    id: int // 武将id
+    soldier: int // 总兵数
+    fight_amount: int // 战斗力
+    free_soldier: int // 剩余空闲士兵数
+  s2c_fail:
+    not_owner: 你还没有这个武将
+    outside: 武将出征中
+    server_busy: 服务器忙，请稍后再试
+
+# 一键补兵
+captain_full_soldier:
+  c2s:
+    id: int[] // 武将id
+  s2c:
+    id: int[] // 武将id
+    soldier: int[] // 新的士兵数
+    fight_amount: int[] // 战斗力
+    free_soldier: int // 剩余空闲士兵数
+  s2c_fail:
+    captain_not_exist: 武将Id不存在
+    duplicate: 武将id重复
+    empty_soldier: 没有空闲士兵
+    outside: 武将出征中
+    server_busy: 服务器忙，请稍后再试
+
+# 更新空闲士兵数
+#update_free_soldier:
+#  s2c:
+#    free_soldier: int
+
+# 更新空闲士兵
+#
+# HeroMilitaryProto
+#    int32 free_soldier_start_recovery_time = 56; // 士兵恢复开始时间
+#    int32 free_soldier_capcity = 57; // 士兵最大上限
+#    int32 free_soldier_output = 58; // 士兵恢复速度（每小时X个）
+#    int32 overflow_free_soldier = 59; // 溢出的士兵个数
+#
+# 字段解释：
+# ctime 当前时间（使用服务器时间）
+# st 士兵恢复开始时间
+# capcity 士兵最大上限
+# output 士兵恢复速度
+# overflow 溢出士兵个数
+#
+# 当前士兵个数 = Min((ctime - st) * output / 3600, capcity) + overflow
+update_free_soldier:
+  s2c:
+    start_time: int //士兵恢复开始时间
+    capcity: int // 士兵最大上限
+    output: int // 士兵恢复速度（每小时X个）
+    overflow: int // 溢出士兵个数
+
+# 强征
+#
+# 真正的士兵数更新，走update_free_soldier消息
+force_add_soldier:
+  c2s:
+  s2c:
+    times: int // 强征次数
+  s2c_fail:
+    locked: 军营建筑未解锁
+    times_limit: 强征次数上限
+    cost_not_enough: 强征消耗不足
+    full_soldier: 士兵数已满
+
+# 武将数据更新，如战斗损兵，武将升级等等会触发
+captain_change_data:
+  s2c:
+    id: int // 武将id
+    soldier: int // 当前带兵数
+    max_soldier: int // 总带兵数
+    fight_amount: int // 战斗力
+
+# 这里只要客户端发个消息，就发生一场战斗（服务器来选人）
+fight:
+  c2s:
+    wall: bool // 带城墙的
+  s2c:
+    compress: snappy
+    replay: bytes // shared_proto.CombatProto
+
+# 这里只要客户端发个消息，就发生一场多人战斗，6v6，最多同时发生三场战斗，进攻方最多连胜三场
+multi_fight:
+  c2s:
+  s2c:
+    compress: snappy
+    replay: bytes // shared_proto.MultiCombatProto
+
+# 这里只要客户端发个消息，就发生一场战斗（服务器来选人）
+fightx:
+  c2s:
+    attacker: int[] // 进攻方武将
+    defenser: int[] // 防守方武将
+    wall: bool // 带城墙的
+  s2c:
+    compress: snappy
+    replay: bytes // shared_proto.CombatXProto
+
+# 升级士兵等级
+upgrade_soldier_level:
+  c2s:
+  s2c:
+    level: int // 最新士兵等级
+  s2c_fail:
+    max_level: 已经到最高级了
+    res_not_enough: 钱不够
+    jun_ying_level_too_low: 军营等级不够
+    server_busy: 服务器忙，请稍后再试
+
+# 招募武将
+recruit_captain_v2:
+  c2s:
+  s2c:
+    captain: bytes // shared_proto.HeroCaptainProto
+    captain_index: int // 队伍编号，0表示不加入队伍，1-5 一队序号 6-10 二队序号 11-15 三队序号
+  s2c_fail:
+    full: 可招募武将已达上限
+    hero_level_too_low: 君主等级太低
+    no_captain_can_recruit: 当前没有武将可以招募
+    no_free_troop: 没有空闲的队伍(出征中)
+    server_busy: 服务器忙，请稍后再试
+
+# 招募武将-随机头像列表
+# 展示招募武将候选列表前，先请求这条消息拿到头像列表
+random_captain_head:
+  c2s:
+  s2c:
+    head: string[] // 头像id列表，按 CaptainSeekerProto 里配置的顺序
+
+# 招募武将
+# CaptainSeekerProto
+#    int32 index = 1; // 索引号，从1开始
+#    int32 sequence = 2; // 批次，招募第一个武将为1，第二个武将为2
+#
+# 根据招募第几个武将，显示武将数据
+recruit_captain_seeker:
+  c2s:
+    index: int // 编号
+    head: string // 头像id
+  s2c:
+    index: int // 编号
+    captain: bytes // shared_proto.HeroCaptainProto
+    captain_index: int // 队伍编号，0表示不加入队伍，1-5 一队序号 6-10 二队序号 11-15 三队序号
+  s2c_fail:
+    invalid_index: 无效的编号
+    full: 可招募武将已达上限
+    hero_level_too_low: 君主等级太低
+    no_captain_can_recruit: 当前没有武将可以招募
+    no_free_troop: 没有空闲的队伍(出征中)
+    server_busy: 服务器忙，请稍后再试
+
+# 设置防守队伍
+# 假设当前主城由1队防守，当设置2队为主城防守队伍时候，需要将1队设置为未防守状态
+set_defense_troop:
+  c2s:
+    is_tent: bool // true表示设置行营防守队伍，false表示设置主城防守队伍
+    troop_index: int // 0表示撤防，1表示1队 2表示2队
+  s2c:
+    is_tent: bool // true表示设置行营防守队伍，false表示设置主城防守队伍
+    troop_index: int // 0表示撤防，1表示1队 2表示2队
+  s2c_fail:
+    invalid_troop_index: 无效的队伍index
+
+# 设置防守队伍的被打败的战报
+set_denfese_troop_defeated_mail:
+  s2c:
+    compress: snappy
+    mail: bytes // 客户端解析成 MailProto，客户端自己在里面的战报里面读取 对方旗号、对方名字
+    is_tent: bool // 是不是行营
+
+# 清掉防守队伍被打败的战报，已经是空了，客户端就不要再发清掉了
+clear_defense_troop_defeated_mail:
+  c2s:
+    is_tent: bool // 是不是行营
+  s2c:
+    is_tent: bool // 是不是行营
+
+# 设置驻防自动补兵
+set_defenser_auto_full_soldier:
+  c2s:
+    dont: bool // false表示自动补兵，true表示不自动补兵
+  s2c:
+    dont: bool
+  s2c_fail:
+    vip_level_limit: vip等级不够
+
+# 使用驻防镜像物品
+#
+# 驻防镜像物品
+# GoodsConfigProto
+#    repeated int32 copy_defenser_goods = 27 [packed = false]; // 驻防镜像物品id
+#
+# 收到成功消息，镜像队伍各个数据直接从目标队伍中读取（战力取满兵战力）
+use_copy_defenser_goods:
+  c2s:
+    goods: int // 物品id
+    auto_buy: bool // 物品自动购买
+    troop_index: int // 队伍，1表示1队 2表示2队
+  s2c:
+    troop_index: int // 队伍，1表示1队 2表示2队
+    end_time: int // 过期时间
+  s2c_fail:
+    invalid_goods: 无效的物品id
+    invalid_troop: 无效的队伍编号
+    count_not_enough: 物品个数不足
+    cost_not_enough: 物品自动购买，消耗不足
+
+
+# 更新镜像防守
+update_copy_defenser:
+  s2c:
+    soldier: int // 剩余兵力
+    total_soldier: int // 总兵力
+    fight_amount: int // 战斗力
+
+# 移除镜像防守
+remove_copy_defenser:
+  s2c:
+
+# 将寻访武将转换成强化符
+# 每个寻访武将换多少强化符，根据成长值获取 CaptainAbilityProto，proto中有
+sell_seek_captain:
+  c2s:
+    index: int // 0表示将所有的武将全部转换成强化符
+  s2c:
+    index: int // 0表示将所有的武将全部转换成强化符
+  s2c_fail:
+    invalid_index: 武将id无效
+    empty: 寻访武将列表为空
+    server_error: 服务器忙，请稍后再试
+
+# 整编设置
+set_multi_captain_index:
+  c2s:
+    index: int // 序号，0表示全改 一队发1，二队发2，3队发3
+    id: int[] // 武将id，0表示这个位置没有武将
+    x_index: int[] // 武将横向位移，0-左 1-中 2-右
+  s2c:
+    index: int // 序号，0表示全改 一队发1，二队发2，3队发3
+    id: int[] // 武将id，武将id
+    x_index: int[] // 武将横向位移，0-左 1-中 2-右
+  s2c_fail:
+    invalid_index: 无效的序号
+    invalid_id: 无效的武将id
+    outside: 出征武将不能修改
+    other_index: 武将已经在别的编队中
+    must_all: 必须包含所有武将
+
+# 设置pve队伍
+set_pve_captain:
+  c2s:
+    pve_type: int // pve队伍类型 PveTroopType
+    id: int[] // 武将id，0表示这个位置没有武将
+    x_index: int[] // 武将横向位置，0-左，1-中，2-右
+  s2c:
+    troop: bytes // 客户端解析成 HeroPveTroopProto
+  s2c_fail:
+    invalid_pve_type: 无效的队伍类型
+    invalid_captain_count: 武将数量非法
+    invalid_id: 武将没找到
+    dup_captain_id: 存在重复的武将id
+    no_captain: 不可以将队伍设置为没有武将出战
+    invalid_x_index: 无效的武将横向位置
+
+# 武将解雇
+# setting.CantFireCaptainLevel
+fire_captain:
+  c2s:
+    id: int // 武将id
+  s2c:
+    id: int // 解雇武将id（客户端同时将防守阵容和武将编队里面这个武将移除）
+  s2c_fail:
+    id_not_found: 武将id没找到
+    outside: 武将出征中
+    level_limit: 等级超过30级，不能解雇
+    server_busy: 服务器忙，请稍后再试
+    depot_equipment_full: 装备背包满了
+    depot_gem_full: 宝石背包满了
+    secret_tower: 在重楼密室队伍中
+
+#
+# 使用武将强化符（武将强化）
+# 特别的，如果已经达到转生成长上限，那么就不能继续提示成长值，此时成长经验可能超出升级经验
+captain_refined:
+  c2s:
+    captain: int // 武将id
+    goods_id: int[] // 强化符id（有多种强化符，具体要用哪种）
+    count: int[] // 使用个数
+  s2c:
+    captain: int // 武将id
+    exp: int // 更新后的强化经验
+  s2c_fail:
+    invalid_captain: 无效的武将id
+    invalid_goods: 无效的强化符id
+    invalid_count: 无效的使用个数
+    outside: 武将出征中
+    rebirth_limit: 成长值到达转生上限
+
+# 新版武将强化
+captain_enhance:
+  c2s:
+    captain: int // 武将id
+    goods_id: int[] // 强化符id（有多种强化符，具体要用哪种）
+    count: int[] // 使用个数
+  s2c:
+    captain: int // 武将id
+    ability: int // 成长值
+    ability_exp: int // 成长值经验
+    quality: int // 品质
+  s2c_fail:
+    invalid_captain: 无效的武将id
+    invalid_goods: 无效的强化符id
+    invalid_count: 无效的使用个数
+    outside: 武将出征中
+    rebirth_limit: 成长值到达转生上限
+    ability_max: 成长值上限
+
+captain_refined_upgrade:
+  s2c:
+    captain: int // 武将id
+    exp: int // 更新后的强化经验
+    ability: int // 更新后的能力值
+    name: bytes // 更新后的武将名字，客户端解析成 CaptainNameProto
+    quality: int // 更新后的品质
+
+# 更新武将成长值经验
+update_ability_exp:
+  s2c:
+    captain: int // 武将id
+    exp: int // 更新后的经验
+
+# 武将加经验
+# 特别的（经验可能超出升级上限）
+# 武将如果出征状态，那么只加经验不会升级，等到武将回来的时候，才会触发升级操作
+update_captain_exp:
+  s2c:
+    captain: int // 武将id
+    exp: int // 更新后的经验
+
+# 武将升级
+update_captain_level:
+  s2c:
+    captain: int // 武将id
+    exp: int // 更新后的经验
+    level: int // 更新后的等级
+    name: bytes // 更新后的武将名字，客户端解析成 CaptainNameProto
+    soldier_capcity: int // 更新后的武将士兵上限
+
+# 新版武将升级
+captain_levelup:
+  s2c:
+    captain: int // 武将id
+    exp: int // 更新后的经验
+    level: int // 更新后的等级
+    soldier_capcity: int // 更新后的武将士兵上限
+
+# 更新武将属性，以下情况会推送此消息
+# 强化武将
+# 武将升级
+# 装备属性改变时候
+update_captain_stat:
+  s2c:
+    captain: int // 武将id
+    total_stat: bytes // shared_proto.SpriteStatProto 总属性
+    fight_amount: int // 当前战力
+    full_fight_amount: int // 满兵战力
+
+# 武将改名
+# 武将改名消耗配置，Config.MiscConfig.ChangeCaptainNameCost
+change_captain_name:
+  c2s:
+    id: int // 武将id
+    name: string // 武将名字
+  s2c:
+    id: int // 武将id
+    name: string // 武将名字
+  s2c_fail:
+    invalid_id: 武将id无效
+    invalid_name: 武将名字无效
+    same_name: 新的名字跟原来的名字相同
+    duplicate_name: 新的名字已经被其他武将使用了
+    cost_not_enough: 消耗不足
+    sensitive_words: 名字包含敏感词
+    server_error: 服务忙，请稍后重试
+
+# 武将转职
+# 转职等级要求：config.MiscConfig.ChangeCaptainRaceLevel
+# 转职消耗物品：config.GoodsConfig.ChangeCaptainRaceGoods
+# 转职消耗点券(从物品数据中获取)：GoodsDataProto.YuanbaoPrice, 点券价格<=0表示不支持点券改名
+# 转职cd: config.MiscConfig.ChangeCaptainRaceDuration
+# 转职成功后，除了受到s2c 消息之外，也会推送一条武将属性更新消息 update_captain_stat
+change_captain_race:
+  c2s:
+    id: int // 武将id
+    race: int // 武将职业 shared_proto.Race
+    money: bool // true表示使用点券改名
+  s2c:
+    id: int // 武将id
+    race: int // 武将职业 shared_proto.Race
+    cooldown: int // cd结束时间，单位秒
+    name: bytes // 武将名字(传奇步将什么鬼的)，客户端解析成 CaptainNameProto
+  s2c_fail:
+    invalid_id: 无效的武将id
+    level_not_enough: 等级未达到转职要求
+    cost_not_enough: 转职消耗不足
+    not_support_yuanbao: 不支持点券购买
+    cooldown: 武将转职cd中
+    invalid_race: 无效的职业类型
+    same_race: 新职业跟当前职业一样
+    outside: 武将出征中，不能转职
+    server_error: 服务器忙，请稍后再试
+
+# 获取转生预览
+# 查看预览界面时候，请求消息获取转生后的数据
+captain_rebirth_preview:
+  c2s:
+    id: int // 武将id
+  s2c:
+    id: int // 武将id
+    name: bytes // 武将名字，客户端解析成 CaptainNameProto
+    rebirth_level: int // 转生等级，1表示1转
+    quality: int // 品质
+    ability: int // 成长值
+    ability_limit: int // 成长上限
+    total_stat: int // 加多少属性
+    soldier_capcity: int // 加多少统帅
+    add_stat: bytes // shared_proto.SpriteStatProto 加的属性
+  s2c_fail:
+    invalid_id: 无效的武将id
+    max_level: 已转生到最高等级
+    server_error: 服务器忙，请稍后再试
+
+# 武将转生
+# 升级成功触发武将转生 CD 时，服务器下发此通知
+captain_rebirth_cd_start:
+  s2c:
+    id: int // 武将
+    cd_endtime: int // cd 结束时间
+
+# 武将转生
+# 收到此消息，更新武将的转生等级，成长值，成长经验等等数据
+# 同时把武将经验清0，等级设置成1级
+captain_rebirth:
+  c2s:
+    id: int // 武将id
+    miao: bool //
+  s2c:
+    id: int // 武将id
+    name: bytes // 武将名字，客户端解析成 CaptainNameProto
+    rebirth_level: int // 转生等级，1表示1转
+    rebirth_exp: int // 转生经验
+    quality: int // 品质
+    ability: int // 成长值
+    ability_exp: int // 成长经验
+    ability_limit: int // 成长上限
+    soldier: int // 武将士兵数
+    soldier_capcity: int // 武将士兵上限
+    total_stat: bytes // shared_proto.SpriteStatProto 总属性
+    fight_amount: int // 当前战力
+    full_fight_amount: int // 满兵战力
+  s2c_fail:
+    invalid_id: 无效的武将id
+    level_not_enough: 未达到转职等级
+    max_level: 已转生到最高等级
+    server_error: 服务器忙，请稍后再试
+    in_rebirthing: 还在转生CD中
+    cost_not_enough: 秒CD消耗不足
+
+# 新版武将转生
+captain_progress:
+  c2s:
+    id: int // 武将id
+    miao: bool //
+  s2c:
+    id: int // 武将id
+    rebirth_level: int // 转生等级，1表示1转
+    rebirth_exp: int // 转生经验
+    quality: int // 品质
+    ability: int // 成长值
+    ability_exp: int // 成长经验
+    ability_limit: int // 成长上限
+    soldier: int // 武将士兵数
+    soldier_capcity: int // 武将士兵上限
+    total_stat: bytes // shared_proto.SpriteStatProto 总属性
+    fight_amount: int // 当前战力
+    full_fight_amount: int // 满兵战力
+  s2c_fail:
+    invalid_id: 无效的武将id
+    level_not_enough: 未达到转职等级
+    max_level: 已转生到最高等级
+    server_error: 服务器忙，请稍后再试
+    in_rebirthing: 还在转生CD中
+    cost_not_enough: 秒CD消耗不足
+
+# 使用点券秒转生 CD
+# config.MiscConfigProto.miao_captain_rebirth_duration 时间间隔 X
+# config.MiscConfigProto.miao_captain_rebirth_cost 秒cd消耗 Y
+# 当前时间：CTime
+# 转生cd结束时间，EndTime
+# 秒CD总消耗 = ((Max(EndTime - Ctime, 0) + X - 1) / X) * Y
+captain_rebirth_miao_cd:
+  c2s:
+    id: int // 武将 id
+  s2c:
+    id: int // 转生成功的武将 id
+  s2c_fail:
+    invalid_id: 无效的武将id
+    not_in_rebirth: 没有在转生，或CD已结束
+    cost_not_enough: 点券不够
+    server_error: 服务器忙，请稍后再试
+
+# 一键领取修炼馆武将经验
+#
+# Config.MilitaryConfig
+#   int32 training_max_duration = 10; // 训练最大时间（maxDuration）
+#
+# DomesticEffectProto
+#   int32 train_exp_per_hour = 63; // 修炼馆每小时获得经验值（expPerHour）
+#
+# HeroMilitaryProto
+#   int32 global_train_start_time = 53; // 训练馆训练开始时间（gst）
+#   int32 captain_train_start_time = 37; // 武将训练开始时间（cst）
+#   int32 train_coef = 38; // 训练加成经验系数（coef）
+#
+# 参数说明
+# ctime: 当前时间(unix时间戳，秒)
+# SecondsPerHour = 60 * 60: 每小时有多少秒，
+#
+# 计算参数:
+#
+# endTime = Min(ctime, gst + maxDuration) // 本次修炼结束时间
+# ctd = Max(endTime - Max(gst, cst), 0) // 武将当前修炼时间
+# trainingExp = expPerHour * ctd / SecondsPerHour // 武将修炼时间所得经验
+# added_exp = trainingExp * train_coef / 1000 // 加成经验
+#
+# 武将当前可以领取的经验值: totalExp = trainingExp + added_exp // 当前累积经验
+#
+# 收到成功返回消息时候，客户端做以下处理
+# 设置修炼馆，开始时间
+#   gst = time
+#   cst = time
+#
+# 然后重置面板
+#
+# 武将加经验，走通用消息
+collect_captain_training_exp:
+  c2s:
+  s2c:
+    time: int32 // 领取经验时间
+  s2c_fail:
+    building_locked: 修炼馆未解锁
+
+# 新版武将修炼馆领取经验。废弃，跟上面的一模一样
+captain_train_exp:
+  c2s:
+  s2c:
+    time: int32 // 领取经验时间
+  s2c_fail:
+    building_locked: 修炼馆未解锁
+
+# 修炼馆升级时候，会收到这个消息，客户端做以下操作
+# 更新修炼馆开始时间，gst
+# 更新武将的修炼开始时间 cst
+#
+# 同时，客户端需要获取新的修炼馆等级，使用新的产出经验每小时的配置
+update_training:
+  s2c:
+    gst: int32 // 修炼馆开始训练时间
+    cst: int32 // 武将开始训练时间
+    exp_per_hour: int // 修炼馆每小时产出经验(可以读取这里的值，也可以直接读取当前等级的修炼馆配置)
+    coef: int // 修炼系数
+
+# 当前修炼馆可领取的经验
+captain_can_collect_exp:
+  c2s:
+  s2c:
+    exp: int // 可领经验
+    buff_coef: int32[] // buff系数(千分比)，可能有多个 buff，依次计算就行
+    max_duration: int32 // 总修炼时长。修炼馆时长+vip特权时长
+  s2c_fail:
+    unlock: 修炼馆未解锁
+
+use_training_exp_goods:
+  c2s:
+    captain_id: int // 武将id
+    goods_id: int // 物品id
+    count: int // 使用个数
+  s2c:
+    captain_id: int // 武将id
+    goods_id: int // 物品id
+    count: int // 使用个数
+    upgrade: bool // true表示升级了
+  s2c_fail:
+    building_locked: 修炼馆未解锁
+    invalid_captain: 无效的武将id
+    invalid_goods: 无效的物品id
+    goods_not_enough: 物品个数不足
+    captain_max_level: 武将已达最大等级
+    captain_level_limit: 武将等级受限，请提升君主等级
+    in_rebirthing: 武将在转生 CD 中
+
+# 新版使用突飞令升级
+use_level_exp_goods:
+  c2s:
+    captain_id: int // 武将id
+    goods_id: int // 物品id
+    count: int // 使用个数
+  s2c:
+    captain_id: int // 武将id
+    goods_id: int // 物品id
+    count: int // 使用个数
+    upgrade: bool // true表示升级了
+  s2c_fail:
+    building_locked: 修炼馆未解锁
+    invalid_captain: 无效的武将id
+    invalid_goods: 无效的物品id
+    goods_not_enough: 物品个数不足
+    captain_max_level: 武将已达最大等级
+    captain_level_limit: 武将等级受限，请提升君主等级
+    in_rebirthing: 武将在转生 CD 中
+
+# 新新版武将使用经验书升级（使用1个道具）
+use_level_exp_goods2:
+  c2s:
+    captain: int // 武将id
+    goods_id: int // 经验书id（有多种经验书，具体要用哪种）
+  s2c:
+    captain: int // 武将id
+    level: int // 刷新等级
+    exp: int // 刷新经验
+    upgrade: bool // true表示升级了
+  s2c_fail:
+    building_locked: 修炼馆未解锁
+    no_captain: 没有该武将
+    not_exp_goods: 不是经验书
+    not_enouth_goods: 经验书不足
+    captain_max_level: 武将已达最大等级
+    captain_level_limit: 武将等级受限，请提升君主等级
+    in_rebirthing: 武将在转生 CD 中
+
+# 新新版武将使用经验书升级（升1级），自动扣除经验书
+auto_use_goods_until_captain_levelup:
+  c2s:
+    captain: int // 武将id
+  s2c:
+    captain: int // 武将id
+    level: int // 刷新等级
+    exp: int // 刷新经验
+    upgrade: bool // true表示升级了
+  s2c_fail:
+    building_locked: 修炼馆未解锁
+    no_captain: 没有该武将
+    no_exp_goods: 没有任何经验书
+    captain_max_level: 武将已达最大等级
+    captain_level_limit: 武将等级受限，请提升君主等级
+    in_rebirthing: 武将在转生 CD 中
+
+# 获取最大可招募士兵数量
+get_max_recruit_soldier:
+  c2s:
+  s2c:
+    count: int // 最大可招募士兵数量
+
+# 获取最大可治疗伤兵数
+get_max_heal_soldier:
+  c2s:
+  s2c:
+    count: int // 最大可治疗伤兵数量
+
+# 酒馆请教
+# 请教成功之后，服务器会返回新的刷新导师，客户端将刷新次数设置为0
+jiu_guan_consult:
+  c2s:
+  # 请教成功
+  s2c:
+    prize: bytes // 请教奖励
+    crit_multi: int // 暴击倍率，用于显示
+    crit_multi_img_index: int // 暴击倍率图片下标，用于显示
+    original_index: int // 原来的导师，
+    tutor_index: int // 新的导师 index，数组中的第几个，从0开始
+  s2c_fail:
+    no_times: 没有次数了
+    countdown: 下次请教倒计时未结束
+    no_jiu_guan: 没有酒馆
+    server_busy: 服务器忙，请稍后再试
+
+# 酒馆请教广播
+jiu_guan_consult_broadcast:
+  s2c:
+    level: int // 酒馆等级
+    crit_multi: int // 暴击倍率
+    hero_name: string // 玩家名字
+
+# 酒馆次数变更
+# 计算酒馆请教次数
+#
+# HeroMilitaryProto
+#    int32 jiu_guan_times = 48; // 酒馆已请教次数
+#    int32 jiu_guan_next_time = 49; // 下次可请教时间，unix时间戳
+#
+# JiuGuanDataProto
+#    int32 max_times = 5; // 最大次数
+#
+jiu_guan_times_changed:
+  s2c:
+    times: int // 当前已使用的次数
+    next_time: int // 下次可请教的时间，unix时间戳
+
+# 酒馆刷新，根据刷新次数计算当前刷新所需的点券数
+#
+# JiuGuanMiscDataProto
+#    repeated int32 refresh_cost_yuan_bao = 3 [packed = false]; // 刷新消耗的点券
+#
+# 根据刷新次数计算刷新所需点券，0表示免费
+jiu_guan_refresh:
+  c2s:
+    auto_max: bool // true表示一键刷新到最高级
+  s2c:
+    tutor_index: int // 新的导师 index，数组中的第几个，从0开始
+    refresh_times: int // 新的刷新次数
+    auto_max: bool // true表示一键刷新到最高级
+  s2c_fail:
+    no_times: 没有请教次数了, 无法刷新
+    countdown: 下次请教倒计时未结束
+    no_jiu_guan: 没有酒馆, 无法刷新
+    tutor_no_need: 已经是最好的导师了
+    yuanbao_not_enough: 点券不够
+    auto_max_not_open: 未开放一键刷新
+    server_busy: 服务器忙，请稍后再试
+    no_refresh_times:  没有刷新次数了, 无法刷新
+
+# 解锁武将克制技
+unlock_captain_restraint_spell:
+  c2s:
+    captain: int // 武将id
+  s2c:
+    captain: int // 武将id
+  s2c_fail:
+    captain_not_found: 武将没找到
+    out_side: 武将出征中
+    ability_not_enough: 成长不够，无法解锁
+
+# 新的队伍
+new_troops:
+  s2c:
+    troop: bytes // 客户端解析成 HeroTroopProto
+
+# 获取武将属性详情
+get_captain_stat_details:
+  c2s:
+    captain: int // 武将id
+  s2c:
+    captain: int // 武将id
+    stats: bytes // shared_proto.SpriteStatArrayProto, 属性列表，依次为 武将属性，装备属性，宝石属性，将魂属性, 官职属性
+  s2c_fail:
+    captain_not_found: 武将没找到
+
+# 新版获取武将属性详情
+captain_stat_details:
+  c2s:
+    captain: int // 武将id
+  s2c:
+    captain: int // 武将id
+    stats: bytes // shared_proto.SpriteStatArrayProto, 属性列表，依次为 武将属性，装备属性，宝石属性，将魂属性, 官职属性
+  s2c_fail:
+    captain_not_found: 武将没找到
+
+# 队伍战力变更
+update_troop_fight_amount:
+  s2c:
+    troop_index: int[] // 1表示1队 2表示2队
+    start_value: int[] // 从start变到end
+    end_value: int[]
+
+
+# 武将封官
+# config
+#   武将官职.txt      CaptainOfficialProto
+#   武将官职数量.txt
+#     HeroLevelProto.captain_official_id = 24; // 官职 id
+#     HeroLevelProto.captain_official_count = 25; // 官职最大数量
+#
+# hero 玩家数据
+#   HeroCaptainProto
+#     int32 gongxun = 37; // 功勋
+#     int32 official = 38; // 官职 ID（CaptainOfficialProto.id. 0表示没有官职）
+#   HeroMilitaryProto
+#     repeated HeroCaptainOfficialCount official_count = 4; // 官职册封人数
+#   HeroCaptainOfficialCount // 官职册封计数器
+#
+# 消息 s2c get_captain_stat_details 里的 stat 加了官职属性，用不上就忽略吧
+#
+# 册封
+update_captain_official:
+  c2s:
+    captain: int // 武将 id
+    official: int // 官职 id (CaptainOfficialProto.id)
+  s2c:
+    captain: int // 武将 id
+    official: int // 官职 id (CaptainOfficialProto.id)
+  s2c_fail:
+    invalid_captain: 武将不存在
+    invalid_official: 官职不存在
+    already_on_official: 已经在这个职位上了
+    gongxun_not_enough: 武将功勋不够
+    max_count: 职位册封人数已达到最大数量
+    captain_is_outside: 降职时，武将在外面
+
+# 新版封官
+set_captain_official:
+  c2s:
+    captain: int[] // 武将 id
+    official: int[] // 官职 id (CaptainOfficialProto.id)，如果发0就是卸任
+    official_idx: int[] // 该官职的位置下标，从0开始，不允许>=该官职数量上限；如果是卸任，该数据无效
+  s2c:
+    captain: int[] // 武将 id
+    official: int[] // 官职 id
+    official_idx: int[] // 该官职的位置下标
+  s2c_fail:
+    err_data: 数据错误
+    invalid_captain: 武将不存在
+    invalid_official: 官职不存在
+    already_on_official: 已经在这个职位上并且位置相同
+    gongxun_not_enough: 武将功勋不够
+    captain_is_outside: 武将在外面
+    already_no_official: 已经没有职位了
+
+# 武将封官
+# 卸任
+leave_captain_official:
+  c2s:
+    captain: int // 武将 id
+  s2c:
+    captain: int // 武将 id
+  s2c_fail:
+    invalid_captain: 武将不存在
+    already_no_official: 已经没有职位了
+    captain_is_outside: 卸任时，武将在外面
+
+# 新版武将卸任
+#cancel_captain_official:
+#  c2s:
+#    captain: int // 武将 id
+#  s2c:
+#    captain: int // 武将 id
+#  s2c_fail:
+#    invalid_captain: 武将不存在
+#    already_no_official: 已经没有职位了
+#    captain_is_outside: 卸任时，武将在外面
+
+# 功勋更新消息
+add_gongxun:
+  s2c:
+    captain: int // 武将 id
+    new_gongxun: int // 新功勋
+
+# 使用功勋令牌
+use_gong_xun_goods:
+  c2s:
+    captain: int // 武将id
+    goods_id: int[] // 功勋令牌id（有多种功勋令牌，具体要用哪种）
+    count: int[] // 使用个数
+  s2c:
+    captain: int // 武将id
+    new_gongxun: int // 新功勋
+  s2c_fail:
+    invalid_captain: 无效的武将id
+    official_limit: 功勋已达最高封官
+    invalid_goods: 无效的功勋令牌id
+    invalid_count: 无效的使用个数
+
+# 新版使用功勋令
+use_gongxun_goods:
+  c2s:
+    captain: int // 武将id
+    goods_id: int[] // 功勋令牌id（有多种功勋令牌，具体要用哪种）
+    count: int[] // 使用个数
+  s2c:
+    captain: int // 武将id
+    new_gongxun: int // 新功勋
+  s2c_fail:
+    invalid_captain: 无效的武将id
+    official_limit: 功勋已达最高封官
+    invalid_goods: 无效的功勋令牌id
+    invalid_count: 无效的使用个数
+
+# 打开战前部署
+# 稍后有对应消息改变对应 HeroBoolType 的状态
+close_fight_guide:
+  c2s:
+    close: bool // 是否关闭
+  s2c:
+    close: bool // 是否关闭
+  s2c_fail:
+    no_auth: 没有权限，还没通关指定幻境
+
+# 查看其它玩家的武将
+view_other_hero_captain:
+  c2s:
+    hero_id: bytes // 英雄id
+    captain_id: int // 武将id
+  s2c:
+    hero_id: bytes // 英雄id
+    hero_name: string // 英雄名字
+    captain: bytes // HeroCaptainOtherProto
+  s2c_fail:
+    invalid_hero_id: 无效的英雄id
+    not_found: 武将不存在
+
+# 武将生成（将魂合成）
+captain_born:
+  c2s:
+    captain_id: int // 武将id
+  s2c:
+    captain: bytes // shared_proto.CaptainProto
+  s2c_fail:
+    no_captain: 没有该武将
+    existed: 已经获得该武将
+    item_not_enough: 道具数量不足
+
+# 武将升星（需将魂）
+captain_upstar:
+  c2s:
+    captain_id: int // 武将id
+  s2c:
+    captain_id: int
+    star: int // 更新星值
+  s2c_fail:
+    no_captain: 没有该武将
+    not_gain: 未获得该武将
+    max_star: 已经升至最高星
+    item_not_enough: 道具数量不足
+
+# 武将传承
+captain_exchange:
+  c2s:
+    cap1_id: int // 武将1 id
+    cap2_id: int // 武将2 id
+  s2c:
+    cap1: bytes // shared_proto.CaptainProto
+    cap2: bytes // shared_proto.CaptainProto
+  s2c_fail:
+    invalid_captain: 有武将不存在或相同
+    captain_outside: 有武将出征中
+    not_enough_cost: 点券不足
+
+# 告诉服务器去除所有武将新标识
+notice_captain_has_viewed:
+  c2s:
+  s2c:
+  s2c_fail:
+    no_captain_no_viewed: 没有任何武将未被浏览过
+
+# 激活武将羁绊
+activate_captain_friendship:
+  c2s:
+    id: int // 羁绊id，CaptainFriendshipDataProto.id
+  s2c:
+    id: int // 羁绊id，HeroMilitaryProto.captainFriendship列表中增加一个
+  s2c_fail:
+    invalid_id: 无效的id
+    no_fetter: 羁绊条件不足
+    activated: 已激活
+
+# 获得奖励武将弹框（排除钓鱼，钓鱼是个特殊逻辑）
+show_prize_captain:
+  s2c:
+    captain: int // 武将id
+    exist: bool // true表示玩家已经有武将了（换碎片），否则表示获得新武将
+
+# 告诉服务器已经预览过的官职槽位（去除红点标识）
+notice_official_has_viewed:
+  c2s:
+    official_id: int // 官职id
+    official_idx: int // 槽位，0开始
+  s2c:
+    official_id: int
+    official_idx: int
+  s2c_fail:
+    no_official: 官职不存在
+    viewed: 已经设置过
+

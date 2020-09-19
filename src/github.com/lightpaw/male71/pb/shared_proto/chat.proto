@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+
+message ChatSenderProto {
+    bytes id = 1; // 说话人的id
+    string name = 2; // 说话人的名字
+    string head = 3; // 说话人的头像
+    string guild_flag = 4; // 说话人的帮旗
+    int32 level = 6; // 君主等级
+
+    // 待删除，上面的数据保留一段时间
+
+    string white_flag_guild_flag_name = 5; // 插白旗联盟旗号，空表示没有
+
+    HeroBasicProto basic = 11; // 基础数据
+
+    int32 title = 12; // 称号
+}
+
+enum ChatType {
+    ChatWorld = 0; // 世界聊天
+    ChatGuild = 1; // 联盟聊天
+    ChatPrivate = 2; // 私聊
+    ChatGuildAllMembers = 3; // 联盟全体消息
+    ChatMcWar = 4; // 名城战
+    ChatSystem = 5; // 系统消息（类似于私聊频道，只针对个人）
+}
+
+message ChatRoomId {
+    repeated bytes member_ids = 1;
+    ChatType t = 2;
+}
+
+// 广播消耗的物品配置：MiscConfigProto.broadcast_goods
+message ChatMsgProto {
+
+    bytes chat_id = 1; // varint64
+    int32 send_time = 2; // 发送时间，unix时间戳（秒）
+
+    ChatSenderProto sender = 4; // 说话人的数据
+    bool sys = 5; // 系统自动发送。为true时，再根据sender.id 和 chat_type 做特殊表现
+
+    // 上面这些由服务器设置
+    // 下面这些由客户端设置
+
+    ChatType chat_type = 41; // 类型 0-世界聊天 1-联盟聊天 2-私聊 3-联盟全体消息
+    bytes chat_target = 42; // varint64 目标id，世界聊天留空，联盟聊天填联盟id，私聊填私聊对象id
+
+    bool laba = 43; // 小喇叭发广播
+    bool auto_buy_laba = 44; // 用花钱买小喇叭发广播
+
+    int32 msg_type = 53; // 消息类型 同 ChatMsgType。 0-文字 1-分享坐标 2-战斗回放 3-战报 4-系统消息 5-密室喊话 6-加好友通知 7-联盟全体消息 8-联盟日志消息 10-联盟求援
+
+    string text = 54; // 说话文字。sys = true 时，可能是i18n模板
+
+    string json = 52; // 内部使用
+
+    int32 pos_x = 55; // 分享坐标
+    int32 pos_y = 56;
+
+    string replay_link = 57; // 分享回放链接
+
+    bytes report_id = 58; // 分享战报id
+
+    int32 st_team_id = 61; // 重楼密室队伍id
+    int32 st_data_id = 62; // 重楼密室配置id
+
+    bytes red_packet_id = 63; // 红包id
+}
+
+// 消息类型
+enum ChatMsgType {
+    ChatMsgText = 0; // 文字
+    ChatMsgPos = 1; // 分享坐标
+    ChatMsgFight = 2; // 战斗回放
+    ChatMsgReport = 3; // 战报
+    ChatMsgSys = 4; // 系统消息
+    ChatMsgSecretTower = 5; // 密室喊话
+    ChatMsgFriendAdded = 6; // 加好友通知
+    ChatMsgGuildAllMembers = 7; // 联盟全体消息
+    ChatMsgGuildLog = 8; // 联盟日志消息
+    ChatMsgHebi = 9; // 合璧喊话
+    ChatMsgGuildAskForHelp = 10; // 联盟求援
+    // 11 12 客户端已经用了，预留
+    ChatMsgMcWarSys = 11; // 名城战系统
+    ChatMsgCreateAssembly = 13; // 创建集结
+    ChatMsgRedPacket = 14; // 红包
+    ChatMsgXiongnu = 101; // 抗击匈奴
+    ChatMsgGuildWorkshopCreated = 108; // 联盟工坊修建中
+    ChatMsgGuildWorkshopCompleted = 109; // 联盟工坊竣工
+}
+

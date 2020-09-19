@@ -1,0 +1,8 @@
+品质	颜色代码		将魂品质名
+quality_key	color_code	color_name	captain_soul_quality_name
+1	#F8F9F9	白色	良将
+2	#27AE60	绿色	名将
+3	#3498DB	蓝色	神将
+4	#A569BD	紫色	
+5	#E67E22	橙色	
+6	#E74C3C	红色	

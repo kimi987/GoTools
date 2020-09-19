@@ -1,0 +1,3 @@
+摇钱树浇水浇满次数	摇钱树浇满后多久可以领奖	摇钱树帮助日志最大个数
+treasury_tree_full_times	treasury_tree_collect_duration	treasury_tree_help_me_log_count
+5	22h	5

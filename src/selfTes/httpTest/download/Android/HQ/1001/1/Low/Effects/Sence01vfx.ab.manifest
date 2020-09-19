@@ -1,0 +1,42 @@
+ManifestFileVersion: 0
+CRC: 3850802482
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: dc2049c5bdd46cdbd53776a30114da24
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4839556439cbb66f4801fab9e2ce0b07
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9753fd87b2f0f5746b3a85f414e9754a, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Sence01vfx.prefab
+Dependencies: []

@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/combat.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/goods.proto";
+
+message HebiMiscProto {
+    int32 daily_rob_count = 1; // 抢夺抢位最大次数
+    int32 rob_cd_duration = 2; // 抢夺 cd
+    int32 rob_pos_cd_duration = 9; // 抢位 cd
+    int32 rob_protect_duration = 3; // 抢位成功保护时间
+    int32 hebi_duration = 4; // 合璧时长
+    int32 copy_self_goods = 5; // 分身物品 id. GoodsDataProto.id
+    int32 rooms_max_size = 6; // 房间最大数
+    string combat_scene = 7; // 战斗场景
+    HebiType he_shi_bi_type = 8; // 和氏璧类型
+}
+
+message HebiPrizeProto {
+    int32 id = 5;
+    int32 hero_level = 1; // 等级
+    HebiType hebi_type = 2; // 玉璧类型
+    int32 quality = 3; // 品质 GoodsQuality.Level
+    PrizeProto prize = 4; // 展示奖励
+}
+
+message HeroHebiProto {
+    int32 captain_id = 1; // 武将 id
+    int32 rob_count = 2; // 抢夺抢位次数
+    int32 rob_pos_cd_end_time = 5; // 抢位 cd 结束时间
+    int32 rob_cd_end_time = 3; // 抢夺 cd 结束时间
+    int32 current_goods_id = 4; // 当前正在使用的玉璧。在房间时有效
+}
+
+message HebiInfoProto {
+    repeated HebiRoomProto room = 1;
+}
+
+// 自己的合璧战斗记录
+message HebiHeroRecordProto {
+    repeated HebiHeroSingleRecordProto record = 1; // 按时间由小到大排列，展示时要反着排序
+}
+
+// 自己的单条合璧战斗记录
+message HebiHeroSingleRecordProto {
+    HeroBasicProto self = 1; // 自己
+    HeroBasicProto target = 2; // 对方
+
+    HebiCaptainProto self_captain = 3; // 自己武将
+    HebiCaptainProto target_captain = 4; // 对方武将
+
+    CombatShareProto combat = 5; // 战斗链接
+    bool is_rob = 6; // 是：抢夺，否：抢位
+    bool is_atk = 7; // 是：进攻方 否：防守方
+    bool win = 8; // 胜利
+    int32 time = 9; // 战斗时间
+    HebiType hebi_type = 10; // 玉璧类型
+    int32 fight_num = 11; // 第几次战斗，抢夺类型有效
+}
+
+message HebiRoomProto {
+    int32 room_id = 1; // 房间 id, 从0开始，递增至最大房间数-1
+    HebiRoomState state = 2; // 房间状态
+
+    HeroBasicProto host = 3; // 第一个人
+    HebiCaptainProto host_captain = 4; // 第一个人的武将
+    int32 host_goods_id = 5; // 第一个人的玉璧
+
+    HeroBasicProto guest = 6; // 第二个人
+    HebiCaptainProto guest_catpain = 7; // 第二个人的武将
+    int32 guest_goods_id = 8; // 第二个人的玉璧
+
+    bool copy_self = 9; // 是否分身
+
+    int32 hebi_wait_expired_time = 13; // 等待状态超时时间
+    int32 hebi_complete_time = 10; // 合璧完成时间
+    int32 hebi_rob_protected_time = 11; // 抢夺抢位 cd 结束时间
+
+    int32 prize_id = 12; // 合璧完成奖励
+}
+
+message HebiCaptainProto {
+    int32 id = 1; // 武将id
+    CaptainNameProto name = 14; // 武将名称
+    string icon_id = 20; // 图标id
+    Race race = 4; // 武将兵种
+    Quality quality = 5; // 品质
+    int32 fight_amount = 8; // 战斗力
+    int32 level = 10; // 武将等级
+}
+
+// 房间状态
+enum HebiRoomState {
+    HebiRoomInvalidState = 0;
+    HebiRoomEmpty = 1; // 空房间，每人
+    HebiRoomWait = 2; // 有一个人
+    HebiRoomHebiRunning = 3; // 正在合璧
+    HebiRoomRobProtect = 4; // 被抢位，但还在保护期，没进房间
+}

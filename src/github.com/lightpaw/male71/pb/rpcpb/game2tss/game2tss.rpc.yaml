@@ -1,0 +1,43 @@
+
+# 校验名字合法性（同步返回）
+uic_judge_user_input_name_v2:
+  c2s:
+    msg: string // 1 消息内容，最大限制65536
+    if_replace: bool // 2 如果包含敏感词，是否替换成“*”
+  s2c:
+    ret: int // 1 sdk返回值
+    ret_msg: string // 2 sdk返回消息
+    msg_result_flag: int // 3 返回值 0:合法 1:不合法，不能显示 2:合法，但包含敏感词
+    replace_msg: string // 4 替换敏感词的返回消息
+
+# 校验聊天内容合法性（异步回调）
+uic_judge_user_input_chat_v2:
+  c2s:
+    openid: string // 1 用户OpenID
+    platid: int32 // 2 用户设备类型, 0-IOS, 1-Android
+    world_id: int64 // 3 大区号，roomid
+    msg_category: int32 // 4 消息内容类别 1： 邮件；  2：聊天
+    channel_id: int64 // 5 发言频道号
+    client_ip: int32 // 6 客户端ip /* 127.0.0.1 */ = 0x100007f
+    rold_id: int64 // 7 角色id
+    role_name: string // 8 角色名
+    role_level: int32 // 9 角色等级
+    msg: string // 10 消息内容，最大限制65536
+    callback_data: bytes // 11 回带字段内容
+    callback_addr: string // 12 回调地址
+  s2c:
+    ret: int // 1 sdk返回值
+    ret_msg: string // 2 sdk返回消息
+
+# 校验聊天内容回调
+uic_chat_callback:
+  c2s:
+    openid: string // 1 用户OpenID
+    platid: int32 // 2 用户设备类型,  0-IOS, 1-Android
+    world_id: int64 // 3 大区号，roomid
+    rold_id: int64 // 4 角色id
+    msg_result_flag: int // 5 返回值 0:合法 1:不合法，不能显示 2:合法，但包含敏感词
+    replace_msg: string // 6 替换敏感词的返回消息
+    callback_data: bytes // 7 回带字段内容
+  s2c:
+    success: bool // 1

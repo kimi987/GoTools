@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3171132345
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 84a9c757815a249c2cfc2086b8cf9225
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c73412a662fd4e4f36af34cbdf078b85
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIImage/DragonNest/ui_DragonLair_img_BG1.png
+Dependencies: []

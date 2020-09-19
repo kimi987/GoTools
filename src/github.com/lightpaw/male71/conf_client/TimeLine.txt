@@ -1,0 +1,19 @@
+索引id	描述	事件类型	延迟时间	参数	事件类型	延迟时间	参数	事件类型	延迟时间	参数	事件类型	延迟时间	参数	事件类型	延迟时间	参数							
+id	desc	eventType	delayTime	args	eventType	delayTime	args	eventType	delayTime	args	eventType	delayTime	args	eventType	delayTime	args							
+0	弓箭手普攻的时间线1	0	0	4	2	1.3	"1,6"																
+1	弓箭手技能1的时间线1																						
+10	骑兵普攻的时间线1	0	0	4	1	2	3	5	1.2		4	1.2	"1,8"								SkillDelayEventType = {		
+11	骑兵技能1的时间线1																				"    None = - 1,"		
+20	步兵普攻的时间线1	0	0	4	1	0	3	5	1		4	1	"1,8"								    -- 动作		
+21	步兵技能1的时间线1																				"    Animation = 0,"		
+30	战车普攻的时间线1	0	0	4	1	0	3	5	0.4		4	0.4	"1,8"								    -- 近战物体		
+31	战车技能1的时间线1																				"    MeleeObject = 1,"		
+40	投石车普攻的时间线1	0	0	4	2	0.8	"5,7"														    -- 飞行物体		
+41	投石车技能1的时间线1																				"    FlyObject = 2,"		
+																					    -- 音效		
+																					"    Sound = 3,"		
+																					    -- 特效		
+																					"    Particle = 4,"		
+																					    -- 结算		
+																					"    Damage = 5,"		
+																					}		

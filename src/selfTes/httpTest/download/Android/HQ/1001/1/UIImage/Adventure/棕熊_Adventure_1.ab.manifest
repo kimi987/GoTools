@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3980462339
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0da656d54407d99afe9dd186f072cbe0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c73412a662fd4e4f36af34cbdf078b85
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- "Assets/Resources/UIImage/Adventure/\u68D5\u718A_Adventure_1.png"
+Dependencies: []

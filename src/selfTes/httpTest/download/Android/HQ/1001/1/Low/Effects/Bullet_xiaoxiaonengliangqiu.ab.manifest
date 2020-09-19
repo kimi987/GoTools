@@ -1,0 +1,42 @@
+ManifestFileVersion: 0
+CRC: 3351296020
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 18338a31d6d3e8f1ba77a2c80b6ed9d0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ab57776dd2206d3d626751370f20d188
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Bullet_xiaoxiaonengliangqiu.prefab
+Dependencies: []

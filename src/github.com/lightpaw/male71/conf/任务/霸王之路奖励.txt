@@ -1,0 +1,5 @@
+领取奖励的数量	图标	奖励
+collect_prize_task_count	icon	prize
+30	ui://s5cy5qnpg4b4qp0f7	7000405
+46	ui://s5cy5qnpg4b4qp0f7	1100100501
+64	ui://s5cy5qnpg4b4qp0f7	11400031

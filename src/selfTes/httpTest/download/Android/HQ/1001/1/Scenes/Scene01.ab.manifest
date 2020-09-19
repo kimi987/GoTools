@@ -1,0 +1,53 @@
+ManifestFileVersion: 0
+CRC: 1447753811
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c18ffe03f34043c46c4994603fe5dde0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 93b7c606d2353c2458392324429c1a67
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 104
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9753fd87b2f0f5746b3a85f414e9754a, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 157
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 258
+  Script: {instanceID: 0}
+Assets:
+- Assets/Scenes/Scene01.unity
+Dependencies:
+- '/Users/kimiwang/Documents/ResPath/Dev
+
+  /Android/HQ/high/effects/sence01vfx.ab'

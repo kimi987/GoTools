@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 3930394291
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7a97c2ee887cc831dba3c5c33172cd19
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6441f4c48b8293a736413520ea1a9530
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Com_ziseshifa.prefab
+Dependencies: []

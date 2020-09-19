@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap-responsive.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/assets/DT_bootstrap.css" media="screen">
+
+    <link href="static/css/styles.css" rel="stylesheet" media="screen">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="static/vendors/jquery-1.9.1.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="static/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+
+
+    <script>
+       
+        $(document).ready(function(){
+
+            $("#ResetRes", this).click(function(){
+                $.post("/ResourceShow",
+                        {
+                            cmd:1001
+                        },
+                        function(data,status)
+                        {   
+                            location.href = "/ResourceShow";
+                        });       
+            });
+
+             $("#i-export", this).click(function(){
+                $.get("/",
+                        {
+                          
+                        },
+                        function(data,status)
+                        {   
+                            location.href = "/ResourceShow?isDownload=1";
+                        });       
+            });
+
+            $(".i-delete", this).click(function(){
+                $.post("/ResourceShow",
+                        {
+                            cmd:1004,
+                            id:this.id,
+                        },
+                        function(data,status)
+                        {   
+                            if (status == "success") {
+                                //成功执行
+                                var datas = data.split("|");
+                                var child=document.getElementById(datas[0]);
+                                // var i = child.parentNode.parentNode.rowIndex
+                                // var table=document.getElementById("example");v
+                                // table.row('#' + data).remove().draw(false);
+                                
+                                child.remove()
+                                // table.row(child).remove().draw();
+                                // table.deleteRow(i)
+                                var node = document.getElementById('totalSize')
+                                node.innerHTML = "总大小:" + datas[1] + " kb";
+                                // var parent=document.getElementById("body");
+                                // var child=document.getElementById(data);
+                                // parent.removeChild(child);
+                            }
+                        });       
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Tools Panel</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> KimiWang <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        {{template "sideMenu.html" .}}
+        <div class="span10" id="content">
+            <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">资源收集表</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                                <div class="table-toolbar">
+                                    <button type="button" class="btn" id="ResetRes">
+                                        <span id="Reset">重置资源</span>
+                                    </button>
+                                    <button class="btn" id="i-export">导出CSV</button>
+                                    <font Color="green"> 版本号:{{.clientVerison}}</font>
+                                    <div class="pull-right">  
+                                        <font id="totalSize" Color="green"> 总大小:{{.totalSize}} kb</font>
+                                    </div> 
+                                    
+                                    <!-- <div class="btn-group pull-right">
+                                        <button class="btn" id="i-export">导出CSV</button>
+                                    </div> -->
+                                </div>
+    
+                                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                                        <thead>
+                                                <tr>
+                                                    <th>资源名字</th>
+                                                    <th>资源路径</th>
+                                                    <th>资源版本</th>
+                                                    <th>资源时间(秒)</th>
+                                                    <th>资源大小(kb)</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                        </thead>
+
+                                        <tbody id="body">
+                                            {{range $index, $elem := .resources}}
+                                                <tr id={{$elem.ResPath}}:{{$elem.ResName}}>
+                                                    <td id="Res_name">{{$elem.ResName}}</td>
+                                                    <td id="Res_path">{{$elem.ResPath}}</td>
+                                                    <td id="Res_ver">{{$elem.ResVer}}</td>
+                                                    <td id="Res_time">{{$elem.ResTime}}</td>
+                                                    <td id="Res_size">{{$elem.ResSize}}</td>
+                                                    <td id="Res_oper"><button class="btn-danger i-delete" id= {{$elem.ResPath}}:{{$elem.ResName}}>删除</button></td> 
+                                                </tr>
+                                            {{end}}
+                                        </tbody>
+
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+
+
+        <!--/span-->
+    </div>
+</div>
+
+<script src="static/vendors/jquery-1.9.1.js"></script>
+<script src="static/bootstrap/js/bootstrap.min.js"></script>
+<!-- <script src="static/vendors/datatables/js/jquery.dataTables.js"></script> -->
+
+
+<script src="static/assets/scripts.js"></script>
+<!-- <script src="static/assets/DT_bootstrap.js"></script> -->
+
+
+<footer >
+    <p>&copy; Kimi Wang 2019</p>
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 2241658534
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2b16c45f5c6980bc7f1fc92785a453e6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_langFS_wuqi1zhanshi.prefab
+Dependencies: []

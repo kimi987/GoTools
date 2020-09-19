@@ -1,0 +1,5 @@
+每次操作执行几次钓鱼	免费次数	五折次数	五折消耗，配置cost.txt中的id	消耗，配置cost.txt中的id	钓鱼类型 0-高级 1-普通	每日次数上限	免费次数倒计时
+times	free_times	discount_times	discount_cost	cost	fish_type	daily_times	free_countdown
+1	1	1	7	8	0	0	0s
+10	0	0	2	9	0	0	0s
+1	5	0	7	8	1	5	5m

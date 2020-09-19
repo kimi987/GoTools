@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 655161188
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5cec3014d4672cc6a17356b86be4b9fa
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c73412a662fd4e4f36af34cbdf078b85
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIImage/Guild/ui_building_bg_03.png
+Dependencies: []

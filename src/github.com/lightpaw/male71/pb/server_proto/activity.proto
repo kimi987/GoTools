@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+
+message HeroCollectionServerProto {
+    map<uint64, uint64> exchange_times = 1; // <兑换id, 兑换次数>
+    int64 start_time = 2; // 起始时间
+    int64 end_time = 3; // 结束时间
+}
+

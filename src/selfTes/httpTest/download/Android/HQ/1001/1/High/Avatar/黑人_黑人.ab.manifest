@@ -1,0 +1,42 @@
+ManifestFileVersion: 0
+CRC: 2727658441
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ddbad25f6ed97c733b6176a4d57caeea
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b4e74b8efb7376a4eade5e9a0f7a92fa
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4c06477676487c44db44bc8f0f852861, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fa1fed194787c504ba0cc0d014fbe7b2, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- "Assets/Resources/High/Avatar/\u9ED1\u4EBA_\u9ED1\u4EBA.prefab"
+Dependencies: []

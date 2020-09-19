@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 9786174
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 290a2157daef05e2b9b99fe320fead90
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- "Assets/Resources/Audio/\u7EA2\u8272\u65A7\u5B50.mp3"
+Dependencies: []

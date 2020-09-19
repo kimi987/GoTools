@@ -1,0 +1,265 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/guild.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/military.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/combat.proto";
+
+// 名城战阶段
+enum MingcWarState {
+    MC_T_INVALID = 0; // 无效
+    MC_T_APPLY_ATK = 1; // 申请挑战
+    MC_T_APPLY_AST = 2; // 申请协助
+    MC_T_FIGHT = 3; // 战斗
+    MC_T_FIGHT_END = 4; // 战斗结束。大本营被攻破后到名城战结束的时间段
+    MC_T_NOT_START = 5; // 战斗未开始。申请挑战前的时间段
+}
+
+// 名城战战斗阶段
+enum MingcWarFightState {
+    MC_F_INVALID = 0; // 无效
+    MC_F_FIGHT_PREPARE = 1; // 入场
+    MC_F_FIGHT_RUNNING = 2; // 战斗
+}
+
+// 据点类型
+enum MingcWarBuildingType {
+    MC_B_INVALID = 0;
+    MC_B_RELIVE = 1; // 复活点
+    MC_B_HOME = 2; // 大本营
+    MC_B_CASTLE = 3; // 要塞
+    MC_B_GATE = 4; // 关卡
+    MC_B_TOU_SHI = 5; // 投石机
+}
+
+// 队伍行为类型
+enum MingcWarTroopState {
+    MC_TP_INVALID = 0;
+    MC_TP_STATION = 1; // 驻扎(在自己或敌方的据点)
+    MC_TP_MOVING = 2; // 移动
+    MC_TP_RELIVE = 3; // 补兵
+    MC_TP_WAIT = 4; // 入场
+}
+
+// 参战联盟类型
+enum MingcWarGuildType {
+    MC_G_INVALID = 0;
+    MC_G_ATK = 1; // 进攻盟
+    MC_G_AST_ATK = 2; // 助攻盟
+    MC_G_DEF = 3; // 防守盟
+    MC_G_AST_DEF = 4; // 协防盟
+}
+
+// 部队形态
+enum MingcWarModeType {
+    MC_MT_INVALID = 0;
+    MC_MT_NORMAL = 1; // 正常模式
+    MC_MT_FREE_TANK = 2; // 免费攻城车模式
+}
+
+// 名城战中的自己联盟相关数据
+message McWarGuildProto {
+    int32 apply_mc_id = 1; // 申请攻打阶段，申请的名城id
+    int32 apply_mc_value = 2; // 申请攻打阶段，申请的出价
+
+    repeated McWarGuildApplyAstListProto req_ast_guild = 4; // 申请协助阶段，申请协助自己主城的联盟列表
+
+    repeated int32 apply_ast_atk_mc_id = 5 [packed = false]; // 自己申请助攻的名城
+    repeated int32 apply_ast_def_mc_id = 6 [packed = false]; // 自己申请协防的名城
+}
+
+message McWarGuildApplyAstListProto {
+    int32 mc_id = 1;
+    repeated GuildSnapshotProto guild = 3; // 申请助攻阶段，申请这座城的报名列表
+}
+
+// 名城战
+message McWarProto {
+    int32 id = 8;
+
+    MingcWarState state = 1; // 当前阶段
+
+    int32 start_time = 2; // 本次名城战的开始时间
+    int32 end_time = 3; // 本次名城战的结束时间
+
+    repeated McWarMcProto mc = 4;
+
+    McApplyAtkProto atk = 5;
+    McApplyAstProto ast = 6;
+    McFightProto fight = 7;
+}
+
+// 名城战中的名城相关数据
+message McWarMcProto {
+    int32 id = 1;
+    int32 apply_atk_count = 2; // 申请攻打阶段，申请的联盟数
+
+    GuildBasicProto atk_guild = 3; // 攻打联盟
+    GuildBasicProto def_guild = 9; // 防守联盟
+    int32 country = 8; // 当前所属国家
+
+    repeated GuildBasicProto ast_atk_guild = 4; // 助攻联盟
+    repeated GuildBasicProto ast_def_guild = 5; // 协防联盟
+
+    bool ended = 6; // 打完了
+    bool atk_win = 7; // 攻方赢了
+}
+
+// 申请攻打
+message McApplyAtkProto {
+    int32 start_time = 2;
+    int32 end_time = 3;
+}
+
+// 申请协助
+message McApplyAstProto {
+    int32 start_time = 2;
+    int32 end_time = 3;
+}
+
+// 战斗
+message McFightProto {
+    int32 start_time = 2;
+    int32 end_time = 3;
+}
+
+// 名城战战场
+message McWarSceneProto {
+    int32 mc_id = 1;
+    int32 mc_all_yinliang = 11; // 攻方胜利能获得的所有银两
+    repeated McWarSceneBuildingProto building = 2; // 据点
+    repeated McWarTroopProto troop = 3; // 部队
+    int32 start_time = 4; // 战斗阶段开始时间
+    MingcWarFightState fight_state = 5; // 战斗中的小阶段
+    int32 atk_drum_times = 6; // 攻方击鼓次数
+    int32 def_drum_times = 7; // 守方击鼓次数
+    SpriteStatProto atk_drum_stat = 8; // 攻方击鼓加成
+    SpriteStatProto def_drum_stat = 9; // 守方击鼓加成
+    int32 drum_stop_time = 10; // 击鼓结束时间
+}
+
+// 据点
+message McWarSceneBuildingProto {
+    bool atk = 1; // 是否攻方
+    int32 pos_x = 2; // 坐标 x
+    int32 pos_y = 3; // 坐标 y
+    MingcWarBuildingType type = 4; // 据点类型
+    int32 prosperity = 5; // 繁荣度
+    int32 last_destroy_prosperity_time = 6; // 上次摧毁繁荣度的时间
+
+    repeated int32 tou_shi_target_pos_x = 7 [packed = false]; // 投石机目标X，target_pos_x 和 target_pos_y 一一对应
+    repeated int32 tou_shi_target_pos_y = 8 [packed = false]; // 投石机目标Y，target_pos_x 和 target_pos_y 一一对应
+    int32 tou_shi_turn_end_time = 10; // 转向结束时间
+    int32 tou_shi_prepare_end_time = 11; // 装填结束时间
+    int32 tou_shi_target_index = 12; // 当前目标索引，取 tou_shi_target_pos 的索引，从 0 开始
+    string last_fire_hero_name = 13; // 上次开炮的玩家名字
+    int32 last_fire_hero_country = 14; // 上次开炮的玩家国家
+}
+
+// 名城战部队
+message McWarTroopProto {
+    HeroBasicProto hero = 1;
+    repeated int32 captain_index = 2 [packed = false]; // 部队位置序号 1-5
+    repeated CaptainInfoProto captains = 3; // 与 captain_index 一一对应
+    bool atk = 4; // 是否攻方
+    int32 join_time = 12; // 参战时间
+    MingcWarModeType mode = 14; // 形态
+    int32 next_drum_time = 15; // 下次击鼓时间
+
+    MingcWarTroopState state = 5; // 当前行动类型
+    int32 state_start_time = 6; // 行动开始时间
+    int32 state_end_time = 7; // 行动结束时间
+    int32 start_pos_x = 8; // 起始坐标 x
+    int32 start_pos_y = 9; // 起始坐标 y
+    int32 dest_pos_x = 10; // 目的坐标 x
+    int32 dest_pos_y = 11; // 目的坐标 y
+
+    repeated McWarTroopRecordProto record = 13 [deprecated = true]; // 战报，按时间由小到大排序
+}
+
+// 一支队伍当前所有的战斗战报
+message McWarTroopAllRecordProto {
+    repeated McWarTroopRecordProto record = 1;
+}
+
+// 单条队伍战斗战报
+message McWarTroopRecordProto {
+    int32 mc_id = 14; // 名城 id
+    int32 time = 1;
+    bool atk = 2; // 是否进攻
+    int32 building_x = 3; // 据点坐标x
+    int32 building_y = 7; // 据点坐标y
+    HeroBasicProto target = 4; // 对手
+    bool win = 5; // 是否胜利
+    string link = 6 [deprecated = true]; // 废弃，用combat
+    CombatShareProto combat = 9; // 战斗链接
+    string building_name = 8; // 关卡名
+    int32 killed = 10; // 消灭数
+    int32 last_beat_killed = 11; // 舍命一击
+    int32 wounded = 12; // 损失数
+    bool tou_shi = 13; // 投石机攻击
+}
+
+// 名城战结束后的结算
+message McWarFightRecordProto {
+    McWarFightGuildRecordProto atk = 1; // 进攻联盟
+    McWarFightGuildRecordProto def = 2; // 防守联盟
+    repeated McWarFightGuildRecordProto ast_atk = 3; // 助攻联盟
+    repeated McWarFightGuildRecordProto ast_def = 4; // 协防联盟
+    int32 atk_yinliang = 7; // 攻方获得银两
+    int32 def_yinliang = 8; // 守方获得银两
+    bool atk_win = 9; // 攻方胜利
+    int32 fight_duration = 10; // 战斗持续时间
+    int32 mc_id = 11; // 名城id
+    bool timeout = 12; // 时间到了才结束
+}
+
+// 名城战结束后的结算中的每个联盟具体数据
+message McWarFightGuildRecordProto {
+    GuildBasicProto guild = 1;
+    int32 joined_count = 2; // 参战人数
+    int32 killed_amount = 3; // 消灭士兵
+    int32 wounded_amount = 4; // 损失士兵
+    int32 destroyed = 5; // 摧毁繁荣度
+}
+
+// 所有部队排名（符合条件的部队）
+message McWarTroopsRankProto {
+    repeated McWarTroopRankProto troops_rank = 1;
+}
+
+// 部队排名
+message McWarTroopRankProto {
+    McWarTroopInfoProto info = 1; // 部队信息
+
+    int32 rank = 2; // 排名，0为没有排名，还未上榜
+    bool isAtk = 3; // 是否进攻方
+}
+
+// 所有部队信息（符合条件的部队）
+message McWarTroopsInfoProto {
+    repeated McWarTroopInfoProto troops_info = 1;
+}
+
+// 部队信息
+message McWarTroopInfoProto {
+    HeroBasicProto hero = 1; // 快照
+    McWarTroopScoreProto score = 2; // 战绩
+}
+
+// 战绩
+message McWarTroopScoreProto {
+    int32 kill_amount = 1; // 消灭士兵
+    int32 destroy_amount = 2; // 破坏繁荣度
+    int32 win_times = 3; // 击败队伍
+    int32 multi_kill = 4; // 最大连斩
+    int32 drum_times = 5; // 击鼓次数
+    int32 lose_times = 6; // 被击败
+}
+
+

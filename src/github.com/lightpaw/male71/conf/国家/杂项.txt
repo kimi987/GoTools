@@ -1,0 +1,3 @@
+不准使用的名字，使用 ; 分隔	旗帜颜色，使用;分隔	变更名字的cd	变更名字的消耗，配置 cost 中的id
+invalid_name	flag_colors	change_name_cd	change_name_cost
+干;日	10001;20001;30001;40001;40003;50000	168h	80000001

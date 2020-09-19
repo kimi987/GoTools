@@ -1,0 +1,4 @@
+尊享卡id	卡名字	图标	描述	持续时间	充值金额	购买后立即获得的奖励	每日获赠	离到期间隔多久提示续费
+id	name	icon	desc	duration	charge_amount	prize	daily_prize	before_prompt_duration
+1	周卡		连续[color=#ffea8a]7[/color]天 每日获赠	168h	12	401	402	72h
+2	月卡		连续[color=#ffea8a]30[/color]天 每日获赠	720h	30	403	404	72h

@@ -1,0 +1,1 @@
+事件id	事件描述	事件权重	消耗，配置 combine_cost.txt 中的id	奖励id	desc	weight	cost	prize1	事件1	1	1	12	事件2	1	2	13	事件3	1	3	14	事件4	1	4	15	事件5	1	2	1

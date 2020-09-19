@@ -1,0 +1,60 @@
+# config conf/答题/...
+#   QuestionProto       答题问题.txt
+#   QuestionSayingProto 答题名言.txt
+#   QuestionMiscProto   答题杂项.txt
+#   QuestionPrizeProto  答题奖励.txt
+#
+# hero
+#   HeroQuestionProto  // 每个人自己的答题
+#   HeroProto HeroQuestionProto.question = 70;
+#
+# 客户端控制选题和答案排序，通过消息告诉服务器当前答题进度和状态
+# 服务器通过 HeroQuestionProto 保存最近一轮答过的题和对错
+
+
+# 开始一轮答题
+start:
+  c2s:
+    id: int // 当前的问题 ID（QuestionProto.id）
+  s2c:
+    # 问题准备好了
+  s2c_fail:
+    invalid_id: 问题 ID 错误
+    no_times: 次数用完了
+    in_question: 正在答题中
+
+# 回答一道题
+answer:
+  c2s:
+    id: int // 当前的问题 ID（QuestionProto.id）
+    right: bool // true:答对了，false:答错了
+    answer: int // 答案序号
+  s2c:
+    id: int // 问题 ID（暂时用不上。服务器工具限制必须得写一个）
+  s2c_fail:
+    not_start: 答题没有开始
+    invalid_qid: 问题 ID 错误
+    already_answered: 当前最后一题已经答过了
+    invalid_aid: 答案必须>0
+
+# 答完一题后，开始下一题
+next:
+  c2s:
+    id: int // 当前的问题 ID（QuestionProto.id）
+  s2c:
+    # 问题准备好了
+  s2c_fail:
+    enough: 本轮题数答够了
+    invalid_qid: 问题 ID 不存在
+    last_not_answer: 当前最后一题还没回答
+
+# 答完领奖
+get_prize:
+  c2s:
+    score: int // 本轮分数(答对了几题)
+  s2c:
+    # 领取成功了。如果对应奖励没配也会发这条
+  s2c_fail:
+    not_finish: 还没答完
+    score_err: 本轮分数不对
+    no_prize: 没有要领的奖励

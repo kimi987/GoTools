@@ -1,0 +1,5 @@
+Id	集结最大人数，含创建者	集结等待时间				
+id	member_count	wait_duration	wait_duration	wait_duration		
+1	5	5m	10m	30m		集结玩家
+2	5	1m	2m	3m		集结匈奴
+3	5	5m	10m	30m		集结犬戎

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+message BufferEffectProto {
+    int32 id = 1; // 增益id
+    int32 end_time = 2; // 结束时间
+}
+
+message DebufEffectProto {
+    int32 id = 1; //Debuf id
+    int32 end_time = 2; // 结束时间
+    string name = 3; // 释放（或中招）对象
+}
+
+message HeroBufferProto {
+    repeated BufferEffectProto buffer = 1; // 增益列表（购买道具获得）
+    repeated DebufEffectProto debuf_from = 2; // 中招（debuf）列表
+    repeated DebufEffectProto debuf_to = 3; // 对别人使招（debuf）列表
+}

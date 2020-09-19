@@ -1,0 +1,22 @@
+# module_name:  # 默认使用文件夹名字作为模块名，当模块名与文件夹名字不一致时候，通过这个值指定
+
+list_cmd:
+  c2s:
+  s2c:
+    compress: gzip
+    datas: bytes[] // shared_proto.GmCmdListProto
+
+gm:
+  c2s:
+    cmd: string
+  s2c:
+    result: string
+
+# 获取野外出征目标id
+invase_target_id:
+  c2s:
+    npc_type: int // shared_proto.MultiLevelNpcType
+  s2c:
+    target_id: bytes // 目标id
+    target_x: int // 坐标
+    target_y: int

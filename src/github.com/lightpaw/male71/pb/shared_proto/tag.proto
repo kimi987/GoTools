@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message TagMiscProto {
+    // 标签最多的数量
+    int32 max_count = 1;
+    // 标签最多的字的数量, >就不允许了，一个汉字算一个字，一个英文字母算一个字
+    int32 max_char_count = 2;
+    // 最大记录的标签日志数量
+    int32 max_record_count = 3;
+    // 展示给查看的标签数量
+    int32 max_show_for_view_count = 4;
+}
+
+message HeroTagProto {
+    repeated TagProto tags = 4; // 标签
+    repeated TagRecordProto records = 3; // 记录
+}
+
+message TagProto {
+    string tag = 1; // 标签
+    int32 count = 2; // 标签数量
+    int32 tag_color = 3; // 标签颜色
+}
+
+message TagRecordProto {
+    bytes id = 1; // 玩家id
+    string name = 2; // 玩家名字
+    string flag_name = 6; // 玩家的旗号
+    string tag = 3; // 标签内容
+    int32 time = 4; // 时间
+}

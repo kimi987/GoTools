@@ -1,0 +1,4 @@
+活动id	活动名	活动名（美术字）	时间展示	描述	图标	选中图标	右侧装饰图	排序	时间规则(杂项，时间规则)	任务列表									
+id	name	name_icon	time_show	desc	icon	icon_select	image	sort	time_rule	tasks	tasks	tasks	tasks	tasks	tasks	tasks	tasks	tasks	tasks
+1	新君崛起	ui://Activity/新君崛起-美术字	永久	在限定时间内达到指定条件即可领取相关奖励，请各位君主及时领取已达成的奖励。	ui://Activity/页签-新君崛起	ui://Activity/页签-新君崛起-选中	ui://Activity/新君崛起-插图	1	8	106001	106002	106003	106004	106005	106006	106007	106008	106009	106010
+2	更上层楼	ui://Activity/更上层楼-美术字	开服15天之内	在限定时间内达到指定条件即可领取相关奖励，请各位君主及时领取已达成的奖励。	ui://Activity/页签-更上层楼	ui://Activity/页签-更上层楼-选中	ui://Activity/更上层楼-插图	2	9	107001	107002	107003	107004	107005	107006	107007	107008	107009	107010

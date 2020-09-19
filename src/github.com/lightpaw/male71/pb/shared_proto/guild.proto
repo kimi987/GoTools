@@ -1,0 +1,764 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/domestic.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/xiongnu.proto";
+
+// 联盟工坊日志
+message GuildWorkshopLogProto {
+    int32 time = 1; // 生成这条日志的时间
+    string text = 2; // 日志（带有点击功能的）
+}
+
+// 联盟科技
+message GuildTechnologyDataProto {
+
+    int32 id = 1; // id
+
+    string name = 2; // 名称
+
+    repeated string desc = 3; // 描述
+
+    string icon = 4; // 图标
+
+    int32 group = 5; // 分组
+
+    int32 level = 6; // 等级
+
+    int32 require_guild_level = 7; // 等级所需联盟等级，1级配置的是0升1的升级所需联盟等级
+
+    int32 upgrade_building = 8; // 升级所需建设值，1级放着0升1的升级所需建设值
+
+    int32 upgrade_duration = 9; // 升级所需时长，1级放着0升1的升级所需时长
+
+    repeated GuildLevelCdrProto cdrs = 10; // 减cd
+
+    int32 help_cdr = 13; // 盟友协助减少cd，秒
+
+    // 升级效果，一种是建筑效果，一种是宝箱等级（2选1，判断标准是，如果宝箱id==0或者null，为建筑效果，否则为宝箱）
+    DomesticEffectProto effect = 11; //
+    int32 big_box = 12; // 宝箱id，通过id找shared_proto.GuildBigBoxDataProto
+}
+
+// 联盟盟友礼包
+message GuildEventPrizeDataProto {
+
+    int32 id = 1; // id
+
+    string name = 2; // 名称
+
+    string desc = 3; // 描述
+
+    Quality quality = 4; // 品质
+
+    string icon_id = 5; // icon
+
+    PrizeProto prize = 6; // 奖励
+
+    int32 energy = 7; // 大礼包能量
+
+    bool from_shop = 8; // 商城购得
+
+    repeated GuildLevelPrizeProto guild_level_prizes = 11; // 联盟等级奖励组
+}
+
+// 联盟声望礼包奖励
+message GuildPrestigePrizeDataProto {
+    int32 prestige = 1;
+    int32 event_prize = 2; // 奖励的礼包 ID. GuildEventPrizeDataProto.id
+    int32 building_amount = 3; // 奖励的联盟建设值
+    int32 hufu = 4; // 虎符
+}
+
+// 逼格宝箱
+message GuildBigBoxDataProto {
+    int32 id = 1; // id
+
+    PrizeProto prize = 6; // 奖励
+
+    int32 unlock_energy = 7; // 大礼包解锁能量
+
+    repeated GuildLevelPrizeProto guild_level_prizes = 11; // 联盟等级奖励组
+
+    int32 tech_level = 12; // 宝箱科技等级
+}
+
+message GuildLevelCdrProto {
+
+    int32 times = 2; // 加速次数
+
+    int32 cost = 3; // 加速消耗的建设值
+
+    int32 cdr = 4; // 减多少cd，秒
+}
+
+message GuildLevelProto {
+    int32 level = 1; // 联盟等级
+
+    int32 member_count = 2; // 联盟最大成员数
+
+    repeated int32 class_member_count = 3 [packed = false]; // 联盟职位人数上限，第一个是1阶人数上限(比如说副帮主有几个，0表示不限)
+
+    int32 upgrade_building = 4; // 升级所需的建设值，1升2，读1级的数据
+    int32 upgrade_duration = 5; // 升级所需的时间，1升2，读1级数据
+
+    repeated GuildLevelCdrProto cdrs = 6; //
+}
+
+message GuildClassTitleDataProto {
+    int32 id = 1; // 职称等级
+
+    string name = 2; // 职称名字
+
+    GuildPermissionProto permission = 4; // 权限
+}
+
+message GuildClassLevelProto {
+    int32 level = 1; // 阶级等级
+
+    string name = 2; // 阶级名字
+
+    int32 count = 3; // 阶级最大成员数（比如说副帮主有几个,0表示不限人数）
+
+    GuildPermissionProto permission = 4; // 权限
+
+    int32 vote_score = 20; // 弹劾NPC盟主，这个职位的票数
+
+}
+
+message GuildPermissionProto {
+
+    bool invate_other = 4; // true表示允许邀请他人入盟
+
+    bool agree_join = 5; // true表示允许同意申请入盟
+
+    bool update_text = 6; // true表示允许修改联盟宣言
+    bool update_internal_text = 11; // true表示允许修改联盟内部宣言
+    bool update_label = 13; // true表示允许修改联盟内部宣言
+
+    bool update_class_name = 7; // true表示允许修改阶级名称
+
+    bool update_flag_type = 8; // true表示允许修改联盟旗帜
+
+    bool update_lower_member_class_level = 9; // true表示允许修改低等级盟友的阶级（变成副帮主之类的）
+    bool update_class_title = 14; // true表示允许修改职称
+
+    bool kick_lower_member = 10; // true表示允许踢人（低阶级盟友）
+
+    bool update_join_condition = 12; // true表示允许修改联盟入盟条件
+
+    bool impeach_npc_leader = 15; // true表示允许弹劾NPC盟主
+
+    bool upgrade_level = 16; // true表示允许升级联盟等级
+    bool upgrade_level_cdr = 19; // true表示允许加速联盟升级
+    bool upgrade_building = 17; // true表示允许升级联盟建筑
+    bool upgrade_technology = 18; // true表示允许升级联盟科技
+
+    bool update_friend_guild = 20; // true表示允许修改友盟
+    bool update_enemy_guild = 21; // true表示允许修改敌盟
+
+    bool update_prestige_target = 25; // true表示允许修改敌盟
+
+    bool open_resist_xiong_nu = 26; // true表示允许开启抗击匈奴
+
+    bool send_to_all_members = 27; // true表示允许发全体消息
+
+    bool upgrade_technology_cdr = 28; // true表示允许科技加速
+
+    bool update_name = 29; // 修改联盟名称
+
+    bool update_flag_name = 30; // 修改联盟简称
+
+    bool leave_guild = 31; // 退出联盟
+
+    bool dismiss_guild = 32; // 解散联盟
+
+    bool change_leader = 33; // 禅让盟主
+
+    bool update_mark = 34; // 更新联盟标识
+
+    bool change_yinliang = 35; // 使用银两
+
+    bool convene_member = 36; // 召集成员
+
+    bool get_online_info = 37; // 查看成员在线情况
+
+    bool workshop = 38; // 联盟工坊
+
+    bool recommend_mc_build = 39; // 推荐营建名城
+}
+
+message GuildDonateProto {
+    int32 sequence = 1; // 序号，从1开始，1表示第一个捐献项目
+
+    int32 times = 2; // 捐献次数，从1开始，1表示第一次捐献数据
+
+    CostProto cost = 3; // 捐献消耗
+
+    int32 guild_building_amount = 4; // 给联盟加多少建设值
+
+    int32 contribution_amount = 5; // 给自己加多少贡献值
+
+    int32 donation_amount = 6; // 给自己加多少捐献值
+
+    int32 contribution_coin = 7; // 给自己加多少贡献币
+
+    int32 recommand_guanfu_level = 8; // 推荐官府等级，< 这个等级弹出警告
+}
+
+message GuildProto {
+
+    int32 id = 1; // id
+
+    string name = 2; // 名字
+
+    string flagName = 3; // 旗号
+
+    int32 flagType = 4; // 旗子类型
+
+    int32 level = 5; // 联盟等级
+    int32 building_amount = 41; // 联盟建设值
+    int32 upgrade_end_time = 42; // 升级结束时间（0表示当前没有在升级），unix时间戳，秒
+    int32 cdr_times = 43; // 联盟升级已加速次数
+
+    int32 member_count = 6; // 成员个数
+
+    GuildMemberProto leader = 7; // 盟主
+
+    string text = 8; // 联盟宣言（对外公告）
+    string internal_text = 9; // 对内公告
+    repeated string labels = 10; // 联盟标签
+
+    // 入盟条件
+    bool reject_auto_join = 11; // false表示达到条件直接入盟，true表示需要申请才能加入
+    int32 required_hero_level = 12; // 君主等级
+    int32 required_jun_xian_level = 13; // 百战军衔等级
+    int32 required_tower_max_floor = 14; // 需要的最大千重楼的层数
+
+    // 下面部分数据只有请求详细情况时候才有设值
+
+    repeated string class_names = 21; // 阶级名字，从低级到高级
+
+    repeated GuildMemberProto members = 22; // 帮派成员
+    int32 kick_member_count = 32; // 踢人数，限制每日最多踢几个
+
+    bytes change_leader_id = 23; // 禅让盟主id
+    int32 change_leader_time = 24; // 禅让盟主倒计时，unix时间戳，秒
+
+    int32 next_change_name_time = 25; // 下次改名时间
+    bool free_change_name = 31; // true表示允许免费改名
+
+    GuildImpeachProto impeach_leader = 26; // 弹劾盟主
+
+    repeated HeroBasicSnapshotProto invate_hero = 27; // 邀请列表
+    repeated HeroBasicSnapshotProto request_join_hero = 29; // 申请加入列表
+
+    GuildClassTitleProto class_title = 33; // 职称
+
+    int32 prestige = 35; // 声望
+    int32 history_max_prestige = 37; // 历史最高声望数
+    int32 prestige_target = 34; // 声望目标，客户端去 Config.default_country 里面去取
+
+    int32 hufu = 46; // 虎符
+    int32 yinliang = 47; // 银两
+
+    string friend_guild_text = 50; // 友盟公告
+    string enemy_guild_text = 51; // 敌盟公告
+
+    repeated GuildDonateRecordProto donate_records = 55; // 捐献记录
+
+    repeated GuildBigEventProto big_events = 56; // 大事记
+
+    repeated GuildDynamicProto dynamics = 57; // 动态
+
+    repeated int32 guild_target_id = 66 [packed = false]; // 当前联盟目标id
+    repeated int32 guild_target_start_time = 75 [packed = false]; // 倒计时开始时间，0表示没有倒计时
+    repeated int32 guild_target_end_time = 67 [packed = false]; // 倒计时结束时间，0表示没有倒计时
+
+    int32 rank = 59; // 联盟排名
+    int32 rank_by_country = 58;
+
+    int32 big_box_id = 60; // 逼格宝箱id
+    int32 big_box_energy = 61; // 逼格宝箱当前能量值
+
+    repeated int32 technologys = 62 [packed = false]; // 科技
+    int32 upgrade_technology = 65; // 当前正在升级的科技id
+    int32 tech_upgrade_end_time = 63; // 科技升级结束时间（0表示当前没有在升级），unix时间戳，秒
+    int32 tech_cdr_times = 64; // 科技联盟升级已加速次数
+
+    int32 next_update_prestige_target_time = 68; // 下次更新联盟声望国家的时间，小于这个时间显示倒计时
+
+    bool is_start_resist_xiong_nu_today = 69; // 今天是否有开启抗击匈奴
+    repeated bytes resist_xiong_nu_defenders = 74; // 抗击匈奴的防守人
+    int32 unlock_resist_xiong_nu_level = 71; // 解锁的抗击匈奴的等级
+    bool has_last_resist_xiong_nu = 72; // 后面的 last_resist_xiong_nu 不为空，true读取，false不需要读取
+    LastResistXiongNuProto last_resist_xiong_nu = 73; // 最近一次挑战匈奴
+
+    int32 mingc_host_count = 76; // 占领名城数量
+
+    int32 workshop_x = 77; // 联盟工坊坐标（0，0表示没创建联盟工坊）
+    int32 workshop_y = 78;
+
+    repeated int32 recommend_mc_builds = 79 [packed = false]; // 推荐营建的名城，从旧到新排序
+
+    repeated int32 daily_mc_build_id = 80 [packed = false]; // 每日名城营建次数--名城id
+    repeated int32 daily_mc_build_count = 81 [packed = false]; // 每日名城营建次数--名城营建次数
+
+    // 联盟转国
+    int32 change_country_wait_end_time = 82; // 转国等待结束时间
+    int32 change_country_target = 83; // 转国目标（转到哪个国家）
+    int32 change_country_next_time = 84; // 下次可以转国时间
+}
+
+message GuildBasicProto {
+    int32 id = 1; // id
+
+    string name = 2; // 名字
+
+    string flagName = 3; // 旗号
+
+    int32 level = 4; // 联盟等级
+
+    int32 country = 5; // 国家，客户端去 Config.default_country 里面去取
+}
+
+message GuildSnapshotProto {
+
+    int32 id = 1; // id
+
+    string name = 2; // 名字
+
+    string flagName = 3; // 旗号
+
+    int32 flagType = 4; // 旗子类型
+
+    int32 level = 5; // 联盟等级
+
+    int32 member_count = 6; // 成员个数
+
+    HeroBasicSnapshotProto leader = 7; // 盟主
+
+    string text = 8; // 联盟宣言（对外公告）
+
+    // 入盟条件
+    bool reject_auto_join = 11; // false表示达到条件直接入盟，true表示需要申请才能加入
+    int32 required_hero_level = 12; // 君主等级
+    int32 required_jun_xian_level = 13; // 百战军衔等级
+    int32 required_tower_max_floor = 14; // 需要的最大千重楼的层数
+
+    int32 prestige = 35; // 声望
+    int32 prestige_target = 34; // 声望目标，客户端去 Config.default_country 里面去取
+}
+
+message GuildMemberProto {
+
+    HeroBasicSnapshotProto hero = 101; // 英雄数据
+
+    bool is_today_join_start = 102; // 是否今天已经加入过了
+
+    int32 class_level = 21; // 职务位置，从0开始（最低职务）
+
+    int32 hufu_amount = 28; // 今日虎符贡献值
+    int32 hufu_total_amount = 29; // 虎符总贡献
+    int32 hufu_amount7 = 30; // 7日虎符贡献值（里面存储的是前6日的值，客户端把今日的值也加上）
+
+    int32 contribution_amount = 31; // 今日贡献值
+    int32 contribution_total_amount = 32; // 总贡献值
+    int32 contribution_amount7 = 33; // 7日贡献值（里面存储的是前6日的值，客户端把今日的值也加上）
+
+    int32 donation_amount = 34; // 今日捐献值
+    int32 donation_total_amount = 35; // 总捐献值
+    int32 donation_amount7 = 36; // 7日捐献值（里面存储的是前6日的值，客户端把今日的值也加上）
+
+    int32 donation_total_yuanbao = 38; // 总捐献元宝数
+
+    int32 create_time = 39; // 加入联盟的时间
+
+    int32 salary = 40; // 工资
+    int32 history_salary = 41; // 历史总工资
+}
+
+// 弹劾盟主
+message GuildImpeachProto {
+
+    int32 impeach_end_time = 1; // 弹劾结束时间，unix时间戳，0表示当前没有弹劾
+
+    repeated bytes candidates = 2 [packed = false]; // 候选人
+    repeated int32 points = 3 [packed = false]; // 每个人对应的得票数
+
+    repeated bytes vote_heros = 4 [packed = false]; // 选民（不在这里的帮派成员，说明还未投票）
+    repeated bytes vote_target = 5 [packed = false]; // 选民投给谁
+
+    bytes impeach_member_id = 6; // 弹劾发起者
+}
+
+// 职称
+message GuildClassTitleProto {
+    repeated int32 system_class_title_id = 1 [packed = false]; // 系统职称id
+    repeated bytes system_class_title_member_id = 2; // 系统职称拥有者id
+
+    // 自定义职称
+    repeated string custom_class_title_name = 11; // 自定义职称名字
+    repeated BytesArrayProto custom_class_title_member_id = 12; // 自定义职称拥有者id
+}
+
+// 联盟目标类型
+enum GuildTargetType {
+    InvalidGuildTargetType = 0;
+
+    GuildLevelUp = 1; // 提示联盟等级
+    PrestigeUp = 2; // 提示声望
+    ImpeachNpcLeader = 3; // 弹劾Npc盟主
+    ImpeachUserLeader = 4; // 弹劾玩家盟主
+    UpdateMemverClass = 5; // 职位调整
+    UserLeaderUseless = 6; // 玩家盟主没用了，弹劾他吧
+    GuildChangeCountry = 7; // 联盟集体转国
+}
+
+message HeroUpgradeClassLevelProto {
+    int32 level = 1;
+}
+
+message GuildTargetProto {
+    // 目标id
+    int32 id = 1;
+
+    // 目标名字
+    string name = 2;
+
+    // 目标描述
+    string desc = 3;
+
+    // 目标图标
+    string icon = 6;
+
+    // 按钮文字
+    string button_text = 7;
+
+    // 目标类型
+    GuildTargetType target_type = 4;
+
+    //（1）	有1名玩家升级到副盟主（仅NPC联盟有），通过 target 去找 GuildClassLevelProto
+    //（2）	由玩家弹劾NPC盟主（仅NPC联盟有）
+    //（3）	联盟升级到x级, 通过 target 去找 GuildLevelProto
+    //（4）	联盟成员达到n人
+    //（5）	建立联盟雕像
+    //（6）	加入一个国家（0.2版本不做）
+    int32 target = 5;
+}
+
+// 联盟捐献记录
+message GuildDonateRecordProto {
+    string name = 1; // 捐献玩家的名字
+    int32 sequence = 2; // 捐献的类型
+    int32 times = 3; // 次数
+    int32 donate_time = 4; // 时间
+}
+
+enum GuildBigEventType {
+    Statue = 0;
+    LevelUp = 1;
+    Impeach = 2;
+    Demise = 3;
+}
+
+// 联盟大事记
+message GuildBigEventProto {
+    int32 time = 1; // 事件发生的时间
+
+    GuildBigEventType type = 2; // 类型
+
+    // 下面的数据可能为空，客户端发现哪个数据不为空就显示哪个
+
+    // 雕像
+    StatueProto statue = 10;
+    // 升级
+    LevelUpProto level_up = 11;
+    // 弹劾
+    ImpeachProto impeach = 12;
+    // 禅让
+    DemiseProto demise = 13;
+}
+
+// 联盟雕像事件
+message StatueProto {
+    bytes leader_id = 1; // 盟主id
+    string leader_name = 2; // 盟主名字
+    int32 region_level = 3; // 地区等级，即 RegionLevelProto 中的level
+    int32 region_id = 4; // 地区id，比如乡10，那就是: region_id = 10
+}
+
+// 联盟升级事件
+message LevelUpProto {
+    int32 level = 1; // 新的等级
+}
+
+// 联盟弹劾事件
+message ImpeachProto {
+    bytes old_leader_id = 1; // 旧的盟主id
+    string old_leader_name = 2; // 旧的盟主名字
+    bytes new_leader_id = 3; // 新的盟主id
+    string new_leader_name = 4; // 新的盟主名字
+}
+
+// 联盟禅让事件
+message DemiseProto {
+    bytes old_leader_id = 1; // 旧的盟主id
+    string old_leader_name = 2; // 旧的盟主名字
+    bytes new_leader_id = 3; // 新的盟主id
+    string new_leader_name = 4; // 新的盟主名字
+}
+
+enum GuildDynamicType {
+    Attack = 0;
+    Been_Attack = 1;
+    Join = 2;
+}
+
+// 联盟动态
+message GuildDynamicProto {
+    int32 time = 1; // 动态发生的时间
+
+    GuildDynamicType type = 2; // 类型
+
+    // 下面的数据可能为空，客户端发现哪个数据不为空就显示哪个
+
+    // 攻击，里面的进攻方是本盟的
+    FightProto attack = 10;
+    // 被攻击，里面的被进攻方是本盟的
+    FightProto been_attack = 11;
+    // 加入了
+    JoinProto join = 12;
+}
+
+// 战斗记录
+message FightProto {
+    // 攻击方id
+    bytes attacker_id = 1;
+    // 攻击方名字
+    string attacker_name = 2;
+    // 攻击方头像 通过 config.Icons去获得图标
+    string attacker_head = 5;
+    // 被攻击方id
+    bytes been_attacker_id = 3;
+    // 被攻击方名字
+    string been_attacker_name = 4;
+    // 被攻击方头像 通过 config.Icons去获得图标
+    string been_attacker_head = 6;
+}
+
+// 加入了联盟
+message JoinProto {
+    // id
+    bytes id = 1;
+    // 名字
+    string name = 2;
+    // 头像 通过 config.Icons去获得图标
+    string head = 5;
+}
+
+// 联盟求助
+message GuildSeekHelpProto {
+    string id = 1; // id
+
+    bytes hero_id = 11; // 英雄id
+    string hero_name = 12; // 英雄名字
+    string hero_head = 13; // 英雄头像
+
+    int32 help_type = 3; // 帮助类型，1-建筑队 2-科研队
+
+    int32 worker_pos = 4; // 位置，从0开始
+
+    repeated bytes help_hero_ids = 5; // 帮助过的人(如果这条是你帮助过的人，不要显示)
+
+    int32 reduce_seconds_per_count = 6; // 每次帮助，减少多少秒cd
+
+    int32 help_max_hero_count = 7; // 最大可帮助次数
+
+}
+
+// 联盟礼包触发类型
+enum GuildEventPrizeType {
+    GEPInvalidType = 0;
+    GEPRecharge = 1; // 充值
+    GEPHeroLevel = 2; // 君主等级X级
+    GEPBaseLevel = 3; // 主城等级X级
+    GEPActivity = 4; // 活跃度到达X
+    GEPDungeon = 5; // 完成推图副本
+
+}
+
+enum GuildLogType {
+    GLTInvalidType = 0;
+    GLTDaily = 1; // 日常
+    GLTFight = 2; // 战争
+    GLTPrestige = 3; // 声望
+    GLT_Memorabilia = 4; // 大事记
+    GLTYinliang = 5; // 银两记录
+    //GLTHufu = 6; // 虎符记录
+}
+
+message GuildLogProto {
+
+    int32 id = 1; // id
+
+    string icon = 2; // 头像icon
+
+    int32 time = 3; // 事件发生时间
+
+    string text = 4; // 文字内容
+
+    GuildLogType type = 5; // 日志类型
+
+    string data_id = 6; // 日志配置id，服务器用。（配置可能会变，只能在新增日志时用）
+
+    bytes hero_id = 11; // 如果有值，点击头像，查看君主
+
+    int32 fight_x = 12; // 战斗位置，如果有值，点击查看按钮，跳野外
+    int32 fight_y = 13;
+}
+
+enum GuildPermissionType {
+    PermInvalidType = 0;
+    PermInvateOther = 1; // true表示允许邀请他人入盟
+    PermAgreeJoin = 2; // true表示允许同意申请入盟
+    PermUpdateText = 3; // true表示允许修改联盟宣言
+    PermUpdateInternalText = 4; // true表示允许修改联盟内部宣言
+    PermUpdateLabel = 5; // true表示允许修改联盟联盟标签
+    PermUpdateFriendGuild = 6; // true表示允许修改联盟友盟
+    PermUpdateEnemyGuild = 7; // true表示允许修改联盟敌盟
+    PermUpdateClassName = 8; // true表示允许修改阶级名称
+    PermUpdateFlagType = 9; // true表示允许修改联盟旗帜
+    PermUpdateLowerMemberClassLevel = 10; // true表示允许修改低等级盟友的阶级（变成副帮主之类的）
+    PermUpdateClassTitle = 11; // true表示允许修改职称
+    PermKickLowerMember = 12; // true表示允许踢人（低阶级盟友）
+    PermUpdateJoinCondition = 13; // true表示允许修改入盟条件
+    PermImpeachNpcLeader = 14; // true表示允许修改弹劾NPC盟主
+    PermUpgradeLevel = 15; // true表示允许升级联盟等级
+    PermUpgradeLevelCdr = 16; // true表示允许加速联盟升级
+    PermUpgradeBuilding = 17; // true表示允许升级联盟建筑
+    PermUpgradeTechnology = 18; // true表示允许升级联盟科技
+    PermUpdatePrestigeTarget = 19; // true表示允许修改声望目标
+    PermOpenResistXiongNu = 20; // true表示允许开启抗击匈奴
+    PermSendToAllMembers = 21; // true 表示允许发全体消息
+    PermUpgradeTechnologyCdr = 22; //  true表示允许科技加速
+    PermUpdateName = 23; // 修改联盟名称
+    PermUpdateFlagName = 24; // 修改联盟简称
+    PermLeaveGuild = 25; // 退出联盟
+    PermDismissGuild = 26; // 解散联盟
+    PermChangeLeader = 27; // 禅让盟主
+    PermUpdateMark = 28; // 更新联盟标识
+    PermChangeYinliang = 29; // 使用银两
+    PermConveneMember = 30; // 成员召集
+    PermGetOnlineInfo = 31; // 查看在线情况
+    PermWorkshop = 32; // 联盟工坊
+    PermRecommendMcBuild = 33; // 推荐营建名城
+}
+
+message GuildPermissionShowProto {
+    GuildPermissionType perm_type = 1;
+    string name = 2;
+    repeated int32 class_level = 3 [packed = false]; // 职位列表
+    bool is_show = 4; // true表示要展示出来
+}
+
+// 推荐入盟玩家列表
+message GuildRecommendInviteHeros {
+    repeated HeroBasicSnapshotProto hero = 1;
+}
+
+message GuildMarkProto {
+
+    int32 index = 1; // 序号，从1开始
+
+    int32 pos_x = 2; // 坐标
+    int32 pos_y = 3;
+
+    string msg = 4; // 标记内容
+}
+
+// 名城战参与类型
+enum McWarActionType {
+    MC_WAR_A_INVALID = 0;
+    MC_WAR_A_ATK = 1; // 攻
+    MC_WAR_A_DEF = 2; // 守
+    MC_WAR_A_AST_ATK = 3; // 助攻
+    MC_WAR_A_AST_DEF = 4; // 助守
+}
+
+// 单条名城战历史战绩
+message McWarRecordProto {
+    int32 war_id = 9; // 名城战id
+    int32 time = 1;
+    GuildBasicProto atk = 2; // 攻
+    GuildBasicProto def = 3; // 守
+    McWarActionType type = 4;
+    bool atk_win = 5; // 攻方是否胜利
+    int32 atk_yinliang = 6; // 攻方银两
+    int32 mc_id = 7; // 名城 id
+    int32 mc_country_id = 8; // 当时的名城所属国家 id
+}
+
+// 名城战历史战绩列表，按时间正序排列
+message McWarAllRecordProto {
+    repeated McWarRecordProto record = 1;
+}
+
+// 名城战历史战绩列表，按时间正序排列
+message McWarAllRecordWithJoinedProto {
+    repeated McWarRecordProto record = 1;
+    repeated bool is_joined = 2 [packed = false]; // 自己是否参与
+}
+
+// 名城银两记录
+message GuildAllYinliangRecordProto {
+    repeated GuildYinliangRecordProto record = 1;
+}
+
+// 名城银两记录
+message GuildYinliangRecordProto {
+    int32 time = 1; // 时间
+    string text = 2; // 文字内容。JSON 模板
+}
+
+// 银两赠送联盟记录
+message GuildAllYinliangSendToGuildProto {
+    repeated GuildYinliangSendToGuildProto guilds = 1;
+}
+
+// 单条银两赠送联盟记录
+message GuildYinliangSendToGuildProto {
+    GuildYinliangSendProto send = 1;
+    GuildBasicProto guild = 2; // 赠送联盟
+}
+
+// 具体赠送数据
+message GuildYinliangSendProto {
+    int32 time = 1; // 最近赠送时间
+    int32 send = 2; // 最近赠送银两
+    int32 weekly_send = 3; // 本周赠送
+    int32 all_send = 4; // 历史赠送
+}
+
+// 联盟任务评价
+message GuildTaskEvaluateDataProto {
+    int32 id = 1; // 评价id，id越大评价越高
+    string name = 2; // 评价名：良好、优秀、卓越、完美
+    int32 complete = 3; // 完成数不能小于这个数
+    repeated PrizeProto prizes = 4; // 下标依次对应[成员]、[精英]、[长老]、[副盟主]、[盟主]
+}
+
+// 联盟任务
+message GuildTaskDataProto {
+    int32 id = 1; // 任务ID
+    string name = 2; // 任务名
+    string desc = 3; // 任务描述
+    string icon = 4; // 任务图标
+    repeated int32 stages = 5 [packed = false]; // 各阶段值
+    repeated PrizeProto prizes = 6; // 各阶段对应奖励，与stages下标一一对应
+}

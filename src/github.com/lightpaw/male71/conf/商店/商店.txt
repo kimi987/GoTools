@@ -1,0 +1,9 @@
+"商店类型 1表示帮派商店 2表示元宝商店 3表示银两商店 4表示玉璧商店 5表示玲珑阁"			普通商品，配置 normal_shop_goods.txt 中的id																											珍宝阁商品，配置 zhen_bao_ge_shop_goods.txt 中的id												
+type			normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods	normal_goods			zhen_bao_ge_goods	zhen_bao_ge_goods	zhen_bao_ge_goods	zhen_bao_ge_goods	zhen_bao_ge_goods	zhen_bao_ge_goods	zhen_bao_ge_goods	zhen_bao_ge_goods	zhen_bao_ge_goods	zhen_bao_ge_goods	zhen_bao_ge_goods	zhen_bao_ge_goods	zhen_bao_ge_goods
+1	联盟商店		11601011	11601002	11601001	11601008	11601004	11601005	11601006	11601007	11601009	11601020																														
+2	元宝商店		11602010	11602011	11602012	11602013	11602018	11602014	11602015	11602001	11602002	11602003	11602004	11602005	11602006																											
+3	银两商店																													11607001	11607101	11607201	11605301	11605501	11605601	11605401	11605201	11605701	11605801	11605901		
+4	点券商店		11602023	11602007	11602008	11602009	11602019	11602022	11602016																																	
+																																										
+5	幸运商店																																									
+6	VIP商店		11606001	11606003	11606005	11606007	11606009	11606011	11606013	11606015	11606017	11606019	11606021	11606023	11606025	11606027	11606029	11606031	11606033	11606035	11606037	11606039	11606041	11606043	11606045	11606047	11606049															

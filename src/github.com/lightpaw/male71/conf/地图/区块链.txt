@@ -1,0 +1,6 @@
+Id	中心坐标		内径，含	外径，含		包含坐标									排除坐标					
+id	center_x	center_y	min_radius	max_radius		include_x	include_y	include_x	include_y	include_x	include_y	include_x	include_y		exclude_x	exclude_y	exclude_x	exclude_y	exclude_x	exclude_y
+1	24	24	0	6																
+2	24	24	6	12																
+3	24	24	12	19																
+4	24	24	19	24																

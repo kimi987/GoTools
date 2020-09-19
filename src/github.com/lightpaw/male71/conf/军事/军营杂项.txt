@@ -1,0 +1,3 @@
+默认次数	强征最大次数，0表示不限次数		(作废，用 force_add_soldier_new_cost)强征消耗元宝，0表示免费							强征消耗，配 消耗.txt id											
+default_times	force_add_soldier_max_times		force_add_soldier_cost	force_add_soldier_cost	force_add_soldier_cost	force_add_soldier_cost	force_add_soldier_cost	force_add_soldier_cost		force_add_soldier_new_cost	force_add_soldier_new_cost	force_add_soldier_new_cost	force_add_soldier_new_cost	force_add_soldier_new_cost	force_add_soldier_new_cost	force_add_soldier_new_cost	force_add_soldier_new_cost	force_add_soldier_new_cost	force_add_soldier_new_cost	force_add_soldier_new_cost	force_add_soldier_new_cost
+3	20		10	50	100	200	300	500		1	14	81000001	81000002	81000003	81000004	81000005	81000006	81000007	81000008	81000009	81000010

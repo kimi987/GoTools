@@ -1,0 +1,94 @@
+
+# 挑战千重楼
+# heroCaptainProto.FullSoldierFightAmount 武将满兵战斗力
+# heroProto.Tower.ChallengeTimes 当前挑战次数
+# config.Misc.TowerChallengeMaxTimes 最大挑战次数
+# 当前挑战次数 < 最大挑战次数，表示当前还可以挑战，否则不能挑战
+# heroProto.Tower.Floor 当前所在楼层
+# heroProto.Tower.AutoMaxFloor 当前扫荡最大楼层，if 当前所在楼层 < 当前扫荡最大楼层，只能扫荡，否则只能挑战
+# 结算说明，获得的奖励，可以在挑战成功的返回中拿到获胜奖励
+# PrizeProto.CaptainExp 表示增加的武将经验（这个值是准备加，可能因为满级导致没加这么多）
+# 武将等级这块，客户端在发送挑战请求之前，记录下自己武将的当前等级和经验，然后在收到挑战成功消息后，再获取一次，计算差值进行展示
+#
+# if 当前时间 < 下次重置挑战时间
+#   当前挑战次数 = 更新挑战次数
+# else
+#   当前挑战次数 = 0
+#
+# 可以挑战次数 = 最大挑战次数 - 当前挑战次数
+challenge:
+  c2s:
+    floor: int // 当前所在楼层
+
+  # 挑战成功，当前所在楼层+1，更新历史最高楼层
+  s2c:
+    link: string // 战斗数据存放位置，通过http获取回放数据
+    share: bytes // 战斗分享，客户端解析成 CombatShareProto
+    first_pass_prize: bytes // shared_proto.PrizeProto 首胜奖励
+    prize: bytes // shared_proto.PrizeProto 获得的奖励
+    auto_max_floor: int // 更新扫荡可达最高楼层
+
+  # 挑战失败，更新挑战次数
+  s2c_failure:
+    challenge_times: int // 更新挑战次数
+    next_reset_challenge_time: int // 下次重置挑战次数时间
+    link: string // 战斗数据存放位置
+    share: bytes // 战斗分享，客户端解析成 CombatShareProto
+
+  s2c_fail:
+    invalid_floor: 当前楼层无效
+    max_challenge_times: 没有挑战次数了
+    max_floor: 已经到达最高层
+    box: 领取重楼宝箱
+    captain_not_full: 上阵武将未满
+    captain_too_much: 上阵武将超出上限
+    captain_not_exist: 上阵武将不存在
+    captain_id_duplicate: 上阵武将id重复
+    server_error: 服务器忙，请稍后再试
+
+# 扫荡
+auto_challenge:
+  c2s:
+  s2c:
+    floor: int // 最新楼层
+    prize: bytes[] // shared_proto.PrizeProto 获得的每一层奖励
+  s2c_fail:
+    auto_max: 已经到达扫荡最高层
+    captain_not_full: 上阵武将未满
+    captain_too_much: 上阵武将超出上限
+    captain_not_exist: 上阵武将不存在
+    captain_id_duplicate: 上阵武将id重复
+    server_error: 服务器忙，请稍后再试
+
+# 领取重楼宝箱
+# heroProto.Tower.Floor 当前所在楼层
+# heroProto.Tower.BoxFloor 当前已领取的重楼宝箱楼层
+# 当前楼层存在重楼宝箱时候，并且
+# heroProto.Tower.BoxFloor < heroProto.Tower.Floor，说明当前可以领取重楼宝箱
+collect_box:
+  c2s:
+    box_floor: int // 要领取的重楼宝箱楼层
+  s2c:
+    box_floor: int // 更新重楼宝箱楼层
+  s2c_fail:
+    not_box: 当前楼层没有宝箱
+    collected: 重楼宝箱已经领取过了
+    can_not_collect: 未通关该层，无法领取
+    server_error: 服务器忙，请稍后再试
+
+# 获取回放数据
+# 客户端每层的数据，缓存一分钟，不要频繁来获取
+# 如果玩家是首通，那么将这层的回放数据清掉，下次打开的时候，重新请求一次
+list_pass_replay:
+  c2s:
+    floor: int
+  s2c:
+    floor: int
+    data: bytes // shared_proto.PassReplayProto
+  s2c_fail:
+    invalid_floor: 无效的楼层
+
+# 更新千重楼当前楼层
+update_current_floor:
+  s2c:
+    floor: int // 当前楼层

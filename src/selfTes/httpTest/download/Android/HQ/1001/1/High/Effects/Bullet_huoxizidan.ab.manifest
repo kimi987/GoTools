@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 4194893982
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1ae5eee66d7c52c067987cced84907ab
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 672de5baeff8deb601ea3679373c0cd1
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Bullet_huoxizidan.prefab
+Dependencies: []

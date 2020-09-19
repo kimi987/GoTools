@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/monster.proto";
+
+message HeroTeachProto {
+    repeated int32 passed_chapter_ids = 1 [packed = false]; // 通关了的关卡
+    repeated int32 collected_chapter_ids = 2 [packed = false]; // 领取过奖励的关卡
+}
+
+// 教学/关卡.txt
+message TeachChapterDataProto {
+    int32 id = 1;
+    PrizeProto prize = 2; // 通关奖励
+
+    int32 min_hero_level = 3; // 需要最小君主等级
+    int32 pass_ba_ye_task_stage = 4; // 需要通过霸业阶段。BaYeStageDataProto.Stage
+    int32 pass_dungeon_id = 11; // 需要通过的推图id。DungeonDataProto.Id
+
+    string title = 5; // 标题
+    string desc = 6; // 描述
+    string image = 7; // 图片
+
+    MonsterMasterDataProto atk_start_monster = 8; // 攻方初始阵型。MonsterMasterDataProto.Id
+    MonsterMasterDataProto atk_end_monster = 9; // 攻方最终阵型。MonsterMasterDataProto.Id
+    MonsterMasterDataProto def_monster = 10; // 守方阵型。MonsterMasterDataProto.Id
+}

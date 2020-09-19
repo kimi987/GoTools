@@ -1,0 +1,156 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "gem";
+option optimize_for = SPEED;
+
+
+message C2SUseGemProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 slot_idx = 4; // 卸下哪个槽位的宝石或者给哪个槽位加上宝石，即：GemSlotDataProto.slot_idx
+
+    bool down = 3; // true表示给武将卸下宝石，否则表示给武将加上宝石，加宝石必须带上要镶嵌的宝石的id
+
+    int32 gem_id = 2; // 操作的宝石id，如果是卸下，不用发
+
+}
+
+message S2CUseGemProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 slot_idx = 4; // 卸下哪个槽位的宝石或者给哪个槽位加上宝石，即：GemSlotDataProto.slot_idx
+
+    int32 up_id = 2; // 该槽位上面的新的宝石id：0表示卸下了，非0表示设置的新的宝石
+
+}
+
+message C2SInlayGemProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 slot_idx = 2; // 槽位(下标从0开始)，对应RaceDataProto.gem_types的下标
+
+    int32 gem_id = 3; // 宝石id，非0时槽位上有旧宝石，自动摘除入包，0的话相当于只摘除
+
+}
+
+message S2CInlayGemProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 slot_idx = 2; // 槽位(下标从0开始)，对应RaceDataProto.gem_types的下标
+
+    int32 gem_id = 3; // 0表示卸下了，非0表示设置的新的宝石
+
+}
+
+message C2SCombineGemProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 slot_idx = 2; // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+
+}
+
+message S2CCombineGemProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 slot_idx = 2; // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+
+    int32 gem_id = 5; // 新的宝石id
+
+}
+
+message C2SOneKeyUseGemProto {
+
+    int32 captain_id = 1; // 武将id
+
+    bool down_all = 2; // 卸下所有(true)/自动镶嵌(false)
+
+    int32 equip_type = 3; // 卸下的部位(EquipmentType)，0表示全部卸下，否则只卸下发送上来部位的所有宝石，自动镶嵌这里发送0
+
+}
+
+message S2COneKeyUseGemProto {
+
+    int32 captain_id = 1; // 武将id
+
+    bool down_all = 4; // 卸下所有(true)卸下所有不需要读取后面的gem_id了客户端完全清空掉该武将的宝石就好了/自动镶嵌(false)
+
+    repeated int32 gem_id = 3 [packed = false]; // 各个槽位上面新的宝石id，如果是卸下所有，长度为0，客户端不需要处理，如果是自动镶嵌，该数组跟槽位一一对应，该数据中可能会存在为0的数据，表示没有宝石
+
+    int32 equip_type = 5; // 卸下的部位(EquipmentType)，0表示全部卸下，否则只卸下发送上来部位的所有宝石
+
+}
+
+message C2SOneKeyCombineGemProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 slot_idx = 2; // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+
+    bool buy = 3; // true表示花钱购买
+
+}
+
+message S2COneKeyCombineGemProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 slot_idx = 2; // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+
+    int32 gem_id = 3; // 新的宝石id
+
+}
+
+message C2SRequestOneKeyCombineCostProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 slot_idx = 2; // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+
+    int32 gem_id = 3; // 宝石id
+
+}
+
+message S2CRequestOneKeyCombineCostProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 slot_idx = 2; // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+
+    bool can_combine = 3; // 能够合成(true)，读取下面的宝石id跟数量/不能够合成(false)，后面数据就不用读取了
+
+    repeated int32 gem_id = 4 [packed = false]; // 要消耗的宝石id，跟宝石数量一一丢应
+
+    repeated int32 gem_count = 5 [packed = false]; // 要消耗的宝石数量，可能存在数量为0的
+
+    int32 buy_count = 6; // 购买宝石个数
+
+    int32 buy_yuanbao = 7; // 购买宝石消耗元宝数
+
+}
+
+message C2SOneKeyCombineDepotGemProto {
+
+    int32 gem_id = 1; // 宝石id
+
+    int32 new_gem_count = 2; // 合成新宝石个数
+
+    bool buy = 3; // true表示数量不够花钱购买
+
+}
+
+message S2COneKeyCombineDepotGemProto {
+
+    int32 new_gem_id = 1; // 新的宝石id
+
+    int32 new_gem_count = 2; // 合成新宝石个数
+
+}
+

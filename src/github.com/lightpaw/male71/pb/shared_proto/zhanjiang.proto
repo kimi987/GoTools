@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/monster.proto";
+
+message ZhanJiangChapterProto {
+    int32 chapter_id = 1; // 章节id
+    string chapter_name = 2; // 章节名
+    string chapter_desc = 3; // 章节描述
+    int32 captain_soul = 4; // 将魂，配置 CaptainSoulDataProto 中的id
+    string bg_img = 5; // 背景图
+    repeated ZhanJiangGuanQiaProto guan_qia = 6; // 本章的所有关卡
+}
+
+message ZhanJiangGuanQiaProto {
+    int32 id = 1; // 关卡id
+    string name = 2; // 关卡名字
+    string position_desc = 3; // 关卡地点描述
+    string desc = 4; // 描述
+    string bg_img = 5; // 背景图
+    repeated ZhanJiangDataProto guan = 6; // 关卡中的所有的小关卡
+    int32 ability_exp = 8; // 武将成长值
+    int32 prev = 9; // 上一关卡，可能为空，为空表示没有上一关，用于方便客户端判断某个关卡是否可以挑战
+    int32 next = 10; // 下一关卡，可能为空，为空表示没有下一关，用于方便客户端判断某个关卡是否可以挑战
+    int32 show_gong_xun = 11; // 展示用的武将功勋
+    PrizeProto show_prize = 12; // 展示用的通关奖励
+}
+
+message ZhanJiangDataProto {
+    int32 id = 1; // 副本id
+    string name = 2; // 名字
+    string desc = 3; // 描述
+    string icon = 4; // 图标
+    PrizeProto show_prize = 6; // 展示奖励
+    MonsterMasterDataProto monster = 7; // 防守武将信息
+    int32 gong_xun = 8; // 武将功勋
+}
+
+message ZhanJiangMiscDataProto {
+    int32 max_times = 1; // 最大次数
+}
+
+// 过关斩将
+message HeroZhanJiangProto {
+    int32 open_times = 1; // 开启的次数
+    repeated int32 pass_guan_qia = 2 [packed = false]; // 通关了的关卡
+    ZhanJiangChallengeProto cur_challenge = 3; // 当前的挑战，可能为空
+}
+
+message ZhanJiangChallengeProto {
+    int32 guan_qia = 1; // 当前开启的关卡
+    int32 pass_count = 2; // 通关的数量
+    int32 captain_id = 3; // 设置的武将的id
+}

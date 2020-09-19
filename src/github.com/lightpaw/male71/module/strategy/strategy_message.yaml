@@ -1,0 +1,51 @@
+gen_error_msg: true
+
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+ - "github.com/lightpaw/male7/pb/shared_proto/hero.proto"
+
+# 施计
+use_stratagem:
+  c2s:
+    id: int // 计策id
+    target: bytes // 施计对象
+    data_id: int // 配置id
+    pos_x: int // 坐标
+    pos_y: int
+  s2c:
+    #stratagem: shared_proto.StratagemProto // 计策数据（前端读不出来）
+    id: int // 计策id
+    name: string // 策略名
+    daily_used_times: int // 今日已使用次数
+    next_useable_time: int // 下次可使用的时间
+    target_name: string // 目标名称
+  s2c_fail:
+    invalid_stratagem_id: 没有该计策
+    locked_stratagem_id: 计策未解锁
+    sp_not_enough: 体力值不足
+    stratagem_cd: 计策冷却中
+    times_limit: 该计策今日使用上限
+    invalid_target: 施计对象错误
+    target_limit: 今日对该目标施计上限
+    target_trapped_limit: 今日该目标中计已达上限
+    same_trapped: 该目标正中此计，请选择其他目标
+    cost_not_enough: 消耗不够
+    server_err: 服务器错误
+    target_cannot_effect: 对方不符合计策条件
+    invalid_data_id: 无效的配置id
+    invalid_pos: 无效的坐标
+    level_not_enough: 君主等级不足
+    exist_baoz: 召唤的殷墟还未消失
+
+# 中计
+trapped_stratagem:
+  s2c:
+    stratagem: shared_proto.TrappedStratagemProto // 中计数据
+
+use_stratagem_fail:
+  s2c:
+    id: int // 计策id
+    name: string // 策略名
+    target_name: string // 目标名称

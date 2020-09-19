@@ -1,0 +1,914 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "guild";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/guild.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/hero.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/rank.proto";
+
+
+message S2CListGuildProto {
+
+    repeated GuildSnapshotProto guild_list = 2; // 联盟列表
+
+}
+
+message C2SSearchGuildProto {
+
+    string name = 1; // 搜索名字
+
+    int32 num = 2; // 页数，从0开始，0表示第一页
+
+    bool show_self_guild = 3; // 是否显示自己的联盟
+
+}
+
+message S2CSearchGuildProto {
+
+    repeated bytes proto = 1; // shared_proto.GuildProto // 废弃
+
+    repeated GuildSnapshotProto guild_list = 2; // 联盟列表
+
+    repeated GuildYinliangSendProto yinliang_list = 4; // 联盟赠送银两数据，搜索联盟银两时有效，和 guild_list 一一对应
+
+}
+
+message C2SCreateGuildProto {
+
+    string name = 1; // 联盟名字
+
+    string flag_name = 2; // 联盟旗号
+
+    int32 country = 3; // (废弃，用创建人的国家) 所属国家
+
+}
+
+message S2CCreateGuildProto {
+
+    bytes proto = 1; // shared_proto.GuildProto
+
+}
+
+message C2SSelfGuildProto {
+
+    int32 version = 1; // 联盟数据版本号，第一次发0
+
+    int32 guild_id = 2; // 联盟id
+
+}
+
+message S2CSelfGuildProto {
+
+    int32 varsion = 2; // 最新的联盟数据版本号，每次拿到后，客户端存着这个值，下次请求时，带上这个值
+
+    bytes proto = 1; // shared_proto.GuildProto
+
+}
+
+message S2CLeaveGuildForOtherProto {
+
+    bytes id = 1; // 离开联盟的玩家id
+
+    string name = 2; // 离开联盟的玩家名字
+
+    string head = 3; // 离开联盟的玩家头像 通过 config.Icons去获得图标
+
+}
+
+message C2SKickOtherProto {
+
+    bytes id = 1; // 目标id
+
+}
+
+message S2CKickOtherProto {
+
+    bytes id = 1; // 目标id
+
+    string name = 2; // 目标名
+
+}
+
+message C2SUpdateTextProto {
+
+    string text = 1; // 联盟宣言
+
+}
+
+message S2CUpdateTextProto {
+
+    string text = 1; // 联盟宣言
+
+}
+
+message C2SUpdateInternalTextProto {
+
+    string text = 1; // 联盟内部公告
+
+}
+
+message S2CUpdateInternalTextProto {
+
+    string text = 1; // 联盟内部公告
+
+}
+
+message C2SUpdateClassNamesProto {
+
+    repeated string name = 1; // 联盟阶级称谓
+
+}
+
+message S2CUpdateClassNamesProto {
+
+    repeated string name = 1; // 联盟阶级称谓
+
+}
+
+message C2SUpdateClassTitleProto {
+
+    bytes proto = 4; // shared_proto.GuildClassTitleProto
+
+}
+
+message C2SUpdateFlagTypeProto {
+
+    int32 flag_type = 1; // 旗帜类型，从0开始
+
+}
+
+message S2CUpdateFlagTypeProto {
+
+    int32 flag_type = 1; // 旗帜类型，从0开始
+
+}
+
+message C2SUpdateMemberClassLevelProto {
+
+    bytes id = 1; // 目标id
+
+    int32 class_level = 2; // 新的阶级
+
+}
+
+message S2CUpdateMemberClassLevelProto {
+
+    bytes id = 3; // 哪个家伙改变职称了
+
+    int32 class_level = 4; // 新的职称
+
+}
+
+message S2CUpdateSelfClassLevelProto {
+
+    int32 class_level = 1; // 职称
+
+}
+
+message C2SUpdateJoinConditionProto {
+
+    bool reject_auto_join = 1; // false表示达到条件直接入盟，true表示需要申请才能加入
+
+    int32 required_hero_level = 2; // 君主等级，0表示不限
+
+    int32 required_jun_xian_level = 3; // 百战军衔等级，0表示不限
+
+    int32 required_tower_max_floor = 4; // 需要的千重楼最大层数，0表示不限
+
+}
+
+message S2CUpdateJoinConditionProto {
+
+    bool reject_auto_join = 1; // false表示达到条件直接入盟，true表示需要申请才能加入
+
+    int32 required_hero_level = 2; // 君主等级，0表示不限
+
+    int32 required_jun_xian_level = 3; // 百战军衔等级，0表示不限
+
+    int32 required_tower_max_floor = 4; // 需要的千重楼最大层数，0表示不限
+
+}
+
+message C2SUpdateGuildNameProto {
+
+    string name = 1; // 联盟名字
+
+    string flag_name = 2; // 联盟旗号
+
+}
+
+message S2CUpdateGuildNameProto {
+
+    int32 next_can_change_time = 1; // 下一次能够变更联盟名字的时间
+
+}
+
+message S2CUpdateGuildNameBroadcastProto {
+
+    int32 id = 1; // 联盟id
+
+    string name = 2; // 联盟名字
+
+    string flag_name = 3; // 联盟旗号
+
+}
+
+message C2SUpdateGuildLabelProto {
+
+    repeated string label = 1; // 标签
+
+}
+
+message S2CUpdateGuildLabelProto {
+
+    repeated string label = 1; // 标签
+
+}
+
+message S2CUpdateContributionCoinProto {
+
+    int32 coin = 1; // 更新后的贡献币
+
+}
+
+message C2SDonateProto {
+
+    int32 sequence = 1;
+
+}
+
+message S2CDonateProto {
+
+    int32 sequence = 1;
+
+    int32 times = 2; // 已捐献次数，显示times+1的数据出来
+
+    int32 donate_id = 12; // 捐献的id，即 GuildDonateProto.Id
+
+    int32 building_amount = 3; // 更新帮派建设值
+
+    int32 contribution_amount = 4; // 更新自己的帮派贡献值
+
+    int32 contribution_total_amount = 5; // 更新自己的总帮派贡献值
+
+    int32 contribution_amount7 = 6; // 更新自己的7日帮派贡献值
+
+    int32 donation_amount = 7; // 更新自己的帮派捐献值
+
+    int32 donation_total_amount = 8; // 更新自己的总帮派捐献值
+
+    int32 donation_amount7 = 9; // 更新自己的7日帮派捐献值
+
+    int32 donation_total_yuanbao = 11; // 更新自己的总帮派捐献元宝
+
+}
+
+message C2SReduceUpgradeLevelCdProto {
+
+    int32 times = 1; // 当前已加速次数（防止2个人同时加速）
+
+}
+
+message C2SImpeachLeaderVoteProto {
+
+    bytes target = 1; // 你要投票给谁
+
+}
+
+message S2CImpeachLeaderVoteProto {
+
+    bool impeach_end = 1; // 投票结束，为true的话不需要读取下面的 impeach 了
+
+    bytes impeach = 2; // 投票，客户端解析成 GuildImpeachProto，长度为0，表示投票后，弹劾成功了
+
+}
+
+message C2SListGuildByIdsProto {
+
+    repeated int32 ids = 1 [packed = false]; // 帮派id
+
+}
+
+message S2CListGuildByIdsProto {
+
+    repeated bytes guilds = 1; // shared_proto.GuildProto
+
+}
+
+message C2SUserRequestJoinProto {
+
+    int32 id = 1; // 申请联盟id
+
+}
+
+message S2CUserRequestJoinProto {
+
+    int32 id = 1; // 申请联盟id，将这个id加入到申请id列表
+
+}
+
+message S2CUserRemoveJoinRequestProto {
+
+    int32 id = 1; // 申请联盟id
+
+}
+
+message C2SUserCancelJoinRequestProto {
+
+    int32 id = 1; // 取消加入帮派id
+
+}
+
+message S2CUserCancelJoinRequestProto {
+
+    int32 id = 1; // 取消加入帮派id
+
+}
+
+message S2CAddGuildMemberProto {
+
+    bytes id = 1; // 玩家id
+
+    string name = 2; // 玩家名字
+
+    string head = 3; // 头像 通过 config.Icons去获得图标
+
+}
+
+message S2CUserJoinedProto {
+
+    int32 id = 1; // 已加入联盟id
+
+    string name = 2; // 联盟名字
+
+    string flag_name = 3; // 联盟旗号
+
+    int32 country = 4; // 国家id
+
+}
+
+message C2SGuildReplyJoinRequestProto {
+
+    bytes id = 1; // 玩家id
+
+    bool agree = 2; // true表示同意加入联盟，否则表示拒绝加入
+
+}
+
+message S2CGuildReplyJoinRequestProto {
+
+    bytes id = 1; // 玩家id
+
+    bool agree = 2; // true表示同意加入联盟，否则表示拒绝加入
+
+}
+
+message C2SGuildInvateOtherProto {
+
+    bytes id = 1; // 邀请的玩家id
+
+}
+
+message S2CGuildInvateOtherProto {
+
+    bytes id = 1; // 邀请的玩家id
+
+}
+
+message C2SGuildCancelInvateOtherProto {
+
+    bytes id = 1; // 取消邀请的玩家id
+
+}
+
+message S2CGuildCancelInvateOtherProto {
+
+    bytes id = 1; // 取消邀请的玩家id
+
+}
+
+message S2CUserAddBeenInvateGuildProto {
+
+    int32 id = 1; // 邀请联盟id
+
+}
+
+message S2CUserRemoveBeenInvateGuildProto {
+
+    int32 id = 1; // 邀请联盟id
+
+}
+
+message C2SUserReplyInvateRequestProto {
+
+    int32 id = 1; // 邀请的帮派id
+
+    bool agree = 2; // true表示同意加入帮派
+
+}
+
+message S2CUserReplyInvateRequestProto {
+
+    int32 id = 1; // 邀请的帮派id
+
+    bool agree = 2; // true表示同意加入帮派
+
+}
+
+message S2CListInviteMeGuildProto {
+
+    repeated GuildSnapshotProto guild_list = 1; // 联盟列表
+
+}
+
+message C2SUpdateFriendGuildProto {
+
+    string text = 1; // 联盟友盟
+
+}
+
+message S2CUpdateFriendGuildProto {
+
+    string text = 1; // 联盟友盟
+
+}
+
+message C2SUpdateEnemyGuildProto {
+
+    string text = 1; // 联盟敌盟
+
+}
+
+message S2CUpdateEnemyGuildProto {
+
+    string text = 1; // 联盟敌盟
+
+}
+
+message C2SUpdateGuildPrestigeProto {
+
+    int32 target = 1; // 配置 DefaultCountryProto中的id
+
+}
+
+message S2CUpdateGuildPrestigeProto {
+
+    int32 old_target = 2; // 旧国家，配置 DefaultCountryProto中的id
+
+    int32 target = 1; // 新国家，配置 DefaultCountryProto中的id
+
+}
+
+message C2SPlaceGuildStatueProto {
+
+    int32 realm_id = 1; // 地图id
+
+}
+
+message S2CGuildStatueProto {
+
+    int32 realm_id = 1; // 地图id
+
+}
+
+message S2CUpdateSeekHelpProto {
+
+    int32 help_type = 1; // 求助类型 1-建筑队，2-科研队
+
+    int32 worker_pos = 2; // 建筑队/科研队 序号，从0开始
+
+    bool enable = 3; // true表示当前可以求助
+
+}
+
+message S2CUpdateHelpMemberTimesProto {
+
+    int32 daily_help_member_times = 1; // 更新今日帮助盟友次数
+
+}
+
+message C2SSeekHelpProto {
+
+    int32 help_type = 1; // 求助类型 1-建筑队，2-科研队
+
+    int32 worker_pos = 2; // 建筑队/科研队 序号，从0开始
+
+}
+
+message S2CSeekHelpProto {
+
+    int32 help_type = 1; // 求助类型 1-建筑队，2-科研队
+
+    int32 worker_pos = 2; // 建筑队/科研队 序号，从0开始
+
+}
+
+message S2CAddGuildSeekHelpProto {
+
+    bytes data = 1; // shared_proto.GuildSeekHelpProto
+
+}
+
+message C2SHelpGuildMemberProto {
+
+    string id = 1; // 求助的id
+
+}
+
+message S2CHelpGuildMemberProto {
+
+    string id = 1; // 求助的id
+
+}
+
+message S2CHelpAllGuildMemberProto {
+
+    repeated string ids = 1; // 帮助了哪些求助的id
+
+}
+
+message S2CAddGuildSeekHelpHeroIdsProto {
+
+    string id = 1; // 求助id
+
+    bytes help_hero_id = 2; // 帮助我的英雄id
+
+}
+
+message S2CRemoveGuildSeekHelpProto {
+
+    string id = 1; // 求助id
+
+}
+
+message S2CListGuildSeekHelpProto {
+
+    repeated bytes data = 1; // shared_proto.GuildSeekHelpProto
+
+}
+
+message S2CListGuildEventPrizeProto {
+
+    repeated int32 id = 1 [packed = false]; // id
+
+    repeated int32 data_id = 2 [packed = false]; // 礼包id，shared_proto.GuildEventPrizeDataProto
+
+    repeated int32 expire_time = 3 [packed = false]; // 过期时间（unix时间戳，秒），过期的不显示，0表示不过期
+
+    repeated bytes hero_id = 4; // 谁发的
+
+    repeated string hero_name = 5;
+
+}
+
+message S2CAddGuildEventPrizeProto {
+
+    int32 id = 1; // id
+
+    int32 data_id = 2; // 礼包id，shared_proto.GuildEventPrizeDataProto
+
+    int32 expire_time = 3; // 过期时间（unix时间戳，秒），过期的不显示，0表示不过期
+
+    bytes hero_id = 4; // 谁发的
+
+    string hero_name = 5;
+
+}
+
+message S2CRemoveGuildEventPrizeProto {
+
+    int32 id = 1; // id
+
+}
+
+message C2SCollectGuildEventPrizeProto {
+
+    int32 id = 1; // 领取哪个，0表示全部领取
+
+}
+
+message S2CCollectGuildEventPrizeProto {
+
+    int32 id = 1; // 领取哪个，0表示全部领取
+
+    int32 new_energy = 2; // 领取后最新的能量
+
+    int32 add_energy = 4; // 增加的能量
+
+    bytes prize = 3; // 领取到的奖励，shared_proto.PrizeProto
+
+}
+
+message S2CUpdateFullBigBoxProto {
+
+    int32 box_id = 4; // 当前显示的宝箱id
+
+    bool collectable = 5; // true表示可以领取
+
+    int32 energy = 3; // 当前能量值
+
+}
+
+message S2CUpdateHeroJoinGuildTimeProto {
+
+    int32 join_guild_time = 1; // 英雄加入联盟的时间
+
+}
+
+message C2SUpgradeTechnologyProto {
+
+    int32 group = 1; // 升级的科技组
+
+}
+
+message S2CUpgradeTechnologyProto {
+
+    int32 group = 1; // 升级的科技组
+
+    int32 end_time = 2; // 升级结束时间，显示倒计时
+
+}
+
+message C2SReduceTechnologyCdProto {
+
+    int32 times = 1; // 当前已加速次数（防止2个人同时加速）
+
+}
+
+message C2SListGuildLogsProto {
+
+    int32 log_type = 1; // 1-战争 2-日常 3-声望 4-大事记 (参考shared_proto.GuildLogType)
+
+    int32 min_id = 2; // 最小的日志的id，服务器返回比这个id小的一批日志(客户端当前没有日志时候，发0)
+
+    int32 count = 3; // 请求邮件个数
+
+}
+
+message S2CListGuildLogsProto {
+
+    repeated bytes data = 1; // shared_proto.GuildLogProto
+
+}
+
+message S2CAddGuildLogProto {
+
+    bytes data = 1; // shared_proto.GuildLogProto
+
+}
+
+message S2CRequestRecommendGuildProto {
+
+    bool has = 1; // 是否存在联盟可以推荐，true可以读取下面的字段，没有，客户端再定时 GuildConfigProto.notify_join_guild_duration_on_online_or_leave 这么久再来请求
+
+    int32 next_notify_guild_time = 2; // 下次可以提醒加入联盟的时间
+
+    int32 id = 3; // 联盟id
+
+    string name = 4; // 联盟名字
+
+    string flag = 5; // 联盟旗帜
+
+    int32 country = 6; // 国家id
+
+}
+
+message S2CPushTechHelpableProto {
+
+    bool helpable = 1; // true表示可以进行可以协助，false表示不能协助
+
+}
+
+message S2CHelpTechProto {
+
+    int32 tech = 1; // 联盟科技 ID
+
+}
+
+message S2CRecommendInviteHerosProto {
+
+    bytes heros = 1; // GuildRecommendInviteHeros
+
+}
+
+message C2SSearchNoGuildHerosProto {
+
+    string name = 3; // 关键字
+
+    int32 page = 4; // 第几页， 0表示第1页
+
+}
+
+message S2CSearchNoGuildHerosProto {
+
+    bytes heros = 1; // GuildRecommendInviteHeros
+
+}
+
+message S2CViewMcWarRecordProto {
+
+    McWarAllRecordProto record = 1; // 不用了，用 record2
+
+    McWarAllRecordWithJoinedProto record2 = 2;
+
+}
+
+message C2SUpdateGuildMarkProto {
+
+    int32 index = 2; // 序号，从1开始
+
+    int32 pos_x = 3; // 坐标
+
+    int32 pos_y = 4;
+
+    string msg = 5; // 标记内容
+
+}
+
+message S2CUpdateGuildMarkProto {
+
+    GuildMarkProto mark = 1;
+
+}
+
+message S2CViewYinliangRecordProto {
+
+    GuildAllYinliangRecordProto record = 1;
+
+}
+
+message C2SSendYinliangToOtherGuildProto {
+
+    int32 gid = 1; // 联盟 id
+
+    int32 amount = 2; // 数量
+
+}
+
+message S2CSendYinliangToOtherGuildProto {
+
+    int32 gid = 1; // 联盟id
+
+    int32 amount = 2; // 数量
+
+}
+
+message C2SSendYinliangToMemberProto {
+
+    bytes mem_id = 1; // 成员id
+
+    int32 amount = 2; // 数量
+
+}
+
+message S2CSendYinliangToMemberProto {
+
+    bytes mem_id = 1; // 成员 id
+
+    int32 amount = 2; // 数量
+
+}
+
+message S2CPaySalaryProto {
+
+    int32 amount = 1; // 发了多少钱
+
+}
+
+message C2SSetSalaryProto {
+
+    bytes mem_id = 1; // 成员id
+
+    int32 salary = 2; // 新工资
+
+}
+
+message S2CSetSalaryProto {
+
+    bytes mem_id = 1; // 成员id
+
+    int32 salary = 2; // 新工资
+
+}
+
+message S2CUpdateHeroGuildProto {
+
+    int32 update_type = 2; // 更新类型 0-所有 1-联盟等级 2-盟主
+
+    HeroGuildProto data = 1; // 联盟数据
+
+}
+
+message S2CViewSendYinliangToGuildProto {
+
+    GuildAllYinliangSendToGuildProto guilds = 1;
+
+}
+
+message S2CUpdateHufuProto {
+
+    int32 hufu = 1; // 当前显示的虎符数量
+
+}
+
+message C2SConveneProto {
+
+    bytes target = 1; // 召集目标id，空表示全体召集
+
+}
+
+message S2CConveneProto {
+
+    bytes target = 1; // 召集目标id，空表示全体召集
+
+}
+
+message S2CCollectDailyGuildRankPrizeProto {
+
+    bytes prize = 1; // 获得的奖励，前端同时要把collected_daily_guild_rank_prize字段置为true（新加入联盟时，也要置为true）
+
+}
+
+message S2CViewDailyGuildRankProto {
+
+    RankProto rank = 2;
+
+}
+
+message S2CViewLastGuildRankProto {
+
+    int32 rank = 1;
+
+}
+
+message C2SAddRecommendMcBuildProto {
+
+    int32 mc_id = 1;
+
+}
+
+message S2CAddRecommendMcBuildProto {
+
+    repeated int32 new_mc_ids = 1 [packed = false]; // 新的所有推荐名城，从旧到新排序
+
+}
+
+message C2SViewTaskProgressProto {
+
+    int32 version = 1; // 版本号，第一次发0
+
+}
+
+message S2CViewTaskProgressProto {
+
+    int32 version = 1; // 版本号相同不刷新，progress也没有数据
+
+    repeated Int32Pair progress = 2; // 任务进度
+
+}
+
+message S2CNoticeTaskStageUpdateProto {
+
+    int32 task_id = 1; // 任务id
+
+    int32 stage = 2; // 1~n，第几个阶段已完成
+
+}
+
+message C2SCollectTaskPrizeProto {
+
+    int32 task_id = 1; // 任务id
+
+    int32 stage = 2; // 1~n，第几个阶段，可以跳着领
+
+}
+
+message S2CCollectTaskPrizeProto {
+
+    int32 task_id = 1; // 任务id
+
+    int32 stage = 2; // 这个阶段领取成功
+
+}
+
+message C2SGuildChangeCountryProto {
+
+    int32 country = 1; // 国家
+
+}
+
+message S2CGuildChangeCountryProto {
+
+    int32 country = 1; // 国家
+
+}
+
+message S2CShowWorkshopNotExistProto {
+
+    bool show = 1; // true表示要提醒，false表示不要提醒
+
+}
+

@@ -1,0 +1,24 @@
+名城id	名称	模型	坐标		半径，0表示只有中心位置1格	名城类型：1-县城 2-郡城 3-都城 4-洛阳	周朝都城	默认所属国家	初始银两	仓库每日新增银两	仓库银两上限	申请攻打名城最低虎符出价	申请攻打名城最低联盟等级	申请协助的最大联盟数	名城图标	建城最小距离		占领盟每日收益
+id	name	model	base_x	base_y	radius	type	zhou_captain	country	default_yinliang	daily_add_yinliang	max_yinliang	atk_min_hufu	atk_min_guild_level	ast_max_guild	war_icon	base_min_distance		host_daily_add_yinliang
+1	咸阳	Prefabs/Scene/DynamicData/Sce_Country_L1	1792	2321	10	3		3	10000	2000	10000	900	5	5	司马府	10		3000
+2	陇西	Prefabs/Scene/DynamicData/Sce_Provinces_01	1378	1646	10	2		3	7500	1500	7500	500	3	3	司马府	10		2250
+3	蜀郡	Prefabs/Scene/DynamicData/Sce_Provinces_01	1458	2774	10	2		3	7500	1500	7500	500	3	3	司马府	10		2250
+4	郢	Prefabs/Scene/DynamicData/Sce_Country_L1	2995	2952	10	3		2	10000	2000	10000	900	5	5	司马府	10		3000
+5	黔中	Prefabs/Scene/DynamicData/Sce_Provinces_01	2758	3043	10	2		2	7500	1500	7500	500	3	3	司马府	10		2250
+6	会稽	Prefabs/Scene/DynamicData/Sce_Provinces_01	3358	2692	10	2		2	7500	1500	7500	500	3	3	司马府	10		2250
+7	蓟	Prefabs/Scene/DynamicData/Sce_Country_L1	2757	1298	10	3		4	10000	2000	10000	900	5	5	司马府	10		3000
+8	辽东	Prefabs/Scene/DynamicData/Sce_Provinces_01	3583	1080	10	2		4	7500	1500	7500	500	3	3	司马府	10		2250
+9	渔阳	Prefabs/Scene/DynamicData/Sce_Provinces_01	2882	1076	10	2		4	7500	1500	7500	500	3	3	司马府	10		2250
+10	新郑	Prefabs/Scene/DynamicData/Sce_Country_L1	2821	2487	10	3		7	10000	2000	10000	900	5	5	司马府	10		3000
+11	武遂	Prefabs/Scene/DynamicData/Sce_Provinces_01	2490	2146	10	2		7	7500	1500	7500	500	3	3	司马府	10		2250
+12	成皋	Prefabs/Scene/DynamicData/Sce_Provinces_01	2605	2457	10	2		7	7500	1500	7500	500	3	3	司马府	10		2250
+13	邯郸	Prefabs/Scene/DynamicData/Sce_Country_L1	2483	1470	10	3		5	10000	2000	10000	900	5	5	司马府	10		3000
+14	代郡	Prefabs/Scene/DynamicData/Sce_Provinces_01	2554	1189	10	2		5	7500	1500	7500	500	3	3	司马府	10		2250
+15	太原	Prefabs/Scene/DynamicData/Sce_Provinces_01	2316	1238	10	2		5	7500	1500	7500	500	3	3	司马府	10		2250
+16	大梁	Prefabs/Scene/DynamicData/Sce_Country_L1	3042	2414	10	3		6	10000	2000	10000	900	5	5	司马府	10		3000
+17	安邑	Prefabs/Scene/DynamicData/Sce_Provinces_01	2158	2262	10	2		6	7500	1500	7500	500	3	3	司马府	10		2250
+18	邺城	Prefabs/Scene/DynamicData/Sce_Provinces_01	2249	1734	10	2		6	7500	1500	7500	500	3	3	司马府	10		2250
+19	临淄	Prefabs/Scene/DynamicData/Sce_Country_L1	2798	1751	10	3		1	10000	2000	10000	900	5	5	司马府	10		3000
+20	琅琊	Prefabs/Scene/DynamicData/Sce_Provinces_01	3049	1730	10	2		1	7500	1500	7500	500	3	3	司马府	10		2250
+21	濮阳	Prefabs/Scene/DynamicData/Sce_Provinces_01	2552	1718	10	2		1	7500	1500	7500	500	3	3	司马府	10		2250
+22	洛阳	Prefabs/Scene/DynamicData/Sce_Country_L1	2244	2546	10	3	1	0	10000	2000	10000	900	9	5	司马府	10		3000

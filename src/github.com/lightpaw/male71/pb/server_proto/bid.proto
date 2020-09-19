@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+message BidInfoProto {
+    int64 end_time = 1;
+    map<int64, BidObjProto> bid_map = 2;
+}
+
+message BidObjProto {
+    int64 k = 1;
+    uint64 v = 2;
+    int64 bid_time = 3;
+}
+
+

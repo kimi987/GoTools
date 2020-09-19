@@ -1,0 +1,145 @@
+# module_name:  # 默认使用文件夹名字作为模块名，当模块名与文件夹名字不一致时候，通过这个值指定
+
+# 登陆时，从HeroProto中获取以下数据
+# HeroProto
+#    int32 water_times = 1; // 自己摇钱树健康度
+#    Season collect_session = 2; // 可以领取的奖励季节
+#    int32 collect_time = 3; // 可以领取的奖励时间（unix时间戳），0表示不能领取
+#    repeated bytes water_hero_ids = 4; // 今日浇水列表（给哪些人浇过水，包含自己）
+#    HeroServerInfoProto server_info = 127; // 服务器配置
+#
+# HeroServerInfoProto
+#    int32 sid = 2; // 哪个服
+#    int32 start_time = 3; // 开服时间（计算季节等等）
+#
+# MiscConfigProto
+#    int32 season_duration = 110; // 季节变换间隔，秒
+#
+# 每日重置消息之后，清掉今日浇水列表
+#
+# TreasuryTreeDataProto
+#    Season season = 2; // 季节
+#    string desc = 3; // 描述
+#    PrizeProto prize = 4; // 奖励
+#
+# GradonConfigProto
+#    int32 treasury_tree_full_times = 1; // 浇水浇满次数
+#    int32 treasury_tree_help_me_log_count = 2; // 帮助日志最大个数
+
+# 这条要修改，自己和别人的帮助列表统一调用 c2s_list_help_me
+# 之后只保留盟友 water_times 列表
+# 请求摇钱树玩家列表，每次打开摇钱树界面请求一次，打开之后不再请求
+# 根据联盟id，判断是不是自己联盟中的人
+# 根据好友状态，判断是不是自己的好友
+list_treasury_tree_hero:
+  c2s:
+  s2c:
+    hero_id: bytes[] // 玩家id
+    hero_name: string[] // 玩家名字
+    hero_head: string[] // 玩家头像
+    hero_guild: int[] // 玩家联盟id，拿id到下面的联盟旗号列表查找旗号
+    hero_friend: bool[] // 跟玩家是否是好友
+    hero_water_times: int[] // 玩家摇钱树次数
+    guild_id: int[] // 联盟id，跟联盟旗号一一对应
+    flag_name: string[] // 联盟旗号
+    help_me_hero_id: bytes[] // 帮助过我的玩家id
+    help_me_hero_name: string[] // 帮助过我的玩家名字
+    help_me_hero_guild: int[] // 帮助过我的玩家联盟id
+    help_me_hero_season: int[] // 帮助过我的季节
+
+# 帮助过我的列表
+# 请求自己和别人的列表，统一使用这条
+# 根据玩家 id，从好友和联盟数据中找到名字和旗号等其他数据
+list_help_me:
+  c2s:
+    target_id: bytes // 玩家 id
+  s2c:
+    target_id: bytes // 玩家 id
+    help_me_hero_id: bytes[] // 帮我的玩家id
+    help_me_hero_name: string[] // 帮我的玩家名字
+    help_me_hero_guild: int[] // 帮我的玩家联盟id
+    help_me_hero_flag_name: string[] // 联盟旗号
+    help_me_hero_season: int[] // 帮助过我的季节
+  s2c_fail:
+    invalid_target: 无效的目标
+
+# 请求玩家摇钱树次数（打开面板时候请求，关闭的时候不要再请求）
+# 返回的消息中只包含次数发生变化的玩家，如果没有人发生变化，玩家列表为空
+#
+# 收到消息后，延时5秒请求一次这个数据，更新其他玩家的摇钱树次数
+list_treasury_tree_times:
+  c2s:
+  s2c:
+    hero_id: bytes[] // 玩家id
+    water_times: int[] // 玩家摇钱树次数
+
+# 浇水
+# HeroProto
+#    int32 water_times = 1; // 自己摇钱树健康度
+#    repeated bytes water_hero_ids = 4; // 今日浇水列表（给哪些人浇过水，包含自己）
+#
+# GradonConfigProto
+#    int32 treasury_tree_full_times = 1; // 浇水浇满次数
+#
+# 每日重置消息之后，清掉今日浇水列表
+#
+# 收到返回，将目标添加到今日帮助列表，同时更新目标摇钱树的健康度
+water_treasury_tree:
+  c2s:
+    target: bytes // 给谁浇水
+  s2c:
+    target: bytes // 给谁浇水
+    water_times: int // 浇水之后树的健康度
+  s2c_fail:
+    invalid_target: 无效的目标
+    watered: 你已经给目标浇过水了
+    full: 当季摇钱树的健康度已满，不能再照料了
+
+# 更新自己的摇钱树健康度（给自己浇水没有这条消息）
+# 更新数的健康度
+# 更新帮助列表（如果打开着界面，没打开界面就忽略掉，因为打开界面时候请求的消息中有这个数据）
+# 该飘字飘字
+#
+# GradonConfigProto
+#    int32 treasury_tree_help_me_log_count = 2; // 帮助日志最大个数
+#
+# 超过帮助日志最大日志个数，则顶掉最早的那条数据
+update_self_treasury_tree_times:
+  s2c:
+    water_times: int // 树的健康度
+    help_me_hero_id: bytes // 帮我的玩家id
+    help_me_hero_name: string // 帮我的玩家名字
+    help_me_hero_guild: int // 帮我的玩家联盟id
+    help_me_hero_flag_name: string // 联盟旗号
+
+# 更新自己摇钱树领奖状态
+#
+# 收到这条消息，说明摇钱树已经浇满了，需要刷新面板，
+# 将当前可以领取的奖励设置为季节奖励，并且根据领取时间倒计时
+#
+# 登陆时候也做同样判断，如果摇钱树健康度已满，根据奖励季节和可以领取奖励的时间倒计时
+# HeroProto
+#    int32 water_times = 1; // 自己摇钱树健康度
+#    Season collect_session = 2; // 可以领取的奖励季节
+#    int32 collect_time = 3; // 可以领取的奖励时间（unix时间戳），0表示不能领取
+#
+update_self_treasury_tree_full:
+  s2c:
+    season: int // 奖励季节
+    collect_time: int // 可以领取奖励的unix时间戳
+
+# 领取摇钱树奖励
+#
+# HeroProto
+#    int32 water_times = 1; // 自己摇钱树健康度
+#    Season collect_session = 2; // 可以领取的奖励季节
+#    int32 collect_time = 3; // 可以领取的奖励时间（unix时间戳），0表示不能领取
+#    repeated bytes water_hero_ids = 4; // 今日浇水列表（给哪些人浇过水，包含自己）
+#
+# 收到成功消息，需要将摇钱树浇水次数设置为0，把玩家自己从浇水列表中移除(领取完可以立马再浇水)
+collect_treasury_tree_prize:
+  c2s:
+  s2c:
+  s2c_fail:
+    no_full: 摇钱树还未满，不能领取奖励
+    countdown: 领奖倒计时未结束

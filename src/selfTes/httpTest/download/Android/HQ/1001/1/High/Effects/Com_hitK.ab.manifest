@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 2408796896
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cd6a4f509ebd1db5ce6faf404c8728dd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Com_hitK.prefab
+Dependencies: []

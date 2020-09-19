@@ -1,0 +1,27 @@
+Id	Icon	解锁需要的将魂id	解锁需要的君主等级	是否是默认头像		
+id	icon	unlock_need_captain	unlock_need_hero_level	default_head		
+1	junzhu1					ui://GeneralIconSmall/
+2	junzhu2					ui://GeneralIconSmall/
+3	junzhu3					ui://GeneralIconSmall/
+4	junzhu4					ui://GeneralIconSmall/
+5	junzhu5					ui://GeneralIconSmall/
+6	junzhu6					ui://GeneralIconSmall/
+7	junzhu7					ui://GeneralIconSmall/
+8	junzhu8					ui://GeneralIconSmall/
+9	junzhu9					ui://GeneralIconSmall/
+10	junzhu10					ui://GeneralIconSmall/
+11	junzhu16					ui://GeneralIconSmall/
+12	junzhu17					ui://GeneralIconSmall/
+13	junzhu18					ui://GeneralIconSmall/
+14	junzhu19					ui://GeneralIconSmall/
+15	junzhu20					ui://GeneralIconSmall/
+16	junzhu21					ui://GeneralIconSmall/
+17	junzhu22					ui://GeneralIconSmall/
+18	junzhu23					ui://GeneralIconSmall/
+19	junzhu24					ui://GeneralIconSmall/
+20	junzhu25					ui://GeneralIconSmall/
+21	junzhu26					ui://GeneralIconSmall/
+22	junzhu27					ui://GeneralIconSmall/
+23	junzhu28					ui://GeneralIconSmall/
+24	junzhu29					ui://GeneralIconSmall/
+25	junzhu30			1		

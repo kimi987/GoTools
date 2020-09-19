@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 3324448024
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: adf79772f925a633e98f85a07c15f56a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e5d403f9d0130a715678bba7e09e22fc
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/SceneNormalLight.prefab
+Dependencies: []

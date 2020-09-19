@@ -1,0 +1,3 @@
+战斗评分		修炼馆最大修炼时长	武将初始修炼馆经验值		暴击概率	战斗系数	城墙最大伤害		克制技伤害系数
+combat_score_percent	combat_score_percent	training_max_duration	captain_init_train_exp		combat_crit_rate	combat_coef	max_wall_been_hurt_percent		combat_restraint_rate
+33	66	8h	200		0.33	10	0.2		1.05

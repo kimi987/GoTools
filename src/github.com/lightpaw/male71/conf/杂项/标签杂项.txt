@@ -1,0 +1,3 @@
+最大的标签数量	"标签最多的字的数量, >就不允许了，一个汉字算一个字，一个英文字母算一个字"	最大记录的标签日志数量	展示给查看的标签数量
+max_count	max_char_count	max_record_count	max_show_for_view_count
+50	10	50	4

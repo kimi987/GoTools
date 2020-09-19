@@ -1,0 +1,8 @@
+	建筑类型	繁荣度	模型	模型	城墙能不能攻击	能不能被攻击				
+id	type	prosperity	atk_model	def_model	wall_atk	can_be_atked	combat_scene			
+1	1	50000	Prefabs/Scene/DynamicData/CW_chengb04_B	Prefabs/Scene/DynamicData/CW_chengb04_A	0	0	Battle_New_1			
+2	2	15000	Prefabs/Scene/DynamicData/Sce_FC_Rampart_L3	Prefabs/Scene/DynamicData/Sce_M_Country03	0	1	Battle_New_1			    MC_B_RELIVE = 1; // 复活点
+3	3	10000	Prefabs/Scene/DynamicData/Sce_FC_Rampart_L2	Prefabs/Scene/DynamicData/Sce_M_Country02	0	1	Battle_New_1			    MC_B_HOME = 2; // 大本营
+4	4	5000	Prefabs/Scene/DynamicData/Sce_FC_Rampart_L1	Prefabs/Scene/DynamicData/Sce_M_Country01	0	1	Battle_New_1			    MC_B_CASTLE = 3; // 要塞
+5	5	50000	Prefabs/Scene/DynamicData/Sce_FC_Towerbase_L2	Prefabs/Scene/DynamicData/Sce_FC_Towerbase_L1	0	0	Battle_New_1			    MC_B_GATE = 4; // 关卡
+										    MC_B_TOU_SHI = 5; // 投石机

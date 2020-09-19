@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3329506519
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e7b8ef37203453daa8a1c45ddb5248cc
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c73412a662fd4e4f36af34cbdf078b85
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIImage/Explore/ui_explore_img_Map7.png
+Dependencies: []

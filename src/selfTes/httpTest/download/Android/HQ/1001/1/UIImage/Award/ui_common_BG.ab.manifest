@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 488903360
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9b10709cf87081f85ee8a96e1ca83ed6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c73412a662fd4e4f36af34cbdf078b85
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIImage/Award/ui_common_BG.png
+Dependencies: []

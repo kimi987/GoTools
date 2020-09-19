@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/season.proto";
+
+// 摇钱树
+message TreasuryTreeDataProto {
+    //    int32 id = 1;
+
+    Season season = 2; // 季节
+    string desc = 3; // 描述
+    PrizeProto prize = 4; // 奖励
+}
+
+message GradonConfigProto {
+    int32 treasury_tree_full_times = 1; // 浇水浇满次数
+    int32 treasury_tree_help_me_log_count = 2; // 帮助日志最大个数
+}
+
+// 玩家摇钱树数据
+message HeroTreasuryTreeProto {
+
+    int32 water_times = 1; // 自己摇钱树健康度
+
+    Season collect_session = 2; // 可以领取的奖励季节
+    int32 collect_time = 3; // 可以领取的奖励时间（unix时间戳），0表示不能领取
+
+    repeated bytes water_hero_ids = 4; // 今日浇水列表（给哪些人浇过水，包含自己）
+}

@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 803802822
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b43883263659855165a64854a38f689e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_eyuZS_skill02daoguang.prefab
+Dependencies: []

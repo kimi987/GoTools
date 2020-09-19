@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message CaptainSoulMiscProto {
+    int32 level_diff_limit = 1; // 将魂等级跟玩家等级差限制
+}
+
+message CaptainSoulDataProto {
+    int32 id = 1; // 将魂id
+    Quality quality = 2; // 品质
+    string name = 3; // 名字
+    string icon_id = 8; // 图标id
+    string desc = 5; // 描述
+    PrizeProto prize_if_has_soul = 6; // 在有将魂的情况下，获得该将魂时转换成的奖励
+    string chat_content_when_activated = 7; // 激活后的聊天内容
+
+    repeated CaptainSoulLevelDataProto level_datas = 9; // 等级数据
+
+    int32 auto_unlock_spell_count = 11; // 自动解锁的技能数量
+    // 解锁技能消耗
+    // 计算第index(从0开始)技能的消耗
+    // 如果 index >= auto_unlock_spell_count 消耗 = unlock_spell_costs[index - auto_unlock_spell_count]，否则为默认已经解锁
+    // 如果 index < auto_unlock_spell_count 显示已经解锁
+    repeated CostProto unlock_spell_costs = 12;
+
+    repeated int32 obtain_ways = 13 [packed = false];
+
+    int32 obtain_dungeon_chapter = 14; // 获得的推图途径，第几章
+
+    string spine_path = 16; // 客户端要的玩意
+
+    string sound = 17; // 声音
+}
+
+message CaptainSoulLevelDataProto {
+    int32 level = 1; // 将魂等级
+    int32 cost_goods = 2; // 升级消耗物品
+    int32 cost_goods_count = 3; // 升级消耗物品数量
+    int32 add_morale = 4; // 武将佩戴该将魂加的士气
+    int32 upgrade_to_next_exp = 5; // 升级到下一级需要的经验
+    repeated CaptainSoulSpellProto spells = 6; // 技能
+    // 特性
+
+    int32 star = 11; // 将魂星数
+    int32 star_level = 12; // 将魂星级
+}
+
+message CaptainSoulSpellProto {
+    string icon = 1; // 图标
+    string desc = 2; // 描述
+    SpriteStatProto sprite_stat = 3; // 技能属性
+    int32 unlock_need_level = 4; // 解锁需要将魂等级
+    Race race = 5; // 关联的武将职业（0表示所有）
+}
+
+message CaptainSoulFettersProto {
+    int32 id = 1; // 羁绊的id
+    string name = 2; // 羁绊的名字
+    PrizeProto fetters_prize = 3; // 羁绊激活了的奖励
+    repeated int32 souls = 4 [packed = false]; // 需要的将魂id
+    string story = 5; // 羁绊的故事
+}
+
+message HeroCaptainSoulProto {
+    repeated CaptainSoulProto all_unlock_captain_souls = 1; // 所有解锁了的将魂
+    repeated int32 all_collect_prize_fetters = 2 [packed = false]; // 所有已经领取了的羁绊奖励
+    repeated int32 all_activated_fetters = 3 [packed = false]; // 所有激活了的羁绊
+}
+
+message HeroCaptainSoulOtherProto {
+    repeated CaptainSoulProto all_unlock_captain_souls = 1; // 所有解锁了的将魂
+    repeated int32 all_activated_fetters = 3 [packed = false]; // 所有激活了的羁绊
+}
+
+message CaptainSoulProto {
+    int32 id = 1; // 将魂的id
+    int32 level = 2; // 将魂等级
+    int32 exp = 3; // 将魂经验
+    repeated bool unlocked_spells = 4 [packed = false]; // 解锁的技能，数组第n个为true表示第n个技能是否解锁了，该数组长度可能会大于当前等级的 CaptainSoulLevelDataProto 的 spells 的个数
+    bool mark = 5; // 是否标记了 false 未标记，true 表示标记了，目前false显示新，true不显示
+    SpriteStatProto total_stat = 6; // 总属性
+}

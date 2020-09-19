@@ -1,0 +1,3 @@
+模板id	联盟名字	联盟旗号	公告	内部公告	标签				初始联盟等级	国家	A类联盟，纯Npc联盟	B类联盟NPC 盟主基础票数		盟主	联盟成员，管理npc_member.txt								
+Id	name	flag_name	text	internal_text	labels	labels	labels	labels	level	country	reject_user_join	npc_leader_vote		leader	members	members	members	members	members	members	members	members	members
+10803000	燕国%s盟	燕%s	北方人，加进来！	努力捐献，一起壮大联盟。	北方豪强				1	4		4		10817001									

@@ -1,0 +1,106 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+message HeroGenProto {
+
+	HeroGenXuanyuanProto xuanyuan = 1; // 轩辕会武
+
+	HeroGenMiscDataProto misc_data = 2; // 英雄杂项
+
+	HeroGenFarmExtraProto farm_extra = 3; // 英雄农场相关数据
+
+	HeroGenCountryProto country = 4; // 英雄国家
+
+	HeroGenShopProto shop = 5; // 商店
+
+	HeroGenGuildWorkshopProto guild_workshop = 6; // 联盟工坊
+
+	HeroGenProductProto product = 7; // 渠道相关
+
+}
+
+
+message HeroGenXuanyuanProto {
+
+    repeated bytes challenge_target = 1; // 挑战目标列表
+
+    bool rank_prize_collected = 6; // 今日已领取排名奖励
+
+}
+
+message HeroGenMiscDataProto {
+
+    int32 weekly_reset_time = 14; // 每周重置时间（上一次）
+
+    int32 daily_reset_time = 1; // 每日重置时间（上一次）
+
+    int32 season_reset_time = 2; // 四季重置时间（上一次）
+
+    int32 defenser_next_full_soldier_time = 3; // 主城防守部队，下次自动补兵时间
+
+    bool defenser_dont_auto_full_soldier = 4; // 主城防守部队，是否不要自动补兵（false表示自动补兵）
+
+    int32 fish_point = 7; // 钓鱼积分
+
+    int32 fish_combo = 11; // 钓鱼连击（高级）
+
+    int32 fishPointExchangeIndex = 10; // 钓鱼兑换映射的消耗数组下标
+
+    int32 ban_chat_end_time = 8; // 禁言结束时间
+
+    int32 daily_zero_reset_time = 12; // 每日零点重置时间（上一次）
+
+    int32 daily_mc_reset_time = 13; // 每日22点重置时间（上一次）
+
+}
+
+message HeroGenFarmExtraProto {
+
+    int32 daily_steal_gold = 1; // 每日偷铜币总量
+
+    int32 daily_steal_stone = 2; // 每日偷石料总量
+
+}
+
+message HeroGenCountryProto {
+
+    int32 country_id = 1; // Id
+
+    int32 new_user_expired_time = 2; // 新手 cd 结束时间
+
+    int32 normal_expired_time = 3; // 非新手 cd 结束时间
+
+    bool appoint_on_same_day = 4; // 当天刚被任命
+
+    bool daily_salary_collected = 5; // 今天的俸禄已领
+
+}
+
+message HeroGenShopProto {
+
+    int32 black_market_daily_refresh_times = 1; // 黑市每日刷新次数
+
+    int32 black_market_next_refresh_time = 2; // 黑市下次刷新时间
+
+}
+
+message HeroGenGuildWorkshopProto {
+
+    int32 daily_build_times = 1; // 今日建设次数
+
+    int32 daily_hurt_times = 3; // 今日破坏次数
+
+    int32 next_hurt_time = 4; // 下次破坏时间
+
+}
+
+message HeroGenProductProto {
+
+    int32 yuanbao_gift_limit = 1; // 可赠送的元宝额度
+
+}
+

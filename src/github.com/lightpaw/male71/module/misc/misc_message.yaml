@@ -1,0 +1,335 @@
+gen_error_msg: true
+
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+- "github.com/lightpaw/male7/pb/shared_proto/setting.proto"
+- "github.com/lightpaw/male7/pb/shared_proto/buff.proto"
+
+#- "github.com/lightpaw/male7/pb/shared_proto/charge.proto"
+
+# 心跳
+# 客户端定时发送心跳. 第一次进入场景之后10秒后开始发送 (客户端第一次发送加载完成消息后的10秒后发送第一次)
+# 每10秒发送一次 (开始发送之后, 不管风吹雨打都要发. 每10秒一次, 不多不少). 服务器判断外挂用
+heart_beat:
+  c2s:
+
+# 后台心跳
+# 当客户端进程被推到后台的时候，定时发送后台心跳.
+# 每10秒发送一次
+# 从后台唤醒之后，别发
+background_heart_beat:
+  c2s:
+
+# 后台唤醒
+# 从后台唤醒之后，停止发送后台心跳
+background_weakup:
+  c2s:
+
+# 配置，客户端内网环境配置
+# 客户端上报当前的配置版本号，服务器下发最新的配置
+# 如果客户端当前配置就是最新的，config 为空
+config:
+  c2s:
+    version: string // 客户端当前的配置版本号
+  s2c:
+    compress: gzip
+    version: string // 服务器本次下发的配置版本号
+    config: bytes // shared_proto.Config
+
+# lua配置，客户端内网环境配置
+# 客户端上报当前的配置版本号，服务器下发最新的配置
+# 如果客户端当前配置就是最新的，config 为空
+configlua:
+  c2s:
+    version: string // 客户端当前的配置版本号
+  s2c:
+    compress: gzip
+    version: string // 服务器本次下发的配置版本号
+    config: bytes // lua config
+
+disconect_reason:
+  s2c_fail:
+    must_login: 没有登陆就发送了别的模块消息
+    kick: 你被顶号了
+    move_base: 跨区域迁移失败
+    lock_fail: Lock英雄失败
+    gm: Gm模块踢人
+    close: 关服
+    msg_rate: 消息频率过快
+    heart_beat: 心跳检查失败
+
+# 每日重置
+reset_daily:
+  s2c:
+
+# 客户端上报日志
+client_log:
+  c2s:
+    level: string // 日志级别
+    text: string // 日志内容
+
+# 同步时间
+#
+# 客户端当前时间，CTIME
+# 消息返回的客户端时间: client_time
+# 消息返回的服务器时间: server_time
+# 服务器时间：SERVER_TIME
+# SERVER_TIME = Max(CTIME - client_time, 0) / 2 + server_time
+sync_time:
+  c2s:
+    client_time: int32 // 客户端当前的unix时间戳
+  s2c:
+    client_time: int32 // 客户端发送的unix时间戳
+    server_time: int32 // 服务器当前的unix时间戳
+
+# 请求block数据
+block:
+  c2s:
+  s2c:
+    compress: gzip
+    data: bytes // shared_proto.BlockInfoProto
+
+# 功能开启了
+open_function:
+  s2c:
+    function_type: int // shared_proto.FunctionType 功能开启类型
+
+# 功能开启了（多个同时开启）
+open_multi_function:
+  s2c:
+    function_type: int[] // shared_proto.FunctionType 功能开启类型
+
+# 设置bool值
+#
+# HeroProto
+#    int32 bools = 102; // bool值
+#
+# 判断某个类型是否为true
+# x = 2 ^ type // 2的type次方，2的0次方=1
+# 类型是否为true: (bools / x) % 1 == 1
+#
+# 登陆之后，将所有的为false的都取出来，然后收到消息就移除掉
+set_hero_bool:
+  s2c:
+    bool_type: int // shared_proto.HeroBoolType Bool类型
+
+# 把对应的 HeroBoolType 类型设置为 false
+reset_hero_bool:
+  s2c:
+    bool_type: int // shared_proto.HeroBoolType Bool类型
+
+# 屏幕飘字
+#{
+#    "i18nkey": "RealmInvateTargetLost", // 客户端根据这个key从本地多语言配置表读取飘字内容
+#    "i18nexample": "{{troop_index}}队的目标已不存在，队伍返回中", // 这个是示例，实际情况为空
+#    // 其他字段都是参数
+#    "troop_index": "1"
+#}
+screen_show_words:
+  s2c:
+    json: string
+
+# ping
+ping:
+  c2s:
+  s2c:
+
+# 获取热更新版本号
+client_version:
+  c2s:
+    os: string // android ios
+    t: string // xianyou qingce
+  s2c:
+    v: string // 客户端热更新版本号
+    os: string // android ios 空表示全平台更新
+    t: string // xianyou qingce 空表示全版本更新
+
+# 更新平台token
+update_pf_token:
+  c2s:
+    token: string // 更新平台token
+  s2c:
+
+# 设置
+settings:
+  c2s:
+    setting_type: int // 设置类型
+    open: bool // 开启
+  s2c:
+    setting_type: enum shared_proto.SettingType // 设置类型
+    open: bool // 是否开启
+  s2c_fail:
+    invalid_type: 非法的类型
+
+# 设置恢复默认
+settings_to_default:
+  c2s:
+  s2c:
+    setting_type: shared_proto.HeroSettingsProto// 设置类型
+
+# 小喇叭物品id配置 MiscConfigProto.broadcast_goods
+# 玩家小喇叭广播
+# 策划案没说小喇叭要放到系统聊天频道里，那先不做（并非遗漏）
+hero_broadcast:
+  s2c:
+    text: string // 内容
+    name: string // 君主名
+    guild_flag: string // 联盟旗号
+
+# 系统广播的文本按照邮件方式来做
+# 系统定时广播
+sys_timing_broadcast:
+  s2c:
+    text: string // 正文
+
+# 系统广播
+sys_broadcast:
+  s2c:
+    text: string // 正文
+
+# 设置故乡
+update_location:
+  c2s:
+    location: int // 故乡
+  s2c:
+    location: int // 故乡
+  s2c_fail:
+    location_error: location 必须 >=0
+
+# 打开充值奖励界面
+#open_charge_prize_ui:
+#  c2s:
+#  s2c:
+#    charge: shared_proto.ChargeProto
+
+# 领取充值奖励
+collect_charge_prize:
+  c2s:
+    id: int // 充值奖励表主键id（不是奖励表id）
+  s2c:
+    id: int
+    prize: bytes
+  s2c_fail:
+    invalid_id: 无效的id
+    collected: 奖励已领取
+    not_enough_charge_amount: 充值不够
+
+# 刷新充值总金额
+update_charge_amount:
+  s2c:
+    amount: int // 充值总金额
+
+# 领取每日特惠
+collect_daily_bargain:
+  c2s:
+    id: int // 特惠id
+  s2c:
+    id: int // 特惠id
+    times: int // 刷新已购（领）次数
+    prize: bytes
+  s2c_fail:
+    invalid_id: 无效的id
+    cannot_collect: 无法领取
+
+# 购买（激活）尊享卡
+activate_duration_card:
+  c2s:
+    id: int // 卡片id
+  s2c:
+    id: int // 卡片id
+    end_time: int // 结束时间（如果是永久卡，发过来的是起始时间，可以忽略）
+    prize: bytes // 立即获赠的奖励
+  s2c_fail:
+    invalid_id: 无效的id
+    cannot_activate: 无法购买
+    no_charge: 充值未响应
+
+# 领取尊享卡每日奖励
+collect_duration_card_daily_prize:
+  c2s:
+    id: int // 卡片id
+  s2c:
+    id: int // 今日已领取的卡片
+    prize: bytes // 奖励
+  s2c_fail:
+    invalid_id: 无效的id
+    not_active: 卡未激活
+    collected: 今日已领取
+    overdue: 已过期，请续费
+
+## 购买（激活）充值项
+#activate_charge_obj:
+#  c2s:
+#    id: int // 充值项，对应充值项.txt
+#    order_number: string // 订单号（充值），服务器验证
+#  s2c:
+#    id: int // 充值成功的充值项，客户端要加到ChargeProto.first_charged_objs中去（首充过的列表，如果列表中没有）
+#    vip_level: int // vip等级刷新
+#    vip_exp: int // vip经验刷新（vip等级有变化时，可能变小，不累加，如果要显示累计经验，客户端自己根据vip配置表计算）
+#
+##充值奖励会走邮件
+#  s2c_fail:
+#    invalid_id: 无效的id
+#    validation_timeout: // 验证超时
+#    err_order_number: // 错误的订单号
+#    invalid_order_number: // 无效的订单号
+
+# 每日零点重置
+reset_daily_zero:
+  s2c:
+
+# 每日22点重置
+reset_daily_mc:
+  s2c:
+
+# 隐私设置
+set_privacy_setting:
+  c2s:
+    setting_id: int // 隐私设置id
+    open_or_close: bool // true为开启 false为关闭
+  s2c:
+    setting_type: enum shared_proto.PrivacySettingType // 设置类型
+    open_or_close: bool // true为开启 false为关闭
+  s2c_fail:
+    invalid_type: 无效的类型
+    duplication: 重复设置
+
+# 恢复默认隐私设置
+set_default_privacy_settings:
+  c2s:
+  s2c_fail:
+    has_default: 已经恢复默认设置
+
+# 获取购买商品信息
+get_product_info:
+  c2s:
+    id: int32 // 商品id（内部）
+  s2c:
+    id: int32 // 商品id（内部）
+    product_id: string // 商品id（平台）
+    product_name: string // 商品名字
+    cp_order_id: string // cp订单id
+    money: int32 // 金额（分，除100得到元）
+    gold: int32 // 获得虚拟货币
+    ext: string // 透传字段
+    is_debug: bool // debug模式
+  s2c_fail:
+    invalid_id: 无效的商品id
+    cant_buy: 不能购买这个商品
+
+# 每周重置
+reset_weekly:
+  s2c:
+
+# 更新首冲，将充值项设置为已充值
+update_first_recharge:
+  s2c:
+    id: int // 充值项
+
+# buff 更新通知
+update_buff_notice:
+  s2c:
+    group_id: int // 更新的buff组id
+    buff: shared_proto.BuffInfoProto // 更新的buff，如果是删除buff，则为nil

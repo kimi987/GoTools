@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+
+message HeroPromotionProto {
+    // 已领取的登陆天数奖励
+    repeated int32 collect_login_prize_day = 1 [packed = false];
+
+    // 已领取的君主等级基金
+    repeated int32 collect_level_fund = 3 [packed = false];
+
+    // 当天已经领取的体力值奖励
+    repeated int32 collect_daily_sp = 2 [packed = false];
+
+    // 日常免费礼包
+    repeated int32 collect_daily_free_gift = 4 [packed = false];
+
+    // 一次性免费礼包
+    repeated int32 collect_free_gift = 5 [packed = false];
+
+    // 时限礼包
+    repeated TimeLimitGiftBoughtProto buy_time_limit_gift = 6;
+
+    // 事件礼包
+    repeated EventLimitGiftProto event_limit_gifts = 7;
+
+    // 时限礼包的购买次数
+    repeated TimeLimitGiftBuyTimesProto time_limit_gift_buy_times = 8;
+}
+
+enum GiftType {
+    InvalidGift = 0;
+    DAILY_BARGAIN = 1; // 每日特惠
+}
+
+// 时限礼包组
+message TimeLimitGiftProto {
+    int32 id = 1; // 礼包组ID，不再和TimeLimitGiftDataProto.id有任何关系
+    int32 end_time = 2; // 结束时间
+}
+
+// 购买过的Proto
+message TimeLimitGiftBoughtProto {
+    int32 id = 1; // TimeLimitGiftGroupDataProto.id
+    int32 index = 3; // 当前对应的礼包组下标
+    int32 end_time = 2; // 记录礼包组生成的结束时间，如果这个时间与TimeLimitGiftProto.end_time不相同，那么说明已经不是这个礼包组了，index刷新为0
+}
+
+// 事件礼包
+message EventLimitGiftProto {
+    int32 id = 1; // EventLimitGiftDataProto.id
+    int32 end_time = 2; // 结束时间
+    PrizeProto prize = 3; // 奖励
+}
+
+// 时限礼包购买次数(限购次数而非限购数量)
+message TimeLimitGiftBuyTimesProto {
+    int32 id = 1;
+    int32 times = 2;
+}
+
+message TimeLimitGiftGroupDataProto {
+    int32 id = 1; // 礼包组id
+    repeated int32 gift_ids = 2 [packed = false]; // 礼包组，对应TimeLimitGiftData中的id
+    int32 min_hero_level = 3; // 推送所需英雄等级下限
+    int32 max_hero_level = 4; // 推送所需英雄等级上限
+    int32 min_guanfu_level = 5; // 推送所需官府等级上限
+    int32 max_guanfu_level = 6; // 推送所需官府等级上限
+}

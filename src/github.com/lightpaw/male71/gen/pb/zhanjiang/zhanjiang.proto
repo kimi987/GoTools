@@ -1,0 +1,64 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "zhanjiang";
+option optimize_for = SPEED;
+
+
+message C2SOpenProto {
+
+    int32 id = 1; // 关卡id，即 ZhanJiangGuanQiaProto 中的id
+
+}
+
+message S2COpenProto {
+
+    int32 id = 1; // 开启关卡成功，即 ZhanJiangGuanQiaProto 中的id
+
+    int32 captain_id = 2; // 开启放置的武将id
+
+}
+
+message C2SUpdateCaptainProto {
+
+    int32 id = 1; // 武将的id
+
+}
+
+message S2CUpdateCaptainProto {
+
+    int32 id = 1; // 武将的id
+
+}
+
+message C2SChallengeProto {
+
+    int32 pass_count = 1; // 通关该关卡的数量
+
+}
+
+message S2CChallengeProto {
+
+    bool pass = 1; // 是否挑战成功 true(挑战成功，将ZhanJiangChallengeProto.pass_count+1，读取下面的数据)/false(挑战失败)
+
+    string link = 2; // 战报链接
+
+    bytes share = 3; // 战斗分享，客户端解析成 CombatShareProto
+
+    int32 zhan_jiang_data_id = 4; // 当前小关卡的 id
+
+}
+
+message S2CPassProto {
+
+    int32 id = 1; // 通关的关卡
+
+}
+
+message S2CUpdateOpenTimesProto {
+
+    int32 open_times = 1; // 已经开启的次数
+
+}
+

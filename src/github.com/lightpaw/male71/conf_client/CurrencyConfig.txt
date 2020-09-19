@@ -1,0 +1,31 @@
+所有id	通货类型	图标	描述	品质											
+id	CurrencyType	Icon	Desc	Quality											
+1	1	ui://Library/Image_Gold	金币	1											
+2	2	ui://Library/Image_Food	粮食	1											
+3	3	ui://Library/Image_Wood	木材	1											
+4	4	ui://Library/Image_Stone	石料	1											
+5	5		繁荣度	1											
+6	6		科技点	1											
+7	7	ui://Library/item_jingyanw	武将经验	1					-- 通货--				#NAME?		
+8	8	ui://Library/item_jingyan	君主经验	1					CurrencyType = {				Quality = {		
+9	9	ui://Library/Image_YuanBao01	元宝	1					"    None = 0,"				"    None = -1,"		
+									    -- 金币--				    -- 白色		
+									"    Gold = 1,"				"    White = 0,"		
+									    -- 粮食--				    -- 绿色		
+									"    Food = 2,"				"    Green = 1,"		
+									    -- 木材--				    -- 蓝色		
+									"    Wood = 3,"				"    Blue = 2,"		
+									    -- 石料--				    -- 紫色		
+									"    Stone = 4,"				"    Purple = 3,"		
+									    -- 繁荣度--				    -- 橙色		
+									"    Prosperity = 5,"				"    Orange = 4,"		
+									    -- 科技点--				    -- 红色		
+									"    SATPoint = 6,"				"    Red = 5,"		
+									    -- 武将经验--				}		
+									"    CaptainExp = 7,"						
+									    -- 君主经验						
+									"    MonarchsExp = 8,"						
+									    -- 元宝--						
+									"    Money = 9,"						
+									}						
+															

@@ -1,0 +1,1 @@
+一天最大的次数	恢复间隔max_times	recover_duration20	2m

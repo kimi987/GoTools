@@ -1,0 +1,5 @@
+Id	描述	申请挑战开始时间	申请挑战持续时间	申请协助开始时间	申请协助持续时间	战斗开始时间	战斗持续时间
+id	desc	apply_atk_start	apply_atk_duration	apply_ast_start	apply_ast_duration	fight_start	fight_duration
+1	描述1	"w6,21h0m"	47h	"w1,20h0m"	24h	"w2,20h0m"	1h
+2	描述2	"w2,21h0m"	23h	"w3,20h0m"	24h	"w4,20h0m"	1h
+3	描述3	"w4,21h0m"	23h	"w5,20h0m"	24h	"w6,20h0m"	1h

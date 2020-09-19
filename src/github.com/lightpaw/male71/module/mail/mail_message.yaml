@@ -1,0 +1,134 @@
+
+# 邮件概况（上线时候收到）
+
+# 请求邮件
+# config.MiscConfig.MailBatchCount 一次推送多少个邮件（当打开邮件界面时，邮件数少于这个值，则请求邮件数）
+# 返回的邮件列表id是从高到低，客户端一直往上拖，逐批加载
+# 当返回的邮件列表小于config.MiscConfig.MailBatchCount，说明已经没有新邮件了
+# 收到的全部邮件分类可以填充到其他分类中，但是其他分类获取的邮件不要放到全部分类中
+# tab: int // 0-全部 1-战报 2-系统 3-收藏
+# 全部：keep=0 report=0
+# 战报：keep=0 report=2
+# 系统：keep=0 report=1
+# 收藏: keep = 2
+
+list_mail:
+  c2s:
+    read: int // 0-全部 1-未读 2-已读
+    keep: int // 0-全部 1-未收藏 2-已收藏
+    report: int // 战报 0-全部 1-无 2-有
+    report_tag: int // 战报分类标签(系统邮件默认为0) 0-战斗报告 1-野外讨伐 2-掠夺殷墟
+    has_prize: int // 奖励 0-全部 1-无 2-有
+    collected: int // 0-全部 1-未领取 2-已领取
+    min_id: bytes // 最小的邮件的id，服务器返回比这个id小的一批邮件(客户端当前没有邮件时候，不发)
+    count: int // 请求邮件个数
+  s2c:
+    compress: snappy
+    read: int // 0-全部 1-未读 2-已读
+    keep: int // 0-全部 1-未收藏 2-已收藏
+    report: int // 战报 0-全部 1-无 2-有
+    report_tag: int // 战报分类标签(系统邮件默认为0) 0-战斗报告 1-野外讨伐 2-掠夺殷墟
+    has_prize: int // 奖励 0-全部 1-无 2-有
+    collected: int // 0-全部 1-未领取 2-已领取
+    mail: bytes[] // shared_proto.MailProto
+  s2c_fail:
+    invalid_id: 无效的min_id
+    invalid_param: 无效的参数类型（0-2）
+    server_error: 服务器忙，请稍后再试
+
+# 收到一个新邮件
+# 每收到一个新邮件，都排在邮件的开头
+receive_mail:
+  s2c:
+    compress: snappy
+    mail: bytes // shared_proto.MailProto
+
+# 删除邮件
+delete_mail:
+  c2s:
+    id: bytes // 邮件id
+  s2c:
+    id: bytes // 删除邮件id
+  s2c_fail:
+    invalid_id: 发送的id无效
+    not_empty: 邮件有奖励可以领取，不能删除
+    server_error: 服务器忙，请稍后再试
+
+# 收藏邮件
+keep_mail:
+  c2s:
+    id: bytes // 邮件id
+    keep: bool // true表示收藏，false表示取消收藏
+  s2c:
+    id: bytes // 邮件id
+    keep: bool // true表示收藏，false表示取消收藏
+  s2c_fail:
+    invalid_id: 发送的id无效
+    server_error: 服务器忙，请稍后再试
+
+# 领取邮件奖励
+collect_mail_prize:
+  c2s:
+    id: bytes // 邮件id
+  s2c:
+    id: bytes // 邮件id，客户端标记为已领取
+  s2c_fail:
+    invalid_id: 发送的id无效
+    not_prize: 这个邮件没有奖励
+    server_error: 服务器忙，请稍后再试
+
+# 读取邮件
+read_mail:
+  c2s:
+    id: bytes // 邮件id
+  s2c:
+    id: bytes // 邮件id
+  s2c_fail:
+    invalid_id: 发送的id无效
+    server_error: 服务器忙，请稍后再试
+
+# 提醒的邮件数量
+# 当客户端有新收到邮件/删除邮件/领取邮件奖励/读取邮件/上线都可以来请求该协议
+notify_mail_count:
+  s2c:
+    has_prize_not_collected_count: int // 有奖励没有领取的邮件数量
+    has_report_not_readed_count: int // 没有读取的战斗报告数量(对应report_tag=0)
+    has_yw_report_not_readed_count: int // 没有读取的野外讨伐数量(对应report_tag=1)
+    has_bz_report_not_readed_count: int // 没有读取的掠夺殷墟数量(对应report_tag=2)
+    no_report_not_readed_count: int // 没有读取的邮件数量
+
+# 一键已读，发送符合条件的邮件id列表
+# !proto.Readed || (proto.HasPrize && !proto.Collected)
+#
+# 收到返回消息，弹框（如果需要的话），然后，将列表中的邮件设置成已读，有奖励可领的，设置为已领取
+read_multi:
+  c2s:
+    ids: bytes[] // 邮件id列表
+    report: bool // true表示战报，false表示系统邮件
+  s2c:
+    ids: bytes[] // 邮件id列表
+    report: bool // true表示战报，false表示系统邮件
+    prize: bytes //shared_proto.PrizeProto 本次领取的奖励，有就弹框
+
+# 删除已读，发送符合条件的邮件id列表
+# !proto.Keep && proto.Readed && (!proto.HasPrize || proto.Collected)
+# 收到返回消息，移除邮件id列表
+#
+# 如果列表邮件数不足，则再发一次消息来请求邮件，刷新列表
+delete_multi:
+  c2s:
+    ids: bytes[] // 邮件id列表
+    report: bool // true表示战报，false表示系统邮件
+  s2c:
+    ids: bytes[] // 邮件id列表
+    report: bool // true表示战报，false表示系统邮件
+
+# 获取邮件战报
+get_mail:
+  c2s:
+    bid: bytes // 邮件id
+  s2c:
+    compress: snappy
+    data: bytes // shared_proto.MailProto
+  s2c_fail:
+    mail_not_found: 邮件不存在

@@ -1,0 +1,5 @@
+Id	最小营建次数	最大营建次数	营建奖励
+id	min_build_count	max_build_count	prize
+1	1	33	2501
+2	34	66	2502
+3	67	100	2503

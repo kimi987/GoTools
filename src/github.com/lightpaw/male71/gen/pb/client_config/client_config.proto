@@ -1,0 +1,44 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "client_config";
+option optimize_for = SPEED;
+
+
+message C2SConfigProto {
+
+    string path = 1; // 路径 表的路径，表在 conf/client 目录下的路径，如 conf/client/a.xlsx，那么 table_path就是这个数据了(conf/client/a.xlsx)
+
+}
+
+message S2CConfigProto {
+
+    bytes data = 1; // 解析成shared_proto.Table
+
+}
+
+message C2SSetClientDataProto {
+
+    int32 index = 1; // 下标，该值必须 >= 0 且 < 服务器提供的数量, 目前服务器提供640个设置的数据，如果后面客户端说不够，可以来调整
+
+    bool toSetBool = 3; // 设置成的值
+
+}
+
+message C2SSetClientKeyProto {
+
+    int32 key_type = 1; // 类型，0-推图章节剧情
+
+    int32 key_value = 2; // 设置的值
+
+}
+
+message S2CSetClientKeyProto {
+
+    int32 key_type = 1; // 类型，0-推图章节剧情
+
+    int32 key_value = 2; // 设置的值
+
+}
+

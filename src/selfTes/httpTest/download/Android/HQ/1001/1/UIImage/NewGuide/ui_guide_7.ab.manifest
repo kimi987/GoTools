@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2872064548
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 40ca9bf14610359dca39b4fdb0f06d51
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c73412a662fd4e4f36af34cbdf078b85
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIImage/NewGuide/ui_guide_7.png
+Dependencies: []

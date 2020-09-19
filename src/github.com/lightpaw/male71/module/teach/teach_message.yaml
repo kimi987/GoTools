@@ -1,0 +1,27 @@
+
+# 战斗
+# 返回成功，就表示这一关已经通过了
+fight:
+  c2s:
+    id: int // TeachDataProto.Id
+  s2c:
+    id: int // TeachDataProto.Id
+  s2c_fail:
+    invalid_id: id 不存在
+    hero_level_limit: 君主等级不够
+    ba_ye_task_limit: 霸业任务没通过
+    prev_chapter_not_pass: 前置关卡没通过
+    server_err: 服务器错误
+    dungeon_limit: 推图没通过
+
+# 领奖
+collect_prize:
+  c2s:
+    id: int // TeachDataProto.Id
+  s2c:
+    id: int // TeachDataProto.Id
+  s2c_fail:
+    invalid_id: id 不存在
+    not_pass: 关卡没通过
+    already_collected: 奖励已领
+

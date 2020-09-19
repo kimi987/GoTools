@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+// 配置表
+message RandomEventDataProto {
+    int32 id = 1; // 事件id
+    string image = 3; // 事件配图
+    string title = 4; // 事件标题
+    string desc = 5; // 事件描述
+    string content = 6; // 成语描述
+}
+
+message EventOptionProto {
+    string optionText = 1; // 选项 例如：          放生（说不定鱼会报恩呢）
+    string successText = 2; // 成功 例如：    大鱼感恩于你，叼了一个物品给你：
+    string failedText = 3; // 失败 例如：     大鱼欢快的游走了，你什么都未获得
+    CostProto optionCost = 4; // 選項消耗
+}
+
+message EventPositionProto {
+    int32 posX = 2; // 事件的x坐标
+    int32 posY = 3; // 事件的y坐标
+}

@@ -1,0 +1,515 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/domestic.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/military.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/guild.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/goods.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/tower.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/task.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/captain_soul.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/fishing.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/spell.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/shop.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/country.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/tag.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/dungeon.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/rank.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/bai_zhan.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/monster.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/function.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/guizu.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/region.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/garden.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/zhengwu.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/question.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/zhanjiang.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/farm.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/survey.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/xiongnu.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/season.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/dianquan.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/hebi.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/teach.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/config_gen.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/promotion.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/random_event.proto";
+
+message Config {
+
+    //    DomesticConfig domestic = 1;
+    //
+    //    MilitaryConfig military = 2;
+    ConfigGen gen = 4;
+
+    repeated BuildingLayoutProto building_layout = 1; // 建筑布局
+    repeated BuildingDataProto building_data = 2; // 建筑数据
+    repeated BuildingUnlockDataProto building_unlock_data = 76; // 建筑解锁
+    repeated TechnologyDataProto technology_data = 3; // 科技数据
+
+    repeated SoldierLevelProto soldier = 7; // 士兵每一级对应的数据
+    repeated HeroLevelProto hero = 8; // 君主每一级对应的数据
+
+    repeated GuildLevelProto guild_level = 9; // 帮派等级数据
+    repeated GuildClassLevelProto guild_class_level = 10; // 帮派阶级等级数据
+    repeated GuildClassTitleDataProto guild_class_title = 37; // 帮派职称数据
+    repeated GuildDonateProto guild_donate = 31; // 帮派捐献数据
+    repeated GuildTargetProto guild_target = 43; // 帮派捐献数据
+    repeated GuildEventPrizeDataProto guild_event_prize = 85; // 帮派盟友礼包
+    repeated GuildBigBoxDataProto guild_big_box = 86; // 帮派大宝箱
+    repeated GuildTechnologyDataProto guild_technology = 97;
+    repeated GuildPermissionShowProto guild_permission_show = 98;
+    repeated GuildPrestigePrizeDataProto guild_prestige_prize = 123; // 联盟声望礼包奖励
+    repeated GuildTaskEvaluateDataProto guild_task_evaluate = 5; // 联盟任务评价
+    repeated GuildTaskDataProto guild_task = 6; // 联盟任务
+
+    repeated BaseLevelProto base_level = 11; // 主城每一级对应的数据
+
+    repeated GoodsDataProto goods = 12; // 物品数据（可堆叠）
+    repeated EquipmentDataProto equipment = 13; // 装备数据
+    repeated EquipmentQualityProto equipment_quality = 14; // 装备品质数据
+    repeated EquipmentRefinedProto equipment_refined = 15; // 装备强化数据
+    repeated EquipmentTaozProto equipment_taoz = 16; // 装备套装数据
+    repeated GoodsQualityProto goods_quality = 125; // 物品品质
+
+    repeated CaptainLevelProto captain_level = 17; // 武将每一级对应的数据
+    repeated CaptainAbilityProto captain_ability = 18; // 武将成长点数据
+    repeated TrainingLevelProto training_level = 19; // 修炼馆等级数据
+    repeated CaptainRebirthLevelProto captain_rebirth_level = 30; // 武将每一级转生对应的数据
+
+    repeated TowerDataProto tower = 20; // 千重楼数据
+
+    repeated TaskDataProto main_task = 21; // 主线任务数据
+    repeated TaskDataProto branch_task = 22; // 支线任务数据
+    repeated TaskDataProto ba_ye_task = 67; // 霸业任务数据
+    repeated BaYeStageDataProto ba_ye_stage = 68; // 霸业目标阶段数据
+    repeated TaskDataProto achieve_task = 70; // 成就任务数据
+    repeated TaskDataProto active_degree_task = 71; // 活跃度任务数据
+    repeated ActiveDegreePrizeProto active_degree_prize = 72; // 活跃度奖励数据
+    repeated TaskBoxProto task_box = 23; // 任务宝箱数据
+    TaskMiscDataProto task_misc_data = 96; // 任务杂项
+    repeated TaskDataProto bwzl_task = 116; // 霸王之路任务
+    repeated BwzlPrizeDataProto bwzl_prize = 117; // 霸王之路完成任务数量奖励
+
+    repeated CaptainSoulDataProto captain_soul_data = 24; // 所有将魂
+    repeated FishingShowProto fishing_show = 25; // 所有钓鱼展示数据
+    repeated FishingCostProto fishing_cost = 26; // 钓鱼消耗数据
+
+    repeated CaptainSoulFettersProto captain_soul_fetters = 27; // 所有羁绊
+    CaptainSoulMiscProto captain_soul_misc = 69; // 将魂其他数据
+
+    repeated TieJiangPuLevelProto tie_jiang_pu_level = 28; // 铁匠铺等级
+
+    repeated EquipCombineDataProto equip_combine = 29; // 装备合成
+
+    repeated SpellProto spell_config = 32; // 技能列表
+
+    repeated GemDataProto gem = 33; // 所有宝石
+    repeated GemSlotDataProto gem_slot = 34; // 宝石槽位
+
+    repeated RaceDataProto race_data = 35; // 职业数据
+
+    repeated ShopProto shop = 36; // 商店数据
+
+    repeated SecretTowerDataProto secret_tower = 38; // 重楼密室数据
+    SecretTowerMiscProto secret_tower_misc = 39; // 重楼密室其他数据
+
+    // 40 已经被用过了
+
+    repeated RegionDataProto region_data = 73; // 地区数据
+    repeated NpcBaseDataProto npc_base_data = 74; // npc城池数据
+    repeated RegionMultiLevelNpcDataProto multi_level_npc_data = 87; // 野怪配置
+    repeated RegionMultiLevelNpcTypeProto multi_level_npc_type = 88; // 野怪类型配置
+
+    // 默认国家
+    repeated DefaultCountryProto default_country = 42 [deprecated = true]; // 早期版本国家，废弃
+    CountryMiscProto country_misc = 52 [deprecated = true]; // 早期版本国家，废弃
+
+    RankMiscProto rank_misc = 44;
+
+    BaiZhanMiscProto bai_zhan_misc = 45; // 百战其他数据
+    repeated JunXianLevelDataProto jun_xian_level = 46; // 百战军衔等级数据
+    repeated JunXianLevelPrizeProto jun_xian_level_prize = 47; // 百战军衔奖励数据
+
+    repeated DungeonChapterProto dungeon_chapter = 49; // 章节数据
+    DungeonMiscProto dungeon_misc = 51; // 副本其他数据
+
+    repeated CityEventDataProto city_event_data = 53; // 城内所有事件
+    CityEventMiscProto city_event_misc = 54; // 城内事件其他数据
+
+    TagMiscProto tag_misc = 56; // 标签数据
+
+    repeated StrategyDataProto strategy = 57; // 策略
+
+    repeated CaptainGeneratorProto captain_generator = 58; // 武将招募
+    repeated CaptainSeekerProto captain_seeker = 91;
+
+    repeated JiuGuanDataProto jiu_guan_data = 59; // 酒馆等级数据
+    JiuGuanMiscDataProto jiu_guan_misc = 60; // 酒馆其他数据
+
+    // 模块配置
+    GoodsConfigProto goods_config = 61;
+    MilitaryConfigProto military_config = 62;
+    RegionConfigProto region_config = 63;
+    MiscConfigProto misc_config = 64;
+    GuildConfigProto guild_config = 65;
+    GradonConfigProto gradon_config = 90;
+
+    repeated JunYingLevelDataProto jun_ying_level_data = 66; // 军营等级数据
+    JunYingMiscProto jun_ying_misc = 92; // 军营杂项
+
+    repeated GuanFuLevelProto guan_fu_level_data = 75; // 官府等级数据
+
+    repeated FunctionOpenDataProto function_open_datas = 77; // 功能解锁
+
+    repeated GuiZuLevelDataProto gui_zu_level_datas = 78; // 贵族等级数据
+
+    DiaoKeMiscDataProto diao_ke_misc_data = 79; // 雕刻其他数据
+
+    repeated IconProto icons = 80; // 图标数据
+
+    repeated PveTroopDataProto pve_troop_datas = 81; // pve队伍配置
+
+    repeated OuterCityDataProto outer_city_datas = 82; // 外城配置
+
+    repeated OuterCityLayoutDataProto outer_city_layout_datas = 83; // 外城布局配置
+
+    repeated CountdownPrizeDescDataProto countdown_prize_desc = 84; // 倒计时礼包描述
+
+    repeated TreasuryTreeDataProto treasury_tree_data = 89; // 摇钱树
+
+    repeated ZhengWuRefreshDataProto zheng_wu_refresh = 93; // 政务刷新配置
+    ZhengWuMiscProto zheng_wu_misc = 94; // 政务其他配置
+
+    repeated AchieveTaskStarPrizeProto achieve_task_star_prize = 95; // 成就星数奖励
+
+    repeated ZhanJiangChapterProto zhan_jiang_chapter = 99; // 过关斩将
+    ZhanJiangMiscDataProto zhan_jiang_misc = 120; // 斩将其他数据
+
+    repeated StrongerDataProto stronger_data = 102; // 变强
+
+    repeated StringPair setting = 100;
+
+    repeated I18NDataProto i18n = 101; // 国际化语言配置
+
+    repeated CaptainOfficialProto captain_official = 103; // 武将官职
+
+    repeated QuestionProto question = 104; // 答题问题
+    repeated QuestionSayingProto question_saying = 105; // 答题名言
+    repeated QuestionPrizeProto question_prize = 106; // 答题奖励
+    QuestionMiscProto question_misc = 107; // 答题杂项
+
+    repeated SurveyDataProto survey_datas = 108; // 问卷调查
+
+    repeated AmountShowSortProto amount_show_sort_datas = 109; // 数值展示排序
+
+    ResistXiongNuMiscProto resist_xiong_nu_misc = 110; // 抗击匈奴杂项
+    repeated ResistXiongNuDataProto resist_xiong_nu_data = 111; // 抗击匈奴难度
+    repeated ResistXiongNuScoreProto resist_xiong_nu_score = 112; // 抗击匈奴评分
+
+    repeated WorkshopRefreshCostProto workshop_refresh_costs = 113; // 装备走访刷新消耗
+
+    repeated HeadProto heads = 114; // 所有头像
+    repeated BodyProto bodys = 115; // 所有形象
+
+    repeated SeasonDataProto season_datas = 118; // 季节数据
+    SeasonMiscProto season_misc = 119; // 季节其他
+
+    repeated FarmResConfigProto farm_res_config = 121; // 农场资源
+    FarmMiscConfigProto farm_misc_config = 122; // 农场杂项
+
+    DianquanMiscProto dianquan_misc = 124; // 点券杂项
+
+    repeated HebiPrizeProto hebi_prize = 128; // 合璧奖励
+    HebiMiscProto hebi_misc = 129; // 合璧杂项
+
+    repeated TeachChapterDataProto teach_data = 130; // 教学关卡
+
+    repeated TimeLimitGiftGroupDataProto time_limit_gift_groups = 131; // 时限礼包组
+
+    repeated RandomEventDataProto random_event = 135; // 随机事件（成语词典）
+}
+
+message GoodsConfigProto {
+    int32 equipment_upgrade_goods = 1; // 装备升级消耗的物品id
+    int32 equipment_refined_goods = 2; // 装备强化消耗的物品id
+    repeated int32 captain_refined_goods = 3 [packed = false]; // 武将强化符的物品id
+    int32 change_captain_race_goods = 4; // 武将转职消耗物品id
+    repeated int32 captain_rebirth_goods = 5 [packed = false]; // 武将转生符的物品id
+
+    int32 move_base_goods = 6; // 高级迁城的物品id
+    int32 random_move_base_goods = 7; // 随机迁城的物品id
+    int32 move_tent_goods = 8; // 高级迁行营的物品id
+    int32 random_move_tent_goods = 12; // 随机迁行营的物品id
+    int32 guild_move_base_goods = 13; // 迁移到联盟主城地区的物品id
+    int32 multi_level_npc_times_goods = 25; // 讨伐令物品id
+
+    int32 invase_hero_times_goods = 29; // 攻城令物品id
+    int32 jun_tuan_npc_times_goods = 34; // 军团令物品id
+
+    repeated int32 mian_goods = 9 [packed = false]; // 免战牌的物品id
+
+    repeated int32 jiu_guan_exp_captain_refined_goods = 10 [packed = false]; // 酒馆请教获得的物品id
+    repeated int32 exp_captain_soul_upgrade_goods = 11 [packed = false]; // 将魂升级的物品id
+
+    repeated int32 speed_up_goods = 14 [packed = false]; // 行军加速的物品id
+
+    repeated int32 train_exp_goods = 15 [packed = false]; // 修炼馆经验丹的物品id
+
+    repeated int32 building_cdr_goods = 16 [packed = false]; // 减建筑CD物品id
+    repeated int32 tech_cdr_goods = 17 [packed = false]; // 减科技CD物品id
+    repeated int32 workshop_cdr_goods = 19 [packed = false]; // 减装备锻造CD物品id
+
+    repeated int32 spec_goods = 18 [packed = false]; // 特殊类型物品id
+
+    repeated int32 gold_goods = 20 [packed = false]; // 给铜币的物品id
+    repeated int32 gold_normal_shop_goods = 21 [packed = false]; // 给铜币的普通商店商品id,与goods_id一一对应，只有元宝商店有效，表示goods_id在这个商品里能买到。0表示没有对应商品
+
+    repeated int32 stone_goods = 22 [packed = false]; // 给石料的物品id
+    repeated int32 stone_normal_shop_goods = 23 [packed = false]; // 给石料的普通商店商品id，与goods_id一一对应，只有元宝商店有效，表示goods_id在这个商品里能买到。0表示没有对应商品
+
+    repeated int32 gong_xun_goods = 24 [packed = false]; // 功勋令牌物品id
+
+    int32 fish_goods = 26; // 鱼饵物品id
+
+    repeated int32 copy_defenser_goods = 27 [packed = false]; // 驻防镜像物品id
+
+    repeated int32 tiger_goods = 28 [packed = false]; // 虎符物品id
+    repeated int32 zhanjiang_goods = 33 [packed = false]; // 过关斩将次数物品id
+    repeated int32 tower_goods = 32 [packed = false]; // 千重楼重置物品id
+
+    repeated int32 buff_goods = 31 [packed = false]; // buff物品id
+
+    int32 indecomposable_baowu_count = 30; // 等级最高的前n个宝物不可分解
+}
+
+message MilitaryConfigProto {
+    int32 gen_seek_count = 1; // 每次寻访武将个数
+    int32 seek_duration = 2; // 寻访武将时间间隔
+    int32 seek_max_times = 3; // 最多寻访次数
+    int32 defenser_count = 4; // 防守武将个数
+    int32 fire_level_limit = 5; // 解雇武将最高等级
+
+    // 训练位开启等级表每个训练位开启等级
+    repeated int32 training_hero_level = 6 [packed = false]; // 每个训练位开启的英雄等级
+    repeated int32 training_init_level = 7 [packed = false]; // 每个训练位开启的初始等级
+    repeated int32 training_level_limit = 8 [packed = false]; // 每个训练位的等级上限
+
+    int32 training_max_duration = 10; // 训练最大时间
+    int32 captain_init_train_exp = 11; // 武将初始修炼经验
+
+    // 队伍解锁等级(君主等级)，纯展示用（当那个队伍没人的时候展示出来，如果队伍有数据，显示队伍出来，主要防止配表错误）
+    repeated int32 troops_unlock_level = 9 [packed = false]; // 每个队伍的解锁英雄等级
+}
+
+message RegionConfigProto {
+    int32 map_x_len = 1; // 野外地图坐标
+    int32 map_y_len = 2;
+
+    int32 tent_building_duration = 3; // 行营建成所需时间
+    int32 miao_tent_building_duration = 4; // 秒行营cd间隔
+    CostProto miao_tent_building_cost = 5; // 秒行营消耗
+
+    int32 white_flag_duration = 6; // 白旗消失所需时间
+
+    int32 multi_level_npc_max_times = 7; // 讨伐野怪最大次数
+    int32 multi_level_npc_recovery_duration = 21; // 讨伐野怪次数恢复间隔
+
+    int32 guild_region_center_x = 8; // 联盟堡垒坐标
+    int32 guild_region_center_y = 9;
+
+    AmountProto ast_defend_restore_home_prosperity_amount = 25; // 每个间隔盟友驻扎给回复的繁荣度
+    int32 ast_defend_restore_home_prosperity = 24 [deprecated = true]; // 废弃。每个间隔盟友驻扎给回复的繁荣度
+    int32 restore_home_prosperity = 10; // 每个间隔恢复主城繁荣度
+    int32 restore_home_prosperity_duration = 11; // 隔多久恢复一次主城繁荣度(restore_home_prosperity)，单位秒
+
+    DiaoKeDataProto default_diao_ke = 12; // 默认的雕刻数据
+
+    int32 investigate_cd = 15; // 侦查cd
+    CostProto miao_investigate_cd_cost = 13; // 秒侦查时间消耗
+    CostProto investigate_cost = 30; //侦察花费
+    int32 investigate_speedup = 31; //侦察加速
+    int32 investigate_mail_timeout = 14; // 侦查邮件过期时间
+    int32 investigate_max_distance = 23; // 侦查最大距离
+
+    int32 basic_troop_move_velocity_per_second = 16; // 基础移动速度，拿到这个值除以1000，得到小数值
+    int32 edge = 17; // 六边形边长，拿到这个值除以1000，得到小数值
+
+    int32 edge_not_home_len = 22; // 距离边界多少格子不能建城
+
+    int32 new_hero_mian_duration = 18; // 新手免战时间(秒)
+    int32 new_hero_remove_mian_base_level = 19; // 移除新手免战主城等级
+    int32 reborn_mian_duration = 20; // 流亡重建免战时间(秒)
+}
+
+message MiscConfigProto {
+    repeated int32 change_hero_name_yuanbao_cost = 7 [packed = false, deprecated = true]; // 君主改名元宝消耗
+    repeated CostProto change_hero_name_cost = 28; // 君主改名消耗
+    int32 change_hero_name_duration = 5; // 君主改名cd，秒
+    CostProto change_captain_name_cost = 6; // 武将改名消耗
+    PrizeProto first_change_hero_name_prize = 16; // 首次改名的奖励，可能为空，空的话，表示不奖励
+    int32 change_captain_race_duration = 8; // 武将转职cd，秒
+    int32 change_captain_race_level = 9; // 武将转职等级
+
+    int32 mail_min_batch_count = 2; // 邮件每批最少返回多少个
+    int32 mail_max_batch_count = 4; // 邮件每批最多返回多少个
+    int32 tower_challenge_max_times = 3; // 千重楼最大挑战次数
+
+    // 每X时间需要Y消耗
+    int32 miao_building_worker_duration = 11; // 秒建筑队间隔，这个值 <= 0表示关闭秒CD功能
+    CostProto miao_building_worker_cost = 12; // 秒建筑队消耗
+    int32 miao_tech_worker_duration = 13; // 秒科研队间隔，这个值 <= 0表示关闭秒CD功能
+    CostProto miao_tech_worker_cost = 14; // 秒科研队消耗
+
+    int32 strategy_restore_duration = 15; // 策略恢复时间间隔
+
+    int32 monday_zero_o_clock = 20; // 周一0点，unix时间
+
+    int32 miao_captain_rebirth_duration = 21; // 秒武将转生间隔，这个值 <= 0表示关闭秒CD功能
+    CostProto miao_captain_rebirth_cost = 22; // 秒武将转生消耗
+
+    int32 miao_workshop_duration = 23; // 秒锻造间隔，这个值 <= 0表示关闭秒CD功能
+    CostProto miao_workshop_cost = 24; // 秒锻造消耗
+
+    int32 world_chat_level = 25; // 世界聊天等级限制, >= 这个等级才能发世界聊天
+    int32 world_chat_duration = 26; // 世界聊天CD，每条聊天最少相隔X秒
+    int32 chat_text_length = 27; // 聊天文字长度限制（英文=1字节，中文=2字节），必须<=这个值
+    int32 broadcast_goods = 113; // 广播消耗的小喇叭物品Id
+
+    int32 daily_reset_hour = 101; // 每日重置小时
+    int32 daily_reset_minute = 102; // 每日重置分钟
+
+    int32 weekly_reset_hour = 130; // 每周重置小时
+    int32 weekly_reset_minute = 131; // 每周重置分钟
+
+    repeated int32 workshop_refresh_hour_minute = 103 [packed = false]; // 装备作坊（装备锻造）刷新时刻，1330表示13:30
+
+    int32 max_depot_equip_capacity = 105; // 背包装备容量
+
+    int32 max_sign_len = 106; // 最大的签名长度
+
+    int32 max_resource_collect_times = 107; // 最大资源采集次数
+    int32 resource_recovery_duration = 108; // 采集资源恢复间隔
+
+    int32 max_favorite_pos_count = 109; // 最大收藏点数量
+
+    int32 season_duration = 110; // 季节变换间隔，秒
+
+    int32 skip_fighting_hero_level = 111; // 跳过战斗的最小君主等级
+
+    repeated int32 stronger_coef = 112 [packed = false]; // 变强系数
+
+    int32 building_init_effect = 114; // 初始建筑加成效果
+
+    AmountProto extra_res_decay_coef = 115; // 仓库超出上限时的损耗系数
+    int32 extra_res_decay_duration = 116; // 仓库超出上限时的损耗间隔
+
+    int32 close_fight_guide_dungeon_id = 117; // 关闭战前部署克制界面需要通关的幻境 id
+
+    int32 refresh_recommend_hero_duration = 118; // 推荐好友列表刷新间隔
+    int32 refresh_recommend_hero_page_size = 119; // 推荐好友列表每页长度
+    int32 refresh_recommend_hero_min_level = 120; // 推荐好友最小等级
+    int32 refresh_recommend_hero_page_count = 121; // 推荐好友列表页数
+    int32 search_hero_duration = 122; // 搜索好友间隔
+    int32 recommend_hero_offline_expire_duration = 132; // 推荐好友列表中的玩家离线多久不再显示
+
+    int32 chat_private_min_level = 123; // 私聊等级限制
+    int32 chat_duration = 124; // 通用聊天 CD
+    int32 chat_share_duration = 125; // 聊天分享 CD
+
+    CostProto second_worker_cost = 126; // 解锁建筑二队的花费
+    int32 second_worker_unlock_duration = 127; // 解锁建筑二队的有效期
+
+    int32 red_packet_cost_percent = 128 [deprecated = true]; // 可买的红包价格和总充值金额比例限制
+    int32 red_packet_guild_member_min_count = 129; // 联盟红包最小成员数限制
+
+    // 最大id: 131
+}
+
+message GuildConfigProto {
+
+    int32 guild_num_per_page = 14; // 每页多少个帮派数
+
+    CostProto create_guild_cost = 15; // 创建帮派消耗
+    CostProto change_guild_name_cost = 16; // 帮派改名消耗
+    int32 change_guild_name_duration = 17; // 帮派改名cd，秒
+    int32 guild_label_limit_char = 18; // 联盟标签字数限制，1字符=1个汉字或者2个英文
+    int32 guild_label_limit_count = 19; // 联盟标签个数限制
+
+    int32 change_leader_countdown_member_count = 20; // 联盟人数触发禅让倒计时
+    int32 change_leader_countdown_duration = 21; // 禅让盟主倒计时
+
+    int32 impeach_required_member_count = 22; // 需要联盟内存在多少玩家数量才能弹劾
+    int32 impeach_leader_offline_duration = 23; // 玩家盟主多长时间不在线可以弹劾，单位秒
+
+    int32 impeach_npc_leader_hour = 24; // 弹劾npc盟主小时数，如23
+    int32 impeach_npc_leader_minute = 25; // 弹劾npc盟主分钟数，如40
+    // 表示每天23点40分之前可以发起NPC弹劾，超过这个时候不能发起弹劾
+
+    int32 user_max_join_request_count = 26; // 用户最大申请加入联盟数量
+    int32 guild_max_invate_count = 27; // 联盟最大邀请数量
+
+    int32 daily_max_kick_count = 28; // 联盟每日最多可以踢多少人
+
+    int32 guild_class_title_max_count = 29; // 联盟自定义职称个数上限
+    int32 guild_class_title_max_char_count = 30; // 联盟自定义职称最大字宽数，一个汉字算两个
+
+    PrizeProto first_join_guild_prize = 31; // 首次加入联盟奖励
+
+    int32 text_limit_char = 32; // 对外公告字符限制
+    int32 internal_text_limit_char = 33; // 对内公告字符限制
+    int32 friend_guild_text_limit_char = 34; // 友盟公告字符限制
+    int32 enemy_guild_text_limit_char = 35; // 敌盟公告字符限制
+
+    int32 contribution_per_help = 36; // 每次帮助盟友获得多少联盟贡献
+    int32 contribution_max_count_per_day = 37; // 每日帮助最大可获得联盟贡献次数
+
+    int32 big_box_collectable_duration = 38; // 加入联盟N小时之后才能领取宝箱
+    int32 event_prize_max_count = 39; // 盟友礼包最大个数
+
+    int32 update_country_yuanbao = 40 [deprecated = true]; // 更换联盟国家消耗元宝
+    CostProto update_country_cost = 46; // 更换联盟国家消耗
+    int32 update_country_duration = 41; // 更换联盟国家CD
+    int32 update_country_lost_prestige_coef = 42; // 更换联盟损失声望系数，0.2表示20%
+
+    int32 guild_donate_need_hero_level = 43; // 联盟捐献需要的君主等级
+
+    int32 notify_join_guild_duration = 44; // 提醒加入联盟的时间间隔
+    int32 notify_join_guild_duration_on_online_or_leave = 45; // 在上线或者离开联盟提醒加入联盟的时间间隔
+
+    int32 search_no_guild_heros_per_page_size = 48; // 联盟模糊搜索，每页条数
+    int32 search_no_guild_heros_duration = 47; // 联盟模糊搜索，请求最小间隔
+}
+
+message I18NDataProto {
+    string id = 1; // cn tw en
+    string language = 2; // 语言 [简体中文] [繁体中文] English
+    repeated I18NPairProto pair = 3;
+
+    bool display = 4; // 客户端是否显示这个语言
+}
+
+message I18NPairProto {
+    repeated string key = 22;
+    string value = 23;
+}
+
+// 头像proto
+message HeadProto {
+    string id = 1;
+    string icon_id = 2; // icon_id，客户端通过id读取 IconProto
+    int32 unlock_need_captain_soul = 3; // 解锁需要的将魂id，可能为空
+    int32 unlock_need_hero_level = 4; // 解锁需要的等级，可能为空
+}
+
+// 形象proto
+message BodyProto {
+    int32 id = 1;
+    string icon_id = 2; // icon_id，客户端通过id读取 IconProto
+    int32 unlock_need_captain_soul = 3; // 解锁需要的将魂id，可能为空
+    int32 unlock_need_hero_level = 4; // 解锁需要的等级，可能为空
+}

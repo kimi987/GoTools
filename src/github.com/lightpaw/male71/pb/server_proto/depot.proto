@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/server_proto/goods.proto";
+
+message HeroDepotServerProto {
+    map<uint64, uint64> goods = 1;
+
+    repeated EquipmentServerProto equipments = 2;
+
+    map<uint64, int64> temp_expired_time = 3; // 临时背包过期时间
+
+    map<uint64, uint64> baowu = 4;
+
+    uint64 unlock_baowu = 5; // 解锁中的宝物id
+    int64 unlock_baowu_end_time = 6; // 解锁中的宝物结束时间
+    uint64 miao_baowu_times = 7; // 秒宝物次数
+
+    repeated bytes baowu_log = 8; // 宝物日志 shared_proto.BaowuLogProto
+}
+
+// 开启了的装备合成
+message HeroOpenCombineEquipServerProto {
+    repeated uint64 open_equip_combine = 1;
+}

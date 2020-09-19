@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 2523133569
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 60237519bb32159f61832275ac03910c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIEffect/U_choukajiaoxia_zi.prefab
+Dependencies: []

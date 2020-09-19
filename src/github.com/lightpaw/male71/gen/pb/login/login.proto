@@ -1,0 +1,89 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "login";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/country.proto";
+
+
+message C2SInternalLoginProto {
+
+    bytes id = 1; // int64的数字
+
+}
+
+message S2CInternalLoginProto {
+
+    bytes heroProto = 1; // shared_proto.HeroProto
+
+}
+
+message C2SLoginProto {
+
+    string token = 2; // 平台token
+
+    bytes tencent_info = 4; // shared_proto.TencentInfoProto
+
+}
+
+message S2CLoginProto {
+
+    bool created = 2; // 返回true表示已经创建角色了
+
+    bool male = 3; // true表示男人
+
+    string head = 4; // 头像 通过 config.Icons去获得图标
+
+    repeated int32 building = 5 [packed = false]; // 建筑id
+
+    bool is_debug = 8; // true表示debug模式
+
+    CountriesProto countries = 9; // 国家。只有id和国名，其他都是nil
+
+}
+
+message S2CTutorialProgressProto {
+
+    int32 progress = 1; // 进度
+
+}
+
+message C2SSetTutorialProgressProto {
+
+    int32 progress = 1; // 进度
+
+    bool is_complete = 2; // 是否完成了新手教程，发送true，服务器会发送给客户端 login.s2c协议
+
+}
+
+message C2SCreateHeroProto {
+
+    string name = 1; // 君主名称
+
+    bool male = 2; // true表示男人，false表示女人
+
+    string head_url = 5; // 默认头像，可以不发送，不发送就是策划配置的默认头像，发送的默认头像必须是 http 开头的
+
+    int32 country = 6; // 国家 id
+
+}
+
+message S2CLoadedProto {
+
+    bytes heroProto = 1; // shared_proto.HeroProto
+
+}
+
+message C2SRobotLoginProto {
+
+    int32 id = 1; // 登陆id
+
+}
+
+message S2CBanLoginProto {
+
+    int32 result_time = 1; // 封号的剩余时间
+
+}
+

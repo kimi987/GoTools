@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 1728876914
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 321eb24d77f24c3bf20a1e5a1d3659a8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_yezhuFS_skill02hit.prefab
+Dependencies: []

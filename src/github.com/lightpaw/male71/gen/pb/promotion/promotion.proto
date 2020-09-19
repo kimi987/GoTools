@@ -1,0 +1,99 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "promotion";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/promotion.proto";
+
+
+message C2SCollectLoginDayPrizeProto {
+
+    int32 day = 1; // 天数
+
+}
+
+message S2CCollectLoginDayPrizeProto {
+
+    int32 day = 1; // 天数
+
+}
+
+message C2SCollectLevelFundProto {
+
+    int32 level = 1; // 君主等级
+
+}
+
+message S2CCollectLevelFundProto {
+
+    int32 level = 1; // 君主等级
+
+}
+
+message C2SCollectDailySpProto {
+
+    int32 id = 1; // 领取体力表的主键id
+
+}
+
+message S2CCollectDailySpProto {
+
+    int32 id = 1; // 已经领取掉的id
+
+    int32 sp = 2; // 体力值刷新
+
+}
+
+message C2SCollectFreeGiftProto {
+
+    int32 id = 1; // 礼包id
+
+}
+
+message S2CCollectFreeGiftProto {
+
+    int32 id = 1; // 接到这个id后当天就不能再申请这个id领了（包括一次性奖励礼包）
+
+    bytes prize = 2;
+
+}
+
+message S2CNoticeTimeLimitGiftsProto {
+
+    repeated TimeLimitGiftProto gifts = 1; // 礼包列表
+
+}
+
+message C2SBuyTimeLimitGiftProto {
+
+    int32 grp_id = 3; // 时限礼包组id
+
+}
+
+message S2CBuyTimeLimitGiftProto {
+
+    int32 grp_id = 5; // 时限礼包组id
+
+    int32 index = 4; // 下一个礼包组下标，如果为0则干掉整个group
+
+}
+
+message S2CNoticeEventLimitGiftProto {
+
+    EventLimitGiftProto gift = 1; // 事件礼包
+
+}
+
+message C2SBuyEventLimitGiftProto {
+
+    int32 id = 1; // 事件礼包id
+
+}
+
+message S2CBuyEventLimitGiftProto {
+
+    int32 id = 1; // 购买成功的事件礼包id，前端直接删掉该礼包，不再显示
+
+}
+

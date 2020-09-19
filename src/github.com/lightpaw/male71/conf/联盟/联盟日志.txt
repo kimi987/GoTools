@@ -1,0 +1,51 @@
+日志id，不要改	日志类型 1-日常 2-战争 3-声望 4-大事记	同步联盟聊天	图标	内容														
+id	log_type	send_chat	icon	text														
+JoinGuild	1	1		[color=#77c7ff]{{hero_name}}[/color]加入了联盟			[color=#6baaf0]{{hero_name}}[/color]加入了联盟											
+ReplyJoinGuild	1			[color=#77c7ff]{{hero_name}}[/color]通过[color=#77c7ff]{{leader_name}}[/color]的批准加入了联盟														
+LeaveGuild	1	1		[color=#77c7ff]{{hero_name}}[/color]离开了联盟			[color=#6baaf0]{{hero_name}}[/color]离开了联盟											联盟事件联盟
+KickLeaveGuild	1	1		[color=#77c7ff]{{hero_name}}[/color]被[color=#77c7ff]{{leader_name}}[/color]踢出了联盟														
+UpdateMemberClass	1	1		[color=#77c7ff]{{hero_name}}[/color]成为了[color=#ffbc6c]{{class_name}}[/color]			[color=#6baaf0]{{hero_name}}[/color]成为了{{class_name}}											联盟事件科技
+UpgradeTechnology	1	1	联盟事件科技	众志成城！联盟科技[color=#ffbc6c]{{tech_name}}[/color]提升到了[color=#ffbc6c]{{level}}级[/color]			联盟科技{{tech_name}}提升到了{{level}}级											联盟事件声望
+PrestigePrize	1	1	联盟事件声望	恭喜联盟声望达到[color=#ffbc6c]{{prestige}}[/color]，国君奖励联盟[color=#ffbc6c]{{building_amount}}[/color]建设值与[color=#ffbc6c]{{amount}}[/color]虎符，并赐予每位成员礼包可前往联盟礼包界面领取			恭喜联盟声望达到{{prestige}}，国君奖励联盟{{building_amount}}建设值，并赐予每位成员礼包可前往联盟礼包界面领取											
+InvaseMonster	3			[color=#77c7ff]{{hero_name}}[/color]讨伐了[color=#ffbc6c]{{level}}[/color]级野外势力，为联盟增加了[color=#ffbc6c]{{prestige}}[/color]声望			[color=#6baaf0]{{hero_name}}[/color]讨伐了{{level}}级野外势力，为联盟增加了{{prestige}}声望											
+CollectSalary	3			[color=#77c7ff]{{hero_name}}[/color]领取了[color=#ffbc6c]{{jun_xian}}[/color]俸禄，为联盟增加了[color=#ffbc6c]{{prestige}}[/color]声望，[color=#77c7ff]{{hufu}}[/color]个虎符。			[color=#6baaf0]{{hero_name}}[/color]领取了{{jun_xian}}俸禄，为联盟增加了{{prestige}}声望											
+CreateGuild	4	1	联盟事件联盟	[color=#77c7ff]{{hero_name}}[/color]创建了联盟			[color=#6baaf0]{{hero_name}}[/color]创建了联盟											
+NewLeaderImpeach	4	1	联盟事件联盟	[color=#77c7ff]{{hero_name}}[/color]通过竞选成为了[color=#ffbc6c]盟主[/color]			[color=#6baaf0]{{hero_name}}[/color]通过竞选成为了联盟盟主											
+NewLeaderDemise	1	1	联盟事件联盟	[color=#77c7ff]{{hero_name}}[/color]将盟主之位禅让给了[color=#77c7ff]{{leader}}[/color]			[color=#6baaf0]{{hero_name}}[/color]通过禅让成为了联盟盟主											
+StartImpeach	4	1	联盟事件联盟	[color=#77c7ff]{{hero_name}}[/color]对当前盟主发起了[color=#ff304e]弹劾[/color]			[color=#6baaf0]{{hero_name}}[/color]对当前盟主发起了弹劾											
+TerminateImpeach	1	1	联盟事件联盟	盟主[color=#77c7ff]{{hero_name}}[/color]在弹劾期上线了，弹劾强制失败														
+UpdateName	4	1	联盟事件联盟	盟主[color=#77c7ff]{{hero_name}}[/color]将联盟名修改为[color=#ffbc6c]{{guild_name}}[/color]			盟主[color=#6baaf0]{{hero_name}}[/color]将联盟名修改为{{guild_name}}											
+UpdateFlagName	4	1	联盟事件联盟	盟主[color=#77c7ff]{{hero_name}}[/color]将联盟旗号修改为[color=#ffbc6c]{{flag_name}}[/color]			盟主[color=#6baaf0]{{hero_name}}[/color]将联盟旗号修改为{{flag_name}}											
+UpdateCountry	4	1	联盟事件联盟	盟主[color=#77c7ff]{{hero_name}}[/color]将联盟归属国家从[color=#ffbc6c]{{country}}[/color]修改为[color=#ffbc6c]{{country_name}}[/color]。			盟主[color=#6baaf0]{{hero_name}}[/color]将联盟归属国家从{{country}}修改为{{country_name}}											
+UpgradeLevel	4	1	联盟事件联盟	联盟等级提升到了[color=#ffbc6c]{{level}}[/color]级			联盟等级提升到了{{level}}级											
+UpdateInternalText	1	1		[color=#77c7ff]{{hero_name}}[/color]修改了联盟公告														
+																		
+FAttSucc	2			[color=#77c7ff]{{attacker}}[/color]进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗胜利			[color=#6baaf0]{{attacker}}[/color]进攻了[color=#FF5B2D]{{defenser}}[/color]的主城，战斗胜利											
+FDefFail	2			[color=#77c7ff]{{defenser}}[/color]的主城受到了[color=#ff304e]{{attacker}}[/color]的攻击，防守失败			[color=#6baaf0]{{defenser}}[/color]的主城受到了[color=#FF5B2D]{{attacker}}[/color]的攻击，防守失败											
+FAttDestroy	2			[color=#77c7ff]{{attacker}}[/color]将[color=#ff304e]{{defenser}}[/color]的主城破坏流亡了			[color=#6baaf0]{{attacker}}[/color]将[color=#FF5B2D]{{defenser}}[/color]的主城破坏流亡了											
+FDefDestroy	2	1		[color=#77c7ff]{{defenser}}[/color]的主城被[color=#ff304e]{{attacker}}[/color]破坏流亡了			[color=#6baaf0]{{defenser}}[/color]的主城被[color=#FF5B2D]{{attacker}}[/color]破坏流亡了											
+																		
+StartXiongNu	1	1	联盟事件联盟	[color=#77c7ff]{{hero_name}}[/color]开启了[color=#ffbc6c]抗击匈奴[/color]活动			[color=#6baaf0]{{hero_name}}[/color]开启了抗击匈奴活动											
+WipeOutXiongNuTroop	2		联盟事件联盟	[color=#77c7ff]{{hero_name}}[/color]击败了1支匈奴入侵队伍，匈奴大营守军士气[color=#ffbc6c]-{{reduce_morale}}[/color]			[color=#6baaf0]{{hero_name}}[/color]击败了{{resist_xiong_nu_name}}，匈奴大营守军士气-{{reduce_morale}}											
+UnlockXiongNu	1		联盟事件联盟	恭喜联盟众志成城，完美抗击匈奴[color=#ffbc6c]{{resist_xiong_nu_name}}[/color]，解锁新难度[color=#ffbc6c]{{unlock_xiong_nu_name}}[/color]			恭喜联盟众志成城，完美抗击匈奴{{resist_xiong_nu_name}}，解锁新难度{{unlock_xiong_nu_name}}											
+ResistXiongNuAddPrestige	3	1	联盟事件声望	恭喜联盟众志成城，完成抗击匈奴[color=#ffbc6c]{{resist_xiong_nu_name}}[/color]，获得[color=#ffbc6c]{{score_name}}[/color]活动评价，获得[color=#ffbc6c]{{prestige}}[/color]联盟声望			恭喜联盟众志成城，完成抗击匈奴{{resist_xiong_nu_name}}，获得 {{score_name}} 活动评价，获得{{prestige}}联盟声望											
+XiongNuBaseDestroy	2	1		[color=#77c7ff]{{hero_name}}[/color]击破了[color=#ffbc6c]匈奴大营[/color]，本次抗击匈奴活动结束														
+																		
+YinliangMingcHost	1			联盟获得[color=#ffbc6c]{{mingc}}[/color]每日占领收益，获得[color=#ffbc6c]{{yinliang}}[/color]银两														
+YinliangMcWarAtkWin	1	1		联盟进攻[color=#ffbc6c]{{mingc}}[/color]大获全胜，获得[color=#ffbc6c]{{yinliang}}[/color]银两														
+YinliangMcWarAtkFail	1	1		联盟进攻[color=#ffbc6c]{{mingc}}[/color]遗憾落败，对敌方据点摧毁度{{destroy}}%，获得[color=#ffbc6c]{{yinliang}}[/color]银两														
+YinliangGuildReceive	1			联盟[color=#77c7ff]{{sender}}[/color]赠送了[color=#ffbc6c]{{yinliang}}[/color]银两给本联盟														
+YinliangGuildSend	1			盟主赠送了[color=#ffbc6c]{{yinliang}}[/color]银两给联盟[color=#77c7ff]{{target}}[/color]														
+YinliangGuildSendMember	1			盟主发放了[color=#ffbc6c]{{yinliang}}[/color]银两给[color=#77c7ff]{{target}}[/color]														
+YinliangGuildPaySalary	1	1		盟主花费[color=#ffbc6c]{{yinliang}}[/color]联盟银两为所有成员发放了工资														
+																		
+McWarApplyAtkFail	1	1	联盟事件联盟	联盟申请挑战[color=#ffbc6c]{{mingc}}[/color]失败，申请消耗的[color=#ffbc6c]{{amount}}[/color]联盟虎符已返还。														
+McWarApplyAtkSucc	1	1	联盟事件联盟	您的联盟成为[color=#ffbc6c]{{mingc}}[/color]的进攻方，您可以联系其它联盟参与协助。														
+																		
+McWarAtkWin	1	1	联盟事件联盟	恭喜联盟成功夺下{{country}}国[color=#ff304e]{{guild}}[/color]盟占领的[color=#ffbc6c]{{mingc}}城[/color]！														
+McWarDefWin	1	1	联盟事件联盟	恭喜联盟在[color=#ffbc6c]{{mingc}}[/color]争夺战成功防守{{country}}国[color=#ff304e]{{guild}}[/color]盟的进攻！														
+																		
+HufuAdd	1			[color=#77c7ff]{{hero_name}}[/color]捐献了[color=#77c7ff]{{amount}}[/color]个虎符。														
+BaowuAddPrestige	3			[color=#77c7ff]{{hero_name}}[/color]开启了[color=#77c7ff]{{item}}[/color]，为联盟增加了[color=#77c7ff]{{amount}}[/color]声望。														
+UpdateMark	1	1	联盟事件联盟	"[color=#6baaf0]{{hero_name}}[/color]标记了坐标[color=#6baaf0]({{pos_x}},{{pos_y}})[/color]，标记内容:""[color=#ffffff]{{text}}[/color]""。"														
+AssemblyWin	3	1	联盟事件声望	集结发起者[color=#6baaf0]{{hero_name}}[/color]率众击败了[color=#ffbc6c]{{text}}[/color]，联盟获得了[color=#ffbc6c]{{amount}}[/color]声望														

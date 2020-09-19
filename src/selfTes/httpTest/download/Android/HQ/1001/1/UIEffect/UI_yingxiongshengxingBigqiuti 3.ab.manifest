@@ -1,0 +1,40 @@
+ManifestFileVersion: 0
+CRC: 3061098946
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1fb23c32596fc29634261b9492831b94
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: cc56f6b192735f650c037063f1097f2f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIEffect/UI_yingxiongshengxingBigqiuti 3.prefab
+Dependencies: []

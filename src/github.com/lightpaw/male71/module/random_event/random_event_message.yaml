@@ -1,0 +1,53 @@
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+ - "github.com/lightpaw/male7/pb/shared_proto/random_event.proto"
+
+# 点击选项（选择）处理完客户端自己失效事件
+choose_option:
+  c2s:
+    pos_x: int // 事件坐标x
+    pos_y: int // 事件坐标y
+    option: int // 选项 0，1，2
+  s2c:
+    pos_x: int // 事件坐标x
+    pos_y: int // 事件坐标y
+    option: int
+    success: bool // true触发成功提示，false触发失败提示
+    prize: bytes // shared_proto.PrizeProto
+  s2c_fail:
+    invalid_event: 失效的事件
+    invalid_option: 无效的选项
+    cost_not_enough: 选项消耗不足
+    no_catch: 还未生成事件
+
+# 点击事件（获取信息后请客户端暂时缓存，防止重复请求事件信息）
+open_event:
+  c2s:
+    pos_x: int // 事件坐标x
+    pos_y: int // 事件坐标y
+  s2c:
+    pos_x: int // 事件坐标x
+    pos_y: int // 事件坐标y
+    event_id: int // 随机事件表主键
+    options: shared_proto.EventOptionProto[]
+  s2c_fail:
+    invalid_event: 失效的事件
+
+## 事件失效列表
+#invalid_event:
+#  s2c:
+#    arr_pos_x: int[] // 事件坐标x列表
+#    arr_pos_y: int[] // 事件坐标y列表
+
+# 新事件列表
+new_event:
+  s2c:
+    arr_pos_x: int[] // 事件坐标x列表
+    arr_pos_y: int[] // 事件坐标y列表
+
+# 激活新的事件图鉴
+add_event_handbook:
+  s2c:
+    event_id: int // 随机事件表主键

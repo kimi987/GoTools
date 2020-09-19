@@ -1,0 +1,9 @@
+官职 ID（官职由低到高）	官职名	属性加成（配 属性.txt 的 id）	功勋需求	图标	描述
+id	official_name	sprite_stat	need_gongxun	icon	desc
+1	校尉	12501001	50	ui://GeneralNew/1	带兵数提升XXX
+2	裨将军	12501002	1000	ui://GeneralNew/2	带兵数提升XXX
+3	偏将军	12501003	5000	ui://GeneralNew/3	带兵数提升XXX
+4	牙门将军	12501004	15000	ui://GeneralNew/4	带兵数提升XXX
+5	中郎将军	12501005	60000	ui://GeneralNew/5	带兵数提升XXX
+6	司马	12501006	300000	ui://GeneralNew/6	带兵数提升XXX
+7	车骑将军	12501007	500000	ui://GeneralNew/7	带兵数提升XXX

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+
+message EquipmentServerProto {
+
+    uint64 id = 4; // 装备Id
+
+    uint64 data_id = 1; // 装备dataId
+
+    uint64 level = 2; // 装备等级
+
+    uint64 refined_level = 3; // 装备强化等级
+
+    uint64 upgrade_cost_count = 5; // 升级消耗的物品个数
+
+}

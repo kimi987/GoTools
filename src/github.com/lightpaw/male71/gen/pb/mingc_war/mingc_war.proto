@@ -1,0 +1,593 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "mingc_war";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/guild.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/mingc_war.proto";
+
+
+message S2CViewMcWarSelfGuildProto {
+
+    McWarGuildProto self_guild = 1; // 自己联盟相关数据
+
+}
+
+message C2SViewMcWarProto {
+
+    int32 ver = 1; // 版本号，从1开始递增
+
+}
+
+message S2CViewMcWarProto {
+
+    int32 ver = 3; // 当前数据的版本号。等于0时表示数据没有变化，war为nil
+
+    McWarProto war = 2; // 名城战相关数据
+
+}
+
+message C2SApplyAtkProto {
+
+    int32 mcid = 1; // 报名攻打的名城id
+
+    int32 cost = 2; // 押注虎符
+
+}
+
+message S2CApplyAtkProto {
+
+    int32 mcid = 1; // 报名攻打的名城id
+
+    int32 cost = 2; // 押注虎符
+
+}
+
+message S2CApplyAtkSuccProto {
+
+    int32 mcid = 1; // 报名攻打的名城id
+
+}
+
+message S2CApplyAtkFailProto {
+
+    int32 mcid = 1; // 报名攻打的名城id
+
+    int32 cost = 2; // 退回的虎符
+
+}
+
+message C2SApplyAstProto {
+
+    int32 mcid = 1; // 报名协助的名城id
+
+    bool atk = 2; // true:助攻；false:协防
+
+}
+
+message S2CApplyAstProto {
+
+    int32 mcid = 1; // 报名协助的名城id
+
+    bool atk = 2; // true:助攻；false:协防
+
+}
+
+message S2CReceiveApplyAstProto {
+
+    int32 mcid = 1; // 报名协助的名城id
+
+}
+
+message C2SCancelApplyAstProto {
+
+    int32 mcid = 1; // 取消报名协助的名城id
+
+}
+
+message S2CCancelApplyAstProto {
+
+    int32 mcid = 1; // 取消报名协助的名城id
+
+}
+
+message S2CReceiveCancelApplyAstProto {
+
+    int32 mcid = 1; // 报名协助的名城id
+
+}
+
+message C2SReplyApplyAstProto {
+
+    int32 mcid = 1; // 报名协助的名城id
+
+    int32 gid = 2; // 报名协助的联盟id
+
+    bool agree = 3; // 是否同意
+
+}
+
+message S2CReplyApplyAstProto {
+
+    int32 mcid = 1; // 报名协助的名城id
+
+    int32 gid = 2; // 报名协助的联盟id
+
+    bool agree = 3; // 是否同意
+
+}
+
+message S2CApplyAstPassProto {
+
+    int32 mcid = 1; // 报名协助的名城id
+
+    bool agree = 3; // 是否同意
+
+}
+
+message S2CMingcWarFightPrepareStartProto {
+
+    int32 start_time = 1; // 战斗准备阶段的开始时间
+
+    int32 end_time = 2; // 战斗准备阶段的结束时间
+
+}
+
+message S2CMingcWarFightStartProto {
+
+    int32 start_time = 1; // 战斗阶段的开始时间
+
+    int32 end_time = 2; // 战斗阶段的结束时间
+
+}
+
+message S2CIsJoiningFightOnLoginProto {
+
+    int32 mcid = 1; // 名城id
+
+}
+
+message C2SViewMingcWarMcProto {
+
+    int32 mcid = 1; // 名城id
+
+}
+
+message S2CViewMingcWarMcProto {
+
+    McWarMcProto mc = 1;
+
+}
+
+message C2SJoinFightProto {
+
+    int32 mcid = 1; // 名城id
+
+    repeated int32 captain_id = 3 [packed = false]; // 武将id，0表示这个位置没有武将
+
+    repeated int32 x_index = 4 [packed = false]; // 武将偏移
+
+}
+
+message S2CJoinFightProto {
+
+    int32 mcid = 1; // 名城id
+
+    bool atk = 2; // 是否是攻方
+
+}
+
+message S2COtherJoinFightProto {
+
+    int32 mcid = 1; // 名城 id
+
+    bytes hero_id = 2; // 玩家 id
+
+    McWarTroopProto data = 3; // 这个字段客户端不处理，所以永远传nil
+
+}
+
+message S2CQuitFightProto {
+
+    int32 mcid = 1; // 离开的名城id
+
+}
+
+message S2COtherQuitFightProto {
+
+    int32 mcid = 1; // 名城 id
+
+    bytes hero_id = 2; // 玩家 id
+
+}
+
+message S2CSceneBuildingDestroyProsperityProto {
+
+    int32 pos_x = 4; // 建筑坐标x
+
+    int32 pos_y = 5; // 建筑坐标y
+
+    int32 new_prosperity = 3; // 最新繁荣度
+
+}
+
+message S2CSceneFightPrepareEndProto {
+
+    int32 start_time = 1; // 战斗准备阶段结束时间
+
+}
+
+message S2CSceneWarEndProto {
+
+    int32 mc_id = 1; // 名城id
+
+}
+
+message C2SSceneMoveProto {
+
+    int32 dest_pos_x = 4; // 终点坐标x
+
+    int32 dest_pos_y = 5; // 终点坐标y
+
+}
+
+message S2CSceneMoveProto {
+
+    int32 dest_pos_x = 3; // 终点坐标x
+
+    int32 dest_pos_y = 4; // 终点坐标y
+
+    int32 end_time = 2; // 到达时间
+
+}
+
+message S2CSceneBackProto {
+
+    int32 dest_pos_x = 1; // 终点坐标x
+
+    int32 dest_pos_y = 2; // 终点坐标y
+
+    int32 end_time = 3; // 到达时间
+
+}
+
+message C2SSceneSpeedUpProto {
+
+    bytes id = 1; // 玩家id
+
+    int32 goods_id = 2; // 使用的物品id
+
+    bool money = 3; // true表示点券购买
+
+}
+
+message S2CSceneSpeedUpProto {
+
+    bytes id = 1; // 玩家id
+
+    int32 end_time = 2; // 新的结束时间
+
+}
+
+message S2CSceneOtherMoveProto {
+
+    bytes hero_id = 1;
+
+    int32 start_pos_x = 2; // 起点坐标x
+
+    int32 start_pos_y = 3; // 起点坐标y
+
+    int32 dest_pos_x = 4; // 终点坐标x
+
+    int32 dest_pos_y = 5; // 终点坐标y
+
+    int32 end_time = 6; // 到达时间
+
+}
+
+message S2CSceneMoveStationProto {
+
+    bytes hero_id = 1; // 驻扎的玩家
+
+    int32 pos_x = 2; // 据点坐标x
+
+    int32 pos_y = 3; // 据点坐标y
+
+}
+
+message S2CSceneBuildingFightProto {
+
+    bytes hero_id = 1; // 触发战斗的玩家
+
+    int32 gid = 2; // 触发战斗的玩家所属联盟id
+
+    bool win = 3; // 是否胜利
+
+    int32 pos_x = 4; // 据点坐标x
+
+    int32 pos_y = 5; // 据点坐标y
+
+}
+
+message S2CSceneTroopReliveProto {
+
+    int32 end_time = 2; // 补兵结束时间
+
+}
+
+message S2CSceneOtherTroopReliveProto {
+
+    bytes hero_id = 1;
+
+    int32 end_time = 2; // 结束时间
+
+}
+
+message S2CSceneTroopUpdateProto {
+
+    bytes hero_id = 1; // 玩家id
+
+    McWarTroopProto data = 2;
+
+}
+
+message C2SViewMcWarSceneProto {
+
+    int32 mc_id = 1;
+
+}
+
+message S2CViewMcWarSceneProto {
+
+    McWarSceneProto scene = 1;
+
+}
+
+message C2SWatchProto {
+
+    int32 mc_id = 1;
+
+}
+
+message C2SQuitWatchProto {
+
+    int32 mc_id = 1;
+
+}
+
+message S2CMcWarEndRecordProto {
+
+    int32 war_id = 2; // 名城战id
+
+    McWarFightRecordProto record = 1;
+
+}
+
+message C2SViewMcWarRecordProto {
+
+    int32 war_id = 1; // 名城战id
+
+    int32 mc_id = 2; // 名城id
+
+}
+
+message S2CViewMcWarRecordProto {
+
+    int32 war_id = 2; // 名城战id
+
+    McWarFightRecordProto record = 1;
+
+}
+
+message C2SViewMcWarTroopRecordProto {
+
+    int32 war_id = 1; // 名城战id
+
+    int32 mc_id = 2; // 名城id
+
+}
+
+message S2CViewMcWarTroopRecordProto {
+
+    McWarTroopAllRecordProto record = 1;
+
+}
+
+message S2CViewSceneTroopRecordProto {
+
+    repeated bytes record = 2; // []shared_proto.McWarTroopRecordProto
+
+}
+
+message S2CMyRankProto {
+
+    McWarTroopRankProto info = 1;
+
+}
+
+message C2SApplyRefreshRankProto {
+
+    int32 version = 1; // 客户端第一次发0，以后发服务器迭代更新的值
+
+}
+
+message S2CApplyRefreshRankProto {
+
+    int32 version = 2; // 服务器返回0说明版本一致(rank数据为空，不需要读取)，非0则要记录version并读取rank数据并刷新排行
+
+    McWarTroopsRankProto rank = 3;
+
+}
+
+message C2SViewMyGuildMemberRankProto {
+
+    int32 war_id = 1; // 名城战id
+
+    int32 mc_id = 2; // 名城id
+
+}
+
+message S2CViewMyGuildMemberRankProto {
+
+    McWarTroopsInfoProto rank = 1;
+
+}
+
+message S2CCurMultiKillProto {
+
+    int32 multi_kill = 1; // 当前连斩数
+
+}
+
+message S2CSpecialMultiKillProto {
+
+    bytes hero_id = 1;
+
+    int32 multi_kill = 2;
+
+}
+
+message C2SSceneChangeModeProto {
+
+    int32 mode = 1; // 新形态
+
+}
+
+message S2CSceneChangeModeProto {
+
+    int32 mode = 1; // 新形态
+
+}
+
+message S2CSceneChangeModeNoticeProto {
+
+    bytes hero_id = 1; // 改变形态的玩家ID
+
+    int32 mode = 2; // 新形态
+
+}
+
+message C2SSceneTouShiBuildingTurnToProto {
+
+    int32 pos_x = 1; // 投石机坐标 x
+
+    int32 pos_y = 2; // 投石机坐标 y
+
+    bool left = 3; // 向左转
+
+}
+
+message S2CSceneTouShiBuildingTurnToProto {
+
+    int32 pos_x = 1; // 投石机坐标 x
+
+    int32 pos_y = 2; // 投石机坐标 y
+
+    bool left = 3; // 向左转
+
+    int32 new_target_index = 4; // 新的目标索引
+
+    int32 turn_end_time = 5; // 转向结束时间
+
+}
+
+message S2CSceneTouShiBuildingTurnToNoticeProto {
+
+    int32 pos_x = 1; // 投石机坐标 x
+
+    int32 pos_y = 2; // 投石机坐标 y
+
+    bool left = 3; // 向左转（目标索引-1）
+
+    int32 new_target_index = 4; // 新的目标索引
+
+    int32 turn_end_time = 5; // 转向结束时间
+
+}
+
+message C2SSceneTouShiBuildingFireProto {
+
+    int32 pos_x = 1; // 投石机坐标 x
+
+    int32 pos_y = 2; // 投石机坐标 y
+
+}
+
+message S2CSceneTouShiBuildingFireProto {
+
+    int32 pos_x = 1; // 投石机坐标 x
+
+    int32 pos_y = 2; // 投石机坐标 y
+
+    int32 target_index = 3; // 目标索引
+
+    int32 prepare_end_time = 4; // 装填结束时间
+
+    int32 bomb_explode_time = 5; // 炮弹爆炸时间
+
+}
+
+message S2CSceneTouShiBuildingFireNoticeProto {
+
+    int32 pos_x = 1; // 投石机坐标 x
+
+    int32 pos_y = 2; // 投石机坐标 y
+
+    int32 target_index = 3; // 目标索引
+
+    int32 prepare_end_time = 4; // 装填结束时间
+
+    int32 bomb_explode_time = 5; // 炮弹爆炸时间
+
+    string fire_hero_name = 6; // 开炮玩家名字
+
+    int32 fire_hero_country = 7; // 开炮玩家国家
+
+}
+
+message S2CSceneTouShiBombExplodeNoticeProto {
+
+    bytes fire_troop_id = 1; // 开炮的队伍 ID
+
+}
+
+message S2CSceneDrumProto {
+
+    string drum_desc = 3; // 击鼓描述（肃杀之音等）
+
+    int32 next_drum_time = 2; // 自己下次击鼓时间
+
+    SpriteStatProto add_drum_stat = 4; // 本次击鼓的加成
+
+}
+
+message S2CSceneDrumNoticeProto {
+
+    bytes hero_id = 1; // 击鼓的人
+
+    bool is_atk = 5; // 是否攻方
+
+    int32 new_drum_times = 2; // 击鼓方阵营最新的鼓舞数
+
+    SpriteStatProto add_drum_stat = 3; // 本次击鼓的加成
+
+    SpriteStatProto new_drum_stat = 4; // 击鼓方阵营最新的总加成
+
+}
+
+message S2CSceneDrumAddStatNoticeProto {
+
+    repeated bytes troops = 2; // []shared_proto.McWarTroopProto 有加成的队伍
+
+}
+
+message S2CMingcHostUpdateNoticeProto {
+
+    int32 mc_id = 1; // 名城Id
+
+    GuildBasicProto new_host = 2; // 新占领盟
+
+}
+

@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2065687517
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e0e24c589a035070aa65d779668d417f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- "Assets/Resources/Audio/\u68D5\u718A_\u7267\u5E08-showidle.mp3"
+Dependencies: []

@@ -1,0 +1,179 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/combat.proto";
+
+message CombatTroopsInitProto {
+    int32 index = 1; // 单位索引号，从1开始（自增，如果两边1v1，那么index就是1和2）
+    int32 x = 2; // 初始坐标
+    int32 y = 3;
+
+    int32 rage = 4; // 当前怒气值（要除1000）
+    int32 recover = 5; // 每帧恢复怒气（要除1000），0表示没有怒气条
+}
+
+message CombatXProto {
+
+    // 初始数据 进攻方 防守方
+    CombatPlayerProto attacker = 1;
+    repeated CombatTroopsInitProto attacker_troop_data = 7;
+    CombatPlayerProto defenser = 2;
+    repeated CombatTroopsInitProto defenser_troop_data = 8;
+
+    string map_res = 3;
+    int32 map_x_len = 4;
+    int32 map_y_len = 5;
+
+    // 战斗过程
+    repeated CombatFrameProto frame = 6;
+
+    int32 max_frame = 9;
+
+    // 胜利方 true表示进攻方胜利了
+    bool attacker_win = 11;
+
+    // 对战双方出战的士兵数量，Key是战斗index，Value是士兵数
+    repeated Int32Pair combat_solider = 14;
+
+    // 存活的士兵，Key是战斗index，Value是士兵数
+    repeated Int32Pair alive_solider = 12;
+
+    // 击杀的士兵，Key是战斗index，Value是士兵数
+    repeated Int32Pair kill_solider = 18;
+
+    // 评分，0-险胜 1-小胜 2-大胜 3-完胜
+    int32 score = 13;
+}
+
+message CombatFrameProto {
+
+    int32 frame = 1; // 第几帧
+
+    repeated TroopActionProto action = 2;
+}
+
+message TroopActionProto {
+
+    int32 index = 1; // 单位索引号（哪个家伙行动）
+
+    // 行动类型，1-移动 2-放技能 3-技能生效 4-buff生效 5-触发被动 6-短跑
+    int32 action_type = 2;
+
+    // 移动
+    TroopMoveActionProto move = 3;
+
+    // 放技能
+    TroopReleaseSpellActionProto release_spell = 4;
+
+    // 技能生效（延时技能生效）
+    TroopTickEffectProto spell_effect = 5;
+
+    // buff生效
+    TroopTickEffectProto state_effect = 6;
+
+    // 触发被动技能
+    TroopTriggerPassiveSpellActionProto trigger_passive_spell = 7;
+}
+
+// 触发被动技能
+message TroopTriggerPassiveSpellActionProto {
+
+    // 被动技能id
+    int32 passive_spell_id = 1;
+
+    // 谁的被动技能
+    int32 self_index = 2;
+
+    // 给自己加状态
+    repeated int32 self_add_state = 3 [packed = false]; // 附加状态
+    repeated int32 self_add_state_end_frame = 4 [packed = false]; // 附加状态到期时间
+
+    // 触发目标
+    int32 target_index = 21;
+
+    // 给别人加状态
+    repeated int32 target_add_state = 22 [packed = false]; // 附加状态
+    repeated int32 target_add_state_end_frame = 23 [packed = false]; // 附加状态到期时间
+
+    // 持续效果立即生效
+    repeated TroopTickEffectProto target_state_effect = 24 [packed = false];
+
+}
+
+// 移动
+message TroopMoveActionProto {
+    int32 move_start_x = 1;
+    int32 move_start_y = 2;
+    int32 move_end_x = 3;
+    int32 move_end_y = 4;
+    int32 move_end_frame = 5; // 到达帧（什么时候走到，客户端自己计算中间的移动过程）
+}
+
+// 释放技能
+message TroopReleaseSpellActionProto {
+
+    int32 release_type = 1; // 0-主动释放 1-被动技能触发 2-状态触发 3-延时生效
+
+    int32 spell_id = 2; // 技能id
+
+    int32 end_frame = 3; // 技能持续结束时间（比如地上一团火一直烧）
+
+    int32 spell_target = 4; // 技能目标（大部分情况下有这个）
+
+    int32 spell_x = 5; // 技能坐标（场景技能有这个，也可能2个都没有，比如宙斯的全屏雷电）
+    int32 spell_y = 6;
+
+    bool clear_rage = 7; // true清掉怒气
+
+    repeated TroopReleaseSpellEffectProto target = 11; // 技能释放目标
+}
+
+message TroopReleaseSpellEffectProto {
+
+    int32 target_index = 1; // 技能目标
+    int32 target_x = 2; // 目标坐标
+    int32 target_y = 3;
+    int32 effect_frame = 18; // 延时技能生效帧
+
+    bool is_target = 19; // 是否是目标
+
+    TroopRageUpdateProto rage = 4; // 怒气更新（被打目标）
+
+    // 效果
+    HurtType hurt_type = 10; // 伤害类型 0-正常攻击 1-暴击 2-闪避
+
+    sint32 change_shield = 11; // 护盾变化值，正数表示减少，负数表示增加
+
+    sint32 change_soldier = 13; // 士兵变化值，正数表示减少
+    int32 soldier = 14; // 剩余士兵，有血量变化值时候，读取这个，否则这个值为0
+
+    repeated int32 add_state = 15 [packed = false]; // 附加状态
+    repeated int32 add_state_end_frame = 16 [packed = false]; // 附加状态到期时间
+    repeated int32 remove_state = 17 [packed = false]; // 移除状态（比如盾爆了之类的）
+}
+
+// 怒气变化
+message TroopRageUpdateProto {
+    int32 rage = 1; // 当前怒气值（要除1000）
+    int32 recover = 2; // 每帧恢复怒气（要除1000）
+}
+
+// 技能/状态 生效
+message TroopTickEffectProto {
+
+    int32 id = 1; // 技能id/状态id
+
+    TroopRageUpdateProto rage = 4; // 怒气更新（被打目标）
+
+    // 效果
+    sint32 change_shield = 11; // 护盾变化值
+
+    sint32 change_soldier = 13; // 士兵变化值
+    int32 soldier = 14; // 剩余士兵，有血量变化值时候，读取这个，否则这个值为0
+
+    repeated int32 remove_state = 17 [packed = false]; // 移除状态（比如盾爆了之类的）
+}

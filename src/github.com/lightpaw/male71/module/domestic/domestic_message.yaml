@@ -1,0 +1,883 @@
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+  - "github.com/lightpaw/male7/pb/shared_proto/season.proto"
+  - "github.com/lightpaw/male7/pb/shared_proto/buffer.proto"
+
+# 铁匠铺
+# 配置读取：
+# Config:
+#   repeated TieJiangPuLevelProto tie_jiang_pu_level = 28; // 铁匠铺等级
+# TieJiangPuLevelProto:
+#   单个的铁匠铺等级配置
+
+# 玩家数据读取：
+# HeroProto:
+#    HeroDomesticProto domestic = 3;
+# HeroDomesticProto:
+#   int32 start_recovery_forging_times_time = 35; // 开始恢复锻造次数的时间
+
+# 上线处理：
+# 获得当前的恢复间隔/当前能够打造的装备:
+# tieJiangPuBuildingData = Config.GetBuildingData
+# if tieJiangPuBuildingData != null{
+#   // 获得铁匠铺等级配置
+#   // tieJiangPuLevelData := config.tie_jiang_pu_level[tieJiangPuBuildingData.level - 1]
+#   // 恢复间隔 = tieJiangPuLevelData.recovery_forging_duration
+#   // 能够打造的装备 = tieJiangPuLevelData.can_forging_equip
+# }
+
+# 资源点数据
+# 登陆时候，从heroProto中获取资源点的初始状态，之后通过更新消息同步资源点的状态
+# HeroProto.Domestic.ResourcePoint
+
+# 更新单个资源点
+update_resource_building:
+  s2c:
+    id: int // 布局id
+    amount: int // 当前可以收集的量
+    capcity: int // 最大容量
+    output: int // 产量，每小时
+    conflict: bool // true表示冲突，此资源点不再增长
+    base_level_lock: bool // true表示主城等级不足
+
+# 更新多个资源点
+update_multi_resource_building:
+  s2c:
+    id: int[] // 布局id
+    amount: int[] // 当前可以收集的量
+    capcity: int[] // 最大容量
+    output: int[] // 产量，每小时
+    conflict: bool[] // true表示冲突，此资源点不再增长
+    base_level_lock: bool[] // true表示主城等级不足
+
+# 新建资源点
+# 收到成功s2c消息之后，服务器会推送一条更新资源点产出的消息，客户端根据这个来初始化资源点
+# update_resource_building
+create_building:
+  c2s:
+    id: int // 对应建筑布局shared_proto.BuildingLayoutProto的id
+    type: int // 建筑类型(资源点允许建不同类型的，所以需要指定要建哪个)
+  s2c:
+    id: int // 布局id
+    building: int // 新的建筑id，对应shared_proto.BuildingDataProto的id
+    worker_pos: int // 建筑队序号
+    worker_rest_end_time: int // 对应序号的建筑队进入cd，Unix时间戳（秒）
+  s2c_fail:
+    invalid_layout: 无效的布局id
+    not_empty: 这个id上已经有建筑了
+    worker_rest: 建筑队在休息
+    resource_not_enough: 消耗资源不足
+    require_not_reach: 前提条件未达成
+    resource_conflict: 资源点处于冲突状态
+    resource_invalid: 资源点不在你的势力范围，请先升级主城
+    invalid_type: 无效的建筑类型
+    server_busy: 服务器忙，请稍后再试
+
+# 升级资源点
+# 收到成功s2c消息之后，服务器会推送一条更新资源点产出的消息，客户端根据这个来初始化资源点
+# update_resource_building
+upgrade_building:
+  c2s:
+    id: int // 对应建筑布局shared_proto.BuildingLayoutProto的id
+  s2c:
+    id: int // 布局id
+    building: int // 新的建筑id，对应shared_proto.BuildingDataProto的id
+    worker_pos: int // 建筑队序号
+    worker_rest_end_time: int // 对应序号的建筑队进入cd，Unix时间戳（秒）
+  s2c_fail:
+    invalid_layout: 无效的布局id
+    not_building: 这个位置没有建筑
+    max_level: 这个建筑已经最高级了
+    worker_rest: 建筑队在休息
+    resource_not_enough: 消耗资源不足
+    require_not_reach: 前提条件未达成
+    resource_conflict: 资源点处于冲突状态
+    resource_invalid: 资源点不在你的势力范围，请先升级主城
+    server_busy: 服务器忙，请稍后再试
+
+# 改建资源点
+# 收到成功s2c消息之后，服务器会推送一条更新资源点产出的消息，客户端根据这个来初始化资源点
+# update_resource_building
+rebuild_resource_building:
+  c2s:
+    id: int // 对应建筑布局shared_proto.BuildingLayoutProto的id
+    type: int // 改建类型
+  s2c:
+    id: int // 布局id
+    building: int // 新的建筑id，对应shared_proto.BuildingDataProto的id
+    worker_pos: int // 建筑队序号
+    worker_rest_end_time: int // 对应序号的建筑队进入cd，Unix时间戳（秒）
+  s2c_fail:
+    invalid_layout: 无效的布局id
+    invalid_building: 此建筑不能改建
+    worker_rest: 建筑队在休息
+    resource_not_enough: 消耗资源不足
+    resource_conflict: 资源点处于冲突状态
+    resource_invalid: 资源点不在你的势力范围，请先升级主城
+    server_busy: 服务器忙，请稍后再试
+
+# 解锁外城
+unlock_outer_city:
+  c2s:
+    id: int // 外城id OuterCityDataProto.Id
+    t: int // 解锁外城类型，0-军事外城 1-经济外城
+  s2c:
+    outer_city: bytes // 客户端解析成 OuterCityProto
+  s2c_fail:
+    invalid_id: 无效的外城id
+    unlocked: 该外城已经解锁了
+    require_not_reach: 官府等级不足
+    server_busy: 服务器忙，请稍后再试
+
+# 改建外城
+#
+# MiscGenConfig
+#
+#   CostProto UpdateOuterCityTypeCost = 1; // 改建消耗
+#
+update_outer_city_type:
+  c2s:
+    id: int // 外城id OuterCityDataProto.Id
+    t: int // 改建外城类型，0-军事外城 1-经济外城
+  s2c:
+    id: int // 外城id OuterCityDataProto.Id
+    t: int // 改建外城类型，0-军事外城 1-经济外城
+    ids: int[] // 新的建筑id列表
+  s2c_fail:
+    invalid_id: 无效的外城id
+    locked: 该外城还未解锁
+    same_type: 已经是该类型
+    cost_not_enough: 外城改建消耗不足
+    server_busy: 服务器忙，请稍后再试
+
+# 升级外城建筑
+upgrade_outer_city_building:
+  c2s:
+    id: int // 外城建筑id OuterCityLayoutDataProto.Id
+  s2c:
+    city_id: int // 外城id
+    old_id: int // 旧的外城建筑id，即 c2s 发送过来的id
+    id: int // 新的外城建筑id OuterCityLayoutDataProto.Id，客户端取到 OuterCityLayoutDataProto.Layout，将旧的数据覆盖掉
+  s2c_fail:
+    invalid_building_id: 无效的外城建筑id
+    city_locked: 外城未解锁
+    require_not_reach: 前置建筑未满足升级条件
+    cost_not_enough: 消耗不足
+    server_busy: 服务器忙，请稍后再试
+
+# 资源变化
+resource_update:
+  s2c:
+    gold: int
+    food: int
+    wood: int
+    stone: int
+    is_safe: bool
+
+resource_update_single:
+  s2c:
+    res_type: int
+    amount: int
+    is_safe: bool
+
+# 资源容量变化，如升级仓库
+resource_capcity_update:
+  s2c:
+    gold_capcity: int // 金钱最大容量
+    food_capcity: int
+    wood_capcity: int
+    stone_capcity: int
+    protected_capcity: int // 受保护容量
+
+# 采集资源点
+collect_resource:
+  c2s:
+    id: int // 对应建筑布局shared_proto.BuildingLayoutProto的id
+  s2c:
+    id: int // 布局id
+    amount: int // 本次采集了多少
+  s2c_fail:
+    invalid_layout: 无效的布局id
+    cant_collected: 此建筑不是资源点
+    resource_conflict: 资源点处于冲突状态
+    resource_invalid: 资源点不在你的势力范围，请先升级主城
+    full: 仓库已满
+    empty: 没有资源可以采集
+    server_busy: 服务器忙，请稍后再试
+
+# 采集资源点
+#
+# HeroDomesticProto
+#    repeated ResType next_collect_time_type = 37 [packed=false]; // 下次可征收资源类型
+#    repeated int32 next_collect_time = 38 [packed=false]; // 下次可征收这种资源的时间
+#    int32 daily_resource_collect_times = 39; // 今日征收资源次数
+#
+# MiscConfixProto
+#    int32 max_resource_collect_times = 107; // 最大资源采集次数
+#
+# 收到每日重置消息，需要将今日征收次数重置为0
+collect_resource_v2:
+  c2s:
+    res_type: int // 资源类型(ResType)
+  s2c:
+    res_type: int // 资源类型(ResType)
+    amount: int // 本次采集了多少
+    collect_times: int // 已经采集了多少次
+    next_collect_time: int // 下次这种资源可以采集的时间，unix时间戳（秒）
+  s2c_fail:
+    invalid_resource_type: 未知的资源类型
+    empty: 没有资源可以采集
+    no_times: 没有次数
+    full: 仓库已满
+    countdown: 倒计时未结束
+    server_busy: 服务器忙，请稍后再试
+
+# 采集资源开始时间变更了
+# 计算当前剩余次数: 当前时间 ctime
+# 当前次数 = mathf.min(MiscConfigProto.max_resource_collect_times, mathf.floor((ctime - start_recover_collect_time) / MiscConfigProto.resource_recovery_duration))
+# 倒计时：
+# if 当前次数 >= MiscConfigProto.max_resource_collect_times{
+#   次数已满
+# } else {
+#   倒计时 = (当前次数 + 1) * MiscConfigProto.resource_recovery_duration + start_recover_collect_time - ctime
+# }
+collect_resource_times_changed:
+  s2c:
+    start_recover_collect_time: int // 开始恢复采集的时间
+
+# 资源点变更，服务器主动推送
+resource_point_change_v2:
+  s2c:
+    data: bytes // ResourcePointV2Proto
+
+# 请求资源冲突，收到返回后，客户端缓存在本地，在两种情况下要清除数据:
+#   1. 收到 resource_conflict_changed 后可以清除
+#   2. 本地缓存2分钟
+request_resource_conflict:
+  c2s:
+  s2c:
+    flag: string[] // 旗号
+    name: string[] // 名字
+  s2c_fail:
+    server_busy: 服务器忙，请稍后再试
+
+# 资源冲突变更了，客户端清除 request_resource_conflict 缓存数据
+resource_conflict_changed:
+  s2c:
+
+# 升级科技
+learn_technology:
+  c2s:
+    id: int // 科技分组，shared_proto.TechnologyDataProto.group
+  s2c:
+    id: int // 学习到的科技id
+    worker_pos: int // 科研的序号
+    worker_rest_end_time: int // 选择对应序号的科研队进入cd，Unix时间戳（秒）
+  s2c_fail:
+    invalid_id: 无效的科技id
+    learned: 这个科技已经学会了
+    resource_not_enough: 消耗资源不足
+    worker_rest: 科研队在休息
+    not_next_level: 选择的等级不是下一级数据，只能一级级的学
+    pre_building_level_invalid: 建筑等级不满足升级条件
+    pre_tech_level_invalid: 科技等级不满足升级条件
+    server_busy: 服务器忙，请稍后再试
+
+# 解锁城内建筑
+unlock_stable_building:
+  c2s:
+    type: int // shared_proto.BuildingType
+  s2c:
+    building: int // 新的建筑id，对应shared_proto.BuildingDataProto的id
+  s2c_fail:
+    invalid_type: 无效的类型
+    base_dead: 主城已经流亡
+    unlocked: 已经解锁
+    guan_fu_level_not_enough: 官府等级不够
+    hero_level_not_enough: 君主等级不够
+    main_task_not_reach: 主线任务未达成
+    ba_ye_stage_not_reach: 霸业目标阶段未达成
+    server_busy: 服务器忙，请稍后再试
+
+# 升级城内建筑
+upgrade_stable_building:
+  c2s:
+    type: int // shared_proto.BuildingType
+    level: int // 当前等级
+  s2c:
+    building: int // 新的建筑id，对应shared_proto.BuildingDataProto的id
+    worker_pos: int // 建筑队序号
+    worker_rest_end_time: int // 对应序号的建筑队进入cd，Unix时间戳（秒）
+  s2c_fail:
+    invalid_type: 无效的类型
+    base_dead: 主城已经流亡
+    diff_level: 等级不一致
+    max_level: 这个建筑已经最高级了
+    worker_rest: 建筑队在休息
+    resource_not_enough: 消耗资源不足
+    require_not_reach: 前提条件未达成
+    server_busy: 服务器忙，请稍后再试
+
+# 君主经验更新
+hero_update_exp:
+  s2c:
+    exp: int // 经验
+
+# 君主等级提升
+hero_upgrade_level:
+  s2c:
+    exp: int // 经验
+    level: int // 君主新等级
+
+# 更新繁荣度，包含最大值的更新
+hero_update_prosperity:
+  s2c:
+    prosperity: int // 当前繁荣度
+    capcity: int // 繁荣度最大值，这个值 >0 时候更新繁荣度
+
+# 请求玩家名字是否存在
+is_hero_name_exist:
+  c2s:
+    name: string // 新名字
+  s2c:
+    name: string // 新名字
+    exist: bool // true(存在)/false(不存在)
+  s2c_fail:
+    invalid_name: 无效的名字长度
+    server_error: 服务器忙，请稍后再试
+
+# 君主改名
+# config.MiscConfig.ChangeHeroNameCost 改名消耗
+# heroProto.next_change_name_time 下次可以改名的时间，小于这个时间表示cd中
+# 客户端收到s2c的协议，将改名次数+1
+change_hero_name:
+  c2s:
+    name: string // 新名字
+  s2c:
+    name: string // 新名字
+    next_change_name_time: int32 // 下次可以改名的时间
+  s2c_fail:
+    invalid_name: 无效的名字长度
+    same_name: 改的名字跟当前名字一样
+    cost_not_enough: 消耗不足
+    cd: 改名cd中
+    exist_name: 这个名字已经存在，不能使用
+    sensitive_words: 名字包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 给首次改名奖励
+give_first_change_hero_name_prize:
+  s2c:
+
+# 君主名字变更
+# 客户端收到此消息，将所有需要改名字的地方，都改掉
+hero_name_changed_broadcast:
+  s2c:
+    id: bytes // 君主id
+    name: string // 君主名字
+
+# 请求曾用名
+list_old_name:
+  c2s:
+    id: bytes // 玩家id
+  s2c:
+    name: string[] // 曾用名列表
+  s2c_fail:
+    invalid_id: 无效的玩家id
+    server_error: 服务器忙，请稍后再试
+
+# 查看其它玩家消息
+view_other_hero:
+  c2s:
+    id: bytes // 玩家id
+  s2c:
+    hero: bytes // 解析成 OtherHeroProto
+  s2c_fail:
+    invalid_id: 无效的玩家id
+    server_error: 服务器忙，请稍后再试
+
+# 查看野外战斗次数
+view_fight_info:
+  c2s:
+    id: bytes // 玩家id
+  s2c:
+    id: bytes // 玩家id
+    realm_fight_success: int // 战斗胜利次数
+    realm_fight_fail: int // 战斗失败次数
+    realm_assist: int // 援助战斗次数
+    realm_been_assist: int // 被援助战斗次数
+    inverstigation: int // 瞭望次数
+    been_inverstigation: int // 被瞭望次数
+
+# 更新建筑cd系数
+update_building_worker_coef:
+  s2c:
+    coef: int32 // 系数，除以1000得到小数
+
+# 更新科研队cd系数
+update_tech_worker_coef:
+  s2c:
+    coef: int32 // 系数，除以1000得到小数
+
+# 更新建筑队疲劳时间
+update_building_worker_fatigue_duration:
+  s2c:
+    fatigue: int32 // 建筑队疲劳时间，秒
+
+# 更新科技队疲劳时间
+update_tech_worker_fatigue_duration:
+  s2c:
+    fatigue: int32 // 科技队疲劳时间，秒
+
+# 秒建筑队CD
+# config.MiscConfigProto.miao_building_worker_duration 时间间隔 X
+# config.MiscConfigProto.miao_building_worker_cost 秒cd消耗 Y
+# 当前时间：CTime
+# 建筑队cd结束时间，EndTime
+# 秒CD总消耗 = ((Max(EndTime - Ctime, 0) + X - 1) / X) * Y
+miao_building_worker_cd:
+  c2s:
+    worker_pos: int // 建筑队序号，从0开始
+  s2c:
+    worker_pos: int // 建筑队序号，将建筑队cd清0
+  s2c_fail:
+    invalid_pos: 无效的建筑队序号
+    not_working: 建筑队不是CD中
+    cost_not_enough: 消耗不足
+    zero_duration: 秒CD功能没有开启
+
+# 秒科研队CD
+# config.MiscConfigProto.miao_tech_worker_duration 时间间隔 X
+# config.MiscConfigProto.miao_tech_worker_cost 秒cd消耗 Y
+# 当前时间：CTime
+# 科研队cd结束时间，EndTime
+# 秒CD总消耗 = ((Max(EndTime - Ctime, 0) + X - 1) / X) * Y
+miao_tech_worker_cd:
+  c2s:
+    worker_pos: int // 科研队序号，从0开始
+  s2c:
+    worker_pos: int // 科研队序号，将科研队cd清0
+  s2c_fail:
+    invalid_pos: 无效的科研队序号
+    not_working: 科研队不是CD中
+    cost_not_enough: 消耗不足
+    zero_duration: 秒CD功能没有开启
+
+# 更新元宝数
+update_yuanbao:
+  s2c:
+    yuanbao: int // 最新的元宝数
+
+# 更新元宝赠送额度
+update_yuanbao_gift_limit:
+  s2c:
+    yuanbao_gift_limit: int // 最新的元宝赠送额度
+
+# 更新点券数
+update_dianquan:
+  s2c:
+    dianquan: int // 最新的点券数
+
+# 更新银两数
+update_yinliang:
+  s2c:
+    yinliang: int // 最新的银两数
+
+# 更新君主战斗力
+update_hero_fight_amount:
+  s2c:
+    fight_amount: int // 君主防守战力
+
+# 铁匠铺锻造时间变更
+#
+# HeroDomesticProto
+#    int32 forging_times = 35; // 锻造次数
+#    int32 forging_next_time = 36; // 下次可以锻造的时间，unix时间戳
+#
+# TieJiangPuLevelProto
+#    int32 max_forging_times = 2; // 该等级的铁匠铺最大能够存多少次锻造次数
+#
+recovery_forging_time_change:
+  s2c:
+    times: int // 锻造已锻造次数
+    next_time: int // 下次可锻造次数，unix时间戳
+
+# 锻造装备,收到这条消息之前客户端还会收到 recovery_forging_time_change 协议
+forging_equip:
+  c2s:
+    slot: int // 第几件装备，此处为下标从0开始
+  s2c:
+    slot: int // 第几件装备，此处为下标从0开始
+  s2c_fail:
+    times_not_enough: 次数不够
+    can_not_forging_eqiup: 这件装备不可以锻造
+    count_invalid: 打造数量无效
+    function_not_open: 功能没开启
+    one_key_not_open: 一键没有开启
+
+# 更新锻造位置
+# 收到这个消息，在锻造位置添加标签
+#
+# HeroDomesticProto
+#    repeated int32 new_forging_pos = 46; // 新锻造位置
+#
+# 当锻造时候，客户端自己将对应的标签移除掉
+update_new_forging_pos:
+  s2c:
+    new_forging_pos: int[] // 新的锻造位置
+
+# 设置签名
+sign:
+  c2s:
+    text: string // 签名内容
+  # 设置签名成功，客户端将玩家签名栏内的内容设置为当前的签名
+  s2c:
+  s2c_fail:
+    len_invalid: 签名长度非法
+    sensitive_words: 输入包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 设置语音
+voice:
+  c2s:
+    content: bytes // 语音内容
+  # 设置语音内容成功，客户端将玩家的语音内容设置为当前的语音
+  s2c:
+  s2c_fail:
+    len_invalid: 签名太长
+
+# 建筑队时间变更
+building_worker_time_changed:
+  s2c:
+    worker_pos: int // 建筑队序号
+    worker_rest_end_time: int // 对应序号的建筑队进入cd，Unix时间戳（秒）
+
+# 科研队时间变更
+tech_worker_time_changed:
+  s2c:
+    worker_pos: int // 科研队序号
+    worker_rest_end_time: int // 对应序号的科研队进入cd，Unix时间戳（秒）
+
+# 下次城内事件时间变更
+city_event_time_changed:
+  s2c:
+    next_time: int32 // 下次事件的时间
+
+
+# 收到每日重置消息，将 CityEventProto.accept_times 设置为0，如果当前时间 >= CityEventMiscProto.unlock_base_level，客户端如果有需要可以来请求兑换事件id
+
+# 首先判断功能是否开启
+# 根据 HeroProto.base_level 去查找 CityEventLevelDataProto中相同 base_level 的数据，如果没有，功能没开启，如果有，功能开启了
+
+# 请求兑换事件id
+#
+# 功能已经开启的情况下才可以请求
+request_city_exchange_event:
+  c2s:
+  s2c:
+    accept_times: int32 // 接受的事件的次数
+    event_id: int32 // 事件的id， CityEventDataProto.id
+  s2c_fail:
+    in_cd: 事件时间没到
+    no_times: 没有次数了
+    not_open: 功能没开启
+
+# 城内事件兑换
+#
+# 功能已经开启的情况下才可以兑换
+#
+# if CityEventProto.event_id 为0 {
+#   if CityEventProto.accept_times >= CityEventMiscProto.max_times{
+#     没有次数了
+#   } else {
+#     有次数，请先发送 request_city_exchange_event来请求事件id
+#   }
+# } else {
+#   if 当前时间 >= CityEventProto.can_exchange_time{
+#     提示有奖励可以领取啦
+#   } else {
+#     时间没到，暂时无法领取，显示 下次事件时间
+#   }
+# }
+#
+# 收到成功消息之后，将原有的城内事件设置为空 CityEventProto.event_id = 0
+# 客户端会先收到 s2c 再收到 city_event_time_changed 消息
+city_event_exchange:
+  c2s:
+    give_up: bool // 放弃(true)/兑换(false)
+  # 放弃/兑换 成功，将事件删掉，刷新新的接受次数
+  s2c:
+    give_up: bool // 放弃(true)/兑换(false)，用于提示，收到后，将当前的 CityEventProto.event_id 设置为0
+  s2c_fail:
+    in_cd: 事件时间没到
+    condition_not_satisfied: 条件不满足
+    no_times: 没有次数了
+    not_open: 功能没开启
+
+# 君主策略
+# 登陆时候，从HeroProto中获取到君主策略数据
+# heroProto.strategy_restore_start_time 君主策略恢复开始时间 ST
+# 当前时间 CTime
+# config.MiscConfig.StrategyRestoreDuration 恢复一个锦囊所需的时间间隔，D
+# config.HeroLevelProto.StrategyLimit 当前等级锦囊上限，通过Config中的英雄等级数据中获取，CountLimit
+#
+# 当前策略个数，Min((CTime - ST) / D, CountLimit)
+# 下一个策略恢复倒计时，D - ((CTime - ST) % D)
+#
+# heroProto.strategy_cooldown_time 下次使用策略的时间（CD），当前时间大于这个时间，说明现在可以使用策略，否则不能使用策略
+
+# 更新君主策略开始恢复时间
+# 收到此消息时候，根据公式重新计算一次君主策略个数
+# 收到此消息时候，根据英雄等级重新获取一次策略个数上限（因为升级有改变时候，也会推送这个消息）
+update_strategy_restore_start_time:
+  s2c:
+    time: int32 // unix时间戳，单位秒
+
+# 更新君主策略CD，当收到这条消息，更新君主策略cd
+update_strategy_next_use_time:
+  s2c:
+    id: int32 // 策略id
+    time: int32 // unix时间戳，单位秒
+
+## 使用君主策略
+## 从config中获取到君主策略类型，发送对应的id上来使用
+## 使用成功，服务器会同时推送下面的消息
+## update_strategy_restore_start_time 更新君主策略恢复时间
+## update_strategy_next_use_time 更新君主策略cd
+#use_strategy:
+#  c2s:
+#    id: int // 策略id
+#  s2c:
+#    id: int // 策略id
+
+# 玉石矿变化
+update_jade_ore:
+  s2c:
+    amount: int
+
+# 玉璧变化
+update_jade:
+  s2c:
+    amount: int
+    history_jade: int // 历史上获得的玉璧数量
+    today_obtain_jade: int // 今天获得的玉璧数量，收到 misc.reset_daily 协议，将 today_obtain_jade 重置为0
+
+# 变更头像
+change_head:
+  c2s:
+    head_id: string // 头像id, 客户端也可以发送默认头像上来，http开头的是默认头像
+  # 变更头像成功
+  s2c:
+    head_id: string // 头像id
+  s2c_fail:
+    invalid_head: 无效的头像id
+    captain_soul_not_unlock: 将魂没有解锁
+    hero_level_too_low: 君主等级不足
+    server_error: 服务器繁忙，请稍后再试
+    not_this_official: 没有对应官职
+
+# 变更形象
+change_body:
+  c2s:
+    body_id: int // 形象id, Configs.Bodys 中的id
+  # 变更形象成功
+  s2c:
+    body_id: int // 形象id
+  s2c_fail:
+    invalid_body: 无效的形象id
+    captain_soul_not_unlock: 将魂没有解锁
+    hero_level_too_low: 君主等级不足
+    server_error: 服务器繁忙，请稍后再试
+    not_this_official: 没有对应官职
+
+# 领取倒计时奖励
+# 英雄登陆时候，获取可以领取的奖励，以及倒计时
+#
+# HeroDomesticProto
+#    PrizeProto countdown_prize = 54; // 倒计时奖励
+#    int32 countdown_collect_time = 55; // 领取的时间点
+#    int32 countdown_desc_id = 56; // 显示内容, shared_proto.CountdownPrizeDescDataProto
+collect_countdown_prize:
+  c2s:
+  s2c:
+    prize: bytes // shared_proto.PrizeProto 领取的奖励，不是下一次奖励的数据
+    collect_time: int // 下一次领取的时间，unix时间戳（秒）
+    desc_id: int // 领取的描述更新显示内容，不是下一次奖励的数据（包含图标，描述之类的），shared_proto.CountdownPrizeDescDataProto
+    prosprity: int // 加的繁荣度
+  s2c_fail:
+    time_not_reached: 倒计时未到
+
+# 请求装备作坊，登陆和有更新的时候，服务器会主动推送
+list_workshop_equipment:
+  s2c:
+    refresh_time: int // 下一次刷新时间
+    equipment: int[] // 装备id
+    duration: int[] // 锻造所需时间
+    index: int // 锻造中的装备索引，从1开始，0表示没有锻造中的装备
+    collect_time: int // 装备锻造完成时间（完成之后可以领取），unix时间戳
+    workshop_refresh_times: int // 已经刷新了的次数
+
+# 开始锻造装备
+start_workshop:
+  c2s:
+    index: int // 锻造装备索引，从1开始
+  s2c:
+    index: int // 锻造装备索引，从1开始
+    collect_time: int // 装备锻造完成时间（完成之后可以领取），unix时间戳
+  s2c_fail:
+    invalid_index: 无效的锻造装备索引
+    forging: 这个装备锻造中
+    count_limit: 达到锻造个数上限
+
+# 领取锻造装备
+# 领取后，服务器会主动推送 list_workshop_equipment消息，客户端根据这个消息重新刷新装备作坊
+collect_workshop:
+  c2s:
+    index: int // 锻造装备索引，从1开始，0表示全部领取
+  s2c:
+    index: int // 锻造装备索引，从1开始，0表示全部领取
+  s2c_fail:
+    invalid_index: 无效的锻造装备索引
+    cant_collect: 装备锻造没有完成，不能领取
+
+# 锻造装备秒 cd
+# config.MiscConfigProto.miao_workshop_duration 时间间隔 X
+# config.MiscConfigProto.miao_workshop_cost 秒cd消耗 Y
+# 当前时间：CTime
+# 转生cd结束时间，EndTime
+# 秒CD总消耗 = ((Max(EndTime - Ctime, 0) + X - 1) / X) * Y
+workshop_miao_cd:
+  c2s:
+    index: int // 锻造装备索引，从1开始
+  s2c:
+    index: int // 成功秒CD的锻造装备索引，从1开始
+  s2c_fail:
+    invalid_index: 无效的锻造装备索引
+    not_in_cd: CD已结束
+    cost_not_enough: 消耗不够
+
+# 锻造装备刷新
+# // 装备作坊刷新消耗
+# message WorkshopRefreshCostProto {
+#     int32 id = 1; // 已经刷新的次数+1，此处从1开始
+#     CostProto cost = 2; // 消耗
+# }
+# 刷新次数 list_workshop_equipment.workshop_refresh_times // 已经刷新了的次数
+# 判断当前能不能刷新
+# Config
+#   repeated WorkshopRefreshCostProto workshop_refresh_costs = 110; // 装备走访刷新消耗
+# 通过次数去查找本次刷新的消耗，如果没有，提示没次数，否则显示需要消耗这么多
+#
+# 如果当前有未锻造的装备，那么不可以发送刷新
+# 客户端收到 misc.reset_daily 将 list_workshop_equipment.workshop_refresh_times 重置为0
+refresh_workshop:
+  c2s:
+  # 提示刷新成功，接着客户端会收到 list_workshop_equipment
+  s2c:
+  s2c_fail:
+    cost_not_enough: 消耗不够
+    times_not_enough: 没有次数
+    has_equip_not_forg: 有装备没有锻造
+
+# 领取季节奖励，判断玩家有没有领取季节奖励
+collect_season_prize:
+  c2s:
+  # 客户端收到该消息后，将自己设置为已经领取了奖励
+  s2c:
+  s2c_fail:
+    collected: 奖励已经领取
+
+# 季节开始广播
+# 收到该消息，如果reset == true, 将 HeroDomesticProto.is_collect_season_prize 设置为false
+season_start_broadcast:
+  s2c:
+    season: enum shared_proto.Season // 季节
+    start_time: int // 开始时间，客户端自己根据季节间隔，计算下个季节的开始时间
+    is_reset: bool // true表示季节重置
+
+# 建筑科技消耗减少系数
+update_cost_reduce_coef:
+  s2c:
+    building: int32 // 建筑消耗减少系数，这个值除以1000，得到小数
+    tech: int32 // 科技消耗减少系数，这个值除以1000，得到小数
+
+# 君主体力值刷新
+update_sp:
+  s2c:
+    sp: int32 // 当前体力值
+
+# 购买君主体力值
+buy_sp:
+  c2s:
+    buy_times: int32 // 购买几次
+  s2c:
+    sp: int32 // 当前体力值
+    buy_sp_times: int32 // 已经购买的总次数（要计算剩余次数，请用配置里面的buy_sp_limit减去这个数字）
+  s2c_fail:
+    invalid_data: 无效的数据
+    buy_times_limit: 购买次数上限
+    not_enough_yuanbao: 元宝不足
+
+# 废弃。使用主城增益效果
+use_buf_effect:
+  c2s:
+    id: int32 // 增益id
+  s2c:
+    buf_effect: shared_proto.BufferEffectProto
+  s2c_fail:
+    no_buf_effect: 不存在的增益效果
+    same_buf_effect: 同种增益不可叠加
+    level_limit: 低等级增益不可覆盖高等级增益
+    keep_time_limit: 低时长增益不可覆盖高时长增益
+    item_not_enough: 道具不足
+    buff_effect_fail: buff更新失败
+    server_error: 服务器繁忙，请稍后再试
+
+# 废弃
+open_buf_effect_ui:
+  c2s:
+  s2c:
+    buffers: shared_proto.HeroBufferProto
+  s2c_fail:
+    server_error: 服务器繁忙，请稍后再试
+
+# 使用主城增益
+use_advantage:
+  c2s:
+    id: int32 // 增益id
+  s2c:
+    id: int32 // 增益id
+    start_time: int32 // 开始时间
+    end_time: int32 // 结束时间
+  s2c_fail:
+    invalid_id: 不存在的增益
+    same_type: 同种增益不可叠加
+    level_limit: 低等级增益不可覆盖高等级增益
+    keep_time_limit: 低时长增益不可覆盖高时长增益
+    item_not_enough: 道具不足
+    buff_effect_fail: buff更新失败
+    server_error: 服务器繁忙，请稍后再试
+
+# 刷新增益数量
+update_advantage_count:
+  s2c:
+    count: int
+
+# 临时解锁建筑队
+worker_unlock:
+  c2s:
+    pos: int
+  s2c:
+    pos: int
+    new_lock_start_time: int32 // 新的重新锁住时间
+  s2c_fail:
+    invalid_pos: pos错误
+    pos_is_unlocked: pos在解锁中
+    cost_not_enough: 钱不够
+
+# 建筑队永久解锁
+worker_always_unlock:
+  s2c:
+    pos: int // 永久解锁的建筑队pos

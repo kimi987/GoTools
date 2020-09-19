@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1932127301
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1f875205ce0e4a7154f57393b4894688
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c73412a662fd4e4f36af34cbdf078b85
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIImage/DragonImage/ui_dragon_img_04_UnLock.png
+Dependencies: []

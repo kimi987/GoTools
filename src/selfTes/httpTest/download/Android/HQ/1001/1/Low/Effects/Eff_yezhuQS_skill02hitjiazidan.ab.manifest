@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 3809122151
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 97c2321efb60064eadd154264322eea0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0a9d000c67bb3b371a8c4e0fe8b14a8f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_yezhuQS_skill02hitjiazidan.prefab
+Dependencies: []

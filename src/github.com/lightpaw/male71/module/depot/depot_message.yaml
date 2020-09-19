@@ -1,0 +1,167 @@
+
+# 更新物品个数（可堆叠物品），当物品个数发生变化，收到此消息
+update_goods:
+  s2c:
+    id: int // 物品id
+    count: int // 物品个数
+
+# 更新多个物品个数（可堆叠物品），当物品个数发生变化，收到此消息
+update_multi_goods:
+  s2c:
+    id: int[] // 物品id
+    count: int[] // 物品个数
+
+# 使用物品（对于可以直接使用的物品而言，如资源类物品）
+# 这里会发送update_goods 消息更新物品个数，不需要根据使用消息来更新物品个数，做提示就好了
+use_goods:
+  c2s:
+    id: int // 对应使用的物品id
+    count: int // 使用物品个数
+  s2c:
+    id: int // 对应使用的物品id
+    count: int // 使用物品个数(这个数字可能少于客户端发的使用个数，因为服务器判断不能使用这么多)
+  s2c_fail:
+    invalid_id: 无效的物品id
+    invalid_count: 无效的物品个数
+    count_not_enough: 物品个数不足
+    cant_use: 发送的物品不能直接使用
+    server_error: 服务器忙，请稍后再试
+    # 资源类
+    resource_full: 资源已满，无法使用道具增加资源
+    # 特殊类
+    need_guild: 您未加入联盟不可使用
+    floor_less_than_max: 千重楼今日还未扫荡过不可重置
+    open_times_not_zero: 过关斩将今日开启次数尚未用完
+
+# 减cd道具
+use_cdr_goods:
+  c2s:
+    id: int // 对应使用的物品id
+    count: int // 使用物品个数
+    cdr_type: int // 减cd类型，0-建筑 1-科技 2-装备锻造
+    index: int // 索引
+  s2c:
+    id: int // 对应使用的物品id
+    count: int // 使用物品个数(这个数字可能少于客户端发的使用个数，因为服务器判断不能使用这么多)
+    cdr_type: int // 减cd类型，0-建筑 1-科技 2-装备锻造
+    index: int // 索引
+    cooldown: int // 最新的cd时间，unix时间戳（秒）
+  s2c_fail:
+    invalid_id: 无效的物品id
+    invalid_count: 无效的物品个数
+    count_not_enough: 物品个数不足
+    cant_use: 发送的物品id不是减cd道具
+    invalid_cdr_type: 物品不是这个类型的减cd物品
+    invalid_index: 无效的索引
+    not_in_cd: 当前不处于cd状态
+    server_error: 服务器忙，请稍后再试
+
+# 迁城令，在region模块中
+
+# 物品合成，通用协议
+goods_combine:
+  c2s:
+    id: int // 合成id 任何GoodsCombineDataProto.Id
+    count: int // 合成数量
+  s2c:
+  s2c_fail:
+    goods_not_enough: 物品不够
+    combine_not_found: 合成没找到
+    combine_count_invalid: 合成数量非法
+
+# 物品碎片合成
+# 合成的物品，通过添加物品消息添加
+#
+# GoodsEffectProto
+#    repeated PrizeProto parts_show_prize = 27; // 零件合成奖励预览
+#
+# 如果有多个，说明可以选择，否则就是随机
+goods_parts_combine:
+  c2s:
+    id: int // 碎片id
+    count: int // 合成个数
+    select_index: int // 选择哪个进行合成，从0开始
+  s2c:
+    id: int // 碎片id
+    count: int // 合成个数
+    select_index: int // 选择哪个进行合成
+    prize: bytes // shared_proto.PrizeProto
+  s2c_fail:
+    goods_not_found: 物品碎片id不存在
+    goods_not_enough: 物品碎片不够
+    invalid_select_index: 无效的合成索引
+
+# 物品过期了
+goods_expired:
+  s2c:
+    id: int[] // 物品id[EquipmentProto.id/GemProto.id] 装备或者宝石过期了，将这些物品从临时背包中删掉，普通物品不会过期
+
+# 物品过期时间变更了
+goods_expire_time_remove:
+  s2c:
+    id: int[] // 物品id[EquipmentProto.id/GemProto.id] 物品过期时间清除了，根据物品是宝石/装备 将物品从临时背包移动到 宝石/装备背包
+
+# 更新宝物个数，当物品个数发生变化，收到此消息
+update_baowu:
+  s2c:
+    id: int // 宝物id
+    count: int // 物品个数
+
+# 更新宝物个数，当物品个数发生变化，收到此消息
+update_multi_baowu:
+  s2c:
+    id: int[] // 宝物id
+    count: int[] // 物品个数
+
+# 解锁宝物
+unlock_baowu:
+  c2s:
+    id: int // 宝物id
+  s2c:
+    id: int // 宝物id
+    end_time: int // 结束时间
+  s2c_fail:
+    not_found: 你没有这个宝物，无法解锁
+    unlocking: 正在解锁其他的宝物，请稍后再试
+
+client_pb_import:
+ - "shared.proto"
+
+server_pb_import:
+ - "github.com/lightpaw/male7/pb/shared_proto/base.proto"
+
+# 开启的宝物（领取）
+collect_baowu:
+  c2s:
+    miao: bool // 秒CD
+  s2c:
+    prize: shared_proto.PrizeProto // 宝物奖励
+  s2c_fail:
+    no_unlocking: 没有解锁中的宝箱，不能领取
+    unlocking: 宝物开启中，不能领取
+    cost_not_enough: 提前开启，消耗不足
+    miao_times_limit: 提前开启次数已达上限
+
+# 添加一条宝物日志
+add_baowu_log:
+  s2c:
+    data: bytes // shared_proto.BaowuLogProto
+
+# 请求完整宝物日志，不包含外面的4个
+list_baowu_log:
+  c2s:
+  s2c:
+    datas: bytes[] // shared_proto.BaowuLogProto
+
+# 仓库分解宝物
+decompose_baowu:
+  c2s:
+    baowu_id: int // 宝物 id
+    count: int // 要分解的数量
+  s2c:
+    baowu_id: int // 宝物 id
+    new_count: int // 宝物新数量
+  s2c_fail:
+    invalid_baowu: 宝物id不存在
+    invalid_count: 宝物数量错误
+    baowu_is_unlocking: 宝物正在解锁

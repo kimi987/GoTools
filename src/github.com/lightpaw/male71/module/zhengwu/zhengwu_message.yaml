@@ -1,0 +1,62 @@
+# 收到 misc_message.yaml 中的 reset_daily 协议，将 HeroZhengWuProto.refresh_times 重置为0
+
+# 开始政务
+start:
+  c2s:
+    id: int // 政务id
+  # 开始政务
+  s2c:
+    zheng_wu: bytes // 客户端解析成 ZhengWuProto，收到该消息后，将 ZhengWuProto.data.id从  todoList 中移除掉
+  s2c_fail:
+    not_found: 政务没找到
+    need_collect: 当前有政务已经完成，请先领取奖励
+    have_doing: 当前有政务正在做
+    server_error: 服务器繁忙，请稍后再试
+
+# 领取政务奖励
+collect:
+  c2s:
+  # 领取成功，客户端收到后，将 doing 设置为空
+  s2c:
+  s2c_fail:
+    no_doing_zheng_wu: 没有正在做的政务
+    not_complete: 政务还没完成
+    server_error: 服务器繁忙，请稍后再试
+
+# 元宝直接完成政务
+yuanbao_complete:
+  c2s:
+  # 收到后，客户端将正在做的政务的完成时间修改为当前时间
+  s2c:
+  s2c_fail:
+    not_doing: 当前没有正在做的政务
+    complete: 已经完成了
+    not_enough_yuanbao: 元宝不足
+    server_error: 服务器繁忙，请稍后再试
+
+# 点券刷新政务
+yuanbao_refresh:
+  c2s:
+  s2c:
+  s2c_fail:
+    complete: 当前正在做的政务已经完成，请先领取奖励再刷新
+    not_enough_cost: 点券不足
+    not_enough_times: 次数不足
+    server_error: 服务器繁忙，请稍后再试
+
+# 政务刷新，收到后，提示政务已经刷新
+refresh:
+  s2c:
+    new_zheng_wu: bytes // 解析成 HeroZhengWuProto
+
+# vip领取政务奖励
+# 获得vip政务自动完成特权时，所有刷新的政务都显示自动完成按钮，领取奖励就请求这条消息
+vip_collect:
+  c2s:
+    id: int // 政务id
+  s2c:
+    id: int // 政务id
+  s2c_fail:
+    vip_limit: 没有vip特权
+    not_in_list: 没在政务列表中
+    server_err: 服务器错误

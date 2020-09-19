@@ -1,0 +1,1201 @@
+# module_name:  # 默认使用文件夹名字作为模块名，当模块名与文件夹名字不一致时候，通过这个值指定
+
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+ - "github.com/lightpaw/male7/pb/shared_proto/base.proto"
+ - "github.com/lightpaw/male7/pb/shared_proto/region.proto"
+ - "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto"
+ - "github.com/lightpaw/male7/pb/shared_proto/guild.proto"
+
+
+# 概述，之前的方案是，客户端进入野外，服务器一次性把主城和马推送给客户端
+# 新方案修改成，当客户端出野外，服务器主动发送野外坐标
+# 客户端将镜头移动时候，需要发消息通知服务器，服务器根据坐标变化，更新客户端的可视列表
+
+# 新地图消息
+
+# 地图边界，以下情况会收到
+# 1、登陆时候
+# 2、地图扩展时候
+update_map_radius:
+  s2c:
+    center_x: int // 中心坐标
+    center_y: int
+    radius: int // 半径
+
+# 进入大地图
+# 客户端拖动地图时候，如果屏幕区域处于服务器返回的坐标内，不用更新坐标
+# 如果超出这个区域，则再次发消息上来，更新客户端的中心坐标
+#
+# 优化，客户端快速移动时候，不要更新，速度低于一定的值才更新
+#
+# 客户端以下情况发送消息
+# 1、第一次出城
+# 2、屏幕移动超出服务推送区域
+#
+# 服务器屏幕框X半径 = (MaxX - MinX) / 2
+# 服务器屏幕框Y半径 = (MaxY - MinY) / 2
+#
+# 实际使用X半径 = min(客户端X半径， 服务器X半径)
+# 实际使用Y半径 = min(客户端Y半径， 服务器Y半径)
+update_self_view:
+  c2s:
+    pos_x: int // x 坐标
+    pos_y: int // y 坐标
+    len_x: int // x 坐标方向可以看到多少格子
+    len_y: int // y 坐标方向可以看到多少格子
+  s2c:
+    min_x: int // min x 坐标
+    min_y: int // min y 坐标
+    max_x: int // max x 坐标
+    max_y: int // max y 坐标
+
+# 离开大地图
+close_view:
+  c2s:
+  s2c:
+
+# 添加主城
+# BaseUnitProto
+#    int32 outer_city_bit = 13; // 外城配置
+#
+# 判断是否有外城
+# bit := outer_city_bit
+# for dir := range 东南西北（shared_proto.PosDiraction定义的顺序）
+#   outerCityBit := bit % 4 // 0-没有外城 1-军事外城 2-经济外城
+#   bit = bit / 4
+#
+add_base_unit:
+  s2c:
+    add_type: int // 0-进入视野 1-新建角色 2-重建 3-迁移 4-更新
+    data: bytes // shared_proto.BaseUnitProto
+
+# 添加一个npc
+#
+# data_type说明
+# 0-普通npc shared_proto.NpcBaseDataProto
+# 1-多等级野怪npc shared_proto.RegionMultiLevelNpcDataProto
+# 4-匈奴Npc
+# 5-宝藏Npc shared_proto.RegionMultiLevelNpcDataProto
+# 7-军团Npc shared_proto.JunTuanNpcDataProto
+update_npc_base_info:
+  s2c:
+    map_id: int // 地图id
+    npc_id: bytes // npc的id
+    base_x: int // x坐标
+    base_y: int // y坐标
+    data_id: int // npc数据id
+    data_type: int // 0-普通npc 1-多等级野怪npc 3-联盟工坊 5-宝藏Npc  7-军团
+    guild_id: int // 联盟id
+    guild_name: string // 联盟名字
+    guild_flag_name: string // 联盟旗号
+    country: int // 国家
+    mian_disappear_time: int // 免战结束时间，unix时间戳（秒）
+    prosperity: int // 繁荣度（宝藏怪物时有效，繁荣度上限从配置读取，表示还有多少份奖励可以掠夺）
+    has_defenser: bool // 是否有防守怪物（宝藏怪物时有效，怪点上是否要显示防守怪物）
+    hero: bytes // shared_proto.HeroBasicProto 宝藏击杀者，宝藏创建者
+    hero_end_time: int // 宝藏击杀者控制结束时间，宝藏创建者过期时间
+    hero_type: int // 0-宝藏击杀者 1-宝藏创建者
+    progress: int // 进度
+    total_progress: int // 总进度
+    progress_type: int // 进度类型，0-分子分母类型 1-倒计时类型（progress分子表示开始时间，分母表示结束时间）
+
+
+update_base_progress:
+  s2c:
+    id: bytes // 城池id
+    progress: int // 进度
+    total_progress: int // 总进度
+    progress_type: int // 进度类型，0-分子分母类型 1-倒计时类型（progress分子表示开始时间，分母表示结束时间）
+
+# 移除主城
+remove_base_unit:
+  s2c:
+    remove_type: int // 0-离开视野 1-迁移 2-流亡
+    hero_id: bytes // 城池id（玩家id）
+
+# 点击主城（查询主城，查询军情）TODO
+# 出征前面板数据
+pre_invasion_target:
+  c2s:
+    map_id: int // 要出征的地图id
+    target: bytes // 目的地主城对应的玩家id
+  s2c:
+    head: string // 头像 通过 config.Icons去获得图标
+    level: int // 等级
+    max_tower_floor: int // 最大千层楼
+    jun_xian_level: int // 军衔等级
+  s2c_fail:
+    invalid_target: 无效的目标id
+
+# 点击主城，展示内容
+# 出征前面板数据
+watch_base_unit:
+  c2s:
+    target: bytes //主城对应的玩家id
+  s2c:
+    target: bytes //主城对应的玩家id
+    guild_name: string
+    fight_amount: int // 防御战力
+    prosprity: int // 繁荣度
+    prosprity_capcity: int // 最大繁荣度
+    head: string // 头像 通过 config.Icons去获得图标
+    level: int // 等级
+    max_tower_floor: int // 最大千层楼
+    jun_xian_level: int // 军衔等级
+    soldier: int // 防守兵力(宝藏怪物时有效，总兵力从配置读取)
+    captain_soldier: int[] // 防守武将兵力(宝藏怪物时有效，总兵力从配置读取)
+    hero: bytes // shared_proto.HeroBasicProto 宝藏击杀者，宝藏创建者
+    hero_end_time: int // 宝藏击杀者控制结束时间，宝藏创建者过期时间
+    hero_type: int // 0-宝藏击杀者 1-宝藏创建者
+
+  s2c_fail:
+    invalid_target: 无效的目标id
+
+# 更新主城繁荣度
+update_watch_base_prosperity:
+  s2c:
+    target: bytes //主城对应的玩家id
+    prosprity: int // 繁荣度
+    prosprity_capcity: int // 繁荣度上限
+
+# 主城繁荣度受保护
+update_stop_lost_prosperity:
+  s2c:
+    target: bytes // 主城对应的玩家id（空表示移除视野内所有主城的保护状态）
+
+# 添加部队
+add_troop_unit:
+  s2c:
+    add_type: int // 0-进入视野 1-出征 2-更新
+    data: bytes // shared_proto.TroopUnitProto
+
+# 移除部队
+remove_troop_unit:
+  s2c:
+    remove_type: int // 0-离开视野 2-移除
+    troop_id: bytes // 部队id（军情id）
+
+# 点击部队（查询军情）
+request_troop_unit:
+  c2s:
+    troop_id: bytes // 部队id（军情id）
+  s2c:
+    data: bytes // shared_proto.MilitaryInfoProto
+  s2c_fail:
+    invalid_id: 无效的部队id
+    server_error: 服务器忙，请稍后再试
+
+# 新增废墟
+add_ruins_base:
+  s2c:
+    pos_x: int // x 坐标
+    pos_y: int // y 坐标
+
+# 移除废墟
+remove_ruins_base:
+  s2c:
+    pos_x: int // x 坐标
+    pos_y: int // y 坐标
+
+# 请求废墟
+request_ruins_base:
+  c2s:
+    realm_id: int // 场景id
+    pos_x: int // x 坐标
+    pos_y: int // y 坐标
+  s2c:
+    realm_id: int // 场景id
+    pos_x: int // x 坐标
+    pos_y: int // y 坐标
+    hero_basic: bytes // HeroBasicProto
+  s2c_fail:
+    realm_not_found: 场景没找到
+    invalid_x_or_y: 错误的坐标
+    no_ruins: 废墟没找到
+    server_error: 服务器忙，请稍后再试
+
+# 更新自己的免战时间
+update_self_mian_disappear_time:
+  s2c:
+    mian_disappear_time: int // 免战结束时间，unix时间戳（秒）0表示取消免战
+    mian_start_time: int // 免战开始时间，unix时间戳（秒）
+
+# 使用免战物品
+use_mian_goods:
+  c2s:
+    id: int // 免战物品id
+    buy: bool // 使用点券或元宝购买
+  s2c:
+    id: int // 免战物品id
+    cooldown: int // 下次使用免战的时间，unix时间戳
+  s2c_fail:
+    invalid_id: 无效的物品id
+    invalid_goods: 不是免战物品id
+    count_not_enough: 物品个数不足
+    troop_outside: 部队出征中，请先召回部队
+    tent_outside: 行营出征中，请先收回行营
+    home_not_alive: 主城流亡了，请先重建主城
+    mian: 免战中
+    cooldown: 免战物品冷却中
+    server_error: 服务器忙，请稍后再试
+
+# 更新新手免战时间，以下情况可能收到
+# 1、登陆时候（如果当前处于新手免战，则会收到这个消息）
+# 2、主城升级到需要移除新手免战时候
+#
+# RegionConfigProto
+#    int32 new_hero_mian_duration = 18; // 新手免战持续时间(秒)
+#    int32 new_hero_remove_mian_base_level = 19; // 移除新手免战主城等级
+#    int32 reborn_mian_duration = 20; // 流亡重建免战持续时间(秒)
+update_new_hero_mian_disappear_time:
+  s2c:
+    disappear_time: int // 免战结束时间
+
+# 升级主城
+# config.base_level 里面带有主城升级所需繁荣度
+# 繁荣度达到升级条件时候，可以升级
+upgrade_base:
+  c2s:
+  s2c:
+  s2c_fail:
+    base_not_exist: 流亡状态
+    base_max_level: 已经达到最大等级
+    prosprity_not_enough: 繁荣度不足
+    server_error: 服务器忙，请稍后再试
+
+# 自己主城等级变更，收到该协议后，将 HeroProto.max_base_level 跟新的level比较，新的level大，将 HeroProto.max_base_level 设置为新的 level
+self_update_base_level:
+  s2c:
+    level: int // 最新的主城等级
+
+
+# 更新白旗
+# 收到帮派名字更新消息时候，同时更新这个旗号更新 (guild.update_guild_name_broadcast.s2c 消息)
+update_white_flag:
+  s2c:
+    hero_id: bytes // 被插白旗的英雄id
+    white_flag_guild_id: int // 插旗人的帮派id, 0表示删除白旗
+    white_flag_flag_name:  string // 插旗人的帮派id
+    white_flag_disappear_time: int // 白旗过期时间，unix时间戳
+
+# 请求白旗详情
+# 用于显示点击白旗时候，弹出的面板
+#
+# config.RegionConfigProto.WhiteFlagDuration // 插白旗持续时间
+# 插旗时间 = 白旗消失时间 - 插白旗持续时间
+white_flag_detail:
+  c2s:
+    hero_id: bytes // 请求谁的信息
+  s2c:
+    hero_id: bytes // 请求谁的信息
+    white_flag_hero_id: bytes // 插旗人的id
+    white_flag_hero_name: string // 插旗人的名字
+    white_flag_guild_id: int // 插旗人的帮派id
+    white_flag_guild_name: string // 插旗人的帮派名字
+    white_flag_disappear_time: int // 白旗消失时间，unix时间戳(秒)
+    white_flag_country: int // 插旗人的国家
+  s2c_fail:
+    no_flag: 英雄当前没有插白旗
+
+
+# 英雄自己的城池被销毁
+self_base_destroy:
+  s2c:
+    is_tent: bool // true表示行营，false表示主城
+    destroy_type: int // 销毁类型，0-被打爆了 1-场景销毁 2-主城流亡导致行营销毁
+
+# 繁荣度buf
+prosperity_buf:
+  s2c:
+    end_time: int // buf 结束时间，0表示繁荣度buf没有了
+
+# 飘字
+show_words:
+  s2c:
+    base_id: bytes // 主城id，哪个主城被打
+    troop_id: bytes // 部队id，哪个部队打的
+    prosperity: int // 繁荣度
+    gold: int // 金币
+    food: int // 粮食
+    wood: int // 木材
+    stone: int // 石头
+    jade: int // 玉璧
+    jade_ore: int // 玉石矿
+
+# 获取购买繁荣度消耗
+get_buy_prosperity_cost:
+  c2s:
+  s2c:
+    cost: int // 购买繁荣度消耗
+
+# 购买繁荣度
+buy_prosperity:
+  c2s:
+  # 购买繁荣度成功
+  s2c:
+    add_prosperity: int // 购买的繁荣度
+  s2c_fail:
+    home_not_alive: 主城流亡了，请先重建主城
+    prosperity_full: 繁荣度已满
+    cost_not_enough: 点券不足
+    server_error: 服务器忙，请稍后再试
+    vip_level_limit: vip等级不够
+
+# 自己的被进攻、被掠夺变更了
+self_been_attack_rob_changed:
+  s2c:
+    been_attack: int // 被进攻
+    been_rob: int // 被掠夺
+
+# 联盟总的被进攻、被掠夺变更了
+# 获得自己联盟总的被进攻被掠夺的数量 = total - self_been_attack_rob_changed.been_attack - self_been_attack_rob_changed.been_rob，此处如果客户端算出负数，客户端显示0
+# 玩家离开/加入联盟，服务器会主动推送该协议
+guild_been_attack_rob_changed:
+  s2c:
+    total: int // 整个联盟总的被进攻、被掠夺
+
+# 打开军情界面
+# 服务器主动推送以下消息
+# military_info 军情信息
+#
+# 以上消息会在本消息的s2c消息返回之前先发送，
+#
+# 关闭军情面板，发送关闭消息
+#
+# 如果在打开军情面板的状态下，自己帮派发送了变化（加入新帮派，离开帮派），重新请求一次数据，刷新面板
+#
+# shared_proto.MilitaryConditionProto 主要用于控制条件且或关系
+# shared_proto.MilitaryAttributeProto 条件内容，并列时，取或者
+#   比如说，同时提供了StartBaseId和TargetBaseId的值，结果是，从我的城出发的，或者往我的城来的都匹配
+#
+# 紧急军情查询条件，我的主城军情，我的行营军情，我的出征军情，盟友正在被掠夺的军情
+# 示例：shared_proto.MilitaryConditionProto{
+#     		IsOr: true,
+#     		Attributes: []*shared_proto.MilitaryAttributeProto{
+#     			&shared_proto.MilitaryAttributeProto{
+#     				StartBaseId:  hero.IdBytes(), // 我的军情（从我家出发的）
+#     				TargetBaseId: hero.IdBytes(), // 我的军情(往我家跑的)
+#     			},
+#     		},
+#     		Conditions: []*shared_proto.MilitaryConditionProto{
+#     			&shared_proto.MilitaryConditionProto{
+#     				IsOr: false,
+#     				Attributes: []*shared_proto.MilitaryAttributeProto{
+#     					&shared_proto.MilitaryAttributeProto{
+#     						TargetBaseGuildId: hero.GuildId(), // 我的联盟军情（往盟友家跑的）
+#     					},
+#     					&shared_proto.MilitaryAttributeProto{
+#     						TroopState: 5, // 持续掠夺
+#     					},
+#     				},
+#     			},
+#     		},
+#     	}
+#
+# 联盟军情查询条件，从盟友中出发的，往盟友家跑的(如果玩家没有联盟，这个就不用发了)
+# 示例：shared_proto.MilitaryConditionProto{
+#     		IsOr: true,
+#     		Attributes: []*shared_proto.MilitaryAttributeProto{
+#     			&shared_proto.MilitaryAttributeProto{
+#     				StartBaseGuildId: hero.GuildId(), // 我的联盟军情（从盟友家出发的）
+#     				TargetBaseGuildId: hero.GuildId(), // 我的联盟军情（往盟友家跑的）
+#     			},
+#     		},
+#     	}
+#
+# 带地区限制（比如说，只查看我的主城地区的联盟军情）
+# 示例：shared_proto.MilitaryConditionProto{
+#     		IsOr: false,
+#     		Attributes: []*shared_proto.MilitaryAttributeProto{
+#     			&shared_proto.MilitaryAttributeProto{
+#     				RegionId: hero.BaseRegion(), // 我的联盟军情（从盟友家出发的）
+#     			},
+#     			&shared_proto.MilitaryAttributeProto{
+#     				StartBaseGuildId: hero.GuildId(), // 我的联盟军情（从盟友家出发的）
+#     				TargetBaseGuildId: hero.GuildId(), // 我的联盟军情（往盟友家跑的）
+#     			},
+#     		},
+#     	}
+#
+switch_action:
+  c2s:
+    open: bool // true表示打开，false表示关闭
+    condition: bytes // shared_proto.MilitaryConditionProto
+  s2c:
+    open: bool // true表示打开，false表示关闭
+
+# 以下情况需要服务器主动推送军情
+# 1、紧急军情面板
+#    main_military: true
+#    guild_military: false
+#    to_target: ""
+#    to_target_base: false
+#    from_target: ""
+#
+# 以上说明为完整说明，后面采用简略说明（没有提到的，都为空或者false）
+#
+# 2、联盟军情面板
+#    guild_military: true
+#
+# 3、野外点击主城
+#    to_target: 玩家id
+#    to_target_base: true
+#
+# 4、查看玩家军情
+#    to_target: 玩家id
+#
+# 5、查看玩家军队（特殊类型，可能需要根据底下军情界面是否更新，来决定要不要包含底下内容）
+#    from_target: 玩家id
+#
+# 关闭面板，发送
+#    main_military: false
+#    guild_military: false
+#    to_target: ""
+#    to_target_base: false
+#    from_target: ""
+#
+# 因此，如果在上述面板关闭时候，需要通知服务器，关闭相关的推送
+#
+# 请求推送军情
+# 当客户端收到返回，发现与当前状态不同，需要再次推送请求状态，纠正推送状态
+request_military_push:
+  c2s:
+    main_military: bool // 紧急军情
+    guild_military: bool // 联盟军情
+    to_target: bytes // 以玩家为目标的军情
+    to_target_base: bool // 目标玩家的主城更新推送（繁荣度等等）
+    from_target: bytes // 玩家自己的军队
+  s2c:
+    main_military: bool // 紧急军情
+    guild_military: bool // 联盟军情
+    to_target: bytes // 以玩家为目标的军情
+    to_target_base: bool // 目标玩家的主城更新推送（繁荣度等等）
+    from_target: bytes // 玩家自己的军队
+  s2c_fail:
+    invalid_id: 无效的玩家id
+    not_in_guild: 你没有联盟，不能请求联盟军情
+
+# 更新一条军情（如果当前没有这条军情，就当成新增军情）
+update_military_info:
+  s2c:
+    compress: snappy
+    data: bytes // MilitaryInfoProto
+    region: bool // true表示更新野外的马
+    ma: bool // true表示更新军情
+
+# 移除一条军情
+remove_military_info:
+  s2c:
+    id: bytes // 军情id
+    region: bool // true表示移除野外的马
+    ma: bool // true表示移除军情
+
+# 更新自己的军情（主界面上的）
+update_self_military_info:
+  s2c:
+    compress: snappy
+    troop_index: int // 1队=1 2队=2
+    troop_id: bytes // 自己的id，里面那个可能是集结的主马军情
+    data: bytes // MilitaryInfoProto
+
+# 移除自己的军情（主界面上的）
+remove_self_military_info:
+  s2c:
+    id: bytes // 军情id
+
+# 操作
+
+# 获取本地图所有的Npc主城信息
+npc_base_info:
+  s2c:
+    map_id: int // 地图id
+    npc_id: bytes[] // npc的id
+    base_x: int[] // x坐标
+    base_y: int[] // y坐标
+    data_id: int[] // npc数据id，shared_proto.NpcBaseDataProto
+
+# 创建主城（流亡状态）
+create_base:
+  c2s:
+    map_id: int // 地图id
+    new_x: int // x坐标 x坐标和y坐标都发0，表示随机建城
+    new_y: int // y坐标
+  s2c:
+    map_id: int // 地图id
+    new_x: int // 坐标
+    new_y: int
+    level: int // 主城等级
+    prosperity: int // 当前繁荣度
+  s2c_fail:
+    invalid_map_id: 发送的mapid无效
+    invalid_pos: 发送的坐标无效（城市不能建在边缘，需要满足周围6格都有位置）
+    base_exist: 不是流亡状态
+    too_close_other: 距离其他玩家太近
+    full: 地图已满，不能再新建主城
+    server_error: 服务器忙，请稍后再试
+
+# 迁城令_迁移主城
+# 免费迁移说明，只有行营存在免费迁移，下面2种情况可以免费迁移（2种情况并存，优先使用情况1）
+# 1、第一次进入高级行营地区时候，可以免费迁移
+#    HeroRegionProto
+#     int32 free_move_monster_region_level = 65; // 免费进入的最高荣誉地区，>这个等级的地区可以免费进入
+# 2、免费CD好了，可以免费迁移一次
+fast_move_base:
+  c2s:
+    map_id: int // 地图id
+    new_x: int // 坐标，x坐标和y坐标都发0，表示随机迁移
+    new_y: int
+    goods_id: int // 使用的物品id
+    is_tent: bool // true表示行营，false表示主城
+    free: bool // true表示使用免费迁移（行营）
+  s2c:
+    map_id: int // 地图id
+    new_x: int // 坐标
+    new_y: int
+    is_tent: bool // true表示行营，false表示主城
+  s2c_fail:
+    invalid_map_id: 无效的地图id
+    invalid_pos: 发送的坐标无效（城市不能建在边缘，需要满足周围6格都有位置）
+    self_pos: 迁移的坐标跟现在的坐标一样
+    base_not_exist: 流亡状态
+    too_close_other: 距离其他玩家太近
+    full: 地图已满，没有空位迁移
+    invalid_goods: 无效的物品id
+    goods_not_enough: 物品个数不足
+    captain_out_side: 当前有武将出征，不能迁城
+    tent_out_side: 当前行营在外面，不能迁移主城
+    tent_not_exist: 迁移行营，但是行营不在野外
+    map_has_home: 迁移行营，主城也在这张地图中
+    map_has_tent: 迁移主城，行营也在这张地图中
+    map_deny_home: 这个地图不允许主城进入
+    map_guild_member_only: 这个地图只允许所属联盟主城进入
+    cooldown: 免费迁移CD中
+    free_cant_use: 免费迁移不能使用（只能行营使用，只能迁移到荣誉地区）
+    monster_cooldown: 荣誉地区CD中（被打出来CD时间内不能再进入）
+    home_cooldown: 主城地区CD中（被打出来CD时间内不能再进入）
+    monster_level_locked: 这个等级的荣誉地区未解锁
+    home_area_tent_count_limit: 联盟地区内圈行营个数超出上限，请放在外圈
+    guild_move_base_not_in_guild: 使用的是联盟迁城令，但没加入联盟
+    guild_move_base_full: 联盟迁城令，地图满了
+    guild_move_base_is_leader: 联盟迁城令，自己是盟主
+    guild_move_base_leader_no_base: 联盟迁城令，盟主流亡
+    guild_move_base_already_in_leader_around: 联盟迁城令，已经在盟主周围
+    guild_move_base_leader_is_npc: 联盟迁城令，盟主是 npc
+    server_error: 服务器忙，请稍后再试
+
+# 出征
+invasion:
+  c2s:
+    operate: int //  shared_proto.TroopOperate
+    target: bytes // 目的地主城对应的玩家id
+    troop_index: int // 使用哪个队伍出征 1队=1 2队=2
+    target_level: int // 出征目标的等级（对野怪有效，其他时候发0）
+    goods_id: int // 使用物品
+    auto_buy: bool // 购买物品
+    multi_level_monster_count: int // 讨伐野怪次数
+  s2c:
+    target: bytes // 出征的目的地
+    troop_index: int // 将这个队伍标记为出征状态  1队=1 2队=2
+  s2c_fail:
+    invalid_target: 无效的目标id
+    invalid_target_invation: 无效的目标出征类型，
+    invalid_troop_index: 无效的队伍序号
+    outside: 队伍出征中
+    no_soldier: 武将士兵数为0
+    target_not_exist: 目标处于流亡状态
+    self_not_exist: 自己处于流亡状态
+    not_same_map: 不在同一个地图
+    max_invation_troops: 出征部队已达上限
+    server_error: 服务器忙，请稍后再试
+    no_base_in_map: 那张地图上没有你的主城或可用的行营
+    no_tent_to_tent: 行营不能攻击行营
+    tent_not_valid: 出发的行营还未建好. 等valid time
+    mian: 目标主城免战中，不能出征
+    target_level_locked: 选择的目标等级太高，无法出征
+    duplicate_target: 选择的目标已经有部队进行出征了
+    mln_func_locked: 讨伐野怪功能还未开启
+    mln_times_limit: 讨伐野怪次数不足
+    today_join_xiong_nu: 今日已经参与过反击匈奴了
+    required_base_level: 主城等级不足，不能出征
+    required_hero_level: 君主等级不足，不能出征
+    baoz_troop_limit: 其他队伍正在打宝藏，不能出征
+    invalid_goods: 无效的物品id
+    cost_not_enough: 消耗不足
+    in_mc_war_fight: 在名城战战斗中
+    multi_level_monster_count_vip_limit: 野怪讨伐多次，vip等级不够
+
+## 移除出征武将
+## 将下面的武将的出征状态改成非出征状态
+#remove_captain_outside:
+#  s2c:
+#    ids: int[] // 武将id
+
+# 更新部队士兵数据（用于一次更新整个出征部队的数据，包含多个武将数据和伤兵数据）
+# 这个只有自己收到
+update_self_troops:
+  s2c:
+    id: int[] // 武将id列表
+    soldier: int[] // 武将士兵数列表
+    fight_amount: int[] // 武将战斗力列表
+    wounded_soldier: int // 当前最新的伤兵数量
+    remove_outside: bool // true表示武将已经回家了，更新武将回家状态
+    troop_index: int // 部队序号 1队=1 2队=2
+
+# 更新部队的出征状态
+update_self_troops_outside:
+  s2c:
+    troop_index: int // 部队序号 1队=1 2队=2
+    outside: bool // true表示已出征
+
+# 召回
+cancel_invasion:
+  c2s:
+    id: bytes // 军情id
+  s2c:
+    id: bytes // 军情id
+  s2c_fail:
+    invalid_id: 无效的军情id
+    not_self: 这条军情的部队不是你的，不能操作
+    no_arrived: 不是驻扎在你城里的同盟部队，不能叫回家
+    backing: 正在召回中，不要反复操作
+    assembly_started: 集结已出发，不能召回
+    server_error: 服务器忙，请稍后再试
+
+# 遣返，将在自己城里的盟友叫回家
+repatriate:
+  c2s:
+    id: bytes // 军情id
+    is_tent: bool // true表示遣返行营的盟友，false表示遣返主城的盟友
+  s2c:
+    id: bytes // 军情id
+    is_tent: bool // true表示遣返行营的盟友，false表示遣返主城的盟友
+  s2c_fail:
+    id_not_found: 军情id没找到
+    no_defending: 不是驻扎在你城里的同盟部队，不能叫回家
+    no_assembly_creater: 遣返盟友集结部队，你不是集结创建者
+    assembly_started: 集结已出发，不能遣返
+    server_error: 服务器忙，请稍后再试
+
+# 宝藏遣返
+# 将自己控制的宝藏的其他队伍遣返
+baoz_repatriate:
+  c2s:
+    base_id: bytes // 宝藏id
+    troop_id: bytes // 遣返的部队id
+  s2c:
+    base_id: bytes // 宝藏id
+    troop_id: bytes // 遣返的部队id
+  s2c_fail:
+    id_not_found: 部队id没找到
+    not_keep: 不是你控制的宝藏，不能遣返
+    server_error: 服务器忙，请稍后再试
+
+# 部队行军加速
+#
+# MilitaryInfoProto
+#   int32 move_start_rate1000 = 9; // 行军开始位置，需要除以1000
+#
+# GoodsDataProto
+#   int32 dianquan_price = 6; // 点券售价(如果售价==0，不要显示点券购买)
+#   GoodsEffectType effect_type = 20; // 效果类型
+#     GoodsEffectType.EFFECT_SPEED_UP = 6; // 行军加速道具（新增行军加速道具）
+#   GoodsEffectProto goods_effect = 25; // 物品效果
+#     int32 troop_speed_up_rate = 22; // 行军加速系数，这个值需要除以 1000，得到小数系数（0.1表示加速10%）
+#
+speed_up:
+  c2s:
+    id: bytes // 自己的部队id
+    other_id: bytes // 别人的部队id（给集结中的其他人加速时候，带上这个）
+    goods_id: int // 使用的物品id
+    money: bool // true表示点券购买
+  s2c:
+    id: bytes // 部队id
+  s2c_fail:
+    id_not_found: 军情id没找到
+    invalid_goods: 发送的不是行军加速道具
+    goods_not_enough: 物品个数不足
+    cost_not_support: 不支持点券购买
+    cost_not_enough: 点券购买，点券不足
+    no_moving: 部队不是行军中，不能加速
+    other_id_not_found: 加入目标部队没找到
+    assembly_wait: 部队集结等待中，不能加速
+    server_error: 服务器忙，请稍后再试
+
+# 驱逐
+expel:
+  c2s:
+    id: bytes // 军情id
+    mapid: int // 军情所在的地图
+    troop_index: int // 使用哪个队伍驱逐 1队=1 2队=2
+  s2c:
+    id: bytes // 军情id，只返回军情id，其他的通过军情更新消息推送
+    cooldown: int // 冷却时间，秒（0表示驱逐成功，不需要冷却）
+    link: string // 战斗回放链接
+  s2c_fail:
+    invalid_id: 无效的军情id
+    invalid_map: 无效的地图id
+    not_self: 这条军情的部队不是正在掠夺你的，不能操作
+    not_arrived: 这个军队当前不处于掠夺状态（还没到，或者回去了）
+    cooldown: 驱逐CD中
+    invalid_troop_index: 无效的队伍编号
+    outside: 队伍出征中，不能驱逐
+    no_soldier: 武将士兵数为0
+    server_error: 服务器忙，请稍后再试
+
+# 收藏点说明
+# 获得收藏点上限 MiscConfigProto.max_favorite_pos_count
+# 获得当前所有的收藏点 HeroProto.region.favorite_poses
+
+# 请求添加/删除收藏点
+# 收到s2c 返回 变更 HeroProto.region.favorite_poses 中的收藏点
+# 如果是添加，客户端当前有打开收藏列表，将 favorite_pos_list 的缓存清掉，可以立刻来请求 favorite_pos_list
+# 如果是删除，客户端当前有打开收藏列表，将 favorite_pos_list 同一个收藏点的数据删掉就好了，不需要立马请求
+favorite_pos:
+  c2s:
+    add: bool // true 为新增/ false 为移除
+    id: int // 场景id
+    pos_x: int // 场景x
+    pos_y: int // 场景y
+  s2c:
+    add: bool // true 为新增/ false 为移除
+    id: int // 场景id
+    pos_x: int // 场景x
+    pos_y: int // 场景y
+  s2c_fail:
+    not_found: 没有在收藏列表里面找到，无法删除
+    scene_not_found: 场景没有找到
+    pos_invalid: 坐标非法
+    full: 收藏点数量已满，无法添加
+    exist: 收藏点已经存在，无法添加
+    server_busy: 服务器繁忙，请稍后再试
+
+# 请求收藏点列表，收到返回后，数据本地缓存15秒
+favorite_pos_list:
+  c2s:
+  s2c:
+    data: bytes // FavoritePosListProto
+  s2c_fail:
+    server_busy: 服务器繁忙，请稍后再试
+
+# 上次瞭望报告
+get_prev_investigate:
+  c2s:
+    hero_id: bytes // 英雄id
+  s2c:
+    hero_id: bytes // 英雄id
+    mail_id: bytes // 战报id，空表示没有上传瞭望报告
+    expire_time: int // 过期时间
+
+# 侦查
+investigate:
+  c2s:
+    hero_id: bytes // 英雄id（侦查谁）
+    cost: bool // 使用点券侦查
+  s2c:
+    hero_id: bytes // 英雄id（侦查谁）
+    next_investigate_time: int32 // 下一次可侦查时间（unix时间戳，秒）
+  s2c_fail:
+    self_id: 不能侦查自己
+    hero_not_found: 英雄id没找到
+    base_destroy: 流亡状态不能侦查
+    cooldown: 侦查CD未到
+    same_guild: 盟友城池不能侦查
+    cost_not_enough: 清除侦查CD所需消耗不足
+    distance: 距离太远，不能侦查
+    self_mian: 自己免战中，不能侦查
+    target_mian: 目标免战中，不能侦查
+    in_mc_war_fight: 名城战期间不能侦查
+    server_error: 服务器忙，请稍后再试
+
+# 侦察 by kimi
+investigate_invade:
+  c2s:
+    hero_id: bytes //英雄id(侦察目标)
+  s2c:
+    target: bytes // 出征的目的地
+  s2c_fail:
+    self_id: 不能侦查自己
+    hero_not_found: 英雄id没找到
+    map_not_found: 地图没找到
+    base_destroy: 流亡状态不能侦查
+    same_guild: 盟友城池不能侦查
+    cost_not_enough: 侦察消耗不足
+    self_mian: 自己免战中，不能侦查
+    target_mian: 目标免战中，不能侦查
+    in_mc_war_fight: 名城战期间不能侦查
+    server_error: 服务器忙，请稍后再试
+   
+
+# 更新野怪通关等级
+#
+# HeroMultiLevelNpcProto
+#    MultiLevelNpcType type = 1;
+#    int32 pass_level = 2; // 通关等级
+#    int32 hate = 3; // 仇恨值
+#
+# 可挑战等级 = Min(通关等级 + 1, 最大等级)
+update_multi_level_npc_pass_level:
+  s2c:
+    npc_type: int // shared_proto.MultiLevelNpcType
+    level: int // 通关等级，可挑战等级 = 通关等级 + 1
+
+# 更新野怪仇恨
+update_multi_level_npc_hate:
+  s2c:
+    npc_type: int // shared_proto.MultiLevelNpcType
+    hate: int // 仇恨值
+
+# 更新野怪讨伐次数
+# HeroRegionProto
+#    int32 multi_level_npc_start_recovery_time = 25; // 野怪次数恢复开始时间
+#
+# RegionConfigProto
+#    int32 multi_level_npc_max_times = 7; // 讨伐野怪最大次数
+#    int32 multi_level_npc_recovery_duration = 21; // 讨伐野怪次数恢复间隔
+#
+# max_times = RegionConfigProto.multi_level_npc_max_times + 其他系统加成（比如四季加成等等）
+#
+# 当前时间 ctime
+# 次数 = min((ctime - start_recovey_time) / recovery_duration, max_times)
+# 剩余恢复时间：
+# if 次数 >= max_times 显示已满，不需要恢复时间了
+# else 剩余恢复时间 = （次数+1）* recovery_duration + start_recovey_time - ctime
+#
+# 特殊特殊的处理方式，当前次数需要把往野怪跑过去的马的数量减掉
+# 显示次数 = 次数 - 往野怪跑 - 持续掠夺野怪
+update_multi_level_npc_times:
+  s2c:
+    start_recovey_time: int // 讨伐恢复开始时间
+    times: "*shared_proto.RecoverableTimesWithExtraTimesProto // 恢复次数"
+
+# 使用讨伐令
+use_multi_level_npc_times_goods:
+  c2s:
+    id: int // 物品id
+    buy: bool // 使用点券或元宝购买
+  s2c:
+    id: int // 物品id
+    buy: bool // 使用点券或元宝购买
+  s2c_fail:
+    invalid_id: 无效的物品id
+    invalid_goods: 不是讨伐令物品id
+    count_not_enough: 物品个数不足
+    cost_not_enough: 购买消耗不足
+    full_times: 讨伐次数已满
+
+# 更新玩家讨伐次数
+# HeroRegionProto
+#    RecoverableTimesWithExtraTimesProto invase_hero_start_recovery_time = 27; // 打玩家开始恢复时间
+#
+# RegionGenConfigProto
+#    int32 invase_hero_max_times = 7; // 讨伐玩家最大次数
+#    int32 invase_hero_recovery_duration = 21; // 讨伐玩家次数恢复间隔
+#
+# max_times = RegionGenConfigProto.invase_hero_max_times + 其他系统加成（比如四季加成等等）
+#
+# 当前时间 ctime
+# 次数 = min((ctime - start_recovey_time) / recovery_duration, max_times)
+# 剩余恢复时间：
+# if 次数 >= max_times 显示已满，不需要恢复时间了
+# else 剩余恢复时间 = （次数+1）* recovery_duration + start_recovey_time - ctime
+#
+update_invase_hero_times:
+  s2c:
+    start_recovey_time: int // 讨伐恢复开始时间
+    times: "*shared_proto.RecoverableTimesWithExtraTimesProto // 恢复次数"
+
+# 更新军团讨伐次数
+# HeroRegionProto
+#    RecoverableTimesWithExtraTimesProto jun_tuan_start_recovery_time = 27; // 军团讨伐开始恢复时间
+#
+# RegionGenConfigProto
+#    int32 jun_tuan_npc_max_times = 7; // 讨伐玩家最大次数
+#    int32 jun_tuan_npc_recovery_duration = 21; // 讨伐玩家次数恢复间隔
+#
+# max_times = RegionGenConfigProto.jun_tuan_npc_max_times + 其他系统加成（比如四季加成等等）
+#
+# 当前时间 ctime
+# 次数 = min((ctime - start_recovey_time) / recovery_duration, max_times)
+# 剩余恢复时间：
+# if 次数 >= max_times 显示已满，不需要恢复时间了
+# else 剩余恢复时间 = （次数+1）* recovery_duration + start_recovey_time - ctime
+#
+update_jun_tuan_npc_times:
+  s2c:
+    start_recovey_time: int // 讨伐恢复开始时间
+    times: "*shared_proto.RecoverableTimesWithExtraTimesProto // 恢复次数"
+
+# 使用攻城令（打玩家的）
+#
+# GoodsConfigProto
+#    int32 invase_hero_times_goods = 29; // 攻城令物品id
+#
+use_invase_hero_times_goods:
+  c2s:
+    id: int // 物品id
+    buy: bool // 使用点券或元宝购买
+  s2c:
+    id: int // 物品id
+    buy: bool // 使用点券或元宝购买
+  s2c_fail:
+    invalid_id: 无效的物品id
+    invalid_goods: 无效的物品类型
+    count_not_enough: 物品个数不足
+    cost_not_enough: 购买消耗不足
+    full_times: 次数已满，无需购买
+
+# 移动速度计算
+calc_move_speed:
+  c2s:
+    id: bytes // 目标的id
+  s2c:
+    id: bytes // 目标的id
+    speed: int // 速度，客户端要除以1000
+
+# 地图仇人坐标
+list_enemy_pos:
+  c2s:
+  s2c:
+    pos_x: int[] // 坐标
+    pos_y: int[]
+
+# 搜索宝藏Npc
+# 客户端缓存一段时间，过期之前，不要重复请求（缓存30秒）
+search_baoz_npc:
+  c2s:
+    data_id: int // 宝藏npc的配置id
+  s2c:
+    data_id: int // 宝藏npc的配置id
+    base_id: bytes[] // 宝藏npc实例id
+    base_x: int[] // 坐标
+    base_y: int[]
+  s2c_fail:
+    invalid_data_id: 无效的配置id
+    home_not_alive: 主城流亡了，请先重建主城
+
+# 援助驻扎信息
+home_ast_defending_info:
+  c2s:
+  s2c:
+    heros: shared_proto.HeroBasicProto[] // 玩家
+    logs: shared_proto.AstDefendLogProto[] // 日志
+  s2c_fail:
+    no_base: 没有主城
+    prosperity_full: 繁荣度满
+
+# 求援
+guild_please_help_me:
+  c2s:
+  s2c:
+  s2c_fail:
+    no_base: 没有主城
+    prosperity_full: 繁荣度满
+    troops_limit: 援助部队满
+    no_guild: 没有联盟
+
+# 创建集结
+# 集结id = 创建者队伍id = 军情id
+create_assembly:
+  c2s:
+    troop_index: int // 使用哪个队伍出征 1队=1 2队=2
+    target: bytes // 目的地主城对应的玩家id
+    target_level: int // 出征目标的等级（对野怪有效，其他时候发0）
+    wait_index: int // 第几档等待时间，从0开始
+    goods_id: int // 使用物品
+    auto_buy: bool // 购买物品
+  s2c:
+    troop_index: int // 将这个队伍标记为出征状态  1队=1 2队=2
+    target: bytes // 出征的目的地
+    id: bytes // 集结id
+  s2c_fail:
+    invalid_target: 无效的目标id
+    invalid_target_assembly: 无效的目标集结类型，
+    invalid_wait_index: 无效的集结等待时间
+    invalid_troop_index: 无效的队伍序号
+    outside: 队伍出征中
+    no_soldier: 武将士兵数为0
+    target_not_exist: 目标处于流亡状态
+    self_not_exist: 自己处于流亡状态
+    self_not_guild: 自己没有联盟
+    server_error: 服务器忙，请稍后再试
+    mian: 目标主城免战中，不能集结
+    times_limit: 集结次数不足
+    today_join_xiong_nu: 今日已经参与过反击匈奴了
+    required_base_level: 主城等级不足，不能集结
+    required_hero_level: 君主等级不足，不能集结
+    in_mc_war_fight: 在名城战战斗中
+    invalid_goods: 无效的物品id
+    cost_not_enough: 消耗不足
+    same_target: 不能对同一个目标发起多次集结
+
+# 刷新集结信息，客户端2秒请求一次数据
+show_assembly:
+  c2s:
+    id: bytes // 集结id
+    version: int // 版本号，第一次发0
+  s2c:
+    not_exist: bool // false表示存在，true表示不存在
+    id: bytes // 集结id
+    version: int // 版本号，版本号跟本地一致，data对象为空
+    data: bytes // shared_proto.AssemblyInfoProto
+
+# 收到这个消息，客户端如果当前正在打开这个集结消息，
+# 判断一下本地保存的版本号，如果跟消息附带的版本号不一致，重新请求
+show_assembly_changed:
+  s2c:
+    id: bytes // 集结id
+
+# 加入集结，收到成功返回，更新集结信息（不管2秒到没到）
+join_assembly:
+  c2s:
+    id: bytes // 集结id
+    troop_index: int // 派出的集结队伍 1队=1 2队=2
+    goods_id: int // 使用物品
+    auto_buy: bool // 购买物品
+  s2c:
+    id: bytes // 集结id
+    troop_index: int // 派出的集结队伍 1队=1 2队=2
+  s2c_fail:
+    invalid_target: 无效的目标id
+    invalid_troop_index: 无效的队伍序号
+    outside: 队伍出征中
+    no_soldier: 武将士兵数为0
+    target_not_exist: 目标处于流亡状态
+    self_not_exist: 自己处于流亡状态
+    self_not_guild: 自己没有联盟
+    server_error: 服务器忙，请稍后再试
+    mian: 目标主城免战中，不能集结
+    times_limit: 集结次数不足
+    today_join_xiong_nu: 今日已经参与过反击匈奴了
+    required_base_level: 主城等级不足，不能集结
+    required_hero_level: 君主等级不足，不能集结
+    in_mc_war_fight: 在名城战战斗中
+    full: 集结已满
+    multi_join: 不能多个队伍加入同一个集结
+    started: 集结已经出发
+    invalid_goods: 无效的物品id
+    cost_not_enough: 消耗不足
+
+# 召回集结队伍（发起者可以使用，使用召回队伍的消息）
+
+# 遣返集结队伍（只有发起者可以在准备阶段遣返，直接使用部队遣返消息）
+
+# 集结加速（可用于给别人的队伍加速）
+
+# 解散集结（发起者使用召回消息）
+
+# 联盟工坊
+# 创建联盟工坊（有权限的人可以操作）
+create_guild_workshop:
+  c2s:
+    pos_x: int // 坐标
+    pos_y: int
+  s2c:
+    pos_x: int // 坐标
+    pos_y: int
+  s2c_fail:
+    not_in_guild: 你不在联盟中
+    deny: 你没有权限操作
+    invalid_pos: 无效的坐标位置
+    base_exist: 已存在联盟工坊
+    distance_limit: 超出最大距离限制
+    server_error: 服务器忙，请稍后再试
+
+# 查看联盟工坊
+#
+show_guild_workshop:
+  c2s:
+    base_id: bytes // 联盟工坊id
+  s2c:
+    base_id: bytes // 联盟工坊id
+    guild_id: int // 联盟id
+    output: int // 生产次数
+    total_output: int // 总生产次数
+    prize_count: int // 奖励个数
+    been_hurt_times: int // 今日被破坏次数
+
+# 出兵建设联盟工坊（走部队出征消息）
+# 出兵领取联盟奖励（走部队出征消息）
+
+# 破坏联盟工坊
+# HeroGenGuildWorkshopProto.daily_hurt_times  // 英雄今日破坏次数
+# HeroGenGuildWorkshopProto.next_hurt_time // 下次可破坏时间，unix时间戳
+# GuildGenConfigProto.WorkshopHurtHeroTimesLimit // 英雄每日破坏次数上限
+# GuildGenConfigProto.WorkshopHurtCooldown // 英雄破坏CD
+hurt_guild_workshop:
+  c2s:
+    base_id: bytes // 联盟工坊id
+  s2c:
+    base_id: bytes // 联盟工坊id
+    next_time: int // 下次可破坏时间
+    times: int // 今日破坏次数
+  s2c_fail:
+    invalid_base_id: 无效的id
+    hurt_times_not_enough: 破坏次数不足
+    been_hurt_times_limit: 目标被破坏次数已达上限
+    cooldown: 破坏CD中
+    server_error: 服务器忙，请稍后再试
+
+# 拆除联盟工坊
+remove_guild_workshop:
+  c2s:
+  s2c:
+  s2c_fail:
+    not_in_guild: 你不在联盟中
+    deny: 你没有权限操作
+    base_not_exist: 联盟工坊不存在
+    server_error: 服务器忙，请稍后再试
+
+# 更新玩家自己的联盟工坊奖励（登陆和变化的时候收到）
+update_guild_workshop_prize_count:
+  s2c:
+    count: int // 个数
+
+# 更新英雄联盟工坊建设次数
+update_hero_build_workshop_times:
+  s2c:
+    times: int // 次数
+
+# 更新英雄联盟工坊生产次数
+# HeroProto
+#    int32 workshop_output_start_time = 27; // 联盟工坊生产开始恢复时间
+#
+# GuildGenConfigProto
+#    int32 workshop_output_max_times = 7; // 联盟工坊生产最大次数
+#    int32 workshop_output_recovery_duration = 21; // 联盟工坊生产次数恢复间隔
+#
+# max_times = GuildGenConfigProto.workshop_output_max_times + 其他系统加成（比如四季加成等等）
+#
+# 当前时间 ctime
+# 次数 = min((ctime - start_recovey_time) / recovery_duration, max_times)
+# 剩余恢复时间：
+# if 次数 >= max_times 显示已满，不需要恢复时间了
+# else 剩余恢复时间 = （次数+1）* recovery_duration + start_recovey_time - ctime
+#
+update_hero_output_workshop_times:
+  s2c:
+    start_recovey_time: int // 开始恢复时间
+
+# 请求联盟工坊日志
+catch_guild_workshop_logs:
+  c2s:
+    version: int // 版本号，第一次发0
+  s2c:
+    version: int
+    logs: shared_proto.GuildWorkshopLogProto[] // 日志
+  s2c_fail:
+    no_guild: 没有联盟
+    not_exist: 没有联盟工坊
+
+# 查询自己的召唤殷墟状态
+get_self_baoz:
+  c2s:
+  s2c:
+    exist: bool // true表示存在召唤的殷墟
+    base_id: bytes // 殷墟id
+    base_x: int // 殷墟坐标
+    base_y: int
+    expire_time: int // 过期时间

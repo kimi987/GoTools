@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 4056695405
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b78c04ddd8cc03cade2a8ab27da752ca
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c052b8f7b5e8a88a7a86d733c821d767
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_xingxingFS_skill02hitNew.prefab
+Dependencies: []

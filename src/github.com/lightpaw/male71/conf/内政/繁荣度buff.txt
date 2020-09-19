@@ -1,0 +1,5 @@
+id	"繁荣度受损最小范围。百分比。左开右闭区间 (min_percent, max_percent]"	"繁荣度受损最大范围。百分比。左开右闭区间 (min_percent, max_percent]"	描述	buff.txt id
+id	min_percent	max_percent	desc	buff_id
+1	10	30	风雨飘摇	180
+2	30	60	内忧外患	190
+3	60	100	民不聊生	200

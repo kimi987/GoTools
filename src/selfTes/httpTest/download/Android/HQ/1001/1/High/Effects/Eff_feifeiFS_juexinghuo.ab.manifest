@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 1456726470
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: db4237345e39157ada3e5569dd3f8a96
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_feifeiFS_juexinghuo.prefab
+Dependencies: []

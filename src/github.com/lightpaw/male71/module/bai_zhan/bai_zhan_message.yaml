@@ -1,0 +1,160 @@
+# module_name:  # 默认使用文件夹名字作为模块名，当模块名与文件夹名字不一致时候，通过这个值指定
+
+gen_error_msg: true
+
+# 请求百战数据
+# 收到该消息的返回后，将个人的百战数据存到客户端
+# 当收到reset，清掉客户端缓存
+# 如果客户端需要知道百战数据，先到本地获取，如果找不到，发送该消息来请求
+query_bai_zhan_info:
+  c2s:
+  s2c:
+    data: bytes // shared_proto.BaiZhanObjProto
+  s2c_fail:
+    server_error: 服务器忙，请稍后再试
+
+# 移除上一次百战军衔（播完军衔动画之后发送）
+clear_last_jun_xian:
+  c2s:
+  s2c:
+
+# 挑战
+# 客户端发送该消息时，先在本地判断次数够不够
+# 判断次数够不够的方法
+# 当前时间ctime
+# 算出当前时间跟今日0点的时间差 duration
+#
+# totalTimes := 0
+# for idx, d := Config.bai_zhan_misc.recover_times_time{
+#   if duration > d{
+#      totalTimes += Config.bai_zhan_misc.recover_times[idx]
+#   }
+# }
+#
+# if BaiZhanObjProto.challengeTimes < totalTimes{
+#   次数够，可以挑战
+# } else {
+#   次数不够
+# }
+#
+# 收到该消息可以立刻来请求排行榜信息/个人排行信息(不用清掉缓存)
+bai_zhan_challenge:
+  c2s:
+
+  # 挑战完毕，当前挑战次数+1，根据 是赢还是输，来显示加了多少积分 Config.bai_zhan_misc.win_point/fail_point
+  s2c:
+    win: bool // 是否赢了 true(赢了)/false(输了)
+    challenge_times: int // 当前的挑战次数
+    link: string // 战斗数据存放位置，通过http获取回放数据
+    share: bytes // 战斗分享，客户端解析成 CombatShareProto
+    point: int // 新的积分
+    history_max_point: int // 该等级历史最高积分 BaiZhanObjProto.history_max_points[当前军衔等级] = history_max_point
+
+  s2c_fail:
+    captain_not_full: 上阵武将未满
+    captain_too_much: 上阵武将超出上限
+    captain_not_exist: 上阵武将不存在
+    captain_id_duplicate: 上阵武将id重复
+    server_error: 服务器忙，请稍后再试
+    no_challenge_tiems: 没有挑战次数了
+
+# 领取俸禄
+# if BaiZhanObjProto.is_collect_salary{
+#   提示已经领取了
+# } else {
+#   可以领取
+# }
+collect_salary:
+  c2s:
+  s2c:
+    # 标记今天已经领取了奖励了
+  s2c_fail:
+    no_salary: 没有俸禄
+    salary_collect: 俸禄已经领取了
+    server_error: 服务器忙，请稍后再试
+
+# 领取军衔奖励
+# 当前已经领取了的军衔奖励 BaiZhanObjProto.last_collected_jun_xian_prize_id
+# 下一个能够领取的军衔奖励 config.jun_xian_level_prize.Get(BaiZhanObjProto.last_collected_jun_xian_prize_id+1)
+# 如果取到的数据为空，说明没有军衔奖励了，你全部领完了
+# 如果非空，判断当前的军衔等级够不够，够的话，看看积分够不够，够的话，显示可以领取奖励的界面
+# 判断能不能够领取:
+# prize = JunXianLevelPrizeProto
+# if BaiZhanObjProto.history_max_jun_xian_level > prize.level {
+#   可以领取
+# } else if BaiZhanObjProto.history_max_points[prize.level] >= prize.point {
+#   可以领取
+# }
+collect_jun_xian_prize:
+  c2s:
+    id: int // 要领取奖励的id
+  s2c:
+    id: int // 要领取奖励的id
+  s2c_fail:
+    prize_collected: 奖励已经领取了
+    prize_not_found: 奖励没找到
+    jun_xian_level_too_low: 军衔等级太低
+    point_too_low: 积分太低
+    invalid_prize: 无效的奖励id
+    server_error: 服务器忙，请稍后再试
+
+# 百战重置，收到该消息，客户端清空掉自己的百战数据，清空数据后，如果客户端有需要自己的百战数据，可以立刻来请求一次 query_bai_zhan_info 消息
+# 如有需要排行榜信息以及个人排名信息(比如打开着该面板)，可以立刻来请求排行榜信息
+reset:
+  s2c:
+
+# 请求客户端自己的挑战数据，客户端可以每次点击请求挑战数据，都来请求
+# 收到返回后，将版本号跟挑战记录保存在本地
+# 如果玩家收到了 challenge 消息，如果当前打开着挑战面板，立马请求
+# 如果玩家收到了 self_defence_record_changed 消息，如果当前打开着挑战面板，立马请求
+self_record:
+  c2s:
+    version: int // 客户端当前版本号
+  s2c:
+    version: int // 服务器当前版本号，如果服务器版本号跟客户端版本号一致，则后面的data为空
+    data: bytes[] // shared_proto.BaiZhanReplayProto，时间越早的在前面
+  s2c_no_change:
+    # 版本没有变化，没有新的挑战记录，用旧的缓存
+  s2c_fail:
+    server_error: 服务器繁忙，请稍后再试
+
+# 自己的防守记录变更了，如果当前打开着挑战面板，可以直接来请求
+self_defence_record_changed:
+  s2c:
+
+# 请求排名，在收到reset时清掉数据，收到返回后，在本地缓存返回结果
+#   如果玩家不滚动面板，或者一直显示自己当前所在页，客户端做一定的缓存，比如20s来请求一次
+#   如果滚动，可以立即来请求
+# 收到 request_rank.s2c 返回协议后，覆盖掉旧的数据
+request_rank:
+  c2s:
+    self: bool // 请求自己，如果请求自己，start_rank请发0
+    start_rank: int // 开始的排名
+  s2c:
+    self: bool // 请求自己的返回
+    jun_xian_level: int // 该排行榜的军衔等级
+    start_rank: int // 开始的排名
+    total_rank_count: int // 总共排的人数
+    level_up_need_min_point: int // 升级需要的最小积分，0表示不可以升级，level_change_type 是 LEVEL_KEEP，客户端计算要升级还差多少分= max(level_up_need_min_point - point, 0)
+    level_keep_need_min_point: int // 能够保级的最小积分，0表示不可以降级，level_change_type 是 LEVEL_DOWN，客户端计算要保级还差多少分= max(level_keep_need_min_point - point, 0)
+    data: bytes[] // shared_proto.BaiZhanRankObjProto
+  s2c_fail:
+    server_error: 服务器繁忙，请稍后再试
+
+# 请求自己的排名
+# 客户端，先请求 request_rank
+#   如果自己在列表里面，就从返回列表里面显示自己的排名
+#   如果自己不在列表里面，就发该消息来请求
+# 排名是0，不需要显示距离升级还差多少分，降级还差多少分
+request_self_rank:
+  c2s:
+  s2c:
+    rank: int // 排名
+    level_change_type: int // LevelChangeType
+    level_up_need_min_point: int // 升级需要的最小积分，0表示不可以升级，level_change_type 是 LEVEL_KEEP，客户端计算要升级还差多少分= max(level_up_need_min_point - point, 0)
+    level_keep_need_min_point: int // 能够保级的最小积分，0表示不可以降级，level_change_type 是 LEVEL_DOWN，客户端计算要保级还差多少分= max(level_keep_need_min_point - point, 0)
+
+# 最高军衔等级变更
+max_jun_xian_level_changed:
+  s2c:
+    level: int // 等级

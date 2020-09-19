@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 719339795
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a020632d774c776e923d7aeb6f3f270d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/EFF_laohuCK_huoxing1.prefab
+Dependencies: []

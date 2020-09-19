@@ -1,0 +1,62 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "red_packet";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/chat.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/red_packet.proto";
+
+
+message C2SBuyProto {
+
+    int32 data_id = 1; // 红包数据ID， RedPacketData.Id
+
+}
+
+message S2CBuyProto {
+
+    int32 data_id = 1;
+
+    int32 new_count = 2; // 红包数量
+
+}
+
+message C2SCreateProto {
+
+    int32 data_id = 1; // RedPacketData.Id
+
+    ChatType chat_type = 2; // 聊天类型- 世界，联盟
+
+    int32 count = 3; // 红包个数
+
+    string text = 4; // 吉祥话, 没填就不用发
+
+}
+
+message S2CCreateProto {
+
+    int32 data_id = 1; // RedPacketData.Id
+
+}
+
+message C2SGrabProto {
+
+    bytes id = 2; // 具体红包的ID，RedPacketProto.Id
+
+}
+
+message S2CGrabProto {
+
+    RedPacketProto red_packet = 1; // 红包
+
+    int32 grab_money = 2; // 抢到了多少钱
+
+}
+
+message S2CAllGrabbedNoticeProto {
+
+    bytes id = 1; // 红包id
+
+}
+

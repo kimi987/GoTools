@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+message HeroVipProto {
+    int32 level = 1;
+    int32 exp = 2;
+    int32 continue_days = 3; // 连续登录天数。每日零点+1
+    repeated int32 daily_prize_can_collect_level = 5 [packed = false]; // 每日礼包，今天*还能领*的等级。每日零点清空，再加上当前的vip等级
+    repeated int32 level_prize_collected_level = 6 [packed = false]; // 专属礼包，*领过*的等级
+    repeated int32 vip_shop_bought_id = 7 [packed = false]; // vip商店已购商品id。每日零点清空
+
+    repeated int32 daily_prize_collected_level = 8 [packed = false]; // 领过的礼包
+}

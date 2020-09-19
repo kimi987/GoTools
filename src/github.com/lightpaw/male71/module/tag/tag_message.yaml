@@ -1,0 +1,36 @@
+
+# 增加标签/修改标签
+add_or_update_tag:
+  c2s:
+    id: bytes // 目标玩家id
+    tag: string // 标签内容
+  s2c:
+    id: bytes // 目标玩家id
+    record: bytes // 解析成 TagRecordProto，然后提示
+                  // 客户端将记录加到最后一条上面，如果当前总条数>最大条数，删掉第一条
+                  // 客户端寻找该标签，存在的话，将 count + 1
+    tag: bytes // 客户端解析成 TagProto，将TagProto更新到 HeroTagProto的tags上面
+  s2c_fail:
+    black: 你被加入黑名单了
+    target_not_found: 目标没找到
+    content_too_long: 标签太长
+    content_too_short: 标签太端
+    target_tag_full: 目标标签已满，无法添加
+    target_cant_me: 目标不可以是自己
+    server_error: 服务器繁忙，请稍后再试
+
+# 别人给我打标签了
+other_tag_me:
+  s2c:
+    record: bytes // 解析成 TagRecordProto，然后提示
+                  // 客户端将记录加到最后一条上面，如果当前总条数>最大条数，删掉第一条
+                  // 客户端寻找该标签，存在的话，将 count + 1
+    tag: bytes // 客户端解析成 TagProto，将TagProto更新到 HeroTagProto的tags上面
+
+# 删除掉标签
+# 客户端将标签数据删掉，将 HeroTagProto 中对应的标签 tag 的数据都清掉，记录中的数据标签相同的也都删掉
+delete_tag:
+  c2s:
+    tags: string[]
+  s2c:
+    tags: string[]

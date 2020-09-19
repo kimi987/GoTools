@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 1258444541
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 181fffe753cd80e89cbfd3e676cdc533
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 379df47ead1c7ce75705d69c13f9b0ed
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8bf2916a81b930f47907de08852bed9a, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 120
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/LineDps.prefab
+Dependencies: []

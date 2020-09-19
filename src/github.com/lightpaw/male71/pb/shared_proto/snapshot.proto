@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message HeroBasicSnapshotProto {
+    HeroBasicProto basic = 100; // 基础数据
+
+    int32 base_region = 21;
+    int32 base_level = 22;
+    int32 base_x = 23;
+    int32 base_y = 24;
+
+    int32 fight_amount = 25; // 战斗力
+    int32 prosperity = 26; // 繁荣度
+
+    int32 tower_max_floor = 35; // 千重楼最高层数
+
+    int32 jun_xian_level = 36; // 百战军衔的等级
+
+    int32 last_offline_time = 40; // 上次离线时间, 0表示在线，其他表示离线了
+
+    int32 secret_tower_max_open_id = 41; // 密室最大的开启了的塔的id
+    int32 secret_tower_challenge_times = 42; // 密室挑战次数
+    int32 secret_tower_help_times = 43; // 密室协助次数
+}
+
+message HeroBasicProto {
+    bytes id = 1; // id
+    string name = 2; // 名字
+    string head = 3; // 头像 通过 config.Icons去获得图标
+    int32 level = 4; // 君主等级
+    int32 vip_level = 7; // vip等级
+    bool male = 5; // 君主性别,true-男 false-女
+    int32 location = 6; // 故乡，0表示未选择
+    int32 body = 8; // 君主形象
+
+    int32 guild_id = 31; // 联盟id
+    string guild_name = 32; // 联盟
+    string guild_flag_name = 33; // 联盟旗号
+
+    int32 country_id = 34; // 国家id
+    CountryOfficialType official = 35; // 国家官职
+
+}

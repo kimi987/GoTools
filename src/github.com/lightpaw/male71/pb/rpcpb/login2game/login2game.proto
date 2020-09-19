@@ -1,0 +1,50 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "login2game";
+option optimize_for = SPEED;
+
+
+message C2SCompleteQuestionnaireProto {
+
+    int64 hero_id = 1; // 英雄id
+
+    string qnid = 2; // 问卷调查id
+
+}
+
+message S2CCompleteQuestionnaireProto {
+
+    bool success = 1; // 1
+
+    string msg = 2; // 2
+
+}
+
+message C2SBuyProductProto {
+
+    string order_id = 1; // 订单id
+
+    uint64 order_amount = 2; // 商品价格，人民币分
+
+    int64 order_time = 3; // 订单时间
+
+    uint32 pid = 4; // 平台id
+
+    uint32 sid = 5; // 服务器id
+
+    int64 hero_id = 6; // 英雄id
+
+    uint64 product_id = 7; // 商品id
+
+}
+
+message S2CBuyProductProto {
+
+    bool success = 1; // 1
+
+    string msg = 2; // 2
+
+}
+

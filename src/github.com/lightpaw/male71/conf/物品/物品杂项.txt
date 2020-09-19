@@ -1,0 +1,3 @@
+装备升级物品	装备强化物品	武将强化符				武将转职卡		酒馆请教获得的物品id	酒馆请教获得的物品id	酒馆请教获得的物品id	酒馆请教获得的物品id		将魂升级的物品id	将魂升级的物品id	将魂升级的物品id	将魂升级的物品id		鱼饵物品id	虎符id	仓库里等级最高的前N 个宝物不可分解
+equipment_upgrade_goods	equipment_refined_goods	captain_refined_goods	captain_refined_goods	captain_refined_goods	captain_refined_goods	change_captain_race_goods		jiu_guan_exp_captain_refined_goods	jiu_guan_exp_captain_refined_goods	jiu_guan_exp_captain_refined_goods	jiu_guan_exp_captain_refined_goods		exp_captain_soul_upgrade_goods	exp_captain_soul_upgrade_goods	exp_captain_soul_upgrade_goods	exp_captain_soul_upgrade_goods		fish_goods	tiger_goods	indecomposable_baowu_count
+40001	40002	20001	20002	20003	20004	20010		20001	20002	20003	20004		70001	70002	70003	70004		80020	80050	5

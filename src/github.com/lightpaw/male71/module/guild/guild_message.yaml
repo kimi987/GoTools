@@ -1,0 +1,1317 @@
+gen_error_msg: true
+
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+ - "github.com/lightpaw/male7/pb/shared_proto/guild.proto"
+ - "github.com/lightpaw/male7/pb/shared_proto/hero.proto"
+ - "github.com/lightpaw/male7/pb/shared_proto/rank.proto"
+ - "github.com/lightpaw/male7/pb/shared_proto/base.proto"
+
+# 获取联盟列表(新版：最多显示10个，且附带外国联盟，规则复杂)
+list_guild:
+  c2s:
+  s2c:
+    guild_list: shared_proto.GuildSnapshotProto[] // 联盟列表
+  s2c_fail:
+    server_error: 服务器忙，请稍后再试
+
+# 搜索联盟
+search_guild:
+  c2s:
+    name: string // 搜索名字
+    num: int // 页数，从0开始，0表示第一页
+    show_self_guild: bool // 是否显示自己的联盟
+  s2c:
+    proto: bytes[] // shared_proto.GuildProto // 废弃
+    guild_list: shared_proto.GuildSnapshotProto[] // 联盟列表
+    yinliang_list: shared_proto.GuildYinliangSendProto[] // 联盟赠送银两数据，搜索联盟银两时有效，和 guild_list 一一对应
+  s2c_fail:
+    invalid_name: 无效的搜索名字
+    invalid_num: 无效的页数
+    server_error: 服务器忙，请稍后再试
+
+# 创建联盟
+# 新增配置，创建联盟消耗，config.GuildConfig.CreateGuildCost
+#
+# 国家配置，config.Contry
+# CountryDataProto
+create_guild:
+  c2s:
+    name: string // 联盟名字
+    flag_name: string // 联盟旗号
+    country: int // (废弃，用创建人的国家) 所属国家
+  s2c:
+    proto: bytes // shared_proto.GuildProto
+  s2c_fail:
+    in_the_guild: 已经在联盟中，不能创建联盟
+    invalid_name_len: 无效的名字长度
+    name_duplicate: 联盟名字已经存在
+    flag_name_duplicate: 联盟旗号已经存在
+    invalid_flag_name_len: 无效的旗号长度
+    cost_not_enough: 创建联盟消耗不足
+    hero_no_country: 玩家没有国家
+    sensitive_words: 输入包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 请求自己的联盟数据（已加入联盟）
+# 玩家打开联盟面板时候，请求这条数据，获取联盟详细数据
+# 此消息会根据情况返回2条消息，
+# 1、如果服务器的版本跟客户端不一致，则返回本条消息的s2c消息，客户端更新version以及刷新联盟面板数据
+# 2、如果服务器的版本号跟客户端的一致，则返回 self_guild_same_version的s2c消息
+#
+# 客户端的联盟面板一致持续打开的情况下(关掉就不要请求了)，每5秒请求一次帮派自己的数据，刷新帮派面板展示
+self_guild:
+  c2s:
+    version: int // 联盟数据版本号，第一次发0
+    guild_id: int // 联盟id
+  s2c:
+    compress: snappy
+    varsion: int // 最新的联盟数据版本号，每次拿到后，客户端存着这个值，下次请求时，带上这个值
+    proto: bytes // shared_proto.GuildProto
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    server_error: 服务器忙，请稍后再试
+
+# 联盟数据一致返回消息
+# 收到此消息，说明目前服务器的联盟数据跟客户端的一致，客户端不需要更新
+self_guild_same_version:
+  s2c:
+
+# 联盟数据变化
+# 客户端收到此消息，如果当前正在打开联盟面板，则立即请求一次自己帮派数据，获取最新的联盟数据
+# 如果当前没有打开联盟面板，忽略此消息
+self_guild_changed:
+  s2c:
+
+# 退出联盟
+leave_guild:
+  c2s:
+  s2c:
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    leader: 你是盟主，不能退出
+    xiong_nu_defender: 匈奴入侵防守队员，且当前活动已开启
+    is_mc_war_atk: 名城战进攻盟不能解散
+    is_mc_war_def: 名城战防守盟不能解散
+    in_mc_war_fight: 名城战战斗阶段不能退出
+    assembly: 参与集结不能退出联盟
+    server_error: 服务器忙，请稍后再试
+
+# 通知联盟其他人，有玩家离开了联盟
+leave_guild_for_other:
+  s2c:
+    id: bytes // 离开联盟的玩家id
+    name: string // 离开联盟的玩家名字
+    head: string // 离开联盟的玩家头像 通过 config.Icons去获得图标
+
+# 踢出联盟（组织上的大哥干的事情）
+#
+# GuildProto
+#   int32 kick_member_count = 32; // 踢人数，限制每日最多踢几个
+#
+# config.GuildConfig.DailyMaxKickCount = 1; // 每日最多可以踢多少人，联盟满员时候不受这个限制
+#
+# GuildClassLevelProto.kick_lower_member = true 表示允许踢人（低阶级盟友）
+# 成功之后会推送一条帮派变化消息 self_guild_changed，收到此消息，重新获取一次帮派数据，刷新面板
+kick_other:
+  c2s:
+    id: bytes // 目标id
+  s2c:
+    id: bytes // 目标id
+    name: string // 目标名
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    npc: Npc联盟不允许操作
+    deny: 你没有权限操作
+    impeach_leader: 盟主弹劾期间不能踢人
+    limit: 超出每日踢人上限
+    target_not_in_guild: 目标不在你的联盟
+    xiong_nu_defender: 匈奴入侵防守队员，且当前活动已开启
+    in_mc_war_fight: 名城战战斗阶段不能踢人
+    assembly: 参与集结成员不能踢出联盟
+    server_error: 服务器忙，请稍后再试
+
+# 你被T出帮派了
+self_been_kicked:
+  s2c:
+
+# 组织上的老头干的事情
+# 修改联盟宣言
+# GuildClassLevelProto.update_text = 6; // true表示允许修改联盟宣言
+update_text:
+  c2s:
+    text: string // 联盟宣言
+  s2c:
+    text: string // 联盟宣言
+  s2c_fail:
+    text_too_long: 内容太长
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    npc: Npc联盟不允许操作
+    sensitive_words: 输入包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 组织上的老头干的事情
+# 修改内部公告
+# GuildClassLevelProto.update_internal_text = 11; // true表示允许修改联盟内部宣言
+update_internal_text:
+  c2s:
+    text: string // 联盟内部公告
+  s2c:
+    text: string // 联盟内部公告
+  s2c_fail:
+    text_too_long: 内容太长
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    npc: Npc联盟不允许操作
+    sensitive_words: 输入包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 修改联盟阶级称谓
+# 未设置时候，读取这里面的值 GuildClassLevelProto.name
+# GuildClassLevelProto.update_class_name = 7; // true表示允许修改阶级名称
+update_class_names:
+  c2s:
+    name: string[] // 联盟阶级称谓
+  s2c:
+    name: string[] // 联盟阶级称谓
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    invalid_count: 阶级个数无效
+    invalid_duplicate: 阶级名称无效（空或重名）
+    npc: Npc联盟不允许操作
+    sensitive_words: 输入包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 更新职称
+update_class_title:
+  c2s:
+    proto: bytes // shared_proto.GuildClassTitleProto
+  s2c:
+  s2c_fail:
+    invalid_proto: 无效的proto
+    invalid_title_id: 无效的系统职称id
+    invalid_member_id: 无效的联盟成员id
+    not_in_guild: 不在联盟中
+    deny: 没有权限
+    count_limit: 自定义职称个数无效
+    name_exist: 职称名字已经被使用了
+    npc: Npc联盟不允许操作
+    sensitive_words: 输入包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 修改组织联盟旗帜(就是旗号的底图)
+# GuildClassLevelProto.update_flag_type = 8; // true表示允许修改联盟旗帜
+update_flag_type:
+  c2s:
+    flag_type: int // 旗帜类型，从0开始
+  s2c:
+    flag_type: int // 旗帜类型，从0开始
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    invalid_type: 旗帜类型无效
+    npc: Npc联盟不允许操作
+    server_error: 服务器忙，请稍后再试
+
+# 修改成员阶级
+# GuildClassLevelProto.update_lower_member_class_level = 9; // true表示允许修改低等级盟友的阶级（变成副帮主之类的）
+# 成功之后会推送一条帮派变化消息 self_guild_changed，收到此消息，重新获取一次帮派数据，刷新面板
+#
+# 帮主禅让也是使用这条消息
+update_member_class_level:
+  c2s:
+    id: bytes // 目标id
+    class_level: int // 新的阶级
+  s2c:
+    id: bytes // 哪个家伙改变职称了
+    class_level: int // 新的职称
+  s2c_fail:
+    invalid_class_level: 无效的阶级
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    target_not_in_guild: 目标不在你的联盟
+    target_same_class_level: 目标当前就是这个阶级
+    deny_target: 权限不足（目标权限不比你低）
+    class_full: 目标阶级已经满员
+    npc: Npc联盟不允许操作
+    server_error: 服务器忙，请稍后再试
+    change_king_in_cd: 禅让国王，在CD中
+
+# 更新自己的联盟职称
+# 登陆时候，加入联盟时候，服务器主动推送
+update_self_class_level:
+  s2c:
+    class_level: int // 职称
+
+# 盟主取消禅让倒计时
+# 成功之后会推送一条帮派变化消息 self_guild_changed，收到此消息，重新获取一次帮派数据，刷新面板
+cancel_change_leader:
+  c2s:
+  s2c:
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    deny: 你不是盟主，不能取消
+    not_change_leader: 当前没有禅让倒计时
+    server_error: 服务器忙，请稍后再试
+
+# 加入联盟分2部分，玩家申请加入联盟，以及被邀请加入联盟
+
+# 修改入盟条件
+update_join_condition:
+  c2s:
+    reject_auto_join: bool // false表示达到条件直接入盟，true表示需要申请才能加入
+    required_hero_level: int // 君主等级，0表示不限
+    required_jun_xian_level: int // 百战军衔等级，0表示不限
+    required_tower_max_floor: int // 需要的千重楼最大层数，0表示不限
+  s2c:
+    reject_auto_join: bool // false表示达到条件直接入盟，true表示需要申请才能加入
+    required_hero_level: int // 君主等级，0表示不限
+    required_jun_xian_level: int // 百战军衔等级，0表示不限
+    required_tower_max_floor: int // 需要的千重楼最大层数，0表示不限
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    invalid_hero_level: 无效的君主等级
+    invalid_jun_xian_level: 无效的百战军衔等级
+    npc: Npc联盟不允许操作
+    server_error: 服务器忙，请稍后再试
+
+# 联盟改名改旗号
+# 联盟改名消耗：config.GuildConfig.ChangeGuildNameCost
+# 联盟改名成功后，会统一推送消息（根据这个消息来修改联盟数据），update_guild_name_broadcast
+update_guild_name:
+  c2s:
+    name: string // 联盟名字
+    flag_name: string // 联盟旗号
+  s2c:
+    next_can_change_time: int // 下一次能够变更联盟名字的时间
+  s2c_fail:
+    invalid_name: 无效的联盟名字
+    invalid_flag_name: 无效的联盟旗号
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    exist_name: 联盟名字已存在
+    exist_flag_name: 联盟旗号已存在
+    cost_not_enough: 改名消耗不足
+    cooldown: 改名CD中
+    npc: Npc联盟不允许操作
+    sensitive_words: 输入包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 联盟改名广播，这条消息广播全服
+# 所有收到这条消息的人，将所有关于这个联盟id的联盟名字和联盟旗号改成消息中附带的
+# 包括但不限于以下，
+# （自己的）君主面板，主界面，帮派面板，等等
+# （别人的）野外主城帮派旗号，插白旗帮派旗号，等等
+update_guild_name_broadcast:
+  s2c:
+    id: int // 联盟id
+    name: string // 联盟名字
+    flag_name: string // 联盟旗号
+
+# 修改联盟标签
+# 联盟标签字符个数限制（1个汉字算1个字符，2个英文算1个字符）：config.GuildConfig.GuildLabelLimitChar
+# 联盟标签个数上限：config.GuildConfig.GuildLabelLimitCount
+# 职位 GuildClassLevelData.UpdateLabel = true表示有权限修改联盟标签
+update_guild_label:
+  c2s:
+    label: string[] // 标签
+  s2c:
+    label: string[] // 标签
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    count_limit: 标签个数超出上限
+    char_limit: 标签字数超出上限
+    duplicate: 标签重名
+    npc: Npc联盟不允许操作
+    sensitive_words: 输入包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 更新自己的联盟贡献币
+# 登陆时，从HeroProto中获取当前贡献币
+#     int32 contribution_coin = 32; // 联盟贡献币
+# 收到消息时候，更新联盟贡献币
+update_contribution_coin:
+  s2c:
+    coin: int // 更新后的贡献币
+
+# 联盟捐献
+# 获取联盟捐献数据，GuildDonateProto，里面包含每个位置每次捐献的数据
+# 登陆时，从HeroProto中获取英雄自己的捐献次数
+#     repeated int32 guild_donate_times = 33 [packed = false]; // 联盟已捐献次数
+# 根据已捐献次数来显示捐献项目的内容，如已捐献次数=0，那么显示捐献1次的数据
+# 当收到每日重置消息，misc.S2C_DAILY_RESET 时，将联盟已捐献次数设置为0，刷新面板
+donate:
+  c2s:
+    sequence: int
+  s2c:
+    sequence: int
+    times: int // 已捐献次数，显示times+1的数据出来
+    donate_id: int // 捐献的id，即 GuildDonateProto.Id
+    building_amount: int // 更新帮派建设值
+    contribution_amount: int // 更新自己的帮派贡献值
+    contribution_total_amount: int // 更新自己的总帮派贡献值
+    contribution_amount7: int // 更新自己的7日帮派贡献值
+    donation_amount: int // 更新自己的帮派捐献值
+    donation_total_amount: int // 更新自己的总帮派捐献值
+    donation_amount7: int // 更新自己的7日帮派捐献值
+    donation_total_yuanbao: int // 更新自己的总帮派捐献元宝
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    invalid_sequence: 无效的序号
+    max_times: 已经达到最大捐献次数
+    cost_not_enough: 消耗不足
+    donate_times_limit: 捐献次数已经达到外使院捐献次数上限
+    level_not_enough: 君主等级不够，无法捐献
+    server_error: 服务器忙，请稍后再试
+
+# 帮派升级
+# 职位 GuildClassLevelData.UpgradeLevel = true表示有权限修改联盟标签
+# 成功之后会推送一条帮派变化消息 self_guild_changed，收到此消息，重新获取一次帮派数据，刷新面板
+upgrade_level:
+  c2s:
+  s2c:
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    upgrading: 正在升级中
+    max_level: 帮派已经达到最高级
+    cost_not_enough: 建设值不足
+    npc: Npc联盟不允许操作
+    server_error: 服务器忙，请稍后再试
+
+# 帮派升级加速
+# 升级加速数据（包含每一级每次加速次数对应的数据）：GuildLevelCdrProto
+# GuildProto
+#    int32 upgrade_end_time = 42; // 升级结束时间（0表示当前没有在升级），unix时间戳，秒
+#    int32 cdr_times = 43; // 联盟升级已加速次数
+#
+# 成功之后会推送一条帮派变化消息 self_guild_changed，收到此消息，重新获取一次帮派数据，刷新面板
+reduce_upgrade_level_cd:
+  c2s:
+    times: int // 当前已加速次数（防止2个人同时加速）
+  s2c:
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    no_upgrading: 联盟没有在升级，不能加速
+    max_times: 帮派已经达到最大加速次数
+    cost_not_enough: 建设值不足
+    npc: Npc联盟不允许操作
+    server_error: 服务器忙，请稍后再试
+
+# 发起弹劾盟主
+# GuildImpeachProto.impeach_end_time = 26; // 0表示当前没有弹劾，否则表示当前正在弹劾盟主
+#
+# 职位 GuildClassLevelData
+#     bool impeach_npc_leader = 15; // true表示允许弹劾NPC盟主
+#     int32 vote_score = 20; // 弹劾NPC盟主，这个职位的票数
+#
+# ConfigProto.GuildConfigProto
+#     int32 impeach_required_member_count = 22; // 需要联盟内存在多少玩家数量才能弹劾
+#     int32 impeach_leader_offline_duration = 23; // 玩家盟主多长时间不在线可以弹劾，单位秒
+#     int32 impeach_npc_leader_hour = 24; // 弹劾npc盟主小时数，如23
+#     int32 impeach_npc_leader_minute = 25; // 弹劾npc盟主分钟数，如40 表示每天23点40分之前可以发起NPC弹劾
+#
+# 服务器会主动推送帮派更新消息，根据消息刷新帮派面板
+impeach_leader:
+  c2s:
+  s2c:
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    condition_not_reach: 弹劾条件未满足
+    deny: 你没有权限操作
+    impeach_exist: 已经存在弹劾盟主
+    changing_leader: 正在禅让盟主，不允许弹劾
+    invalid_time: 今日弹劾盟主时间已过，请明日再试
+    server_error: 服务器忙，请稍后再试
+
+# 弹劾盟主投票
+# 投票后会推送帮派更新消息，根据消息刷新帮派面板
+impeach_leader_vote:
+  c2s:
+    target: bytes // 你要投票给谁
+  s2c:
+    impeach_end: bool // 投票结束，为true的话不需要读取下面的 impeach 了
+    impeach: bytes // 投票，客户端解析成 GuildImpeachProto，长度为0，表示投票后，弹劾成功了
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    invalid_target: 无效的投票目标
+    impeach_not_exist: 当前没有弹劾盟主
+    old_leader: 无法投票给原盟主
+    server_error: 服务器忙，请稍后再试
+
+# 下面开始是正式加入流程（v01不做的部分）
+
+# （玩家消息）获取帮派列表（通过id查询帮派列表）
+#
+# 以下功能使用这个消息，查询帮派列表数据
+#
+# 玩家获取自己的申请加入帮派列表
+# 玩家获取自己的被邀请加入帮派列表
+#
+# 每次最多请求id数 config.GuildConfig.guild_num_per_page = 14; // 每页多少个帮派数
+list_guild_by_ids:
+  c2s:
+    ids: int[] // 帮派id
+  s2c:
+    guilds: bytes[] // shared_proto.GuildProto
+  s2c_fail:
+    invalid_id: 无效的id
+    invalid_count: 无效的id个数
+    server_error: 服务器忙，请稍后再试
+
+# 申请加入联盟 --------------
+
+# （玩家消息）玩家申请加入联盟（申请加入哪个联盟）
+#
+# HeroProto.joinGuildIds 表示当前已申请的联盟id 列表
+#
+# config.GuildCofnig.user_max_join_request_count = 26; // 用户最大申请加入联盟数量（默认5条）
+#
+# 申请加入的联盟如果是允许自动加入，则会收到user_joined，不会收到s2c消息
+#
+# 申请成功(收到s2c消息)，将这个联盟id加入到已申请联盟id 列表
+user_request_join:
+  c2s:
+    id: int // 申请联盟id
+  s2c:
+    id: int // 申请联盟id，将这个id加入到申请id列表
+  s2c_fail:
+    invalid_id: 无效的联盟id
+    self_full: 已达申请上限，请取消其他申请
+    self_guild: 不能申请加入自己的联盟
+    condition: 要求未达到
+    full: 申请的帮派已经满员
+    duplicate: 这个联盟已经申请了，不要重复申请
+    leader: 盟主不能申请加入其它帮派
+    npc: 这个联盟是纯Npc联盟，不允许操作
+    xiong_nu_defender: 匈奴入侵防守队员，且当前活动已开启
+    leave_cd: 离开此联盟不足4小时，不能加入
+    country: 不能加入其他国家的联盟
+    server_error: 服务器忙，请稍后再试
+
+# 移除自己的申请联盟id
+# 1、联盟拒绝你加入
+# 2、申请过期
+user_remove_join_request:
+  s2c:
+    id: int // 申请联盟id
+
+# 清空自己的联盟申请列表
+# 1、加入新帮派
+# 2、当上盟主
+user_clear_join_request:
+  s2c:
+
+# （玩家消息）玩家取消申请加入帮派
+# 取消成功，将这个联盟id从已申请联盟id 列表中移除
+user_cancel_join_request:
+  c2s:
+    id: int // 取消加入帮派id
+  s2c:
+    id: int // 取消加入帮派id
+  s2c_fail:
+    in_the_guild: 在联盟中
+    invalid_id: 无效的id
+    server_error: 服务器忙，请稍后再试
+
+
+# 有新的盟友加入联盟（联盟中所有人收到）
+add_guild_member:
+  s2c:
+    id: bytes // 玩家id
+    name: string // 玩家名字
+    head: string // 头像 通过 config.Icons去获得图标
+
+# （玩家消息）你加入了联盟，做加入联盟的处理，比如主ui上面显示联盟信息等等
+# 当前以下情况会收到这个消息
+# 1、当前符合联盟加入要求，同时联盟允许符合条件直接入盟，申请加入则会收到这个消息
+# 2、联盟管理员审批通过你加入联盟
+# 3、你同意加入邀请你的联盟
+#
+# 先把自己所有的申请加入删除
+# 此时打开联盟面板，当中第一次请求联盟数据，请求自己的联盟数据
+user_joined:
+  s2c:
+    id: int // 已加入联盟id
+    name: string // 联盟名字
+    flag_name: string // 联盟旗号
+    country: int // 国家id
+
+# （联盟消息）审批加入联盟申请
+# GuildProto中可以获取到申请加入联盟的列表
+#     GuildJoinRequestProto join_request = 27; // 申请加入/邀请加入的玩家信息
+#
+# 审批加入联盟(有允许同意申请入盟权限的操作)
+# GuildClassLevelData
+#    bool agree_join = 5; // true表示允许同意申请入盟
+guild_reply_join_request:
+  c2s:
+    id: bytes // 玩家id
+    agree: bool // true表示同意加入联盟，否则表示拒绝加入
+  s2c:
+    id: bytes // 玩家id
+    agree: bool // true表示同意加入联盟，否则表示拒绝加入
+  s2c_fail:
+    no_guild: 不在联盟中
+    deny: 没有权限
+    invalid_request: 玩家已经取消了申请
+    xiong_nu_defender: 匈奴入侵防守队员，且当前活动已开启
+    leave_cd: 玩家离开本联盟不足4小时，不能加入
+    server_error: 服务器忙，请稍后再试
+    full_member: 联盟已经满员
+
+# -----------------申请加入联盟 结束
+
+# 邀请加入联盟 --------------------
+
+# （联盟消息）邀请加入联盟
+#
+# GuildProto中可以获取到邀请加入联盟的列表
+#     GuildJoinRequestProto join_request = 27; // 申请加入/邀请加入
+#
+# 审批加入联盟(有允许同意申请入盟权限的操作)
+# GuildClassLevelData
+#    bool invate_other = 4; // true表示允许邀请他人入盟
+#
+# 邀请成功，服务会主动推送帮派数据变更消息
+guild_invate_other:
+  c2s:
+    id: bytes // 邀请的玩家id
+  s2c:
+    id: bytes // 邀请的玩家id
+  s2c_fail:
+    invalid_id: 无效的玩家id
+    not_in_guild: 不在联盟中
+    deny: 没有权限
+    invated: 目标已经在邀请队列
+    full: 邀请列表已满，取消之前申请
+    guild_member: 邀请的玩家已经在自己的联盟中
+    server_error: 服务器忙，请稍后再试
+    full_member: 联盟已经满员
+
+# （联盟消息）取消邀请加入联盟
+# GuildProto中可以获取到邀请加入联盟的列表
+#     GuildJoinRequestProto join_request = 27; // 申请加入/邀请加入
+#
+# 审批加入联盟(有允许同意申请入盟权限的操作)
+# GuildClassLevelData
+#    bool invate_other = 4; // true表示允许邀请他人入盟
+#
+# 将邀请加入玩家删掉
+guild_cancel_invate_other:
+  c2s:
+    id: bytes // 取消邀请的玩家id
+  s2c:
+    id: bytes // 取消邀请的玩家id
+  s2c_fail:
+    invalid_id: 无效的玩家id
+    not_in_guild: 不在联盟中
+    deny: 没有权限
+    guild_member: 邀请的玩家已经在自己的联盟中
+    id_not_exist: 玩家不在邀请列表中
+    server_error: 服务器忙，请稍后再试
+
+# （玩家消息）添加邀请联盟id
+user_add_been_invate_guild:
+  s2c:
+    id: int // 邀请联盟id
+
+# （玩家消息）移除自己的被邀请联盟id
+# 1、联盟取消邀请
+# 2、邀请过期
+user_remove_been_invate_guild:
+  s2c:
+    id: int // 邀请联盟id
+
+# （玩家消息）玩家回复邀请加入帮派
+#
+# HeroProto.beenInvateGuildIds 表示当前已申请的联盟id 列表
+#
+# 操作成功，将这个邀请帮派删除
+user_reply_invate_request:
+  c2s:
+    id: int // 邀请的帮派id
+    agree: bool // true表示同意加入帮派
+  s2c:
+    id: int // 邀请的帮派id
+    agree: bool // true表示同意加入帮派
+  s2c_fail:
+    invalid_id: 无效的id
+    leader: 你是盟主，请先卸任盟主再接受邀请
+    xiong_nu_defender: 匈奴入侵防守队员，且当前活动已开启
+    leave_cd: 离开此联盟不足4小时，不能加入
+    server_error: 服务器忙，请稍后再试
+    full_member: 联盟已满员
+
+# （玩家消息）获取邀请自己的联盟列表
+list_invite_me_guild:
+  c2s:
+  s2c:
+    guild_list: shared_proto.GuildSnapshotProto[] // 联盟列表
+  s2c_fail:
+    server_error: 服务器忙，请稍后再试
+
+# 组织上的老头干的事情
+# 修改友盟
+# GuildPermissionProto.update_friend_guild = 20; // true表示允许修改友盟
+update_friend_guild:
+  c2s:
+    text: string // 联盟友盟
+  s2c:
+    text: string // 联盟友盟
+  s2c_fail:
+    text_too_long: 内容太长
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    npc: Npc联盟不允许操作
+    sensitive_words: 输入包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 组织上的老头干的事情
+# 修改友盟
+# GuildPermissionProto.update_enemy_guild = 21; // true表示允许修改敌盟
+update_enemy_guild:
+  c2s:
+    text: string // 联盟敌盟
+  s2c:
+    text: string // 联盟敌盟
+  s2c_fail:
+    text_too_long: 内容太长
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    npc: Npc联盟不允许操作
+    sensitive_words: 输入包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 组织上的老头干的事情
+# 修改声望目标
+# GuildPermissionProto.update_prestige_target = 25; // true表示允许修改声望目标
+update_guild_prestige:
+  c2s:
+    target: int // 配置 DefaultCountryProto中的id
+  #修改成功
+  s2c:
+    old_target: int // 旧国家，配置 DefaultCountryProto中的id
+    target: int // 新国家，配置 DefaultCountryProto中的id
+  s2c_fail:
+    target_not_found: 声望目标没找到
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    npc: Npc联盟不允许操作
+    cost_not_enough: 消耗不足
+    countdown: 修改倒计时
+    same_target: 修改的目标跟现在的目标一样
+    server_error: 服务器忙，请稍后再试
+
+# 放置联盟雕像
+place_guild_statue:
+  c2s:
+    realm_id: int // 地图id
+  # 放置雕像成功，提示，客户端会先收到 guild_statue 消息
+  s2c:
+  s2c_fail:
+    no_guild: 没有联盟
+    not_leader: 不是盟主
+    has_placed: 有放置了，请先取回
+    map_not_found: 地图没找到
+    x_invalid: x非法
+    y_invalid: y非法
+    server_error: 服务器忙，请稍后再试
+
+# 联盟的雕像位置
+guild_statue:
+  s2c:
+    realm_id: int // 地图id
+
+# 收回联盟雕像
+take_back_guild_statue:
+  c2s:
+  # 收回雕像成功(提示)
+  s2c:
+  # 收回雕像成功广播，将雕像从地图删掉
+  s2c_broadcast:
+  s2c_fail:
+    no_guild: 没有联盟
+    not_leader: 不是盟主
+    not_place: 没有放置
+    server_error: 服务器忙，请稍后再试
+
+# 领取首次加入联盟奖励
+collect_first_join_guild_prize:
+  c2s:
+  # 领取成功，设置 HeroProto.collected_first_join_guild_prize = true
+  s2c:
+  s2c_fail:
+    no_guild: 没有加入联盟
+    collected: 奖励已经被领取了
+
+
+# 求助状态改变
+# HeroDomesticProto
+#   repeated bool worker_seek_help = 51 [packed = false]; // 建筑队是否可以申请帮助
+#   repeated bool technology_seek_help = 52 [packed = false]; // 科研队是否可以申请帮助
+update_seek_help:
+  s2c:
+    help_type: int // 求助类型 1-建筑队，2-科研队
+    worker_pos: int // 建筑队/科研队 序号，从0开始
+    enable: bool // true表示当前可以求助
+
+# 更新今日帮助盟友次数
+# HeroDomesticProto
+#   int32 daily_help_member_times = 53; // 今日帮助盟友次数(每日重置时候，设置成0)
+#
+# GuildConfigProto
+#    int32 contribution_per_help = 36; // 每次帮助盟友获得多少联盟贡献
+#    int32 contribution_max_count_per_day = 37; // 每日帮助最大可获得联盟贡献次数
+#
+update_help_member_times:
+  s2c:
+    daily_help_member_times: int // 更新今日帮助盟友次数
+
+# 求助，收到成功返回消息，建筑队上的求助按钮移除掉
+seek_help:
+  c2s:
+    help_type: int // 求助类型 1-建筑队，2-科研队
+    worker_pos: int // 建筑队/科研队 序号，从0开始
+  s2c:
+    help_type: int // 求助类型 1-建筑队，2-科研队
+    worker_pos: int // 建筑队/科研队 序号，从0开始
+  s2c_fail:
+    disable: 当前求助状态不可用
+    not_in_guild: 自己不在联盟中，不能求助
+    wai_shi_yuan: 自己还没有外使院建筑
+
+# 新增一条求助，联盟中所有人收到（包括自己）
+add_guild_seek_help:
+  s2c:
+    data: bytes // shared_proto.GuildSeekHelpProto
+
+# 帮助盟友（根据策划定的方案，自己发的求助也可以帮助一次）
+help_guild_member:
+  c2s:
+    id: string // 求助的id
+  s2c:
+    id: string // 求助的id
+  s2c_fail:
+    id_not_found: 求助id没找到
+    helped: 这条求助你已经帮助过了
+    not_in_guild: 你不在联盟中，不能帮助盟友的求助
+
+# 一键帮助盟友
+help_all_guild_member:
+  c2s:
+  s2c:
+    ids: string[] // 帮助了哪些求助的id
+  s2c_fail:
+    not_in_guild: 你不在联盟中，不能帮助盟友的求助
+
+# 新增指定求助的帮助英雄id(联盟所有人收到)
+add_guild_seek_help_hero_ids:
+  s2c:
+    id: string // 求助id
+    help_hero_id: bytes // 帮助我的英雄id
+
+# 移除一条求助（联盟所有人收到）
+remove_guild_seek_help:
+  s2c:
+    id: string // 求助id
+
+# 当前求助列表（客户端收到这个，清空当前求助列表，使用消息中的数据代替），在以下情况收到
+# 1、登陆
+# 2、加入新的联盟
+# 3、离开联盟，会收到一条空消息，清空求助列表
+#
+# GuildSeekHelpProto
+#   repeated bytes help_hero_ids = 5; // 帮助过的人(如果这条是你帮助过的人，不要显示)
+#
+# 特别的，如果所有的求助都已经帮助过了，那么主界面的按钮和联盟界面的红点都不要显示
+list_guild_seek_help:
+  s2c:
+    data: bytes[] // shared_proto.GuildSeekHelpProto
+
+# 可以领取的联盟礼包列表，登陆时候服务器推送
+list_guild_event_prize:
+  s2c:
+    id: int32[] // id
+    data_id: int32[] // 礼包id，shared_proto.GuildEventPrizeDataProto
+    expire_time: int32[] // 过期时间（unix时间戳，秒），过期的不显示，0表示不过期
+    hero_id: bytes[] // 谁发的
+    hero_name: string[]
+
+# 新增一条联盟礼包
+add_guild_event_prize:
+  s2c:
+    id: int32 // id
+    data_id: int32 // 礼包id，shared_proto.GuildEventPrizeDataProto
+    expire_time: int32 // 过期时间（unix时间戳，秒），过期的不显示，0表示不过期
+    hero_id: bytes // 谁发的
+    hero_name: string
+
+# 移除一条联盟礼包
+remove_guild_event_prize:
+  s2c:
+    id: int32 // id
+
+# 领取联盟礼包
+collect_guild_event_prize:
+  c2s:
+    id: int // 领取哪个，0表示全部领取
+  s2c:
+    id: int // 领取哪个，0表示全部领取
+    new_energy: int // 领取后最新的能量
+    add_energy: int // 增加的能量
+    prize: bytes // 领取到的奖励，shared_proto.PrizeProto
+  s2c_fail:
+    id_not_found: id不存在
+    not_in_guild: 你不在联盟中
+    vip_limit: vip等级不够，不能一键领
+
+# 更新逼格宝箱（联盟大宝箱）
+# 1、登陆时候
+# 2、宝箱充能满的时候
+#
+# 当宝箱可以开启的时候，界面显示可以领取的那个宝箱，而不是新的宝箱（领取完后切换到新的宝箱）
+# 能量条的分母为未领取宝箱的解锁能量值
+# 分子为未解锁宝箱解锁能量值 + 当前能量值
+#
+# 当没有宝箱可以领取的时候，从联盟数据中获取大宝箱的数据
+# GuildProto
+#    int32 big_box_energy = 61; // 逼格宝箱当前能量值
+update_full_big_box:
+  s2c:
+    box_id: int // 当前显示的宝箱id
+    collectable: bool // true表示可以领取
+    energy: int // 当前能量值
+
+# 领取逼格宝箱（联盟大宝箱）
+#
+# GuildConfigProto
+#    int32 big_box_collectable_duration = 38; // 加入联盟N小时之后才能领取宝箱
+#
+collect_full_big_box:
+  c2s:
+  s2c:
+  s2c_fail:
+    not_in_guild: 你不在联盟中
+    locked: 宝箱尚未解锁
+    time_not_enough: 进入联盟时间不足，不能领取
+    server_error: 服务器忙，请稍后再试
+
+# 更新英雄加入联盟的时间
+# HeroProto
+#    int32 join_guild_time = 68; // 加入联盟时间
+update_hero_join_guild_time:
+  s2c:
+    join_guild_time: int // 英雄加入联盟的时间
+
+# 升级科技
+#
+# GuildTechnologyDataProto 联盟科技配置
+#
+# GuildProto
+#    int32 upgrade_technology = 65; // 当前正在升级的科技id
+#    repeated int32 technologys = 62 [packed = false]; // 科技
+#    int32 tech_upgrade_end_time = 63; // 科技升级结束时间（0表示当前没有在升级），unix时间戳，秒
+#
+# 升级成功后，会主动推送，联盟消息变更self_guild_changed，重新请求联盟数据
+upgrade_technology:
+  c2s:
+    group: int // 升级的科技组
+  s2c:
+    group: int // 升级的科技组
+    end_time: int // 升级结束时间，显示倒计时
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    invalid_group: 无效的科技组
+    max_level: 科技已经达到最大等级
+    required: 联盟等级不足
+    cost_not_enough: 联盟建设值不足
+    upgrading: 存在正在升级的科技
+    deny: 你没有权限操作
+    server_error: 服务器忙，请稍后再试
+
+# 科技加速
+# GuildTechnologyDataProto
+#      repeated GuildLevelCdrProto cdrs = 10; // 减cd
+#
+# 升级加速数据（包含每一级每次加速次数对应的数据）：GuildLevelCdrProto
+# GuildProto
+#    int32 upgrade_technology = 65; // 当前正在升级的科技id
+#    int32 tech_upgrade_end_time = 63; // 科技升级结束时间（0表示当前没有在升级），unix时间戳，秒
+#    int32 tech_cdr_times = 64; // 科技升级已加速次数
+#
+# 成功之后会推送一条帮派变化消息 self_guild_changed，收到此消息，重新获取一次帮派数据，刷新面板
+reduce_technology_cd:
+  c2s:
+    times: int // 当前已加速次数（防止2个人同时加速）
+  s2c:
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    no_upgrading: 科技没有在升级，不能加速
+    max_times: 帮派已经达到最大加速次数
+    cost_not_enough: 建设值不足
+    npc: Npc联盟不允许操作
+    server_error: 服务器忙，请稍后再试
+
+# 请求联盟日志列表
+list_guild_logs:
+  c2s:
+    log_type: int // 1-战争 2-日常 3-声望 4-大事记 (参考shared_proto.GuildLogType)
+    min_id: int // 最小的日志的id，服务器返回比这个id小的一批日志(客户端当前没有日志时候，发0)
+    count: int // 请求邮件个数
+  s2c:
+    compress: snappy
+    data: bytes[] // shared_proto.GuildLogProto
+
+# 新增一条日志，添加到日志列表
+add_guild_log:
+  s2c:
+    data: bytes // shared_proto.GuildLogProto
+
+# 推荐联盟
+request_recommend_guild:
+  # 什么时候请求
+  # 客户端在登录、在离开联盟后，发现如果没有联盟 取(HeroProto.next_notify_guild_time与当前时间中的最大值)+GuildConfigProto.notify_join_guild_duration_on_online_or_leave，在这个时间点来跟服务器请求推荐的联盟
+  # 在该时间来跟服务器请求该消息，如果中间加入了联盟，取消定时
+  c2s:
+  # 推荐联盟成功
+  # 如果客户端当前是有联盟的，不会收到服务器的返回
+  # 收到后，设置HeroProto.next_notify_guild_time = next_notify_guild_time
+  s2c:
+    has: bool // 是否存在联盟可以推荐，true可以读取下面的字段，没有，客户端再定时 GuildConfigProto.notify_join_guild_duration_on_online_or_leave 这么久再来请求
+    next_notify_guild_time: int32 // 下次可以提醒加入联盟的时间
+    id: int32 // 联盟id
+    name: string // 联盟名字
+    flag: string // 联盟旗帜
+    country: int32 // 国家id
+
+# 联盟科技协助
+#
+# 客户端根据协助状态，展示是否可以协助
+# 退出联盟，客户端自己把状态设置成不可协助
+# 做红点提示
+# 科技升级成功后，服务器主动推送false消息
+push_tech_helpable:
+  s2c:
+    helpable: bool // true表示可以进行可以协助，false表示不能协助
+
+# 协助联盟科技，协助成功后，客户端把协助状态设置为false
+# 成功，服务器主动推送联盟更新消息
+#
+# GuildTechnologyDataProto
+#     int32 help_cdr = 13; // 盟友协助减少cd，秒
+help_tech:
+  c2s:
+  s2c:
+    tech: int // 联盟科技 ID
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    cant_help: 你不能协助
+    no_tech_upgrading: 没有升级中的科技
+    server_error: 服务器忙，请稍后再试
+
+# 推荐入盟的玩家列表
+recommend_invite_heros:
+  c2s:
+  s2c:
+    heros: bytes // GuildRecommendInviteHeros
+  s2c_fail:
+    server_error: 服务器忙，请稍后再试
+
+# 模糊搜索无联盟的玩家
+# 前缀匹配。例：ab 匹配 ab,abc,abd, 不匹配 cab
+# 带翻页，1秒内最多请求1次
+search_no_guild_heros:
+  c2s:
+    name: string // 关键字
+    page: int // 第几页， 0表示第1页
+  s2c:
+    heros: bytes // GuildRecommendInviteHeros
+  s2c_fail:
+    invalid_arg: 参数错误
+    server_error: 服务器忙，请稍后再试
+    too_fast: 请求太频繁
+
+# 联盟的名城战历史战绩
+view_mc_war_record:
+  c2s:
+  s2c:
+    compress: snappy
+    record: shared_proto.McWarAllRecordProto // 不用了，用 record2
+    record2: shared_proto.McWarAllRecordWithJoinedProto
+  s2c_fail:
+    no_guild: 没有联盟
+
+# 更新联盟标记
+# GuildGenConfigProto
+#      int32 guild_mark_count = 2; // 联盟标记个数，序号从1开始
+#      int32 guild_mark_msg_char_limit = 3; // 联盟标记文字个数限制，1个汉字算2个字符
+#
+# 以下情况会收到更新数据
+# 1、登陆时候
+# 2、有人更新联盟标识
+#
+# GuildMarkProto 只包含index时候，表示移除
+update_guild_mark:
+  c2s:
+    index: int // 序号，从1开始
+    pos_x: int // 坐标
+    pos_y: int
+    msg: string // 标记内容
+  s2c:
+    mark: shared_proto.GuildMarkProto
+  s2c_fail:
+    invalid_index: 无效的序号
+    invalid_pos: 无效的坐标
+    invalid_msg: 无效的标记内容
+    sensitive_words: 标记内容包含敏感词
+    not_in_guild: 你没有联盟
+    deny: 你没有权限操作
+    server_error: 服务器忙，请稍后再试
+
+# 联盟银两记录
+view_yinliang_record:
+  c2s:
+  s2c:
+    compress: snappy
+    record: shared_proto.GuildAllYinliangRecordProto
+  s2c_fail:
+    no_guild: 没有联盟
+
+# 给别的联盟送银两
+send_yinliang_to_other_guild:
+  c2s:
+    gid: int // 联盟 id
+    amount: int // 数量
+  s2c:
+    gid: int // 联盟id
+    amount: int // 数量
+  s2c_fail:
+    deny: 没有权限
+    no_guild: 对方联盟不存在
+    not_enough: 钱不够
+    invalid_amount: 参数非法
+    server_err: 服务器错误
+
+# 给联盟成员发银两
+send_yinliang_to_member:
+  c2s:
+    mem_id: bytes // 成员id
+    amount: int // 数量
+  s2c:
+    mem_id: bytes // 成员 id
+    amount: int // 数量
+  s2c_fail:
+    deny: 没有权限
+    no_member: 成员不存在
+    not_enough: 钱不够
+    invalid_amount: 参数非法
+    server_err: 服务器错误
+
+
+# 发工资
+pay_salary:
+  c2s:
+  s2c:
+    amount: int // 发了多少钱
+  s2c_fail:
+    deny: 没有权限
+    not_enough: 钱不够
+    invalid_amount: 参数非法
+    server_err: 服务器错误
+
+# 设置工资
+set_salary:
+  c2s:
+    mem_id: bytes // 成员id
+    salary: int // 新工资
+  s2c:
+    mem_id: bytes // 成员id
+    salary: int // 新工资
+  s2c_fail:
+    deny: 没有权限
+    no_member: 成员不存在
+    invalid_salary: 工资非法
+    server_err: 服务器错误
+
+# 更新英雄的联盟数据
+# 根据更新类型进行更新，如果更新类型不是0或者nil，那么Proto中只有指定的类型中有值
+update_hero_guild:
+  s2c:
+    update_type: int // 更新类型 0-所有 1-联盟等级 2-盟主
+    data: shared_proto.HeroGuildProto // 联盟数据
+
+# 查看赠送联盟银两记录
+view_send_yinliang_to_guild:
+  c2s:
+  s2c:
+    guilds: shared_proto.GuildAllYinliangSendToGuildProto
+  s2c_fail:
+    server_err: 服务器错误
+
+# 刷新虎符数量
+update_hufu:
+  s2c:
+    hufu: int // 当前显示的虎符数量
+
+#下面注释掉的留着不要删 防止以后虎符变成联盟界面按钮贡献 只能走新消息机制
+## 虎符道具使用（使用后联盟虎符值增加）
+#use_hufu:
+#  c2s:
+#    hufu_id: int // 还是发一下虎符的道具ID 防止以后配置了多种虎符
+#    count: int // 可匹量使用
+#  s2c:
+#  s2c_fail:
+#    no_guild: 加入联盟后方可使用虎符
+
+## 求援（发送援助请求，会在公会频道内显示）
+#ask_for_help:
+#  c2s:
+#  s2c:
+#    map_id: int // 地图id
+#    base_x: int // x坐标
+#    base_y: int // y坐标
+#  s2c_fail:
+#    in_cd: 您发送太快啦，请稍后再试
+#    no_guild: 您没有加入联盟
+#    no_danger: 您的城池稳如泰山，无需求援
+
+# 联盟官员召集
+# GuildGenConfigProto
+#    int32 convene_cooldown = 10; // 联盟官员召集CD
+#
+# 客户端收到返回，将目标的召集按钮置灰（CD之后再显示回来）
+convene:
+  c2s:
+    target: bytes // 召集目标id，空表示全体召集
+  s2c:
+    target: bytes // 召集目标id，空表示全体召集
+  s2c_fail:
+    invalid_target: 无效的目标id
+    not_in_guild: 你没有联盟
+    deny: 权限不足
+    target_not_in_guild: 目标不在你的联盟中
+    cooldown: 盟友召集CD中，请稍后再试
+    server_error: 服务器忙，请稍后再试
+
+# 领取当天联盟排名奖励
+collect_daily_guild_rank_prize:
+  c2s:
+  s2c:
+    prize: bytes // 获得的奖励，前端同时要把collected_daily_guild_rank_prize字段置为true（新加入联盟时，也要置为true）
+  s2c_fail:
+    no_guild: 没有联盟
+    no_guild_rank: 联盟未上榜
+    collected: 无法领取
+    server_error: 服务器忙，请稍后再试
+
+# 查看本国联盟声望排行（今日实时榜）
+view_daily_guild_rank:
+  c2s:
+  s2c:
+    rank: shared_proto.RankProto
+  s2c_fail:
+    no_country: 还未加入国家
+    server_error: 服务器忙，请稍后再试
+
+# 发送本盟昨日排名，发0代表未上榜，显示的奖励内容前端从配置里面取，如果没上榜不显示【领取】按钮，如果今日已领取则显示【已领取】
+# 小原点判定
+view_last_guild_rank:
+  s2c:
+    rank: int
+
+# 推荐名城营建
+add_recommend_mc_build:
+  c2s:
+    mc_id: int
+  s2c:
+    new_mc_ids: int[] // 新的所有推荐名城，从旧到新排序
+  s2c_fail:
+    deny: 没有权限
+    invalid_mc_id: 名城不存在
+    mc_is_recommended: 名城已经被推荐
+    no_guild: 没有联盟
+    server_err: 服务器错误
+
+# 点开【联盟周任务进度】
+view_task_progress:
+  c2s:
+    version: int // 版本号，第一次发0
+  s2c:
+    version: int // 版本号相同不刷新，progress也没有数据
+    progress: shared_proto.Int32Pair[] // 任务进度
+  s2c_fail:
+    no_guild: 没有联盟
+    guild_level_limit: 联盟等级不足
+
+# 通知前端有任务进度激活（前端根据用户是否已经领取数据自己判定是否显示小原点）
+notice_task_stage_update:
+  s2c:
+    task_id: int // 任务id
+    stage: int // 1~n，第几个阶段已完成
+
+# 领取任务进度奖励
+collect_task_prize:
+  c2s:
+    task_id: int // 任务id
+    stage: int // 1~n，第几个阶段，可以跳着领
+  s2c:
+    task_id: int // 任务id
+    stage: int // 这个阶段领取成功
+  s2c_fail:
+    invalid_value: 无效的数据
+    no_guild: 没有联盟
+    no_prize: 阶段奖励未激活
+    collected: 已领取
+
+# 联盟转国
+# GuildProto
+#    int32 change_country_wait_end_time = 82; // 转国等待结束时间
+#    int32 change_country_target = 83; // 转国目标（转到哪个国家）
+#    int32 change_country_next_time = 84; // 下次可以转国时间
+#
+# GuildGenConfigProto
+#    CostProto guild_change_country_cost = 30; // 联盟转国消耗
+#    int32 guild_change_country_wait_duration = 31; // 联盟转国等待时间
+#    int32 guild_change_country_cooldown = 32; // 联盟转国CD
+guild_change_country:
+  c2s:
+    country: int // 国家
+  s2c:
+    country: int // 国家
+  s2c_fail:
+    invalid_country: 无效的国家
+    not_in_guild: 你没有联盟
+    not_learder: 你不是盟主，不能联盟转国
+    cost_not_enough: 消耗不足
+    cooldown: 转国cd中
+    exist: 当前正在转国中
+    same_country: 你的联盟已经是这个国家
+    is_king: 国王不能转国
+
+# 取消联盟转国
+cancel_guild_change_country:
+  c2s:
+  s2c:
+  s2c_fail:
+    not_in_guild: 你没有联盟
+    not_learder: 你不是盟主，不能取消联盟转国
+    cooldown: 转国cd中
+    not_exist: 联盟没有转国中
+
+# 弹窗提示创建联盟工坊
+# 登陆时候，加入联盟，联盟工坊创建，移除，会主动推送这条消息，根据这个消息，确认是否需要弹窗
+#
+# c2s在第一次弹窗之后发送，告诉服务器已经弹过了，服务器会返回带false的s2c消息
+show_workshop_not_exist:
+  c2s:
+  s2c:
+    show: bool // true表示要提醒，false表示不要提醒

@@ -1,0 +1,153 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/monster.proto";
+
+enum DifficultType {
+    Invalid = 0; // 无效的
+    ORDINARY = 1; // 普通难度
+    ELITE = 2; // 精英难度
+}
+
+message DungeonChapterProto {
+    int32 id = 10; // 章节id
+    //int32 sequence = 1; // 章节序列
+    string chapter_name = 2; // 章节名
+    string chapter_desc = 3; // 章节描述
+    int32 captain_soul = 5; // 将魂，配置 CaptainSoulDataProto 中的id
+
+    DifficultType type = 12; // 副本难度
+    string bg_img = 13; // 背景图
+    repeated DungeonDataProto dungeon_datas = 14; // 副本数据
+    PrizeProto pass_prize = 15; // 通关该章节奖励
+    repeated PrizeProto star_prize = 16; // 星数奖励
+    repeated int32 star = 17 [packed = false]; // 对应星数要求
+}
+
+message DungeonDataProto {
+    int32 id = 1; // 副本id
+    //int32 sequence = 10; // 副本序列
+    string name = 2; // 名字
+    string desc = 3; // 描述
+    int32 unlock_hero_level = 4; // 解锁需要的君主等级
+    repeated int32 unlock_pass_dungeon = 5 [packed = false]; // 解锁需要通关的副本
+    int32 unlock_puzzle_index = 6; // 解锁本章节的迷宫的下标，从0开始，<本章节本难度的副本数量
+    int32 unlock_baye_stage = 9; // 解锁需要的霸业阶段
+    int32 story_id = 7; // 章节故事id
+    int32 dialog_id = 8; // 剧情对话id
+    int32 pre_battle_dialog_id = 22; // 战前剧情id
+    int32 after_battle_dialog_id = 23; // 战后剧情id
+    string ballon_tool_tip = 20; // 气泡提示
+    string npc_name = 21; // 关卡npc名称
+    string npc_icon = 24; // 关卡npc的Icon
+    string combat_scene_res = 25; // 推图副本地图资源
+
+    PrizeProto first_pass_prize = 14; // 首次通关奖励
+    PrizeProto pass_prize = 13; // 通关奖励
+    PrizeProto show_prize = 11; // 通关展示奖励
+    MonsterMasterDataProto monster = 12; // 防守武将信息
+
+    int32 chapter_id = 31; // 章节id
+    DifficultType type = 32; // 难度
+
+    int32 star = 15; // 星数
+    repeated int32 star_condition = 16 [packed = false]; // 对应每颗星星的条件 1.是否获胜 2.血量大于%n 3.时间未超过n秒 4.武将死亡个数不大于n
+    repeated int32 star_condition_value = 17 [packed = false]; // 条件数量
+
+    int32 pass_limit = 18; // 每日通过次限
+    int32 sp = 19; // 通关需要体力值消耗
+
+    int32 prev = 33; // 上一关
+    int32 next = 34; // 下一关
+
+    repeated MonsterCaptainDataProto yuan_jun_data = 35; // 援军
+
+    // 剧情槽位和剧情id
+    repeated int32 plot_idx = 36 [packed = false];
+    repeated int32 plot_id = 37 [packed = false];
+
+    // 引导布阵
+    DungeonGuideTroopDataProto guide_troop = 38;
+}
+
+message DungeonMiscProto {
+    int32 max_auto_times = 1; // 最大能够存储的扫荡次数
+    int32 recover_auto_duration = 2; // 恢复扫荡的间隔，单位秒
+    int32 auto_per_times = 3; // 默认扫荡次数
+}
+
+message DungeonGuideTroopDataProto {
+    bool not_first = 1; // 是否第2次才教学引导
+    repeated int32 captain = 2 [packed = false]; // 引导武将id
+    repeated int32 src_pos = 3 [packed = false]; // 引导初始阵位
+    repeated int32 src_pos_x = 5 [packed = false]; // 引导初始X阵位
+    repeated int32 dst_pos = 4 [packed = false]; // 引导最终阵位
+    repeated int32 dst_pos_x = 6 [packed = false]; // 引导最终X阵位
+}
+
+message DungeonChapterStar {
+    int32 chapter = 1;
+    int32 star = 2;
+}
+
+message DungeonStar {
+    int32 dungeon = 1;
+    repeated bool enabled_star = 2 [packed = false];
+}
+
+message DungeonPassLimit {
+    int32 dungeon = 1;
+    int32 times = 2;
+}
+
+message CollectedChapterStarPrizes {
+    int32 chapter = 1;
+    repeated int32 prize_indexs = 2 [packed = false];
+}
+
+// 玩家副本
+message HeroDungeonProto {
+    // 保存章节已经领过的奖励
+    repeated CollectedChapterStarPrizes chapter_star_prizes = 16;
+    // 保存章节的总星数
+    repeated DungeonChapterStar chapter_stars = 14;
+    // 保存通过星数的副本以及对应星数
+    repeated DungeonStar dungeon_stars = 12;
+    // 保存每日通过次数限制的副本的次数
+    repeated DungeonPassLimit dungeon_limits = 13;
+    // 通关了的副本
+    repeated int32 pass_dungeons = 1 [packed = false];
+
+    // 领取了的通关副本奖励，该值是：DungeonDataProto.id 副本id
+    repeated int32 collected_pass_dungeon_prizes = 5 [packed = false];
+
+    // 领取了的章节奖励，该值是：DungeonChapterDifficultProto.id
+    repeated int32 collected_chapter_prizes = 2 [packed = false];
+
+    // 扫荡恢复开始时间
+    // 计算扫荡次数
+    // 当前时间: ctime
+    // 恢复开始时间 auto_recover_start_time
+    // 次数 = (ctime - auto_recover_start_time) / DungeonMiscProto.recover_auto_duration
+    // 下次恢复间隔:
+    // if 次数 >= DungeonMiscProto.max_auto_times {
+    //      次数满了
+    // } else {
+    //      (次数+1) * DungeonMiscProto.recover_auto_duration - ctime
+    // }
+    int32 auto_recover_start_time = 3;
+
+    int32 collect_auto_times_index = 4; // 领取了的副本领取扫荡时间次数，0表示一个都没有领取过，1表示领取了第一个
+
+    repeated HeroVipBoughtTimes vip_bought_times = 8; // 每天vip特权购买次数
+}
+
+message HeroVipBoughtTimes {
+    int32 dungeon_id = 1; // 推图关卡
+    int32 bought_times = 3; // vip特权购买了几次
+}
+

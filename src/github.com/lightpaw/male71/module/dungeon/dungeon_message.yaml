@@ -1,0 +1,110 @@
+
+# 挑战，首次挑战，不消耗挑战次数
+# 副本通关后，可以再次挑战，但是需要消耗挑战次数
+#
+# HeroDungeonProto
+#    int32 auto_recover_start_time = 3; // 扫荡恢复开始时间
+#
+# DungeonMiscProto
+#    int32 max_auto_times = 1; // 最大能够存储的扫荡次数
+#    int32 recover_auto_duration = 2; // 恢复扫荡的间隔，单位秒
+#
+#     计算扫荡次数
+#     当前时间: ctime
+#     恢复开始时间 auto_recover_start_time
+#     次数 = Min((ctime - auto_recover_start_time) / DungeonMiscProto.recover_auto_duration, DungeonMiscProto.max_auto_times)
+#     恢复倒计时:
+#     if 次数 >= DungeonMiscProto.max_auto_times {
+#          次数满了
+#     } else {
+#          剩余恢复时间 = (次数+1) * DungeonMiscProto.recover_auto_duration + auto_recover_start_time - ctime
+#     }
+challenge:
+  c2s:
+    id: int // 副本id（DungeonDataProto.id）
+  s2c:
+    id: int // 通关副本id（DungeonDataProto.id）
+    link: string // 战报链接
+    share: bytes // 战斗分享，客户端解析成 CombatShareProto
+    prize: bytes // 奖励
+    pass: bool // 是否挑战成功 true(挑战成功，同时有首胜奖励，将副本加入HeroDungeonProto中的已经通关副本)/false(挑战失败)
+    is_first_pass: bool // 是否首次通关(pass为true时读取)
+    enabled_star: bool[] // 星星是否激活的对应列表
+    pass_seconds: int // 通关所消耗的秒数
+    chapter_star: int // 章节的星数刷新
+    pass_times: int // 刷新通关次数
+    is_refresh: bool // 是否刷新
+  s2c_fail:
+    not_found: 副本没找到
+    has_pass: 已经通关了
+    prev_not_pass: 前置副本没有通关
+    baye_not_pass: 前置霸业目标没有完成，请继续进行霸业任务
+    level_not_enough: 君主等级不足
+    captain_not_full: 上阵武将未满
+    need_gt_one: 上阵起码要有一个
+    captain_too_much: 上阵武将超出上限
+    captain_not_exist: 上阵武将不存在
+    captain_id_duplicate: 上阵武将id重复
+    server_error: 服务器忙，请稍后再试
+    pass_limit: 当日挑战次数上限
+    sp_not_enough: 体力值不够
+
+# 更新挑战次数
+update_challenge_times:
+  s2c:
+    start_time: int // 挑战次数恢复时间
+
+# 领取章节奖励
+collect_chapter_prize:
+  c2s:
+    id: int // DungeonChapterProto.id 副本章节id
+  s2c:
+    id: int // DungeonChapterProto.id 副本章节id, 将该id加入HeroDungeonProto中的已经领取了奖励的id
+  s2c_fail:
+    not_found: 通关奖励没找到
+    not_pass: 没通关
+    collected: 奖励已经领取了
+
+# 领取副本通关奖励
+collect_pass_dungeon_prize:
+  c2s:
+    id: int // DungeonDataProto.id 副本id
+  s2c:
+    id: int // DungeonDataProto.id 副本id, 将该id加入HeroDungeonProto中的已经领取了奖励的id
+  s2c_fail:
+    invalid_id: 副本id无效
+    not_found: 副本没有配置通关奖励
+    not_pass: 没通关
+    collected: 奖励已经领取了
+
+# 扫荡XXX副本Y次
+auto_challenge:
+  c2s:
+    id: int // 副本id（DungeonDataProto.id）
+    times: int // 扫荡次数
+  s2c:
+    id: int // 副本id（DungeonDataProto.id）
+    prizes: bytes[] // 扫荡奖励列表，长度是几，就说明扫荡了几次，第几个表示第几次扫荡
+    pass_times: int // 刷新通关次数
+  s2c_fail:
+    not_found: 副本没找到
+    not_pass: 未通关
+    invalid_auto_times: 扫荡次数非法
+    sp_not_enough: 体力值不足
+    not_full_star: 无法扫荡未满星通关的副本
+    pass_limit: 扫荡次数超出每日通关上限
+
+# 领取章节星数奖励
+collect_chapter_star_prize:
+  c2s:
+    id: int // ChapterDataProto.id 章节id
+    collect_n: int // 第n个奖励 n = 1, 2, 3...
+  s2c:
+    id: int // ChapterDataProto.id 副本id
+    collect_n: int // 第n个奖励已被领取
+    prize: bytes // 奖励
+  s2c_fail:
+    invalid_id: 章节id无效
+    invalid_prize_index: 奖励下标无效
+    star_not_enough: 星数不足
+    collected: 奖励已经领取了

@@ -1,0 +1,6 @@
+id	类型数据，填类型ID	刷怪坐标		地区类型，1-蛮荒地区 2-联盟主城地区 3-荣誉地区	地区等级，荣誉地区有多个等级，蛮荒地区和联盟主城地区都只能是1级地区
+id	type_data	offset_base_x	offset_base_y	region_type	region_level
+1	1	27	37	1	1
+2	2	69	35	1	1
+3	3	40	80	1	1
+4	4	75	80	1	1

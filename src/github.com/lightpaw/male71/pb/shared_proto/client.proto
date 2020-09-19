@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+message AllTable {
+    repeated Table tables = 1; // 所有表
+}
+
+message Table {
+    string table_path = 1; // 表的路径，表在 conf/client 目录下的路径，如 conf/client/a.xlsx，那么 table_path就是这个数据了(conf/client/a.xlsx)
+    repeated Row rows = 2; // 所有的行
+}
+
+message Row {
+    repeated Cell cell = 1; // 该行所有的单元格数据
+}
+
+message Cell {
+    string title = 1; // 标题
+    string data = 2; // 数据
+}

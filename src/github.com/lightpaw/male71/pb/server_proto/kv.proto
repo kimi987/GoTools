@@ -1,0 +1,185 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/tower.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/military.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/combat.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/region.proto";
+
+enum Key {
+    Tower = 0;
+    Region = 1;
+    ServerStartTime = 2; // 服务器开服时间
+    ServerStopTime = 3; // 服务器关服时间
+    Rank = 4; // 排行榜
+    BaiZhan = 5;
+    Country = 6; // 国家（废弃）
+    XiongNu = 7; // 抗击匈奴
+    GuildRcmdHeros = 8; // 加入联盟推荐列表
+    Xuanyuan = 9; // 轩辕会武
+    Hebi = 10; //天命合璧（废弃）
+    NewCountry = 11; // 新国家
+    Mingc = 12; // 名城
+    MingcWar = 13; // 名城战
+    NewHebi = 14; // 新合璧
+    AstDefendLog = 15; // 盟友援助驻扎日志
+    TimeLimitGifts = 16; // 时限礼包
+    RedPacket = 17; // 红包
+    UNIT_TEST = 100; // 单元测试
+}
+
+message TowerModuleProto {
+    repeated TowerReplayProto replay = 1;
+}
+
+message InviteGuildRecommendHerosProto {
+    repeated int64 hero_id = 1;
+    bool init_guild_member_country = 2; // 是否初始化过了联盟成员国家数据
+}
+
+message RegionModuleProto {
+    uint64 home_npc_base_sequence = 3; // 当前的Npc行营入侵Sequence
+    repeated RealmRuinsBasePosInfosProto realm_ruins = 4; // 所有场景的废墟数据
+    uint64 radius = 5; // 当前开放的radius
+    repeated NpcBaseProto npc_base_list = 6; // 场景中非英雄的主城列表
+    repeated TroopServerProto troop_list = 7; // 战斗队伍数据
+
+    int64 bao_zang_npc_refresh_time = 8; // 最后一次宝藏Npc刷新时间
+    int64 jun_tuan_npc_refresh_time = 9; // 最后一次军团Npc刷新时间
+}
+
+message RealmRuinsBasePosInfosProto {
+    int64 realm_id = 1; // 场景id
+    repeated RuinsBasePosInfoProto infos = 2; // 数据
+}
+
+message RuinsBasePosInfoProto {
+    int64 id = 1; // 玩家id
+    int64 time = 2; // 变成废墟的时间
+    int32 pos_x = 3; // 位置x
+    int32 pos_y = 4; // 位置y
+}
+
+message Int64ArrayProto {
+    repeated int64 v = 1;
+}
+
+message UInt64ArrayProto {
+    repeated uint64 v = 1;
+}
+
+message TimeProto {
+    int64 time = 1; // 时间
+}
+
+message UserMiscProto {
+    int32 tutorial_progress = 1; // 新手教程进度
+    bool is_tutorial_complete = 2; // 新手教程是否完成了
+    bool created = 3;
+}
+
+// npc主城类型
+message NpcBaseProto {
+    int64 base_region = 1;
+    int64 base_id = 2; // 主城id
+    int32 base_x = 3;
+    int32 base_y = 4;
+    uint64 prosperity = 7; // 繁荣度
+
+    repeated int32 captain_index = 5; // 武将序号
+    repeated int32 captain_soldier = 6; // 武将剩余士兵数
+
+    int64 guild_id = 10; // 联盟id
+
+    // 创建者
+    int32 hero_type = 13; // 英雄类型，0-宝藏击杀者 1-宝藏创建者
+    int64 hero_id = 12; // 英雄id
+    int64 hero_end_time = 14; // 过期时间
+
+    // 防守怪
+    repeated NpcDefendingTroopProto defending_troop = 11;
+}
+
+message NpcDefendingTroopProto {
+    int64 id = 2;
+    uint64 data_id = 3; // dataId
+    repeated int32 captain_index = 5; // 武将序号
+    repeated int32 captain_soldier = 6; // 武将剩余士兵数
+}
+
+message TroopServerProto {
+    int64 starting_base_id = 100; // 起始主城id
+    uint64 starting_base_level = 101; // 目标主城等级
+
+    int64 realm_id = 1; // 场景id
+
+    int64 id = 2;
+    int64 target_base_id = 3; // 目标主城id
+    uint64 target_base_level = 4; // 目标主城等级
+    uint32 troop_state = 6; // 部队类型
+
+    int64 origin_target_id = 10; // 原目标id
+    int32 back_home_target_x = 11; // 从位置x返回主城
+    int32 back_home_target_y = 12; // 从位置y返回主城
+
+    bool target_is_owner_can_see = 13; // 只有主城拥有者才可以看到
+
+    int64 create_time = 15; // 创建事件
+    double move_speed_rate = 16; // 移动速率
+    int64 move_start_time = 17; // 开始移动时间
+    int64 move_arrive_time = 18; // 移动到达时间
+    int64 robbing_end_time = 19; // 掠夺结束时间
+    int64 next_reduce_prosperity_time = 20; // 下次减少繁荣度的时间
+    int64 next_add_hate_time = 21; // 下次加仇恨的时间
+
+    PrizeProto accum_rob_prize = 25; // 累积抢到的资源，可能为空
+    uint64 accum_reduce_prosperity = 26; // 累计减少的繁荣度
+    repeated CaptainInfoProto captains = 27; // 第一个是captain id, 第二个是captain的index
+    repeated int32 captain_index = 28 [packed = false]; // 部队序号 1-5
+
+    uint64 monster_master_id = 29; // 怪物配置id
+
+    int64 assist_defend_start_time = 30; // 援助驻扎开始时间
+
+    uint64 multi_level_monster_count = 31; // 本次讨伐野怪次数
+}
+
+// 轩辕会武
+message XuanyuanModuleProto {
+
+    repeated XuanyuanRankHeroProto rank_hero = 1; // 排行榜上的玩家
+
+    repeated XuanyuanRankHeroProto challenger = 2; // 挑战者
+
+    int64 update_time = 3; // 更新时间
+
+}
+
+message XuanyuanRankHeroProto {
+
+    int64 hero_id = 1; // 玩家id
+
+    uint64 score = 2; // 当前积分
+
+    uint64 rank_score = 3; // 排名积分
+
+    uint64 win = 4; // 胜利次数
+
+    uint64 lose = 5; // 失败次数
+
+    CombatPlayerProto mirror = 6; // 战斗镜像
+}
+
+// 盟友驻扎恢复繁荣度日志
+message AllAstDefendLogProto {
+    map<int64, AstDefendLogListProto> logs = 1;
+}
+
+message AstDefendLogListProto {
+    int64 hero_id = 1;
+    repeated AstDefendLogProto log = 2;
+}

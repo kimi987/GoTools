@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1469592410
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 05e6ba3f538def9e61c5705370b96fee
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Audio/bgm_main2.mp3
+Dependencies: []

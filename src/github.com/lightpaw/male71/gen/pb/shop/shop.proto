@@ -1,0 +1,82 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "shop";
+option optimize_for = SPEED;
+
+
+message S2CUpdateDailyShopGoodsProto {
+
+    int32 id = 1; // 购买物品id
+
+    int32 count = 2; // 已买次数
+
+}
+
+message C2SBuyGoodsProto {
+
+    int32 id = 1; // 商品id，对应ShopGoodsProto.id
+
+    int32 count = 2; // 购买个数
+
+}
+
+message S2CBuyGoodsProto {
+
+    int32 id = 1; // 商品id，对应ShopGoodsProto.id
+
+    int32 count = 2; // 购买个数
+
+    int32 multi = 3; // 暴击倍率
+
+    bytes prize = 4; // 奖励，客户端解析成PrizeProto
+
+}
+
+message S2CMultiCritBroadcastProto {
+
+    int32 shop_type = 3; // 商店类型 (ShopProto.type)
+
+    int32 multi = 1; // 暴击倍率
+
+    string name = 2; // 玩家名字
+
+    bytes prize = 4; // 奖励，客户端解析成PrizeProto
+
+}
+
+message S2CPushBlackMarketGoodsProto {
+
+    bool refrash = 1; // 登陆时候推送为false，刷新时候推送为true
+
+    int32 next_refresh_time = 2; // 下次刷新时间
+
+    repeated int32 goods_id = 3 [packed = false]; // 商品id列表
+
+    repeated int32 discount = 4 [packed = false]; // 商品折扣列表，要除1000，900表示9折
+
+    repeated bool buy = 5 [packed = false]; // 是否已购买
+
+}
+
+message C2SBuyBlackMarketGoodsProto {
+
+    int32 index = 1; // 商品下标，从0开始
+
+}
+
+message S2CBuyBlackMarketGoodsProto {
+
+    int32 index = 1; // 商品下标，从0开始
+
+}
+
+message S2CUpdateVipShopGoodsProto {
+
+    int32 id = 1; // 购买物品id
+
+    int32 count = 2; // 已买次数
+
+}
+

@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 3772990217
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c6d16d82dfb9cbb8d8f25c09a098c9b0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIEffect/U_chuansongmen_zixunhuan.prefab
+Dependencies: []

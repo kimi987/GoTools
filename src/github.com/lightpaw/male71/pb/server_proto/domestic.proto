@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/domestic.proto";
+
+message HeroDomesticServerProto {
+
+    // 资源
+
+    repeated int32 worker_rest_end_time = 16; // 工程队休息到什么时候，时间戳(毫秒数)
+    repeated bool worker_seek_help = 51; // 建筑队是否可以申请帮助
+    repeated bool check_remove_worker_seek_help = 54; // 建筑队是否需要检查移除申请帮助
+    repeated bool worker_always_unlocked = 66; // 建筑队永久解锁
+    repeated int32 worker_lock_start_time = 67; // 建筑队解锁结束重新锁住的时间
+    repeated uint64 building = 18; // 城内建筑对应BuildingDataProto的id
+    repeated HeroResourcePointServerProto resource_point = 19; // 资源点
+    repeated uint64 conflict_resource_points = 20;
+    OuterCitiesProto cities = 23; // 所有分城
+
+    repeated uint64 technology = 21; // 当前已研究获得的科技
+    repeated int32 technology_rest_end_time = 22; // 科技队列休息到什么时候，时间戳(毫秒数)
+    repeated bool technology_seek_help = 52; // 科研队是否可以申请帮助
+    repeated bool check_remove_technology_seek_help = 55; // 科研队是否需要检查移除申请帮助
+
+    repeated uint64 guild_technology = 56; // 已添加的联盟科技
+
+    uint64 daily_help_member_times = 53; // 今日帮助盟友次数
+
+    //    int32 start_recovery_forging_times_time = 25; // 开始恢复锻造次数的时间
+    uint64 forging_combine_times = 26; // 锻造次数
+    repeated uint64 new_forging_pos = 46; // 新锻造位置
+
+    // 装备作坊（新的锻造）
+    repeated uint64 workshop_equipment_ids = 61;
+    uint64 workshop_index = 62;
+    int64 workshop_collect_time = 63;
+    int64 next_refresh_workshop_time = 64;
+    uint64 workshop_refresh_times = 65; // 已经刷新了的次数
+
+    // 城内事件
+    CityEventProto city_event = 30;
+
+    repeated ResType next_collect_time_type = 36; // 下次可征收资源类型
+    repeated int64 next_collect_time = 37; // 下次可征收这种资源的时间
+    uint64 daily_resource_collect_times = 38; // 今日征收资源次数
+
+    // 签名
+    string sign = 40;
+
+    // 语音
+    bytes voice = 41;
+
+    // 倒计时礼包
+    HeroCountdownPrizeServerProto countdown_prize = 42;
+
+    uint64 collectProsperityDownCountDownPrizeTimes = 43; // 领取了繁荣度降低的奖励的次数
+    int64 nextCanCollectProsperityDownCountDownPrizeTime = 44; // 下次可以领取繁荣度降低的奖励的时间
+
+    bool is_collect_season_prize = 57; // 是否领取了季节奖励
+}
+
+message HeroCountdownPrizeServerProto {
+    uint64 id = 1; // id
+    PrizeProto prize = 2; // 可以领取的奖励，may be nil
+    int64 collect_time = 3; // 本次奖励可以领取的时间
+    uint64 desc_id = 4; // 描述索引
+}
+
+message HeroResourcePointServerProto {
+    // 资源点信息
+    uint64 layout_id = 1;
+    uint64 building_id = 2;
+
+    int64 output_start_time = 11;
+
+}

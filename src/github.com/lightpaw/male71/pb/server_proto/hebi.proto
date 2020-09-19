@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/hebi.proto";
+
+message HebiServerProto {
+    HebiInfoProto info = 1; // 当前所有合璧数据
+    map<int64, HebiHeroRecordProto> records = 2; // 所有玩家的合璧战斗记录
+    int64 lastResetRecordTime = 3; // 上次重置战斗记录的时间
+}
+

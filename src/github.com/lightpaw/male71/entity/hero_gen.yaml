@@ -1,0 +1,345 @@
+
+# usage
+#-
+#  name: type_name // struct=HeroGenTypeName shared_proto=HeroGenTypeNameProto server_proto=HeroGenTypeNameServerProto
+#  shared_proto_name: HeroGenTypeNameProto // 可选 自定义SharedProto类型名称，"-"表示不需要shared_proto
+#  server_proto_name: HeroGenTypeNameServerProto // 可选 自定义ServerProto类型名称，"-"表示不需要server_proto
+#  deprecated: bool // true表示弃用，只生成shared_proto
+#  fields:
+#    -
+#      name: field_name
+#      type: field_type
+#      proto: 1 // 字段对应的proto字段序号
+#      shared_proto_field: proto_field_name // 可选，自定义proto中字段名称，"-"表示不需要此字段
+#      shared_proto_type: bytes // 可选，自定义proto中字段的类型（如英雄id，给客户端encode时候使用的是bytes），"-"表示不需要此字段
+#      method:
+#        - method1
+#        - method2
+
+-
+  name: xuanyuan
+  desc: 轩辕会武
+  proto: 1
+  custom_reset: true
+  fields:
+    -
+      name: challenge_target
+      type: int64[]
+      desc: 挑战目标列表
+      proto: 1
+      shared_proto_type: "bytes[]"
+      reset: true
+      method:
+        - add
+        - len
+        - contains
+    -
+      name: score
+      type: uint64
+      desc: 挑战积分
+      proto: 2
+      shared_proto_field: "-"
+      method:
+        - get
+        - add
+        - sub
+    -
+      name: lost_score
+      type: uint64
+      desc: 今日已损失积分
+      proto: 3
+      shared_proto_field: "-"
+      reset: true
+      method:
+        - get
+        - add
+    -
+      name: win
+      type: uint64
+      desc: 获胜场次
+      proto: 4
+      shared_proto_field: "-"
+      method:
+        - get
+        - increse
+    -
+      name: lose
+      type: uint64
+      desc: 失败场次
+      proto: 5
+      shared_proto_field: "-"
+      method:
+        - get
+        - increse
+    -
+      name: rank_prize_collected
+      type: bool
+      desc: 今日已领取排名奖励
+      reset: true
+      proto: 6
+      method:
+        - get
+        - set
+    -
+      name: last_reset_time
+      type: int64
+      desc: 上一次重置时间
+      proto: 7
+      shared_proto_field: "-"
+
+-
+  name: misc_data
+  desc: 英雄杂项
+  proto: 2
+  fields:
+    -
+      name: weekly_reset_time
+      type: time.Time
+      desc: 每周重置时间（上一次）
+      proto: 14
+    -
+      name: daily_reset_time
+      type: time.Time
+      desc: 每日重置时间（上一次）
+      proto: 1
+    -
+      name: season_reset_time
+      type: time.Time
+      desc: 四季重置时间（上一次）
+      proto: 2
+    -
+      name: defenser_next_full_soldier_time
+      type: time.Time
+      desc: 主城防守部队，下次自动补兵时间
+      proto: 3
+      method:
+        - get
+        - set
+    -
+      name: defenser_dont_auto_full_soldier
+      type: bool
+      desc: 主城防守部队，是否不要自动补兵（false表示自动补兵）
+      proto: 4
+      method:
+        - get
+        - set
+    -
+      name: is_restore_prosperity
+      type: bool
+      desc: 是否恢复繁荣度
+      proto: 5
+      shared_proto_field: "-"
+      method:
+        - get
+        - set
+    -
+      name: next_collect_tax_time
+      type: time.Time
+      desc: 下次收税时间
+      proto: 6
+      shared_proto_field: "-"
+      method:
+        - get
+        - set
+    -
+      name: fish_point
+      type: uint64
+      desc: 钓鱼积分
+      proto: 7
+      method:
+        - get
+        - set
+    -
+      name: fish_combo
+      type: uint64
+      desc: 钓鱼连击（高级）
+      proto: 11
+      method:
+        - get
+        - set
+        - increse
+    -
+      name: fishPointExchangeIndex
+      type: int32
+      desc: 钓鱼兑换映射的消耗数组下标
+      proto: 10
+      method:
+        - get
+        - increse
+    -
+      name: ban_chat_end_time
+      type: time.Time
+      desc: 禁言结束时间
+      proto: 8
+      method:
+        - get
+        - set
+    -
+      name: ban_login_end_time
+      type: time.Time
+      desc: 封号结束时间
+      proto: 9
+      shared_proto_field: "-"
+      method:
+        - get
+        - set
+    -
+      name: daily_zero_reset_time
+      type: time.Time
+      desc: 每日零点重置时间（上一次）
+      proto: 12
+    -
+      name: daily_mc_reset_time
+      type: time.Time
+      desc: 每日22点重置时间（上一次）
+      proto: 13
+
+-
+  name: farm_extra
+  desc: 英雄农场相关数据
+  custom_reset: true
+  proto: 3
+  fields:
+    -
+      name: daily_steal_gold
+      type: int32
+      desc: 每日偷铜币总量
+      reset: true
+      proto: 1
+      method:
+        - get
+        - set
+    -
+      name: daily_steal_stone
+      type: int32
+      desc: 每日偷石料总量
+      reset: true
+      proto: 2
+      method:
+        - get
+        - set
+
+-
+  name: country
+  desc: 英雄国家
+  proto: 4
+  fields:
+    -
+      name: country_id
+      type: uint64
+      desc: Id
+      proto: 1
+      method:
+        - get
+        - set
+
+    -
+      name: new_user_expired_time
+      type: time.Time
+      desc: 新手 cd 结束时间
+      proto: 2
+      method:
+        - get
+        - set
+
+    -
+      name: normal_expired_time
+      type: time.Time
+      desc: 非新手 cd 结束时间
+      proto: 3
+      method:
+        - get
+        - set
+
+    - name: appoint_on_same_day
+      type: bool
+      desc: 当天刚被任命
+      proto: 4
+      reset: true
+      method:
+        - get
+        - set
+
+    - name: daily_salary_collected
+      type: bool
+      desc: 今天的俸禄已领
+      proto: 5
+      reset: true
+      method:
+        - get
+        - set
+
+-
+  name: shop
+  desc: 商店
+  proto: 5
+  fields:
+    -
+      name: black_market_daily_refresh_times
+      type: uint64
+      desc: 黑市每日刷新次数
+      proto: 1
+      reset: true
+      method:
+        - get
+        - increse
+
+    -
+      name: black_market_next_refresh_time
+      type: time.Time
+      desc: 黑市下次刷新时间
+      proto: 2
+      method:
+        - get
+        - set
+
+-
+  name: guild_workshop
+  desc: 联盟工坊
+  proto: 6
+  fields:
+    -
+      name: daily_build_times
+      type: uint64
+      desc: 今日建设次数
+      proto: 1
+      reset: true
+      method:
+        - get
+        - increse
+
+    -
+      name: daily_hurt_times
+      type: uint64
+      desc: 今日破坏次数
+      proto: 3
+      reset: true
+      method:
+        - get
+        - increse
+
+    -
+      name: next_hurt_time
+      type: time.Time
+      desc: 下次破坏时间
+      proto: 4
+      method:
+        - get
+        - set
+
+-
+  name: product
+  desc: 渠道相关
+  proto: 7
+  fields:
+    -
+      name: yuanbao_gift_limit
+      type: uint64
+      desc: 可赠送的元宝额度
+      proto: 1
+      method:
+        - get
+        - set
+        - add
+        - sub
+

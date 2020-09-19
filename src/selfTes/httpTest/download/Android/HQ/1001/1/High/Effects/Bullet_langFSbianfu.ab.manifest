@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 1186056869
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 60d871e666238d129c5bb2c2dc6e4532
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e75cf9ae14267f9c32486e2f0933f75e
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Bullet_langFSbianfu.prefab
+Dependencies: []

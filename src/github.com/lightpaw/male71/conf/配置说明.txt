@@ -1,0 +1,1 @@
+cost.txt 消耗配置表（升个级要消耗的资源什么的在这里配置，其他地方关联这里的id）family_name.txt 武将姓氏表race.txt 兵种配置表setting.yaml 杂项配置表（一些不好放在什么的地方的配置，就会出现在这里）sprite_stat.txt 属性配置表domestic/building_layout.txt 城外资源点布局配置表domestic/building.txt 建筑配置表domestic/effect.txt 内政效果配置表（建筑和科技都关联此表）domestic/hero_level.txt 君主等级配置表domestic/technology.txt 科技配置表

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+message HeroCaptainSoulServerProto {
+    repeated CaptainSoulServerProto all_unlock_captain_souls = 4; // 所有解锁了的将魂
+    repeated uint64 all_collect_prize_fetters = 2; // 所有已经领取了的羁绊奖励
+    repeated uint64 all_activated_fetters = 3; // 所有激活了的羁绊
+}
+
+message CaptainSoulServerProto {
+    uint64 id = 1; // 将魂的id
+    uint64 level = 2; // 将魂等级
+    uint64 exp = 3; // 将魂经验
+    repeated bool unlocked_spells = 4; // 解锁的技能，数组第n个为true表示第n个技能是否解锁了，该数组长度可能会大于当前等级的 CaptainSoulLevelDataProto 的 spells 的个数
+    bool mark = 5; // 是否标记了 false 未标记，true 表示标记了，目前false显示新，true不显示
+}

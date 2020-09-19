@@ -1,0 +1,3 @@
+创建英雄初始配置	金钱	粮食	木材	石料	新兵	初始武将	
+name	gold	food	wood	stone	new_soldier	captain	captain
+	40000			40000	10000	39	37

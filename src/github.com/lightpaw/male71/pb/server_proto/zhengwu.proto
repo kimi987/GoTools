@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message HeroZhengWuServerProto {
+    uint64 refresh_times = 1; // 刷新次数
+    int64 next_refresh_time = 2; // 上次自动刷新的时间，如果当前时间 >= next_refresh_time，客户端倒计时显示0，否则显示刷新剩余 next_refresh_time - 当前时间
+    ZhengWuServerProto doing = 3; // 正在做的政务
+    repeated uint64 to_do_list = 4; // 要做的任务列表
+}
+
+message ZhengWuServerProto {
+    uint64 data = 1; // 政务数据，即 ZhengWuDataProto 中的id
+    int64 end_time = 2; // 政务结束时间，单位秒
+}

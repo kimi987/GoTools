@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 1440313150
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d801493a10f6a0e4263f077c82f51f99
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_songshuYX_wuqi1zhanshi.prefab
+Dependencies: []

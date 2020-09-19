@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 4286047539
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2c147a65b0eab23ddfa9ea1cb2776e19
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c73412a662fd4e4f36af34cbdf078b85
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIImage/Emoji/13.png
+Dependencies: []

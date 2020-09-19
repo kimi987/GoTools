@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+
+// 废弃，早期版本国家
+message CountryMiscProto {
+    repeated string invalid_name = 1; // 不被允许的国家名字
+    repeated int32 flag_colors = 2 [packed = false]; // 能够使用的国家旗帜的颜色
+    int32 change_name_cd = 3; // 更改名字的cd
+    CostProto change_name_cost = 4; // 更改名字的消耗
+}
+
+// 废弃，默认国家，早期版本国家
+message DefaultCountryProto {
+    int32 id = 1; // 国家id
+    string name = 2; // 默认国家名字
+    string desc = 6; // 国家简介
+    int32 flag_color = 3; // 默认国家旗帜颜色
+    int32 default_prestige = 4; // 初始声望
+    string icon = 5; // 图标
+}
+
+// 当前的国家简单数据
+message CountryProto {
+    int32 id = 1; // 国家id
+    int32 prestige = 2; // 声望
+    string name = 3; // 国家名字
+    bool destroyed = 4; // 是否被征服
+    HeroBasicProto king = 5; // 国君
+}
+
+// 当前的国家全部数据
+message CountryDetailProto {
+    CountryProto basic = 1;
+    repeated CountryOfficialProto officials = 2; // 官职
+    CountryChangeNameVoteProto vote = 3; // 改名投票
+    int32 next_change_name_time = 4; // 下次改名时间
+}
+
+// 改名投票
+message CountryChangeNameVoteProto {
+    int32 id = 1;
+    string new_name = 2; // 要改的名
+    int32 end_time = 3; // 投票结束时间
+    int32 agree_count = 4; // 同意数
+    int32 disagree_count = 5; // 不同意
+}
+
+// 当前所有的国家
+message CountriesProto {
+    repeated CountryProto countries = 1;
+}
+
+// 国家官职
+message CountryOfficialProto {
+    CountryOfficialType type = 1;
+
+    repeated CountryOfficialHeroProto heros = 2; // 官员们
+}
+
+message CountryOfficialHeroProto {
+    HeroBasicProto hero = 1; // 官员
+    int32 appoint_time = 2; // 任命时间
+    int32 pos = 3; // 位置。可能策划改配置会造成如果多个官员的pos为0，就依次找空位放进去
+}
+
+// 玩家的一部分国家数据
+// 另一部分在 HeroCountryGenProto 中
+// 转国后需要客户端重置数据
+message HeroCountryMiscProto {
+    CountryOfficialType official_type = 1; // 当前官职
+    int32 appoint_time = 3; // 任命时间
+    HeroCountryChangeNameVoteProto vote = 2; // 当前投票
+}
+
+message HeroCountryChangeNameVoteProto {
+    int32 id = 1; // 参与的投票id
+    int32 votes = 2; // 投票数
+    bool agree = 3; // 是否同意
+}

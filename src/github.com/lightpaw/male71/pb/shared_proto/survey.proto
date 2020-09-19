@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+// 问卷调查配置
+message SurveyDataProto {
+    string id = 1; // id，id越大，没答的要求先答题
+    string name = 2;
+    string icon = 3;
+    string url = 4; // 问卷链接
+    UnlockConditionProto condition = 5; // 解锁条件，客户端自己去判断
+    PrizeProto prize = 6; // 奖励
+}
+
+message HeroSurveyProto {
+    repeated string compelete_survey = 1; // 完成了的问卷
+}

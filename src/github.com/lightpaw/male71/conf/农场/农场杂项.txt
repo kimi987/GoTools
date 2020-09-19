@@ -1,0 +1,3 @@
+提前收获比例，千分比	成熟保护时间	偷菜获得比例，千分比	每个地块每次成熟时最多偷菜次数	偷菜日志最大数量		偷取铜币上限	偷取石料上限
+early_harvest_percent	ripe_protect_duration	steal_gain_percent	cube_steal_max_time	steal_log_max_count	steal_log_expired_hours	daily_steal_gold_max_amount	daily_steal_stone_max_amount
+450%	5m	100%	3	100	720h	1000000	1000000

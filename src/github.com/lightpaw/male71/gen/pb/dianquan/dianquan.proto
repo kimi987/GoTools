@@ -1,0 +1,22 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "dianquan";
+option optimize_for = SPEED;
+
+
+message C2SExchangeProto {
+
+    int32 times = 1; // 兑换次数
+
+}
+
+message S2CExchangeProto {
+
+    int32 times = 1; // 兑换次数
+
+    int32 amount = 2; // 获得的点券
+
+}
+

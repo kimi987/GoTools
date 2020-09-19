@@ -1,0 +1,165 @@
+
+# 点击聊天栏的装备查看
+view_chat_equip:
+  c2s:
+    data_id: int // 装备配置id
+    level: int // 装备等级
+    refined: int // 强化等级
+  s2c:
+    data: bytes // shared_proto.EquipmentProto
+  s2c_fail:
+    invalid: // 无效的链接
+
+# 添加装备到背包
+add_equipment:
+  s2c:
+    data: bytes // shared_proto.EquipmentProto
+
+# 添加带过期时间的装备到临时背包
+add_equipment_with_expire_time:
+  s2c:
+    data: bytes // shared_proto.EquipmentProto
+    expire_time: int
+
+# 装备穿戴
+# 穿装备时候，会导致身上相同部位的装备脱下来
+wear_equipment:
+  c2s:
+    captain_id: int // 武将id
+    equipment_id: int // 操作的装备id
+    down: bool // true表示脱装备，否则表示穿装备
+    inhert: bool // 穿装备时有效，true:继承，false:不继承
+  s2c:
+    captain_id: int // 武将id
+    up_id: int // 穿的装备id（将这件装备给武将穿上）同时将临时背包中的过期时间删掉，0表示没有穿装备
+    down_id: int // 脱的装备id（将这件装备放回背包），0表示没有脱
+    taoz: int // 最新的套装id
+  s2c_fail:
+    invalid_captain_id: 无效的武将id
+    invalid_equipment_id: 无效的装备id
+    captain_outside: 武将出征中，不能卸下装备
+    depot_equip_full: 装备背包已满
+    server_error: 服务器忙，请稍后再试
+    captain_outside_must_inherit: 武将出征中，替换装备必须继承
+    captain_outside_quality_err: 武将出征中，必须替换更高品质的装备
+
+# 装备升级
+# setting.UpgradeEquipmentGoodsId 升级装备消耗的物品id（七星砂）
+upgrade_equipment:
+  c2s:
+    captain_id: int // 武将id
+    equipment_id: int // 装备id
+    upgrade_times: int // 升级次数（填10升级10次）
+  s2c:
+    captain_id: int // 武将id
+    equipment_id: int // 装备id
+    level: int // 新等级
+  s2c_fail:
+    invalid_captain_id: 无效的武将id
+    invalid_equipment_id: 无效的装备id
+    level_limit: 已达当前最大等级
+    cost_not_enough: 消耗不足
+    captain_outside: 武将出征中，不能操作
+    server_error: 服务器忙，请稍后再试
+
+# 全部升1级，客户端需要检查，至少有1个装备是可以升级的
+# 可以升级的第一个装备的消耗是足够的
+# setting.UpgradeEquipmentGoodsId 升级装备消耗的物品id（七星砂）
+upgrade_equipment_all:
+  c2s:
+    captain_id: int // 武将id
+  s2c:
+    captain_id: int // 武将id
+    level: int[] // 新等级, [2,0,2]，1 3位置上装备2级，2位置没有装备，4 5位置上装备没升级
+  s2c_fail:
+    invalid_captain_id: 无效的武将id
+    cant_upgrade: 没有可以升级的装备
+    cost_not_enough: 消耗不足
+    captain_outside: 武将出征中，不能操作
+    server_error: 服务器忙，请稍后再试
+
+# 装备强化(升星)
+# setting.RefinedEquipmentGoodsId 强化装备消耗的物品id（强化石）
+refined_equipment:
+  c2s:
+    captain_id: int // 武将id
+    equipment_id: int // 装备id
+  s2c:
+    captain_id: int // 武将id
+    equipment_id: int // 装备id
+    level: int // 新强化等级
+    taoz: int // 最新的套装id
+  s2c_fail:
+    invalid_captain_id: 无效的武将id
+    invalid_equipment_id: 无效的装备id
+    level_limit: 已达当前最大等级
+    hero_level_limit: 君主等级不足
+    cost_not_enough: 消耗不足
+    captain_outside: 武将出征中，不能操作
+    server_error: 服务器忙，请稍后再试
+
+# 更新装备
+# 当装备升级或者强化时候，会收到这个消息
+update_equipment:
+  s2c:
+    data: bytes // shared_proto.EquipmentProto
+
+# 更新多个装备
+update_multi_equipment:
+  s2c:
+    data: bytes[] // shared_proto.EquipmentProto
+
+# 装备熔炼
+# 在装备品质配置中，可以获取到本装备熔炼返回的七星砂个数
+# 每一级升级消耗的七星砂个数
+# 每一级强化消耗的强化石数量
+# 客户端自己根据配置显示返还的资源
+smelt_equipment:
+  c2s:
+    equipment_id: int[] // 装备id
+  s2c:
+    equipment_id: int[] // 装备id，将这些装备从背包中删掉，同时将临时背包中的过期时间删掉
+  s2c_fail:
+    invalid_equipment_id: 无效的装备id
+
+# 装备重铸
+# 参考装备熔炼，获取返还道具个数
+rebuild_equipment:
+  c2s:
+    equipment_id: int[] // 装备id
+  s2c:
+    equipment_id: int[] // 装备id，客户端将装备等级和强化等级设置成1
+  s2c_fail:
+    invalid_equipment_id: 无效的装备id
+    cant_rebuild: 装备没有升级和强化
+
+# 获得已经开启了的装备合成功能
+open_equip_combine:
+  s2c:
+    id: int // 开启了的装备合成id，即：EquipCombineDataProto.Id
+
+# 装备继承
+# 旧装备重置等级为1
+rebuild_upgrade_equipment:
+  s2c:
+    equipment_id: int // 装备id，客户端将装备等级和强化等级设置成1
+    captain_id: int // 武将 id
+
+# 装备继承
+# 旧装备重置强化为0
+rebuild_refine_equipment:
+  s2c:
+    equipment_id: int // 装备id，客户端将装备等级和强化等级设置成1
+    captain_id: int // 武将 id
+
+# 一键卸装
+one_key_take_off:
+  c2s:
+    captain_id: int // 武将id
+  s2c:
+    captain_id: int // 收到回复前端把这个武将身上的装备清干净，脱下的装备另外会走s2c的背包add_equipment消息
+  s2c_fail:
+    no_captain: 没有该武将
+    outside: 武将出征中
+    no_equipment: 没有任何装备
+    depot_space_not_enough: 装备背包空间不足

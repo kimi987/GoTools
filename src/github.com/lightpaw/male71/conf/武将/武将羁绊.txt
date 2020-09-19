@@ -1,0 +1,21 @@
+羁绊id	羁绊的名字		描述		叹号弹窗提示		需要的将魂，配置captain_soul.txt中的id					行军速度提升		给所有武将加属性		给特定职业武将加属性											效果描述		效果数值				
+id	name		desc		tips		captains	captains	captains	captains	captains	move_speed_rate		all_stat		race	race_stat	race	race_stat	race	race_stat	race	race_stat	race	race_stat		effect_desc		effect_amount	effect_desc			effect_amount
+13700001	wjjbname13700001	崛起之势			wjjbtips13700001	千里之行，始于足下。乱世崛起，必有名臣良将相佐，方可立足九州。	1	37	14	28						gong	13701001	xie	13702001								wjjbeffect_descgongji	弓兵、器械加伤提升	5				
+13700002	wjjbname13700002	红颜内助			wjjbtips13700002	孤阳不生，过刚易折。得红颜内助，阴阳相济，刚柔并发，方能问鼎天下。	39	17	18	29						BU	13701002	qi	13702002	che	13703002									wjjbeffect_descfangyu		步兵、骑兵、车兵减伤提升	5
+13700003	wjjbname13700003	战国四将			wjjbtips13700003	起翦颇牧，用军最精。宣威沙漠，驰誉丹青。白起、王翦、廉颇、李牧四人，战功卓著，用兵之术冠绝天下。	32	33	34	35				1		bu	13701003	qi	13702003	gong	13703003	che	13704003	xie	13705003		wjjbeffect_descgongji	弓兵、器械加伤提升	20	wjjbeffect_descfangyu		步兵、骑兵、车兵减伤提升	20
+13700004	wjjbname13700004	围魏救赵			wjjbtips13700004	孙膑庞涓本是同门兄弟，庞涓陷害孙膑，孙膑逃到齐国后率军复仇，避其锋芒，直捣黄龙，围魏国都城，以解赵国重围，成为用计之典范。	2	4	23							gong	13701004	xie	13702004								wjjbeffect_descgongji	弓兵、器械加伤提升	5				
+13700005	wjjbname13700005	战国四公子			wjjbtips13700005	战国末期，为了对抗西边强大的秦国，各诸侯国公子贵族，竭力网罗人才，广招宾客，其中最著名的四人被合称为战国四公子，分别为：赵国平原君赵胜、魏国信陵君魏无忌、齐国孟尝君田文和楚国春申君黄歇。	12	14	13	27						BU	13701005	qi	13702005	che	13703005									wjjbeffect_descfangyu		步兵、骑兵、车兵减伤提升	5
+13700006	wjjbname13700006	法家森严			wjjbtips13700006	立明法，治家国，方为乱世争雄的上上之策。法家之道，亦是强秦立国之道。	26	36	19	30						gong	13701006	xie	13702006								wjjbeffect_descgongji	弓兵、器械加伤提升	20				
+13700007	wjjbname13700007	纵横捭阖			wjjbtips13700007	六国伐秦为合纵，联秦伐异为连横。然纵横之道，尽出于鬼谷门下；苏秦张仪，皆是那王诩门生。	6	7	31							gong	13701007	xie	13702007								wjjbeffect_descgongji	弓兵、器械加伤提升	10				
+13700008	wjjbname13700008	将相之和			wjjbtips13700008	蔺相如居功不自傲，处处忍让大将廉颇。廉颇得知，负荆请罪，两人成为刎颈之交，皆是赵国肱骨之臣。	37	34								gong	13701008	xie	13702008								wjjbeffect_descgongji	弓兵、器械加伤提升	5				
+13700009	wjjbname13700009	楚国名士			wjjbtips13700009	楚地万顷相连，人才辈出，忠志之士忘身于外，贤明之臣劝谏于内。故有楚虽三户，亡秦必楚之说	5	11	22							BU	13701009	qi	13702009	che	13703009									wjjbeffect_descfangyu		步兵、骑兵、车兵减伤提升	5
+13700010	wjjbname13700010	易水寒			wjjbtips13700010	风萧萧，易水寒。自古燕赵多慷慨悲歌之士。若此去不回，便此去不回。	1	10				0.05															wjjbeffect_descxingjun	野外行军速度提升	5				
+13700011	wjjbname13700011	美人计			wjjbtips13700011	养其乱臣以迷之，进美女歌舞以惑之。高飞之鸟，死于美食，深泉之鱼，死于芳饵。越国献美人西施，麻痹吴王，伍子胥屡谏不听，最终饮恨，自刎身亡。	29	3								BU	13701011	qi	13702011	che	13703011									wjjbeffect_descfangyu		步兵、骑兵、车兵减伤提升	10
+13700012	wjjbname13700012	帝国崛起			wjjbtips13700012	秦孝公时期重用商鞅，实行变法，成为秦国崛起的转折点，秦昭襄王在位期间，收回权力，任用贤才，发动伊阙、郢都、华阳、长平四大战役，使秦国的实力和列国发生了根本性转折，从此秦国一家独大，平六国已成定势。	26	7	32	38						BU	13701012	qi	13702012	che	13703012									wjjbeffect_descfangyu		步兵、骑兵、车兵减伤提升	20
+13700013	wjjbname13700013	文侯名臣			wjjbtips13700013	魏文侯尊贤礼士，魏国攻占西河之地，贤才名师汇聚西河，学风浓厚，强军富国，任用西门豹治理邺城，乐羊北伐中山国，吴起西抗秦国，魏国在战国初期首先强盛起来。	8	24	36			0.05															wjjbeffect_descxingjun	野外行军速度提升	5				
+13700014	wjjbname13700014	虎父犬子			wjjbtips13700014	赵奢善于用兵，也能知人善任，察觉自己的儿子赵括自恃聪明，纸上谈兵，不堪重用，屡次劝谏赵王，然而赵王不听，长平之战任用赵括为主帅，造成了四十万赵军被坑杀的惨剧。	15	21								gong	13701014	xie	13702014								wjjbeffect_descgongji	弓兵、器械加伤提升	2				
+13700015	wjjbname13700015	反间连环			wjjbtips13700015	燕国名将乐毅连下齐国城池七十座，在此危急时刻，田单用反间计和连环计，借燕王罢免乐毅，之后用火牛计大破燕国军队，乘胜追击，收复七十座城池。	19	20						1		bu	13701015	qi	13702015	gong	13703015	che	13704015	xie	13705015		wjjbeffect_descgongji	弓兵、器械加伤提升	5	wjjbeffect_descfangyu		步兵、骑兵、车兵减伤提升	5
+13700016	wjjbname13700016	离骚绝唱			wjjbtips13700016	楚怀王沉迷于郑袖的美色，听信奸臣谗言，将屈原流放，屈原政治不得志，一腔热情寄于文学作品之中。秦将白起趁机率军攻入楚国国都郢，屈原悲愤交加，怀石自沉于汨罗江，以身殉国。	16	5								BU	13701016	qi	13702016	che	13703016									wjjbeffect_descfangyu		步兵、骑兵、车兵减伤提升	2
+13700017	wjjbname13700017	巾帼女杰			wjjbtips13700017	巾帼何必让须眉，谁说女子不如男？自古华夏，常有英雄女辈，辅佐明君，制霸天下	9	28	29					1		bu	13701017	qi	13702017	gong	13703017	che	13704017	xie	13705017		wjjbeffect_descgongji	弓兵、器械加伤提升	10	wjjbeffect_descfangyu		步兵、骑兵、车兵减伤提升	10
+13700018	wjjbname13700018	北击匈奴			wjjbtips13700018	匈奴异族自古犯边，华夏男儿拒之于外。李牧蒙恬，皆是战国时期抗击匈奴侵略的大将，在抵抗异族入侵时立下了赫赫战功。	25	35								gong	13701018	xie	13702018								wjjbeffect_descgongji	弓兵、器械加伤提升					
+13700019	wjjbname13700019	兴师伐楚			wjjbtips13700019	平定六国的战争中，楚国可谓最大的阻碍。秦国大将李信先言二十万大军足矣，却惨败于楚将项燕之手。随后老将王翦复出，统领六十万大军，方才灭楚。	40	22	33							BU	13701019	qi	13702019	che	13703019									wjjbeffect_descfangyu		步兵、骑兵、车兵减伤提升	10

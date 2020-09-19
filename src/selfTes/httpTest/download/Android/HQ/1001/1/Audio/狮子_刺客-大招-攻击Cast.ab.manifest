@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2632751009
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7bf6d6e0a46f79c173370c22b624bc4e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- "Assets/Resources/Audio/\u72EE\u5B50_\u523A\u5BA2-\u5927\u62DB-\u653B\u51FBCast.mp3"
+Dependencies: []

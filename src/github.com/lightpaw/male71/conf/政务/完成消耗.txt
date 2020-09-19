@@ -1,0 +1,8 @@
+"""品质    WHITE = 1; // 白色    GREEN = 2; // 绿色    BLUE = 3; // 蓝色    PURPLE = 4; // 紫色    ORANGE = 5; // 橙色    RED = 6; // 红色"""	该品质直接完成对应的消耗
+quality	cost
+WHITE	1
+GREEN	3
+BLUE	5
+PURPLE	8
+ORANGE	10
+RED	15

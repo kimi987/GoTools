@@ -1,0 +1,164 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "mail";
+option optimize_for = SPEED;
+
+
+message C2SListMailProto {
+
+    int32 read = 11; // 0-全部 1-未读 2-已读
+
+    int32 keep = 8; // 0-全部 1-未收藏 2-已收藏
+
+    int32 report = 9; // 战报 0-全部 1-无 2-有
+
+    int32 report_tag = 14; // 战报分类标签(系统邮件默认为0) 0-战斗报告 1-野外讨伐 2-掠夺殷墟
+
+    int32 has_prize = 5; // 奖励 0-全部 1-无 2-有
+
+    int32 collected = 10; // 0-全部 1-未领取 2-已领取
+
+    bytes min_id = 13; // 最小的邮件的id，服务器返回比这个id小的一批邮件(客户端当前没有邮件时候，不发)
+
+    int32 count = 7; // 请求邮件个数
+
+}
+
+message S2CListMailProto {
+
+    int32 read = 8; // 0-全部 1-未读 2-已读
+
+    int32 keep = 5; // 0-全部 1-未收藏 2-已收藏
+
+    int32 report = 6; // 战报 0-全部 1-无 2-有
+
+    int32 report_tag = 9; // 战报分类标签(系统邮件默认为0) 0-战斗报告 1-野外讨伐 2-掠夺殷墟
+
+    int32 has_prize = 3; // 奖励 0-全部 1-无 2-有
+
+    int32 collected = 7; // 0-全部 1-未领取 2-已领取
+
+    repeated bytes mail = 1; // shared_proto.MailProto
+
+}
+
+message S2CReceiveMailProto {
+
+    bytes mail = 1; // shared_proto.MailProto
+
+}
+
+message C2SDeleteMailProto {
+
+    bytes id = 3; // 邮件id
+
+}
+
+message S2CDeleteMailProto {
+
+    bytes id = 3; // 删除邮件id
+
+}
+
+message C2SKeepMailProto {
+
+    bytes id = 4; // 邮件id
+
+    bool keep = 2; // true表示收藏，false表示取消收藏
+
+}
+
+message S2CKeepMailProto {
+
+    bytes id = 4; // 邮件id
+
+    bool keep = 2; // true表示收藏，false表示取消收藏
+
+}
+
+message C2SCollectMailPrizeProto {
+
+    bytes id = 3; // 邮件id
+
+}
+
+message S2CCollectMailPrizeProto {
+
+    bytes id = 3; // 邮件id，客户端标记为已领取
+
+}
+
+message C2SReadMailProto {
+
+    bytes id = 3; // 邮件id
+
+}
+
+message S2CReadMailProto {
+
+    bytes id = 3; // 邮件id
+
+}
+
+message S2CNotifyMailCountProto {
+
+    int32 has_prize_not_collected_count = 1; // 有奖励没有领取的邮件数量
+
+    int32 has_report_not_readed_count = 2; // 没有读取的战斗报告数量(对应report_tag=0)
+
+    int32 has_yw_report_not_readed_count = 4; // 没有读取的野外讨伐数量(对应report_tag=1)
+
+    int32 has_bz_report_not_readed_count = 5; // 没有读取的掠夺殷墟数量(对应report_tag=2)
+
+    int32 no_report_not_readed_count = 3; // 没有读取的邮件数量
+
+}
+
+message C2SReadMultiProto {
+
+    repeated bytes ids = 5; // 邮件id列表
+
+    bool report = 3; // true表示战报，false表示系统邮件
+
+}
+
+message S2CReadMultiProto {
+
+    repeated bytes ids = 6; // 邮件id列表
+
+    bool report = 4; // true表示战报，false表示系统邮件
+
+    bytes prize = 2; // shared_proto.PrizeProto 本次领取的奖励，有就弹框
+
+}
+
+message C2SDeleteMultiProto {
+
+    repeated bytes ids = 5; // 邮件id列表
+
+    bool report = 3; // true表示战报，false表示系统邮件
+
+}
+
+message S2CDeleteMultiProto {
+
+    repeated bytes ids = 5; // 邮件id列表
+
+    bool report = 3; // true表示战报，false表示系统邮件
+
+}
+
+message C2SGetMailProto {
+
+    bytes bid = 1; // 邮件id
+
+}
+
+message S2CGetMailProto {
+
+    bytes data = 2; // shared_proto.MailProto
+
+}
+

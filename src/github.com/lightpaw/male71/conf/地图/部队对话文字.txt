@@ -1,0 +1,42 @@
+Id	头像	内容	持续时间	方向 0-左 1-右		
+id	head	text	duration	direction		
+1	ui://GeneralIcon/GeneralIcon39	[color=#FEFF91]小七[/color] 我们抓紧行军，一举消灭匈奴残余部队。	3s	1		荆轲
+2	ui://GeneralIcon/GeneralIcon39	[color=#FEFF91]小七[/color] 讨伐会引起野外势力对您的仇恨值。	3s	1		庞涓
+3	ui://GeneralIcon/GeneralIcon39	[color=#FEFF91]小七[/color] 贵族3级可以快捷讨伐野外势力。	3s	1		伍子胥
+4	ui://GeneralIcon/GeneralIcon39	[color=#FEFF91]小七[/color] 其实我们可以使用行军加速道具，遇到不妙还可以召回部队。	3s	1		田忌
+5	ui://GeneralIcon/GeneralIcon39	[color=#FEFF91]小七[/color] 仇恨值满100，野外势力会进攻我们的城池。	3s	1		屈原
+						苏秦
+						张仪
+						西门豹
+						钟无艳
+						高渐离
+						鲁班
+						平原君
+						春申君
+						孟尝君
+						赵括
+						郑袖
+						东施
+						夏姬
+						乐毅
+						田单
+						赵奢
+						项燕
+						孙膑
+						乐羊
+						蒙恬
+						商鞅
+						信陵君
+						芈月
+						西施
+						韩非
+						鬼谷子
+						白起
+						王翦
+						廉颇
+						李牧
+						吴起
+						蔺相如
+						范雎
+						小七
+						李信

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+message HeroBasicSnapshotServerProto {
+    int64 id = 1; // id
+    string name = 2; // 名字
+    string head = 3; // 头像
+    uint64 level = 4; // 君主等级
+    bool male = 5; // 君主性别,true-男 false-女
+
+    int64 base_region = 21;
+    uint64 base_level = 22;
+    int32 base_x = 23;
+    int32 base_y = 24;
+
+    uint64 fight_amount = 25; // 战斗力
+    uint64 prosperity = 26; // 繁荣度
+
+    int64 guild_id = 31; // 联盟id
+    string guild_name = 32; // 联盟
+    string guild_flag_name = 33; // 联盟旗号
+
+}

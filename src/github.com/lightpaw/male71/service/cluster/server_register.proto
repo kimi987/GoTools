@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package cluster;
+
+message GameServerInfoProto {
+
+    // 4 byte ip address. eg. 192.168.1.1 (must be intranet address or localhost address)
+    bytes address = 1;
+
+    // server port
+    uint32 port = 2;
+
+    // server id
+    uint32 id = 3;
+
+    // server name
+    string name = 4;
+
+    // 连接服地址
+    string conn_addr = 5;
+
+    // 游戏服监控地址
+    string metrics_addr = 6;
+
+    // 游戏服版本号
+    string version = 7;
+
+    // 游戏服配置版本号
+    string config_version = 8;
+
+    // 客户端热更新版本号，如"stable1_1"
+    string client_version = 9;
+
+    // 游戏服的rpc监听地址
+    string rpc_addr = 11;
+
+    // 版本编译时间
+    int32 build_time = 12;
+}

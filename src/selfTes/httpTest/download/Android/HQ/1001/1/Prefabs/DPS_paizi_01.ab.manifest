@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 3511722869
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5bdc630ca973ea73b057438353df9be1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ccaa2ceb450958a17b3f837d29cf979c
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/DPS_paizi_01.prefab
+Dependencies: []

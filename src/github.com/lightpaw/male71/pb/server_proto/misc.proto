@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+// 各种操作cd类型，有新的内容再往后面加
+enum OperationCDType {
+    InvalidCDType = 0; // 无效的类型
+    SecretTowerShout = 1; // 重楼密室喊话
+    FightShare = 2; // 百战千军或轩辕会武分享
+    HebiShout = 3; // 天命合璧喊话
+    XiongnuRemind = 4; // 提醒开启匈奴
+    MailShare = 5; // 邮件（战报）分享
+}

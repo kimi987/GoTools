@@ -1,0 +1,11 @@
+星数	图标	描述	奖励: 配置 杂项/奖励.txt 中的id	掉落，可以不配置，不配置就使用前面的奖励
+star	icon	desc	prize	plunder
+20	icon1	desc1	60001	
+40	icon2	desc2	60002	
+60	icon3	desc3	60003	
+80	icon4	desc4	60004	
+100	icon5	desc5	60005	
+120	icon6	desc6	60006	
+140	icon7	desc7	60007	
+160	icon8	desc8	60008	
+180	icon9	desc9	60009	

@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 3919857033
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e67ea5c2ceb65510f1ce45f211cd39ec
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f38824681169df2b8fb05a288a4abe56
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Com_chongshengdengdai.prefab
+Dependencies: []

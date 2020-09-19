@@ -1,0 +1,3 @@
+名城每日最高可加民心	名城每日下降的民心	营建cd	每日每人营建最大次数	可以营建的最小玩家等级	联盟最大推荐名城数量	名城营建记录排名最大数量
+max_daily_add_support	daily_reduce_support	build_cd	daily_build_max_count	build_min_hero_level	max_recommend_mc_guild_count	max_mc_build_log_count
+200	30	1h	2	3	1	100

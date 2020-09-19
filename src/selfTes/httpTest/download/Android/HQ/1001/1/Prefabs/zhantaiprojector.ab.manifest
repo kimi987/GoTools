@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 3791946740
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a4ff650c64c62ad6595958396384ac78
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 141f9f72e8a7ab0f33a29d9dc214ef33
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 69640b3be0bee7d4b851e3b526669f06, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 119
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/zhantaiprojector.prefab
+Dependencies: []

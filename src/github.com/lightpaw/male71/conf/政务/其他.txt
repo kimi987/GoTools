@@ -1,0 +1,3 @@
+刷新时间				每次刷新出来的数量	新手第一个政务
+auto_refresh_duration	auto_refresh_duration	auto_refresh_duration	auto_refresh_duration	random_count	first_zheng_wu
+4h	12h	17h	21h	5	11201099

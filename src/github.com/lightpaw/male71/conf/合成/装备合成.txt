@@ -1,0 +1,3 @@
+Id	GroupName	CombineData			
+id	group_name	combine_data	combine_data	combine_data	combine_data
+1	Æ¤ÖÆÌ××°	1			

@@ -1,0 +1,6 @@
+id	次数区间	次数区间	伤害加成描述	伤害加成万分比区间	伤害加成万分比区间	伤害减免万分比描述	伤害减免万分比区间	伤害减免万分比区间
+id	drum_min	drum_max	drum_damage_incre_desc	drum_damage_incre_min	drum_damage_incre_max	drum_damage_decre_desc	drum_damage_decre_min	drum_damage_decre_max
+1	1	30	肃杀之音	20	30	坚守之意	20	30
+2	31	50	肃杀之音	15	25	坚守之意	15	25
+3	51	100	肃杀之音	10	20	坚守之意	10	20
+4	101	100000	肃杀之音	10	15	坚守之意	10	15

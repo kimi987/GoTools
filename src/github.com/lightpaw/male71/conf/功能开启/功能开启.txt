@@ -1,0 +1,77 @@
+功能类型：    TYPE_TOWER = 1; // 千重楼    TYPE_SECRET_TOWER = 2; // 重楼密室    TYPE_BAI_ZHAN = 3; // 百战千军    TYPE_FISHING = 4; // 钓鱼    TYPE_SHOP = 5; // 商店		需要的官府等级	需要的建筑id	需要的玩家等级	需要完成第几个主线任务	需要完成第几阶段霸业目标	千重楼层数	幻境 ID							
+function_type		guan_fu_level	building	hero_level	main_task	ba_ye_stage	tower_floor	dungeon							
+4	TYPE_FISHING			1											
+5	TYPE_SHOP			1											
+1	TYPE_TOWER					8									
+3	TYPE_BAI_ZHAN					10									
+2	TYPE_SECRET_TOWER						20								
+16	TYPE_MAIN_TASK			10											
+17	TYPE_ACTIVE_DEGREE_TASK					8							TYPE_TOWER = 1; // 千重楼		
+19	TYPE_ACHIEVE_TASK					6							    TYPE_SECRET_TOWER = 2; // 重楼密室		
+34	TYPE_ZHEN_BAO_GE			11									    TYPE_BAI_ZHAN = 3; // 百战千军		
+38	TYPE_MULTI_LEVEL_MONSTER					2							    TYPE_FISHING = 4; // 钓鱼		
+7	TYPE_CAPTAIN			1									    TYPE_SHOP = 5; // 商店		
+8	TYPE_CAPTAIN_ABILITY			1									    TYPE_MONSTER_REGION = 6; // 玉石地区		
+9	TYPE_CAPTAIN_CHANGE_RACE			1									    TYPE_CAPTAIN = 7; // 武将		
+10	TYPE_CAPTAIN_REBIRTH			1									    TYPE_CAPTAIN_ABILITY = 8; // 武将成长		
+11	TYPE_CAPTAIN_SOUL			1									    TYPE_CAPTAIN_CHANGE_RACE = 9; // 武将转职		
+12	TYPE_EQUIP			7									    TYPE_CAPTAIN_REBIRTH = 10; // 武将转生		
+13	TYPE_EQUIP_UPGRADE			15									    TYPE_CAPTAIN_SOUL = 11; // 武将将魂		
+14	TYPE_EQUIP_REFINE			27									    TYPE_EQUIP = 12; // 装备		
+15	TYPE_EQUIP_GEM			40									    TYPE_EQUIP_UPGRADE = 13; // 装备升级		
+18	TYPE_BA_YE			1									    TYPE_EQUIP_REFINE = 14; // 装备强化		
+20	TYPE_GUILD			1									    TYPE_EQUIP_GEM = 15; // 装备宝石		
+21	TYPE_GUILD_DONATE			1									    TYPE_MAIN_TASK = 16; // 主线任务		
+22	TYPE_GUILD_HELP			1									    TYPE_ACTIVE_DEGREE_TASK = 17; // 活跃度任务		
+23	TYPE_GUILD_PACKAGE			1									    TYPE_BA_YE = 18; // 霸业目标		
+24	TYPE_REGION			1									    TYPE_ACHIEVE_TASK = 19; // 成就任务		
+25	TYPE_REGION_NPC			1									    TYPE_GUILD = 20; // 联盟		
+26	TYPE_REGION_INFLUENCE			1									    TYPE_GUILD_DONATE = 21; // 联盟捐献		
+27	TYPE_REGION_FAVORITE			1									    TYPE_GUILD_HELP = 22; // 联盟协助		
+28	TYPE_DUNGEON			2									    TYPE_GUILD_PACKAGE = 23; // 联盟礼包		
+30	TYPE_DIAO_KE			1									    TYPE_REGION = 24; // 地区切换功能图标		
+31	TYPE_EQUIP_FORGING			1									    TYPE_REGION_NPC = 25; // 地区npc山寨		
+32	TYPE_EQUIP_SMELT			15									    TYPE_REGION_INFLUENCE = 26; // 地区势力开关		
+33	TYPE_RECHARGE			1									    TYPE_REGION_FAVORITE = 27; // 地区收藏		
+35	TYPE_YUAN_BAO_SHOP			1									    TYPE_DUNGEON = 28; // 推图		
+36	TYPE_GUILD_CONTRIBUTION_SHOP			1									    TYPE_FEN_CHENG = 29; // 分城		
+37	TYPE_JADE_SHOP			1									    TYPE_DIAO_KE = 30; // 雕刻玉璧		
+39	TYPE_ZHENG_WU					8							    TYPE_EQUIP_FORGING = 31; // 装备锻造		
+40	TYPE_TREASURY_TREE					5							    TYPE_EQUIP_SMELT = 32; // 装备熔炼		
+41	TYPE_QUESTION			11									    TYPE_RECHARGE = 33; // 充值		
+42	TYPE_ZHAN_JIANG					9							    TYPE_ZHEN_BAO_GE = 34; // 珍宝阁		
+43	TYPE_BWZL					9							    TYPE_YUAN_BAO_SHOP = 35; // 元宝商店		
+44	TYPE_DUNGEON_AUTO							10206					    TYPE_GUILD_CONTRIBUTION_SHOP = 36; // 联盟贡献商店		
+45	TYPE_COUNTDOWN_PRIZE			6									    TYPE_JADE_SHOP = 37; // 玉璧商店		
+46	TYPE_XUANYUAN			23									    TYPE_MULTI_LEVEL_MONSTER = 38; // 讨伐野怪		
+47	TYPE_HEBI					12							    TYPE_ZHENG_WU = 39; // 政务		
+48	TYPE_BAOZANG					7							    TYPE_TREASURY_TREE = 40; // 摇钱树		
+49	TYPE_JUNQING			3									    TYPE_ZHAN_JIANG = 41; // 过关斩将TYPE_QUESTION = 42; // 答题		
+51	TYPE_WORKER		70001										    TYPE_QUESTION = 42; // 答题		
+52	TYPE_RANK			8									TYPE_BWZL = 43//霸王之路		
+53	TYPE_FARM			2									TYPE_DUNGEON_AUTO = 44; // 幻境扫荡		
+54	TYPE_STRONGER			6									TYPE_COUNTDOWN_PRIZE = 45; // 马车进贡		
+55	TYPE_TITLE					7							TYPE_XUANYUAN = 46; // 轩辕会武		
+29	TYPE_FEN_CHENG	20011											TYPE_HEBI = 47; // 天命合璧		
+56	TYPE_FEN_CHENG_2	20020											TYPE_BAOZANG = 48; // 宝藏争夺		
+57	TYPE_FEN_CHENG_3	20024											TYPE_JUNQING = 49; // 军情		
+58	TYPE_FEN_CHENG_4	20028											TYPE_TROOP = 50; // 队伍		
+50	TYPE_TROOP			8									TYPE_WORKER = 51; // 研究队列		
+59	TYPE_TROOP_3			25									TYPE_RANK = 52; // 排行		
+60	TYPE_OFFICIAL					9							TYPE_FARM = 53; // 农场		
+61	TYPE_PROMOTION_LOGIN			1									TYPE_STRONGER = 54; // 变强		
+62	TYPE_DUNGEON_ELITE							10309					TYPE_TITLE = 55; // 称号		
+63	TYPE_JUN_TUAN			27									TYPE_FEN_CHENG_2 = 56; // 分城2		
+64	TYPE_BLACK_MARKET			11									TYPE_FEN_CHENG_3 = 57; // 分城3		
+65	教学关卡			5									TYPE_FEN_CHENG_4 = 58; // 分城4		
+66	名城营建			6									TYPE_TROOP_3 = 59; // 队伍3		
+67	游商			11									TYPE_OFFICIAL		60官职
+68	银两商店			27									TYPE_PROMOTION_LOGIN = 61; // 登陆礼包		
+69	日常活动			2									TYPE_JUN_TUAN = 63; // 集结军团怪		
+70	君主策略			20									TYPE_BLACK_MARKET = 64; // 黑市商店		
+													"TYPE_TEACH  = 65, -- 教学关卡"		
+													"TYPE_MC_BUILD = 66, -- 名城营建"		
+													"TYPE_YOU_SHANG = 67, – 游商"		
+													TYPE_TAEL_MARKET = 68 – 银两商店		
+													TYPE_DAILY_ACTIVITY = 69 – 日常活动		
+													TYPE_STRATEGY = 70 – 君主策略		

@@ -1,0 +1,186 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "equipment";
+option optimize_for = SPEED;
+
+
+message C2SViewChatEquipProto {
+
+    int32 data_id = 1; // 装备配置id
+
+    int32 level = 2; // 装备等级
+
+    int32 refined = 3; // 强化等级
+
+}
+
+message S2CViewChatEquipProto {
+
+    bytes data = 1; // shared_proto.EquipmentProto
+
+}
+
+message S2CAddEquipmentProto {
+
+    bytes data = 1; // shared_proto.EquipmentProto
+
+}
+
+message S2CAddEquipmentWithExpireTimeProto {
+
+    bytes data = 1; // shared_proto.EquipmentProto
+
+    int32 expire_time = 2;
+
+}
+
+message C2SWearEquipmentProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 equipment_id = 2; // 操作的装备id
+
+    bool down = 3; // true表示脱装备，否则表示穿装备
+
+    bool inhert = 4; // 穿装备时有效，true:继承，false:不继承
+
+}
+
+message S2CWearEquipmentProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 up_id = 2; // 穿的装备id（将这件装备给武将穿上）同时将临时背包中的过期时间删掉，0表示没有穿装备
+
+    int32 down_id = 3; // 脱的装备id（将这件装备放回背包），0表示没有脱
+
+    int32 taoz = 4; // 最新的套装id
+
+}
+
+message C2SUpgradeEquipmentProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 equipment_id = 2; // 装备id
+
+    int32 upgrade_times = 3; // 升级次数（填10升级10次）
+
+}
+
+message S2CUpgradeEquipmentProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 equipment_id = 2; // 装备id
+
+    int32 level = 3; // 新等级
+
+}
+
+message C2SUpgradeEquipmentAllProto {
+
+    int32 captain_id = 1; // 武将id
+
+}
+
+message S2CUpgradeEquipmentAllProto {
+
+    int32 captain_id = 1; // 武将id
+
+    repeated int32 level = 2 [packed = false]; // 新等级, [2,0,2]，1 3位置上装备2级，2位置没有装备，4 5位置上装备没升级
+
+}
+
+message C2SRefinedEquipmentProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 equipment_id = 2; // 装备id
+
+}
+
+message S2CRefinedEquipmentProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 equipment_id = 2; // 装备id
+
+    int32 level = 3; // 新强化等级
+
+    int32 taoz = 4; // 最新的套装id
+
+}
+
+message S2CUpdateEquipmentProto {
+
+    bytes data = 1; // shared_proto.EquipmentProto
+
+}
+
+message S2CUpdateMultiEquipmentProto {
+
+    repeated bytes data = 1; // shared_proto.EquipmentProto
+
+}
+
+message C2SSmeltEquipmentProto {
+
+    repeated int32 equipment_id = 1 [packed = false]; // 装备id
+
+}
+
+message S2CSmeltEquipmentProto {
+
+    repeated int32 equipment_id = 1 [packed = false]; // 装备id，将这些装备从背包中删掉，同时将临时背包中的过期时间删掉
+
+}
+
+message C2SRebuildEquipmentProto {
+
+    repeated int32 equipment_id = 1 [packed = false]; // 装备id
+
+}
+
+message S2CRebuildEquipmentProto {
+
+    repeated int32 equipment_id = 1 [packed = false]; // 装备id，客户端将装备等级和强化等级设置成1
+
+}
+
+message S2COpenEquipCombineProto {
+
+    int32 id = 1; // 开启了的装备合成id，即：EquipCombineDataProto.Id
+
+}
+
+message S2CRebuildUpgradeEquipmentProto {
+
+    int32 equipment_id = 1; // 装备id，客户端将装备等级和强化等级设置成1
+
+    int32 captain_id = 2; // 武将 id
+
+}
+
+message S2CRebuildRefineEquipmentProto {
+
+    int32 equipment_id = 1; // 装备id，客户端将装备等级和强化等级设置成1
+
+    int32 captain_id = 2; // 武将 id
+
+}
+
+message C2SOneKeyTakeOffProto {
+
+    int32 captain_id = 1; // 武将id
+
+}
+
+message S2COneKeyTakeOffProto {
+
+    int32 captain_id = 1; // 收到回复前端把这个武将身上的装备清干净，脱下的装备另外会走s2c的背包add_equipment消息
+
+}
+

@@ -1,0 +1,5 @@
+展示排序的id	展示排序的名字	"数值类型，按照配置顺序来进行展示:    PT_GOLD = 1; // 金币    PT_FOOD = 2; // 食物    PT_WOOD = 3; // 木头    PT_STONE = 4; // 石头    PT_GOODS = 5; // 物品    PT_EQUIP = 6; // 装备    PT_CAPTAIN = 7; // 将魂    PT_GEM = 8; // 宝石    PT_CAPTAIN_EXP = 9; // 武将经验    PT_HERO_EXP = 10; // 君主经验    PT_PROSPERITY = 11; // 繁荣度    PT_YUANBAO = 12; // 元宝    PT_JADE = 13; // 玉石    PT_JADE_ORE = 14; // 玉石矿   PT_DIANQUAN = 15"											
+id	name	amount_types	amount_types	amount_types	amount_types	amount_types	amount_types	amount_types	amount_types	amount_types	amount_types	amount_types	
+1	金币/食物	PT_HERO_EXP	PT_CAPTAIN_EXP	PT_GUILD_CONTRIBUTION_COIN	PT_YUANBAO	PT_DIANQUAN	PT_CAPTAIN	PT_GEM	PT_EQUIP	PT_GOODS	PT_GOLD	PT_STONE	PT_PROSPERITY
+2		PT_YUANBAO	PT_GEM	PT_EQUIP	PT_DIANQUAN	PT_GOODS	PT_HERO_EXP	PT_CAPTAIN	PT_GOLD	PT_STONE			
+3		PT_DIANQUAN	PT_HERO_EXP	PT_CAPTAIN	PT_EQUIP	PT_YUANBAO	PT_STONE	PT_GOODS	PT_GEM	PT_GOLD			

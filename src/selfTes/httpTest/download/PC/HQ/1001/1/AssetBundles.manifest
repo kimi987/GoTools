@@ -1,0 +1,52 @@
+ManifestFileVersion: 0
+CRC: 3062448619
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: "\u4E4C\u9F9F_\u523A\u5BA2.ab"
+      Dependencies: {}
+    Info_1:
+      Name: "\u4E4C\u9F9F_\u523A\u5BA2_1.ab"
+      Dependencies: {}
+    Info_2:
+      Name: "\u4E4C\u9F9F_\u6218\u58EB.ab"
+      Dependencies: {}
+    Info_3:
+      Name: "\u4E4C\u9F9F_\u6218\u58EB_1.ab"
+      Dependencies: {}
+    Info_4:
+      Name: "\u4E4C\u9F9F_\u6CD5\u5E08.ab"
+      Dependencies: {}
+    Info_5:
+      Name: "\u4E4C\u9F9F_\u6CD5\u5E08_1.ab"
+      Dependencies: {}
+    Info_6:
+      Name: "\u4E4C\u9F9F_\u6E38\u4FA0 1.ab"
+      Dependencies: {}
+    Info_7:
+      Name: "\u4E4C\u9F9F_\u6E38\u4FA0.ab"
+      Dependencies: {}
+    Info_8:
+      Name: "\u4E4C\u9F9F_\u7267\u5E08 1.ab"
+      Dependencies: {}
+    Info_9:
+      Name: "\u4E4C\u9F9F_\u7267\u5E08.ab"
+      Dependencies: {}
+    Info_10:
+      Name: "\u5154\u5B50_\u523A\u5BA2.ab"
+      Dependencies: {}
+    Info_11:
+      Name: "\u5154\u5B50_\u523A\u5BA2_1.ab"
+      Dependencies: {}
+    Info_12:
+      Name: "\u5154\u5B50_\u6218\u58EB.ab"
+      Dependencies: {}
+    Info_13:
+      Name: "\u5154\u5B50_\u6218\u58EB_1.ab"
+      Dependencies: {}
+    Info_14:
+      Name: "\u5154\u5B50_\u6CD5\u5E08.ab"
+      Dependencies: {}
+    Info_15:
+      Name: "\u5154\u5B50_\u6CD5\u5E08_1.ab"
+      Dependencies: {}

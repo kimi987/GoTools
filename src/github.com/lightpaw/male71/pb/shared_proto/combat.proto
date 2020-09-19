@@ -1,0 +1,212 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/military.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+
+// 客户端检测哪个不为空，就播放哪个，两个都为空，就提示解析战报失败，不播放了
+
+enum CombatType {
+    SINGLE = 0; // 1v1，url中拿到的数据解析成 CombatProto
+    MULTI = 1; // 多人对战，url中拿到的数据解析成 MultiCombatProto
+    SINGLE_X = 2; // 新版 1v1，url中拿到的数据解析成 CombatXProto
+}
+
+// 战斗分享proto
+message CombatShareProto {
+    string link = 1; // link，客户端通过type(CombatType)解析link取得的数据
+    string second_link = 4; // 备用连接，第一个连接不可用时候，使用这个
+    bool is_attacker = 2; // 是否是进攻方视角
+    CombatType type = 3; // 类型
+}
+
+message CombatProto {
+
+    // 初始数据 进攻方 防守方
+    CombatPlayerProto attacker = 1;
+    repeated CombatTroopsPosProto attacker_troop_pos = 7;
+    CombatPlayerProto defenser = 2;
+    repeated CombatTroopsPosProto defenser_troop_pos = 8;
+
+    // 地图资源
+    string map_res = 3;
+    int32 map_x_len = 4;
+    int32 map_y_len = 5;
+
+    // 战斗过程
+    repeated CombatRoundProto rounds = 6;
+
+    // 如果玩家选择跳过，则直接获取下面的数据，展示结算面板
+
+    // 胜利方 true表示进攻方胜利了
+    bool attacker_win = 11;
+
+    // 对战双方出战的士兵数量，Key是战斗index，Value是士兵数
+    repeated Int32Pair combat_solider = 14;
+
+    // 存活的士兵，Key是战斗index，Value是士兵数
+    repeated Int32Pair alive_solider = 12;
+
+    // 击杀的士兵，Key是战斗index，Value是士兵数
+    repeated Int32Pair kill_solider = 18;
+
+    // 评分，0-险胜 1-小胜 2-大胜 3-完胜
+    int32 score = 13;
+
+    // 战斗在第几条队列上面展开，从1开始
+    int32 fight_queue = 15;
+
+    // 胜利方是否连胜离场
+    bool is_winner_continue_win_leave = 16;
+
+    // 胜利方连胜次数
+    int32 winner_continue_win_times = 17;
+}
+
+message MultiCombatProto {
+
+    // 初始数据 进攻方 防守方
+    repeated CombatPlayerProto attacker = 1;
+    repeated CombatPlayerProto defenser = 2;
+
+    // 地图资源
+    string map_res = 3;
+    int32 map_x_len = 4;
+    int32 map_y_len = 5;
+
+    int32 concurrent_fight_count = 6; // 同时战斗的人数，该数据一定会>0
+
+    // 整场战斗最终的胜利方 true表示进攻方胜利了
+    bool attacker_win = 11;
+
+    // 评分，0-险胜 1-小胜 2-大胜 3-完胜
+    int32 score = 13;
+
+    // 战斗
+    repeated CombatProto combats = 14;
+
+    int32 attacker_dead_count = 15; // 进攻方死亡队伍数量
+    int32 defenser_dead_count = 16; // 防守方死亡队伍数量
+
+    int32 attacker_leave_count = 17; // 进攻方连胜离场队伍数量
+    int32 defenser_leave_count = 18; // 防守方连胜离场队伍数量
+
+    repeated BytesInt32Pair win_times = 19; // 各支部队的连胜次数 key 是玩家id，value 是连胜次数
+}
+
+message CombatRoundProto {
+    int32 round = 1; // 回合数
+    repeated CombatActionProto actions = 2;
+    WallActionProto wall_action = 3; // 墙的行动，可能为空
+}
+
+message CombatActionProto {
+
+    int32 index = 1; // 单位索引号（哪个家伙行动）
+
+    // 表示移动方向（每次移动一格），没有值表示这个单位不移动
+    Direction move_direction = 3;
+
+    // 被攻击对象和伤害值，0表示没有对象可以打，但是可能攻击的是城墙
+    int32 target_index = 4;
+    // 总击杀的士兵数，此处 = 普通技能击杀的士兵数 + 克制技击杀的士兵数 + 后面其他的击杀的士兵数，计算普通技能击杀的士兵数 = 总击杀的士兵数 - 克制技击杀的士兵数 - 后面其他的击杀的士兵数
+    int32 damage = 5;
+    // 被攻击对象剩余士兵数量
+    int32 left_soldier = 10;
+
+    HurtType hurt_type = 6;
+    // 造成普通伤害的技能id
+    int32 normal_spell = 8;
+
+    // 克制技(restraint_spell>0表示触发了克制技)
+    // 如果当前释放了克制技，客户端将特效显示该技能的动作/特效，如果找不到该技能的配置，默认释放普通技能的动作/特效
+    int32 restraint_spell_damage = 7; // 克制技击杀的士兵数，可能为0
+    int32 restraint_spell = 9; // 造成克制技伤害的技能id
+
+    // 伤害城墙的生命值，0表示没有伤害
+    int32 hurt_wall_life = 15;
+    // 城墙剩余血量
+    int32 wall_left_life = 17;
+    // 伤害城墙的技能，如果hurt_wall_life为0，则不需要读取
+    int32 hurt_wall_spell = 16;
+
+    // 剩余行动力
+    int32 left_move_times = 20;
+}
+
+message WallActionProto {
+    // 被攻击对象和伤害值，0表示没有对象可以打
+    int32 target_index = 4;
+    // 城墙击杀的士兵数
+    int32 damage = 5;
+    // 被攻击对象剩余士兵数量
+    int32 left_soldier = 6;
+}
+
+enum Direction {
+    ORIGIN = 0; // 原地不动
+    UP = 1;
+    LEFT_UP = 2;
+    LEFT = 3;
+    LF_DOWN = 4;
+    DOWN = 5;
+    RIGHT_DOWN = 6;
+    RIGHT = 7;
+    RIGHT_UP = 8;
+}
+
+message CombatPlayerProto {
+    HeroBasicProto hero = 11; // 英雄数据
+
+    // 下面这一堆过期处理
+    //    bytes id = 1;
+    //    string name = 2;
+    //    string guild = 3;
+    //    string head = 4; // 通过 config.Icons去获得图标
+    //    int32 guild_id = 5;
+    //    string guild_flag_name = 6; // 联盟旗号
+    //    bool male = 7; // true表示男女
+    //    int32 level = 9; // 君主等级
+    //    int32 country = 10; // 国家
+
+    int32 total_fight_amount = 8; // 总的战斗力
+
+    repeated CombatTroopsProto troops = 21; // 部队
+
+    // 城墙，如果城墙属性不为空，表示有城墙
+    int32 total_wall_life = 30; // 城墙最大生命值
+    // 城墙的属性，客户端不要读取
+    SpriteStatProto wall_stat = 31;
+    // 城墙的固定伤害，客户端不要读取
+    int32 wall_fix_damage = 32;
+    // 城墙等级
+    int32 wall_level = 33;
+}
+
+message CombatTroopsProto {
+    //    int32 index = 1; // 单位索引号，从1开始（自增，如果两边1v1，那么index就是1和2）
+    int32 x = 2; // 初始坐标
+    int32 y = 3;
+
+    int32 fight_index = 5; // 出战队列的位置，1-5
+
+    // 武将信息
+    CaptainInfoProto captain = 4;
+}
+
+message CombatTroopsPosProto {
+    int32 index = 1; // 单位索引号，从1开始（自增，如果两边1v1，那么index就是1和2）
+    int32 x = 2; // 初始坐标
+    int32 y = 3;
+}
+
+enum HurtType {
+    InvalidHurtType = 0; // 兼容proto2
+    NORMAL = 1; // 普通攻击
+    CRIT = 2; // 暴击
+    MISS = 3; // 闪避
+}

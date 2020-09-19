@@ -1,0 +1,766 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "domestic";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/buffer.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/season.proto";
+
+
+message S2CUpdateResourceBuildingProto {
+
+    int32 id = 1; // 布局id
+
+    int32 amount = 2; // 当前可以收集的量
+
+    int32 capcity = 3; // 最大容量
+
+    int32 output = 4; // 产量，每小时
+
+    bool conflict = 5; // true表示冲突，此资源点不再增长
+
+    bool base_level_lock = 6; // true表示主城等级不足
+
+}
+
+message S2CUpdateMultiResourceBuildingProto {
+
+    repeated int32 id = 1 [packed = false]; // 布局id
+
+    repeated int32 amount = 2 [packed = false]; // 当前可以收集的量
+
+    repeated int32 capcity = 3 [packed = false]; // 最大容量
+
+    repeated int32 output = 4 [packed = false]; // 产量，每小时
+
+    repeated bool conflict = 5 [packed = false]; // true表示冲突，此资源点不再增长
+
+    repeated bool base_level_lock = 6 [packed = false]; // true表示主城等级不足
+
+}
+
+message C2SCreateBuildingProto {
+
+    int32 id = 1; // 对应建筑布局shared_proto.BuildingLayoutProto的id
+
+    int32 type = 2; // 建筑类型(资源点允许建不同类型的，所以需要指定要建哪个)
+
+}
+
+message S2CCreateBuildingProto {
+
+    int32 id = 1; // 布局id
+
+    int32 building = 2; // 新的建筑id，对应shared_proto.BuildingDataProto的id
+
+    int32 worker_pos = 6; // 建筑队序号
+
+    int32 worker_rest_end_time = 3; // 对应序号的建筑队进入cd，Unix时间戳（秒）
+
+}
+
+message C2SUpgradeBuildingProto {
+
+    int32 id = 1; // 对应建筑布局shared_proto.BuildingLayoutProto的id
+
+}
+
+message S2CUpgradeBuildingProto {
+
+    int32 id = 1; // 布局id
+
+    int32 building = 2; // 新的建筑id，对应shared_proto.BuildingDataProto的id
+
+    int32 worker_pos = 6; // 建筑队序号
+
+    int32 worker_rest_end_time = 3; // 对应序号的建筑队进入cd，Unix时间戳（秒）
+
+}
+
+message C2SRebuildResourceBuildingProto {
+
+    int32 id = 1; // 对应建筑布局shared_proto.BuildingLayoutProto的id
+
+    int32 type = 2; // 改建类型
+
+}
+
+message S2CRebuildResourceBuildingProto {
+
+    int32 id = 1; // 布局id
+
+    int32 building = 2; // 新的建筑id，对应shared_proto.BuildingDataProto的id
+
+    int32 worker_pos = 4; // 建筑队序号
+
+    int32 worker_rest_end_time = 3; // 对应序号的建筑队进入cd，Unix时间戳（秒）
+
+}
+
+message C2SUnlockOuterCityProto {
+
+    int32 id = 1; // 外城id OuterCityDataProto.Id
+
+    int32 t = 2; // 解锁外城类型，0-军事外城 1-经济外城
+
+}
+
+message S2CUnlockOuterCityProto {
+
+    bytes outer_city = 1; // 客户端解析成 OuterCityProto
+
+}
+
+message C2SUpdateOuterCityTypeProto {
+
+    int32 id = 1; // 外城id OuterCityDataProto.Id
+
+    int32 t = 2; // 改建外城类型，0-军事外城 1-经济外城
+
+}
+
+message S2CUpdateOuterCityTypeProto {
+
+    int32 id = 1; // 外城id OuterCityDataProto.Id
+
+    int32 t = 2; // 改建外城类型，0-军事外城 1-经济外城
+
+    repeated int32 ids = 3 [packed = false]; // 新的建筑id列表
+
+}
+
+message C2SUpgradeOuterCityBuildingProto {
+
+    int32 id = 1; // 外城建筑id OuterCityLayoutDataProto.Id
+
+}
+
+message S2CUpgradeOuterCityBuildingProto {
+
+    int32 city_id = 2; // 外城id
+
+    int32 old_id = 3; // 旧的外城建筑id，即 c2s 发送过来的id
+
+    int32 id = 1; // 新的外城建筑id OuterCityLayoutDataProto.Id，客户端取到 OuterCityLayoutDataProto.Layout，将旧的数据覆盖掉
+
+}
+
+message S2CResourceUpdateProto {
+
+    int32 gold = 1;
+
+    int32 food = 2;
+
+    int32 wood = 3;
+
+    int32 stone = 4;
+
+    bool is_safe = 5;
+
+}
+
+message S2CResourceUpdateSingleProto {
+
+    int32 res_type = 1;
+
+    int32 amount = 2;
+
+    bool is_safe = 3;
+
+}
+
+message S2CResourceCapcityUpdateProto {
+
+    int32 gold_capcity = 1; // 金钱最大容量
+
+    int32 food_capcity = 2;
+
+    int32 wood_capcity = 3;
+
+    int32 stone_capcity = 4;
+
+    int32 protected_capcity = 9; // 受保护容量
+
+}
+
+message C2SCollectResourceProto {
+
+    int32 id = 1; // 对应建筑布局shared_proto.BuildingLayoutProto的id
+
+}
+
+message S2CCollectResourceProto {
+
+    int32 id = 1; // 布局id
+
+    int32 amount = 3; // 本次采集了多少
+
+}
+
+message C2SCollectResourceV2Proto {
+
+    int32 res_type = 1; // 资源类型(ResType)
+
+}
+
+message S2CCollectResourceV2Proto {
+
+    int32 res_type = 1; // 资源类型(ResType)
+
+    int32 amount = 2; // 本次采集了多少
+
+    int32 collect_times = 3; // 已经采集了多少次
+
+    int32 next_collect_time = 4; // 下次这种资源可以采集的时间，unix时间戳（秒）
+
+}
+
+message S2CCollectResourceTimesChangedProto {
+
+    int32 start_recover_collect_time = 1; // 开始恢复采集的时间
+
+}
+
+message S2CResourcePointChangeV2Proto {
+
+    bytes data = 1; // ResourcePointV2Proto
+
+}
+
+message S2CRequestResourceConflictProto {
+
+    repeated string flag = 1; // 旗号
+
+    repeated string name = 2; // 名字
+
+}
+
+message C2SLearnTechnologyProto {
+
+    int32 id = 1; // 科技分组，shared_proto.TechnologyDataProto.group
+
+}
+
+message S2CLearnTechnologyProto {
+
+    int32 id = 1; // 学习到的科技id
+
+    int32 worker_pos = 2; // 科研的序号
+
+    int32 worker_rest_end_time = 3; // 选择对应序号的科研队进入cd，Unix时间戳（秒）
+
+}
+
+message C2SUnlockStableBuildingProto {
+
+    int32 type = 1; // shared_proto.BuildingType
+
+}
+
+message S2CUnlockStableBuildingProto {
+
+    int32 building = 1; // 新的建筑id，对应shared_proto.BuildingDataProto的id
+
+}
+
+message C2SUpgradeStableBuildingProto {
+
+    int32 type = 1; // shared_proto.BuildingType
+
+    int32 level = 2; // 当前等级
+
+}
+
+message S2CUpgradeStableBuildingProto {
+
+    int32 building = 1; // 新的建筑id，对应shared_proto.BuildingDataProto的id
+
+    int32 worker_pos = 2; // 建筑队序号
+
+    int32 worker_rest_end_time = 3; // 对应序号的建筑队进入cd，Unix时间戳（秒）
+
+}
+
+message S2CHeroUpdateExpProto {
+
+    int32 exp = 1; // 经验
+
+}
+
+message S2CHeroUpgradeLevelProto {
+
+    int32 exp = 2; // 经验
+
+    int32 level = 1; // 君主新等级
+
+}
+
+message S2CHeroUpdateProsperityProto {
+
+    int32 prosperity = 1; // 当前繁荣度
+
+    int32 capcity = 2; // 繁荣度最大值，这个值 >0 时候更新繁荣度
+
+}
+
+message C2SIsHeroNameExistProto {
+
+    string name = 1; // 新名字
+
+}
+
+message S2CIsHeroNameExistProto {
+
+    string name = 1; // 新名字
+
+    bool exist = 2; // true(存在)/false(不存在)
+
+}
+
+message C2SChangeHeroNameProto {
+
+    string name = 1; // 新名字
+
+}
+
+message S2CChangeHeroNameProto {
+
+    string name = 1; // 新名字
+
+    int32 next_change_name_time = 2; // 下次可以改名的时间
+
+}
+
+message S2CHeroNameChangedBroadcastProto {
+
+    bytes id = 1; // 君主id
+
+    string name = 2; // 君主名字
+
+}
+
+message C2SListOldNameProto {
+
+    bytes id = 1; // 玩家id
+
+}
+
+message S2CListOldNameProto {
+
+    repeated string name = 1; // 曾用名列表
+
+}
+
+message C2SViewOtherHeroProto {
+
+    bytes id = 1; // 玩家id
+
+}
+
+message S2CViewOtherHeroProto {
+
+    bytes hero = 16; // 解析成 OtherHeroProto
+
+}
+
+message C2SViewFightInfoProto {
+
+    bytes id = 1; // 玩家id
+
+}
+
+message S2CViewFightInfoProto {
+
+    bytes id = 1; // 玩家id
+
+    int32 realm_fight_success = 2; // 战斗胜利次数
+
+    int32 realm_fight_fail = 3; // 战斗失败次数
+
+    int32 realm_assist = 4; // 援助战斗次数
+
+    int32 realm_been_assist = 5; // 被援助战斗次数
+
+    int32 inverstigation = 6; // 瞭望次数
+
+    int32 been_inverstigation = 7; // 被瞭望次数
+
+}
+
+message S2CUpdateBuildingWorkerCoefProto {
+
+    int32 coef = 1; // 系数，除以1000得到小数
+
+}
+
+message S2CUpdateTechWorkerCoefProto {
+
+    int32 coef = 1; // 系数，除以1000得到小数
+
+}
+
+message S2CUpdateBuildingWorkerFatigueDurationProto {
+
+    int32 fatigue = 1; // 建筑队疲劳时间，秒
+
+}
+
+message S2CUpdateTechWorkerFatigueDurationProto {
+
+    int32 fatigue = 1; // 科技队疲劳时间，秒
+
+}
+
+message C2SMiaoBuildingWorkerCdProto {
+
+    int32 worker_pos = 1; // 建筑队序号，从0开始
+
+}
+
+message S2CMiaoBuildingWorkerCdProto {
+
+    int32 worker_pos = 1; // 建筑队序号，将建筑队cd清0
+
+}
+
+message C2SMiaoTechWorkerCdProto {
+
+    int32 worker_pos = 1; // 科研队序号，从0开始
+
+}
+
+message S2CMiaoTechWorkerCdProto {
+
+    int32 worker_pos = 1; // 科研队序号，将科研队cd清0
+
+}
+
+message S2CUpdateYuanbaoProto {
+
+    int32 yuanbao = 1; // 最新的元宝数
+
+}
+
+message S2CUpdateYuanbaoGiftLimitProto {
+
+    int32 yuanbao_gift_limit = 1; // 最新的元宝赠送额度
+
+}
+
+message S2CUpdateDianquanProto {
+
+    int32 dianquan = 1; // 最新的点券数
+
+}
+
+message S2CUpdateYinliangProto {
+
+    int32 yinliang = 1; // 最新的银两数
+
+}
+
+message S2CUpdateHeroFightAmountProto {
+
+    int32 fight_amount = 1; // 君主防守战力
+
+}
+
+message S2CRecoveryForgingTimeChangeProto {
+
+    int32 times = 3; // 锻造已锻造次数
+
+    int32 next_time = 4; // 下次可锻造次数，unix时间戳
+
+}
+
+message C2SForgingEquipProto {
+
+    int32 slot = 1; // 第几件装备，此处为下标从0开始
+
+}
+
+message S2CForgingEquipProto {
+
+    int32 slot = 1; // 第几件装备，此处为下标从0开始
+
+}
+
+message S2CUpdateNewForgingPosProto {
+
+    repeated int32 new_forging_pos = 1 [packed = false]; // 新的锻造位置
+
+}
+
+message C2SSignProto {
+
+    string text = 1; // 签名内容
+
+}
+
+message C2SVoiceProto {
+
+    bytes content = 1; // 语音内容
+
+}
+
+message S2CBuildingWorkerTimeChangedProto {
+
+    int32 worker_pos = 1; // 建筑队序号
+
+    int32 worker_rest_end_time = 2; // 对应序号的建筑队进入cd，Unix时间戳（秒）
+
+}
+
+message S2CTechWorkerTimeChangedProto {
+
+    int32 worker_pos = 1; // 科研队序号
+
+    int32 worker_rest_end_time = 2; // 对应序号的科研队进入cd，Unix时间戳（秒）
+
+}
+
+message S2CCityEventTimeChangedProto {
+
+    int32 next_time = 1; // 下次事件的时间
+
+}
+
+message S2CRequestCityExchangeEventProto {
+
+    int32 accept_times = 1; // 接受的事件的次数
+
+    int32 event_id = 2; // 事件的id， CityEventDataProto.id
+
+}
+
+message C2SCityEventExchangeProto {
+
+    bool give_up = 1; // 放弃(true)/兑换(false)
+
+}
+
+message S2CCityEventExchangeProto {
+
+    bool give_up = 1; // 放弃(true)/兑换(false)，用于提示，收到后，将当前的 CityEventProto.event_id 设置为0
+
+}
+
+message S2CUpdateStrategyRestoreStartTimeProto {
+
+    int32 time = 1; // unix时间戳，单位秒
+
+}
+
+message S2CUpdateStrategyNextUseTimeProto {
+
+    int32 id = 1; // 策略id
+
+    int32 time = 2; // unix时间戳，单位秒
+
+}
+
+message S2CUpdateJadeOreProto {
+
+    int32 amount = 1;
+
+}
+
+message S2CUpdateJadeProto {
+
+    int32 amount = 1;
+
+    int32 history_jade = 2; // 历史上获得的玉璧数量
+
+    int32 today_obtain_jade = 3; // 今天获得的玉璧数量，收到 misc.reset_daily 协议，将 today_obtain_jade 重置为0
+
+}
+
+message C2SChangeHeadProto {
+
+    string head_id = 2; // 头像id, 客户端也可以发送默认头像上来，http开头的是默认头像
+
+}
+
+message S2CChangeHeadProto {
+
+    string head_id = 3; // 头像id
+
+}
+
+message C2SChangeBodyProto {
+
+    int32 body_id = 1; // 形象id, Configs.Bodys 中的id
+
+}
+
+message S2CChangeBodyProto {
+
+    int32 body_id = 1; // 形象id
+
+}
+
+message S2CCollectCountdownPrizeProto {
+
+    bytes prize = 1; // shared_proto.PrizeProto 领取的奖励，不是下一次奖励的数据
+
+    int32 collect_time = 2; // 下一次领取的时间，unix时间戳（秒）
+
+    int32 desc_id = 3; // 领取的描述更新显示内容，不是下一次奖励的数据（包含图标，描述之类的），shared_proto.CountdownPrizeDescDataProto
+
+    int32 prosprity = 4; // 加的繁荣度
+
+}
+
+message S2CListWorkshopEquipmentProto {
+
+    int32 refresh_time = 1; // 下一次刷新时间
+
+    repeated int32 equipment = 2 [packed = false]; // 装备id
+
+    repeated int32 duration = 3 [packed = false]; // 锻造所需时间
+
+    int32 index = 4; // 锻造中的装备索引，从1开始，0表示没有锻造中的装备
+
+    int32 collect_time = 5; // 装备锻造完成时间（完成之后可以领取），unix时间戳
+
+    int32 workshop_refresh_times = 6; // 已经刷新了的次数
+
+}
+
+message C2SStartWorkshopProto {
+
+    int32 index = 1; // 锻造装备索引，从1开始
+
+}
+
+message S2CStartWorkshopProto {
+
+    int32 index = 1; // 锻造装备索引，从1开始
+
+    int32 collect_time = 2; // 装备锻造完成时间（完成之后可以领取），unix时间戳
+
+}
+
+message C2SCollectWorkshopProto {
+
+    int32 index = 1; // 锻造装备索引，从1开始，0表示全部领取
+
+}
+
+message S2CCollectWorkshopProto {
+
+    int32 index = 1; // 锻造装备索引，从1开始，0表示全部领取
+
+}
+
+message C2SWorkshopMiaoCdProto {
+
+    int32 index = 1; // 锻造装备索引，从1开始
+
+}
+
+message S2CWorkshopMiaoCdProto {
+
+    int32 index = 1; // 成功秒CD的锻造装备索引，从1开始
+
+}
+
+message S2CSeasonStartBroadcastProto {
+
+    Season season = 1; // 季节
+
+    int32 start_time = 2; // 开始时间，客户端自己根据季节间隔，计算下个季节的开始时间
+
+    bool is_reset = 3; // true表示季节重置
+
+}
+
+message S2CUpdateCostReduceCoefProto {
+
+    int32 building = 1; // 建筑消耗减少系数，这个值除以1000，得到小数
+
+    int32 tech = 2; // 科技消耗减少系数，这个值除以1000，得到小数
+
+}
+
+message S2CUpdateSpProto {
+
+    int32 sp = 1; // 当前体力值
+
+}
+
+message C2SBuySpProto {
+
+    int32 buy_times = 1; // 购买几次
+
+}
+
+message S2CBuySpProto {
+
+    int32 sp = 1; // 当前体力值
+
+    int32 buy_sp_times = 2; // 已经购买的总次数（要计算剩余次数，请用配置里面的buy_sp_limit减去这个数字）
+
+}
+
+message C2SUseBufEffectProto {
+
+    int32 id = 1; // 增益id
+
+}
+
+message S2CUseBufEffectProto {
+
+    BufferEffectProto buf_effect = 1;
+
+}
+
+message S2COpenBufEffectUiProto {
+
+    HeroBufferProto buffers = 1;
+
+}
+
+message C2SUseAdvantageProto {
+
+    int32 id = 1; // 增益id
+
+}
+
+message S2CUseAdvantageProto {
+
+    int32 id = 1; // 增益id
+
+    int32 start_time = 2; // 开始时间
+
+    int32 end_time = 3; // 结束时间
+
+}
+
+message S2CUpdateAdvantageCountProto {
+
+    int32 count = 1;
+
+}
+
+message C2SWorkerUnlockProto {
+
+    int32 pos = 1;
+
+}
+
+message S2CWorkerUnlockProto {
+
+    int32 pos = 1;
+
+    int32 new_lock_start_time = 2; // 新的重新锁住时间
+
+}
+
+message S2CWorkerAlwaysUnlockProto {
+
+    int32 pos = 1; // 永久解锁的建筑队pos
+
+}
+

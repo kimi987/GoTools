@@ -1,0 +1,122 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+message HeroGenServerProto {
+
+	HeroGenXuanyuanServerProto xuanyuan = 1; // 轩辕会武
+
+	HeroGenMiscDataServerProto misc_data = 2; // 英雄杂项
+
+	HeroGenFarmExtraServerProto farm_extra = 3; // 英雄农场相关数据
+
+	HeroGenCountryServerProto country = 4; // 英雄国家
+
+	HeroGenShopServerProto shop = 5; // 商店
+
+	HeroGenGuildWorkshopServerProto guild_workshop = 6; // 联盟工坊
+
+	HeroGenProductServerProto product = 7; // 渠道相关
+
+}
+
+
+message HeroGenXuanyuanServerProto {
+
+    repeated int64 challenge_target = 1; // 挑战目标列表
+
+    uint64 score = 2; // 挑战积分
+
+    uint64 lost_score = 3; // 今日已损失积分
+
+    uint64 win = 4; // 获胜场次
+
+    uint64 lose = 5; // 失败场次
+
+    bool rank_prize_collected = 6; // 今日已领取排名奖励
+
+    int64 last_reset_time = 7; // 上一次重置时间
+
+}
+
+message HeroGenMiscDataServerProto {
+
+    int64 weekly_reset_time = 14; // 每周重置时间（上一次）
+
+    int64 daily_reset_time = 1; // 每日重置时间（上一次）
+
+    int64 season_reset_time = 2; // 四季重置时间（上一次）
+
+    int64 defenser_next_full_soldier_time = 3; // 主城防守部队，下次自动补兵时间
+
+    bool defenser_dont_auto_full_soldier = 4; // 主城防守部队，是否不要自动补兵（false表示自动补兵）
+
+    bool is_restore_prosperity = 5; // 是否恢复繁荣度
+
+    int64 next_collect_tax_time = 6; // 下次收税时间
+
+    uint64 fish_point = 7; // 钓鱼积分
+
+    uint64 fish_combo = 11; // 钓鱼连击（高级）
+
+    int32 fishPointExchangeIndex = 10; // 钓鱼兑换映射的消耗数组下标
+
+    int64 ban_chat_end_time = 8; // 禁言结束时间
+
+    int64 ban_login_end_time = 9; // 封号结束时间
+
+    int64 daily_zero_reset_time = 12; // 每日零点重置时间（上一次）
+
+    int64 daily_mc_reset_time = 13; // 每日22点重置时间（上一次）
+
+}
+
+message HeroGenFarmExtraServerProto {
+
+    int32 daily_steal_gold = 1; // 每日偷铜币总量
+
+    int32 daily_steal_stone = 2; // 每日偷石料总量
+
+}
+
+message HeroGenCountryServerProto {
+
+    uint64 country_id = 1; // Id
+
+    int64 new_user_expired_time = 2; // 新手 cd 结束时间
+
+    int64 normal_expired_time = 3; // 非新手 cd 结束时间
+
+    bool appoint_on_same_day = 4; // 当天刚被任命
+
+    bool daily_salary_collected = 5; // 今天的俸禄已领
+
+}
+
+message HeroGenShopServerProto {
+
+    uint64 black_market_daily_refresh_times = 1; // 黑市每日刷新次数
+
+    int64 black_market_next_refresh_time = 2; // 黑市下次刷新时间
+
+}
+
+message HeroGenGuildWorkshopServerProto {
+
+    uint64 daily_build_times = 1; // 今日建设次数
+
+    uint64 daily_hurt_times = 3; // 今日破坏次数
+
+    int64 next_hurt_time = 4; // 下次破坏时间
+
+}
+
+message HeroGenProductServerProto {
+
+    uint64 yuanbao_gift_limit = 1; // 可赠送的元宝额度
+
+}
+

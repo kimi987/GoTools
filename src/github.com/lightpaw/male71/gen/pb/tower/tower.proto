@@ -1,0 +1,80 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "tower";
+option optimize_for = SPEED;
+
+
+message C2SChallengeProto {
+
+    int32 floor = 1; // 当前所在楼层
+
+}
+
+message S2CChallengeProto {
+
+    string link = 3; // 战斗数据存放位置，通过http获取回放数据
+
+    bytes share = 7; // 战斗分享，客户端解析成 CombatShareProto
+
+    bytes first_pass_prize = 4; // shared_proto.PrizeProto 首胜奖励
+
+    bytes prize = 5; // shared_proto.PrizeProto 获得的奖励
+
+    int32 auto_max_floor = 6; // 更新扫荡可达最高楼层
+
+}
+
+message S2CFailureChallengeProto {
+
+    int32 challenge_times = 1; // 更新挑战次数
+
+    int32 next_reset_challenge_time = 4; // 下次重置挑战次数时间
+
+    string link = 2; // 战斗数据存放位置
+
+    bytes share = 3; // 战斗分享，客户端解析成 CombatShareProto
+
+}
+
+message S2CAutoChallengeProto {
+
+    int32 floor = 1; // 最新楼层
+
+    repeated bytes prize = 2; // shared_proto.PrizeProto 获得的每一层奖励
+
+}
+
+message C2SCollectBoxProto {
+
+    int32 box_floor = 1; // 要领取的重楼宝箱楼层
+
+}
+
+message S2CCollectBoxProto {
+
+    int32 box_floor = 1; // 更新重楼宝箱楼层
+
+}
+
+message C2SListPassReplayProto {
+
+    int32 floor = 1;
+
+}
+
+message S2CListPassReplayProto {
+
+    int32 floor = 1;
+
+    bytes data = 2; // shared_proto.PassReplayProto
+
+}
+
+message S2CUpdateCurrentFloorProto {
+
+    int32 floor = 1; // 当前楼层
+
+}
+

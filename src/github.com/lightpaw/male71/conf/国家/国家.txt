@@ -1,0 +1,9 @@
+国家id	国家名字		出生点坐标		出生地半径		都城		NPC官职	官职npc.txt id。可配多个		NPC官职	官职npc.txt id。可配多个
+id	name		born_center_x	born_center_y	born_radius_x	born_radius_y	capital		npc_official	npc_id		npc_official	npc_id
+1	齐		34	41	2	2	19		1	1		2	8
+2	楚		15	41	2	2	4		1	2		2	9
+3	秦		7	12	2	2	1		1	3		2	10
+4	燕		41	30	2	2	7		1	4		2	11
+5	赵		24	7	2	2	13		1	5		2	12
+6	魏		41	11	2	2	16		1	6		2	13
+7	韩		31	7	2	2	10		1	7		2	14

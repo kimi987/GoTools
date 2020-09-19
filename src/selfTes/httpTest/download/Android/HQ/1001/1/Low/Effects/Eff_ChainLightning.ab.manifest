@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 18775701
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9c131f055bed19e11c740b049d1f73d4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1adc5a232d10b958e947e14e7ff3484b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8bed8e28eacb94c4e9070c3f35ce6118, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 120
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_ChainLightning.prefab
+Dependencies: []

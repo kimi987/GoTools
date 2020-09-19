@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 771435678
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3e86e8b05b230570738f35c37546a9f1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6441f4c48b8293a736413520ea1a9530
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIEffect/Eff_shengji_new.prefab
+Dependencies: []

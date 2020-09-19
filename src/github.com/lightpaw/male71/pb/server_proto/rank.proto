@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+message RankServerProto {
+    repeated TowerRankServerProto tower = 1; // 千重楼的保存数据
+    repeated BaiZhanRankServerProto bai_zhan = 2; // 百战的保存数据
+    repeated StarTaskRankServerProto star_task = 3; // 成就星数的保存数据
+    repeated XuanyRankServerProto xuanyuan = 4; // 轩辕会武的保存数据
+}
+
+message TowerRankServerProto {
+    int64 hero_id = 1; // 玩家id
+    uint64 max_floor = 2; // 最大层数
+    int64 time = 3; // 时间
+}
+
+message BaiZhanRankServerProto {
+    int64 hero_id = 1; // 玩家id
+    uint64 jun_xian_level = 2; // 军衔等级
+    uint64 last_jun_xian_level = 4; // 昨日军衔等级
+    uint64 point = 6; // 积分
+    int64 time = 3; // 时间
+    uint64 fight_amount = 5; // 战斗力
+}
+
+message StarTaskRankServerProto {
+    int64 hero_id = 1; // 玩家id
+    uint64 star = 2; // 成就星数
+    int64 time = 3; // 时间
+}
+
+message XuanyRankServerProto {
+    int64 hero_id = 1; // 玩家id
+    uint64 point = 2; // 昨日积分
+    uint64 win = 3; // 胜利次数
+    uint64 lose = 4; // 失败次数
+}

@@ -1,0 +1,1032 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "region";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/guild.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/region.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+
+
+message S2CUpdateMapRadiusProto {
+
+    int32 center_x = 1; // 中心坐标
+
+    int32 center_y = 2;
+
+    int32 radius = 3; // 半径
+
+}
+
+message C2SUpdateSelfViewProto {
+
+    int32 pos_x = 1; // x 坐标
+
+    int32 pos_y = 2; // y 坐标
+
+    int32 len_x = 3; // x 坐标方向可以看到多少格子
+
+    int32 len_y = 4; // y 坐标方向可以看到多少格子
+
+}
+
+message S2CUpdateSelfViewProto {
+
+    int32 min_x = 1; // min x 坐标
+
+    int32 min_y = 2; // min y 坐标
+
+    int32 max_x = 3; // max x 坐标
+
+    int32 max_y = 4; // max y 坐标
+
+}
+
+message S2CAddBaseUnitProto {
+
+    int32 add_type = 1; // 0-进入视野 1-新建角色 2-重建 3-迁移 4-更新
+
+    bytes data = 2; // shared_proto.BaseUnitProto
+
+}
+
+message S2CUpdateNpcBaseInfoProto {
+
+    int32 map_id = 1; // 地图id
+
+    bytes npc_id = 2; // npc的id
+
+    int32 base_x = 3; // x坐标
+
+    int32 base_y = 4; // y坐标
+
+    int32 data_id = 5; // npc数据id
+
+    int32 data_type = 6; // 0-普通npc 1-多等级野怪npc 3-联盟工坊 5-宝藏Npc  7-军团
+
+    int32 guild_id = 7; // 联盟id
+
+    string guild_name = 16; // 联盟名字
+
+    string guild_flag_name = 17; // 联盟旗号
+
+    int32 country = 18; // 国家
+
+    int32 mian_disappear_time = 8; // 免战结束时间，unix时间戳（秒）
+
+    int32 prosperity = 9; // 繁荣度（宝藏怪物时有效，繁荣度上限从配置读取，表示还有多少份奖励可以掠夺）
+
+    bool has_defenser = 11; // 是否有防守怪物（宝藏怪物时有效，怪点上是否要显示防守怪物）
+
+    bytes hero = 22; // shared_proto.HeroBasicProto 宝藏击杀者，宝藏创建者
+
+    int32 hero_end_time = 23; // 宝藏击杀者控制结束时间，宝藏创建者过期时间
+
+    int32 hero_type = 24; // 0-宝藏击杀者 1-宝藏创建者
+
+    int32 progress = 14; // 进度
+
+    int32 total_progress = 15; // 总进度
+
+    int32 progress_type = 19; // 进度类型，0-分子分母类型 1-倒计时类型（progress分子表示开始时间，分母表示结束时间）
+
+}
+
+message S2CUpdateBaseProgressProto {
+
+    bytes id = 1; // 城池id
+
+    int32 progress = 2; // 进度
+
+    int32 total_progress = 3; // 总进度
+
+    int32 progress_type = 4; // 进度类型，0-分子分母类型 1-倒计时类型（progress分子表示开始时间，分母表示结束时间）
+
+}
+
+message S2CRemoveBaseUnitProto {
+
+    int32 remove_type = 1; // 0-离开视野 1-迁移 2-流亡
+
+    bytes hero_id = 2; // 城池id（玩家id）
+
+}
+
+message C2SPreInvasionTargetProto {
+
+    int32 map_id = 1; // 要出征的地图id
+
+    bytes target = 2; // 目的地主城对应的玩家id
+
+}
+
+message S2CPreInvasionTargetProto {
+
+    string head = 1; // 头像 通过 config.Icons去获得图标
+
+    int32 level = 2; // 等级
+
+    int32 max_tower_floor = 3; // 最大千层楼
+
+    int32 jun_xian_level = 4; // 军衔等级
+
+}
+
+message C2SWatchBaseUnitProto {
+
+    bytes target = 1; // 主城对应的玩家id
+
+}
+
+message S2CWatchBaseUnitProto {
+
+    bytes target = 1; // 主城对应的玩家id
+
+    string guild_name = 12;
+
+    int32 fight_amount = 2; // 防御战力
+
+    int32 prosprity = 3; // 繁荣度
+
+    int32 prosprity_capcity = 4; // 最大繁荣度
+
+    string head = 5; // 头像 通过 config.Icons去获得图标
+
+    int32 level = 6; // 等级
+
+    int32 max_tower_floor = 7; // 最大千层楼
+
+    int32 jun_xian_level = 8; // 军衔等级
+
+    int32 soldier = 9; // 防守兵力(宝藏怪物时有效，总兵力从配置读取)
+
+    repeated int32 captain_soldier = 11 [packed = false]; // 防守武将兵力(宝藏怪物时有效，总兵力从配置读取)
+
+    bytes hero = 14; // shared_proto.HeroBasicProto 宝藏击杀者，宝藏创建者
+
+    int32 hero_end_time = 15; // 宝藏击杀者控制结束时间，宝藏创建者过期时间
+
+    int32 hero_type = 16; // 0-宝藏击杀者 1-宝藏创建者
+
+}
+
+message S2CUpdateWatchBaseProsperityProto {
+
+    bytes target = 1; // 主城对应的玩家id
+
+    int32 prosprity = 2; // 繁荣度
+
+    int32 prosprity_capcity = 3; // 繁荣度上限
+
+}
+
+message S2CUpdateStopLostProsperityProto {
+
+    bytes target = 1; // 主城对应的玩家id（空表示移除视野内所有主城的保护状态）
+
+}
+
+message S2CAddTroopUnitProto {
+
+    int32 add_type = 1; // 0-进入视野 1-出征 2-更新
+
+    bytes data = 2; // shared_proto.TroopUnitProto
+
+}
+
+message S2CRemoveTroopUnitProto {
+
+    int32 remove_type = 1; // 0-离开视野 2-移除
+
+    bytes troop_id = 2; // 部队id（军情id）
+
+}
+
+message C2SRequestTroopUnitProto {
+
+    bytes troop_id = 1; // 部队id（军情id）
+
+}
+
+message S2CRequestTroopUnitProto {
+
+    bytes data = 1; // shared_proto.MilitaryInfoProto
+
+}
+
+message S2CAddRuinsBaseProto {
+
+    int32 pos_x = 1; // x 坐标
+
+    int32 pos_y = 2; // y 坐标
+
+}
+
+message S2CRemoveRuinsBaseProto {
+
+    int32 pos_x = 1; // x 坐标
+
+    int32 pos_y = 2; // y 坐标
+
+}
+
+message C2SRequestRuinsBaseProto {
+
+    int32 realm_id = 1; // 场景id
+
+    int32 pos_x = 2; // x 坐标
+
+    int32 pos_y = 3; // y 坐标
+
+}
+
+message S2CRequestRuinsBaseProto {
+
+    int32 realm_id = 1; // 场景id
+
+    int32 pos_x = 2; // x 坐标
+
+    int32 pos_y = 3; // y 坐标
+
+    bytes hero_basic = 4; // HeroBasicProto
+
+}
+
+message S2CUpdateSelfMianDisappearTimeProto {
+
+    int32 mian_disappear_time = 1; // 免战结束时间，unix时间戳（秒）0表示取消免战
+
+    int32 mian_start_time = 2; // 免战开始时间，unix时间戳（秒）
+
+}
+
+message C2SUseMianGoodsProto {
+
+    int32 id = 1; // 免战物品id
+
+    bool buy = 2; // 使用点券或元宝购买
+
+}
+
+message S2CUseMianGoodsProto {
+
+    int32 id = 1; // 免战物品id
+
+    int32 cooldown = 2; // 下次使用免战的时间，unix时间戳
+
+}
+
+message S2CUpdateNewHeroMianDisappearTimeProto {
+
+    int32 disappear_time = 1; // 免战结束时间
+
+}
+
+message S2CSelfUpdateBaseLevelProto {
+
+    int32 level = 1; // 最新的主城等级
+
+}
+
+message S2CUpdateWhiteFlagProto {
+
+    bytes hero_id = 1; // 被插白旗的英雄id
+
+    int32 white_flag_guild_id = 2; // 插旗人的帮派id, 0表示删除白旗
+
+    string white_flag_flag_name = 3; // 插旗人的帮派id
+
+    int32 white_flag_disappear_time = 4; // 白旗过期时间，unix时间戳
+
+}
+
+message C2SWhiteFlagDetailProto {
+
+    bytes hero_id = 1; // 请求谁的信息
+
+}
+
+message S2CWhiteFlagDetailProto {
+
+    bytes hero_id = 1; // 请求谁的信息
+
+    bytes white_flag_hero_id = 2; // 插旗人的id
+
+    string white_flag_hero_name = 3; // 插旗人的名字
+
+    int32 white_flag_guild_id = 4; // 插旗人的帮派id
+
+    string white_flag_guild_name = 5; // 插旗人的帮派名字
+
+    int32 white_flag_disappear_time = 6; // 白旗消失时间，unix时间戳(秒)
+
+    int32 white_flag_country = 7; // 插旗人的国家
+
+}
+
+message S2CSelfBaseDestroyProto {
+
+    bool is_tent = 1; // true表示行营，false表示主城
+
+    int32 destroy_type = 2; // 销毁类型，0-被打爆了 1-场景销毁 2-主城流亡导致行营销毁
+
+}
+
+message S2CProsperityBufProto {
+
+    int32 end_time = 1; // buf 结束时间，0表示繁荣度buf没有了
+
+}
+
+message S2CShowWordsProto {
+
+    bytes base_id = 1; // 主城id，哪个主城被打
+
+    bytes troop_id = 2; // 部队id，哪个部队打的
+
+    int32 prosperity = 3; // 繁荣度
+
+    int32 gold = 4; // 金币
+
+    int32 food = 5; // 粮食
+
+    int32 wood = 6; // 木材
+
+    int32 stone = 7; // 石头
+
+    int32 jade = 8; // 玉璧
+
+    int32 jade_ore = 9; // 玉石矿
+
+}
+
+message S2CGetBuyProsperityCostProto {
+
+    int32 cost = 1; // 购买繁荣度消耗
+
+}
+
+message S2CBuyProsperityProto {
+
+    int32 add_prosperity = 1; // 购买的繁荣度
+
+}
+
+message S2CSelfBeenAttackRobChangedProto {
+
+    int32 been_attack = 1; // 被进攻
+
+    int32 been_rob = 2; // 被掠夺
+
+}
+
+message S2CGuildBeenAttackRobChangedProto {
+
+    int32 total = 1; // 整个联盟总的被进攻、被掠夺
+
+}
+
+message C2SSwitchActionProto {
+
+    bool open = 1; // true表示打开，false表示关闭
+
+    bytes condition = 2; // shared_proto.MilitaryConditionProto
+
+}
+
+message S2CSwitchActionProto {
+
+    bool open = 1; // true表示打开，false表示关闭
+
+}
+
+message C2SRequestMilitaryPushProto {
+
+    bool main_military = 1; // 紧急军情
+
+    bool guild_military = 2; // 联盟军情
+
+    bytes to_target = 3; // 以玩家为目标的军情
+
+    bool to_target_base = 4; // 目标玩家的主城更新推送（繁荣度等等）
+
+    bytes from_target = 5; // 玩家自己的军队
+
+}
+
+message S2CRequestMilitaryPushProto {
+
+    bool main_military = 1; // 紧急军情
+
+    bool guild_military = 2; // 联盟军情
+
+    bytes to_target = 3; // 以玩家为目标的军情
+
+    bool to_target_base = 4; // 目标玩家的主城更新推送（繁荣度等等）
+
+    bytes from_target = 5; // 玩家自己的军队
+
+}
+
+message S2CUpdateMilitaryInfoProto {
+
+    bytes data = 1; // MilitaryInfoProto
+
+    bool region = 2; // true表示更新野外的马
+
+    bool ma = 3; // true表示更新军情
+
+}
+
+message S2CRemoveMilitaryInfoProto {
+
+    bytes id = 1; // 军情id
+
+    bool region = 2; // true表示移除野外的马
+
+    bool ma = 3; // true表示移除军情
+
+}
+
+message S2CUpdateSelfMilitaryInfoProto {
+
+    int32 troop_index = 2; // 1队=1 2队=2
+
+    bytes troop_id = 3; // 自己的id，里面那个可能是集结的主马军情
+
+    bytes data = 1; // MilitaryInfoProto
+
+}
+
+message S2CRemoveSelfMilitaryInfoProto {
+
+    bytes id = 1; // 军情id
+
+}
+
+message S2CNpcBaseInfoProto {
+
+    int32 map_id = 1; // 地图id
+
+    repeated bytes npc_id = 2; // npc的id
+
+    repeated int32 base_x = 3 [packed = false]; // x坐标
+
+    repeated int32 base_y = 4 [packed = false]; // y坐标
+
+    repeated int32 data_id = 5 [packed = false]; // npc数据id，shared_proto.NpcBaseDataProto
+
+}
+
+message C2SCreateBaseProto {
+
+    int32 map_id = 4; // 地图id
+
+    int32 new_x = 5; // x坐标 x坐标和y坐标都发0，表示随机建城
+
+    int32 new_y = 6; // y坐标
+
+}
+
+message S2CCreateBaseProto {
+
+    int32 map_id = 5; // 地图id
+
+    int32 new_x = 6; // 坐标
+
+    int32 new_y = 7;
+
+    int32 level = 1; // 主城等级
+
+    int32 prosperity = 8; // 当前繁荣度
+
+}
+
+message C2SFastMoveBaseProto {
+
+    int32 map_id = 3; // 地图id
+
+    int32 new_x = 1; // 坐标，x坐标和y坐标都发0，表示随机迁移
+
+    int32 new_y = 2;
+
+    int32 goods_id = 4; // 使用的物品id
+
+    bool is_tent = 5; // true表示行营，false表示主城
+
+    bool free = 6; // true表示使用免费迁移（行营）
+
+}
+
+message S2CFastMoveBaseProto {
+
+    int32 map_id = 3; // 地图id
+
+    int32 new_x = 1; // 坐标
+
+    int32 new_y = 2;
+
+    bool is_tent = 4; // true表示行营，false表示主城
+
+}
+
+message C2SInvasionProto {
+
+    int32 operate = 10; // shared_proto.TroopOperate
+
+    bytes target = 1; // 目的地主城对应的玩家id
+
+    int32 troop_index = 6; // 使用哪个队伍出征 1队=1 2队=2
+
+    int32 target_level = 7; // 出征目标的等级（对野怪有效，其他时候发0）
+
+    int32 goods_id = 8; // 使用物品
+
+    bool auto_buy = 9; // 购买物品
+
+    int32 multi_level_monster_count = 12; // 讨伐野怪次数
+
+}
+
+message S2CInvasionProto {
+
+    bytes target = 1; // 出征的目的地
+
+    int32 troop_index = 4; // 将这个队伍标记为出征状态  1队=1 2队=2
+
+}
+
+message S2CUpdateSelfTroopsProto {
+
+    repeated int32 id = 1 [packed = false]; // 武将id列表
+
+    repeated int32 soldier = 2 [packed = false]; // 武将士兵数列表
+
+    repeated int32 fight_amount = 3 [packed = false]; // 武将战斗力列表
+
+    int32 wounded_soldier = 4; // 当前最新的伤兵数量
+
+    bool remove_outside = 5; // true表示武将已经回家了，更新武将回家状态
+
+    int32 troop_index = 6; // 部队序号 1队=1 2队=2
+
+}
+
+message S2CUpdateSelfTroopsOutsideProto {
+
+    int32 troop_index = 1; // 部队序号 1队=1 2队=2
+
+    bool outside = 2; // true表示已出征
+
+}
+
+message C2SCancelInvasionProto {
+
+    bytes id = 1; // 军情id
+
+}
+
+message S2CCancelInvasionProto {
+
+    bytes id = 1; // 军情id
+
+}
+
+message C2SRepatriateProto {
+
+    bytes id = 1; // 军情id
+
+    bool is_tent = 2; // true表示遣返行营的盟友，false表示遣返主城的盟友
+
+}
+
+message S2CRepatriateProto {
+
+    bytes id = 1; // 军情id
+
+    bool is_tent = 2; // true表示遣返行营的盟友，false表示遣返主城的盟友
+
+}
+
+message C2SBaozRepatriateProto {
+
+    bytes base_id = 1; // 宝藏id
+
+    bytes troop_id = 2; // 遣返的部队id
+
+}
+
+message S2CBaozRepatriateProto {
+
+    bytes base_id = 1; // 宝藏id
+
+    bytes troop_id = 2; // 遣返的部队id
+
+}
+
+message C2SSpeedUpProto {
+
+    bytes id = 1; // 自己的部队id
+
+    bytes other_id = 6; // 别人的部队id（给集结中的其他人加速时候，带上这个）
+
+    int32 goods_id = 2; // 使用的物品id
+
+    bool money = 5; // true表示点券购买
+
+}
+
+message S2CSpeedUpProto {
+
+    bytes id = 1; // 部队id
+
+}
+
+message C2SExpelProto {
+
+    bytes id = 1; // 军情id
+
+    int32 mapid = 3; // 军情所在的地图
+
+    int32 troop_index = 4; // 使用哪个队伍驱逐 1队=1 2队=2
+
+}
+
+message S2CExpelProto {
+
+    bytes id = 1; // 军情id，只返回军情id，其他的通过军情更新消息推送
+
+    int32 cooldown = 2; // 冷却时间，秒（0表示驱逐成功，不需要冷却）
+
+    string link = 3; // 战斗回放链接
+
+}
+
+message C2SFavoritePosProto {
+
+    bool add = 1; // true 为新增/ false 为移除
+
+    int32 id = 2; // 场景id
+
+    int32 pos_x = 5; // 场景x
+
+    int32 pos_y = 6; // 场景y
+
+}
+
+message S2CFavoritePosProto {
+
+    bool add = 1; // true 为新增/ false 为移除
+
+    int32 id = 2; // 场景id
+
+    int32 pos_x = 5; // 场景x
+
+    int32 pos_y = 6; // 场景y
+
+}
+
+message S2CFavoritePosListProto {
+
+    bytes data = 1; // FavoritePosListProto
+
+}
+
+message C2SGetPrevInvestigateProto {
+
+    bytes hero_id = 1; // 英雄id
+
+}
+
+message S2CGetPrevInvestigateProto {
+
+    bytes hero_id = 1; // 英雄id
+
+    bytes mail_id = 2; // 战报id，空表示没有上传瞭望报告
+
+    int32 expire_time = 3; // 过期时间
+
+}
+
+message C2SInvestigateProto {
+
+    bytes hero_id = 1; // 英雄id（侦查谁）
+
+    bool cost = 3; // 使用点券侦查
+
+}
+
+message S2CInvestigateProto {
+
+    bytes hero_id = 1; // 英雄id（侦查谁）
+
+    int32 next_investigate_time = 2; // 下一次可侦查时间（unix时间戳，秒）
+
+}
+
+message C2SInvestigateInvadeProto {
+
+    bytes hero_id = 1; // 英雄id(侦察目标)
+
+}
+
+message S2CInvestigateInvadeProto {
+
+    bytes target = 1; // 出征的目的地
+
+}
+
+message S2CUpdateMultiLevelNpcPassLevelProto {
+
+    int32 npc_type = 1; // shared_proto.MultiLevelNpcType
+
+    int32 level = 2; // 通关等级，可挑战等级 = 通关等级 + 1
+
+}
+
+message S2CUpdateMultiLevelNpcHateProto {
+
+    int32 npc_type = 1; // shared_proto.MultiLevelNpcType
+
+    int32 hate = 2; // 仇恨值
+
+}
+
+message S2CUpdateMultiLevelNpcTimesProto {
+
+    int32 start_recovey_time = 1; // 讨伐恢复开始时间
+
+    RecoverableTimesWithExtraTimesProto times = 3; // 恢复次数
+
+}
+
+message C2SUseMultiLevelNpcTimesGoodsProto {
+
+    int32 id = 1; // 物品id
+
+    bool buy = 2; // 使用点券或元宝购买
+
+}
+
+message S2CUseMultiLevelNpcTimesGoodsProto {
+
+    int32 id = 1; // 物品id
+
+    bool buy = 2; // 使用点券或元宝购买
+
+}
+
+message S2CUpdateInvaseHeroTimesProto {
+
+    int32 start_recovey_time = 1; // 讨伐恢复开始时间
+
+    RecoverableTimesWithExtraTimesProto times = 2; // 恢复次数
+
+}
+
+message S2CUpdateJunTuanNpcTimesProto {
+
+    int32 start_recovey_time = 1; // 讨伐恢复开始时间
+
+    RecoverableTimesWithExtraTimesProto times = 2; // 恢复次数
+
+}
+
+message C2SUseInvaseHeroTimesGoodsProto {
+
+    int32 id = 1; // 物品id
+
+    bool buy = 2; // 使用点券或元宝购买
+
+}
+
+message S2CUseInvaseHeroTimesGoodsProto {
+
+    int32 id = 1; // 物品id
+
+    bool buy = 2; // 使用点券或元宝购买
+
+}
+
+message C2SCalcMoveSpeedProto {
+
+    bytes id = 1; // 目标的id
+
+}
+
+message S2CCalcMoveSpeedProto {
+
+    bytes id = 1; // 目标的id
+
+    int32 speed = 2; // 速度，客户端要除以1000
+
+}
+
+message S2CListEnemyPosProto {
+
+    repeated int32 pos_x = 1 [packed = false]; // 坐标
+
+    repeated int32 pos_y = 2 [packed = false];
+
+}
+
+message C2SSearchBaozNpcProto {
+
+    int32 data_id = 1; // 宝藏npc的配置id
+
+}
+
+message S2CSearchBaozNpcProto {
+
+    int32 data_id = 1; // 宝藏npc的配置id
+
+    repeated bytes base_id = 2; // 宝藏npc实例id
+
+    repeated int32 base_x = 3 [packed = false]; // 坐标
+
+    repeated int32 base_y = 4 [packed = false];
+
+}
+
+message S2CHomeAstDefendingInfoProto {
+
+    repeated HeroBasicProto heros = 1; // 玩家
+
+    repeated AstDefendLogProto logs = 3; // 日志
+
+}
+
+message C2SCreateAssemblyProto {
+
+    int32 troop_index = 1; // 使用哪个队伍出征 1队=1 2队=2
+
+    bytes target = 2; // 目的地主城对应的玩家id
+
+    int32 target_level = 3; // 出征目标的等级（对野怪有效，其他时候发0）
+
+    int32 wait_index = 4; // 第几档等待时间，从0开始
+
+    int32 goods_id = 5; // 使用物品
+
+    bool auto_buy = 6; // 购买物品
+
+}
+
+message S2CCreateAssemblyProto {
+
+    int32 troop_index = 1; // 将这个队伍标记为出征状态  1队=1 2队=2
+
+    bytes target = 2; // 出征的目的地
+
+    bytes id = 3; // 集结id
+
+}
+
+message C2SShowAssemblyProto {
+
+    bytes id = 2; // 集结id
+
+    int32 version = 3; // 版本号，第一次发0
+
+}
+
+message S2CShowAssemblyProto {
+
+    bool not_exist = 5; // false表示存在，true表示不存在
+
+    bytes id = 2; // 集结id
+
+    int32 version = 3; // 版本号，版本号跟本地一致，data对象为空
+
+    bytes data = 4; // shared_proto.AssemblyInfoProto
+
+}
+
+message S2CShowAssemblyChangedProto {
+
+    bytes id = 2; // 集结id
+
+}
+
+message C2SJoinAssemblyProto {
+
+    bytes id = 2; // 集结id
+
+    int32 troop_index = 3; // 派出的集结队伍 1队=1 2队=2
+
+    int32 goods_id = 4; // 使用物品
+
+    bool auto_buy = 5; // 购买物品
+
+}
+
+message S2CJoinAssemblyProto {
+
+    bytes id = 2; // 集结id
+
+    int32 troop_index = 3; // 派出的集结队伍 1队=1 2队=2
+
+}
+
+message C2SCreateGuildWorkshopProto {
+
+    int32 pos_x = 1; // 坐标
+
+    int32 pos_y = 2;
+
+}
+
+message S2CCreateGuildWorkshopProto {
+
+    int32 pos_x = 1; // 坐标
+
+    int32 pos_y = 2;
+
+}
+
+message C2SShowGuildWorkshopProto {
+
+    bytes base_id = 1; // 联盟工坊id
+
+}
+
+message S2CShowGuildWorkshopProto {
+
+    bytes base_id = 1; // 联盟工坊id
+
+    int32 guild_id = 2; // 联盟id
+
+    int32 output = 3; // 生产次数
+
+    int32 total_output = 4; // 总生产次数
+
+    int32 prize_count = 5; // 奖励个数
+
+    int32 been_hurt_times = 6; // 今日被破坏次数
+
+}
+
+message C2SHurtGuildWorkshopProto {
+
+    bytes base_id = 1; // 联盟工坊id
+
+}
+
+message S2CHurtGuildWorkshopProto {
+
+    bytes base_id = 1; // 联盟工坊id
+
+    int32 next_time = 2; // 下次可破坏时间
+
+    int32 times = 3; // 今日破坏次数
+
+}
+
+message S2CUpdateGuildWorkshopPrizeCountProto {
+
+    int32 count = 1; // 个数
+
+}
+
+message S2CUpdateHeroBuildWorkshopTimesProto {
+
+    int32 times = 1; // 次数
+
+}
+
+message S2CUpdateHeroOutputWorkshopTimesProto {
+
+    int32 start_recovey_time = 1; // 开始恢复时间
+
+}
+
+message C2SCatchGuildWorkshopLogsProto {
+
+    int32 version = 1; // 版本号，第一次发0
+
+}
+
+message S2CCatchGuildWorkshopLogsProto {
+
+    int32 version = 2;
+
+    repeated GuildWorkshopLogProto logs = 1; // 日志
+
+}
+
+message S2CGetSelfBaozProto {
+
+    bool exist = 1; // true表示存在召唤的殷墟
+
+    bytes base_id = 2; // 殷墟id
+
+    int32 base_x = 3; // 殷墟坐标
+
+    int32 base_y = 4;
+
+    int32 expire_time = 5; // 过期时间
+
+}
+

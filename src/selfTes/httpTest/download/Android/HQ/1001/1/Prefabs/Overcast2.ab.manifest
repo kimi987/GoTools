@@ -1,0 +1,26 @@
+ManifestFileVersion: 0
+CRC: 699941135
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 8f5a4b49e6d1c07e099b29a39c574dd6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 48e7bee65762b3b487f9e57e7f24b1f3
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 15b6679336c128b459f37ee207e8c880, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 983d17c1d441e7143bebbe304c0e50f2, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/Overcast2.prefab
+Dependencies: []

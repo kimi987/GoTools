@@ -1,0 +1,3 @@
+礼包id	礼包名	触发条件（值定死了不要随便改，有新的类型先和程序说）	说明(仅填表人看)	条件数值	礼包icon	礼包插画	礼包文本	现价(元宝)，不走cost表了，确定是元宝，否则old_price也无法展示	原价（展示用）	显示的标签（文件路径）	标签内显示的文本	有红热和银亮等折扣标签	标签内折扣值	购买后立即获得的点券	贴脸优先级，取最高值贴脸，如果是0则不贴脸	持续时间	prize表	推送所需英雄等级下限	推送所需英雄等级上限	推送所需官府等级上限	推送所需官府等级上限	该种礼包购买次限（不是一次性购买数量，而是购买次数，每次只能买1个），填0不作限制	展示奖励	联盟礼包。配 联盟盟友礼包.txt id。没有就留空
+id	name	condition	sm	condition_value	icon	image	desc	yuanbao_price	old_price	sign_icon	sign_name	discount_icon	discount	dianquan	priority	time_duration	prize	min_hero_level	max_hero_level	min_guanfu_level	max_guanfu_level	buy_limit	show_prize	guild_event_prize_id
+101	主城建设礼包I	1	主城第一次升到5级	15	加速建设			300	6000				1.1	500		1h	101	1				1	101	301

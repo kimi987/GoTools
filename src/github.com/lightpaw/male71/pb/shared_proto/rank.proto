@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/bai_zhan.proto";
+
+enum RankType {
+    Country = 0; // 国家排行榜
+    Guild = 1; // 联盟排行榜
+    Tower = 2; // 千重楼
+    BaiZhan = 3; // 百战千军
+    RankStarTask = 4; // 成就星数
+    RankXuanyuan = 5; // 轩辕会武
+}
+
+// 排行其他数据
+message RankMiscProto {
+    int32 rank_count_per_page = 1; // 排行榜，每一页排行的数量
+}
+
+// 排行榜信息
+message RankProto {
+    RankType type = 1; // 排行榜类型，根据排行榜类型读取下方的不同列表
+    int32 sub_type = 6; // 如果是百战排行榜，表示百战等级，联盟榜单，表示国家
+    int32 jun_xian_level = 2; // 如果是百战排行榜，返回该榜单的百战等级，其他的就不需要读取了
+    int32 rank_count = 3; // 排行榜上面的总人数
+    int32 start_rank = 4; // 第一个的排名，第二个的排名就是 start_rank + 1
+    bool self = 5; // 返回的数据中请求的是自己
+
+    repeated CountryRankProto country = 10; // 国家排行数据
+    repeated GuildRankProto guild = 11; // 联盟排行数据
+    repeated TowerRankProto tower = 12; // 千重楼排行数据
+    repeated BaiZhanRankProto bai_zhan = 13; // 百战排行数据
+    repeated StarTaskRankProto star_task = 14; // 成就排行数据
+    repeated XuanyRankProto xuanyuan = 15; // 轩辕会武排行数据
+}
+
+message CountryRankProto {
+    string name = 1; // 国家名字
+    int32 color_index = 2; // 国家旗帜颜色下标
+    HeroBasicProto leader = 3; // 占有该国家的联盟的盟主
+    int32 city_count = 4; // 名城数量
+    int32 city_output = 5; // 名城产出
+}
+
+message GuildRankProto {
+    HeroBasicProto leader = 1; // 该联盟的盟主，里面包含了联盟信息
+    int32 level = 2; // 联盟等级
+    int32 upgrade_end_time = 3; // 联盟升级结束时间，0表示当前没有升级，进度为0%，计算百分比算法为: min(100, 100-(upgrade_end_time - ctime) / GuildLevelProto.upgrade_duration) ，客户端根据 GuildLevelProto中的 upgrade_duration 计算百分比
+    int32 prestige = 4; // 联盟声望
+    int32 country = 5; // 联盟国家，通过id，从Country中获取
+    int32 city_count = 6; // 名城数量
+    int32 member_count = 7; // 成员数量(最大数量根据等级取)
+}
+
+message TowerRankProto {
+    HeroBasicProto hero = 1; // 该玩家的信息
+    int32 floor = 2; // 千重楼层数
+    int32 time = 3; // 达成时间
+}
+
+message BaiZhanRankProto {
+    HeroBasicProto hero = 1; // 该玩家的信息
+    int32 level = 2; // 昨日百战军衔等级，JunXianLevelProto 中的 level
+    int32 point = 3; // 今日积分
+    int32 fight_amount = 4; // 战斗力
+    LevelChangeType level_change_type = 5; // 等级变更类型
+}
+
+message StarTaskRankProto {
+    HeroBasicProto hero = 1; // 该玩家的信息
+    int32 star = 2; // 成就星数
+}
+
+message XuanyRankProto {
+    HeroBasicProto hero = 1; // 该玩家的信息
+    int32 point = 3; // 昨日积分
+    int32 win = 4; // 胜利次数
+    int32 lose = 5; // 失败次数
+}

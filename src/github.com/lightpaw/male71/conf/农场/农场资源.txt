@@ -1,0 +1,10 @@
+id	资源类型	成熟时间	基础收获	资源图标
+id	res_type	ripe_duration	base_output	icon
+1	gold	30m	500	铜币
+2	gold	4h	4000	铜币
+3	gold	10h	10000	铜币
+4	gold	24h	24000	铜币
+5	stone	30m	500	石料
+6	stone	4h	4000	石料
+7	stone	10h	10000	石料
+8	stone	24h	24000	石料

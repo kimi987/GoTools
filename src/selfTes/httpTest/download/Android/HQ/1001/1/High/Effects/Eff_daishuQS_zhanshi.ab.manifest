@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 1748872668
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2b778e436588723d6d7e023ddcd22b5a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_daishuQS_zhanshi.prefab
+Dependencies: []

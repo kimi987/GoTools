@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 819746034
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a5474221871642f23c5cd8868c5e2121
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIEffect/UI_baoshijiesuo.prefab
+Dependencies: []

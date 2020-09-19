@@ -1,0 +1,298 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "misc";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/buff.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/setting.proto";
+
+
+message C2SConfigProto {
+
+    string version = 1; // 客户端当前的配置版本号
+
+}
+
+message S2CConfigProto {
+
+    string version = 2; // 服务器本次下发的配置版本号
+
+    bytes config = 1; // shared_proto.Config
+
+}
+
+message C2SConfigluaProto {
+
+    string version = 1; // 客户端当前的配置版本号
+
+}
+
+message S2CConfigluaProto {
+
+    string version = 1; // 服务器本次下发的配置版本号
+
+    bytes config = 2; // lua config
+
+}
+
+message C2SClientLogProto {
+
+    string level = 2; // 日志级别
+
+    string text = 1; // 日志内容
+
+}
+
+message C2SSyncTimeProto {
+
+    int32 client_time = 1; // 客户端当前的unix时间戳
+
+}
+
+message S2CSyncTimeProto {
+
+    int32 client_time = 1; // 客户端发送的unix时间戳
+
+    int32 server_time = 2; // 服务器当前的unix时间戳
+
+}
+
+message S2CBlockProto {
+
+    bytes data = 1; // shared_proto.BlockInfoProto
+
+}
+
+message S2COpenFunctionProto {
+
+    int32 function_type = 1; // shared_proto.FunctionType 功能开启类型
+
+}
+
+message S2COpenMultiFunctionProto {
+
+    repeated int32 function_type = 1 [packed = false]; // shared_proto.FunctionType 功能开启类型
+
+}
+
+message S2CSetHeroBoolProto {
+
+    int32 bool_type = 1; // shared_proto.HeroBoolType Bool类型
+
+}
+
+message S2CResetHeroBoolProto {
+
+    int32 bool_type = 1; // shared_proto.HeroBoolType Bool类型
+
+}
+
+message S2CScreenShowWordsProto {
+
+    string json = 2;
+
+}
+
+message C2SClientVersionProto {
+
+    string os = 1; // android ios
+
+    string t = 2; // xianyou qingce
+
+}
+
+message S2CClientVersionProto {
+
+    string v = 1; // 客户端热更新版本号
+
+    string os = 2; // android ios 空表示全平台更新
+
+    string t = 3; // xianyou qingce 空表示全版本更新
+
+}
+
+message C2SUpdatePfTokenProto {
+
+    string token = 1; // 更新平台token
+
+}
+
+message C2SSettingsProto {
+
+    int32 setting_type = 1; // 设置类型
+
+    bool open = 2; // 开启
+
+}
+
+message S2CSettingsProto {
+
+    SettingType setting_type = 1; // 设置类型
+
+    bool open = 2; // 是否开启
+
+}
+
+message S2CSettingsToDefaultProto {
+
+    HeroSettingsProto setting_type = 1; // 设置类型
+
+}
+
+message S2CHeroBroadcastProto {
+
+    string text = 1; // 内容
+
+    string name = 2; // 君主名
+
+    string guild_flag = 3; // 联盟旗号
+
+}
+
+message S2CSysTimingBroadcastProto {
+
+    string text = 3; // 正文
+
+}
+
+message S2CSysBroadcastProto {
+
+    string text = 9; // 正文
+
+}
+
+message C2SUpdateLocationProto {
+
+    int32 location = 1; // 故乡
+
+}
+
+message S2CUpdateLocationProto {
+
+    int32 location = 1; // 故乡
+
+}
+
+message C2SCollectChargePrizeProto {
+
+    int32 id = 1; // 充值奖励表主键id（不是奖励表id）
+
+}
+
+message S2CCollectChargePrizeProto {
+
+    int32 id = 1;
+
+    bytes prize = 2;
+
+}
+
+message S2CUpdateChargeAmountProto {
+
+    int32 amount = 1; // 充值总金额
+
+}
+
+message C2SCollectDailyBargainProto {
+
+    int32 id = 1; // 特惠id
+
+}
+
+message S2CCollectDailyBargainProto {
+
+    int32 id = 1; // 特惠id
+
+    int32 times = 3; // 刷新已购（领）次数
+
+    bytes prize = 2;
+
+}
+
+message C2SActivateDurationCardProto {
+
+    int32 id = 1; // 卡片id
+
+}
+
+message S2CActivateDurationCardProto {
+
+    int32 id = 1; // 卡片id
+
+    int32 end_time = 2; // 结束时间（如果是永久卡，发过来的是起始时间，可以忽略）
+
+    bytes prize = 3; // 立即获赠的奖励
+
+}
+
+message C2SCollectDurationCardDailyPrizeProto {
+
+    int32 id = 1; // 卡片id
+
+}
+
+message S2CCollectDurationCardDailyPrizeProto {
+
+    int32 id = 1; // 今日已领取的卡片
+
+    bytes prize = 2; // 奖励
+
+}
+
+message C2SSetPrivacySettingProto {
+
+    int32 setting_id = 1; // 隐私设置id
+
+    bool open_or_close = 2; // true为开启 false为关闭
+
+}
+
+message S2CSetPrivacySettingProto {
+
+    PrivacySettingType setting_type = 1; // 设置类型
+
+    bool open_or_close = 2; // true为开启 false为关闭
+
+}
+
+message C2SGetProductInfoProto {
+
+    int32 id = 2; // 商品id（内部）
+
+}
+
+message S2CGetProductInfoProto {
+
+    int32 id = 7; // 商品id（内部）
+
+    string product_id = 8; // 商品id（平台）
+
+    string product_name = 9; // 商品名字
+
+    string cp_order_id = 2; // cp订单id
+
+    int32 money = 3; // 金额（分，除100得到元）
+
+    int32 gold = 4; // 获得虚拟货币
+
+    string ext = 5; // 透传字段
+
+    bool is_debug = 6; // debug模式
+
+}
+
+message S2CUpdateFirstRechargeProto {
+
+    int32 id = 1; // 充值项
+
+}
+
+message S2CUpdateBuffNoticeProto {
+
+    int32 group_id = 1; // 更新的buff组id
+
+    BuffInfoProto buff = 2; // 更新的buff，如果是删除buff，则为nil
+
+}
+

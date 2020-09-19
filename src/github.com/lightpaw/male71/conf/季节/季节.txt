@@ -1,0 +1,6 @@
+"季节    SPRING = 1; // 春    SUMMER = 2; // 夏    AUTUMN = 3; // 秋    WINTER = 4; // 冬"	名字	背景图	展示奖励	奖励	建筑队、科技队加成	加重楼密室次数	农场基础加成	加讨伐怪物次数	降低出征玩家的移动速度	增加繁荣度恢复倍率
+season	name	bg_img	show_prize	prize	worker_cdr	secret_tower_times	farm_base_inc	add_multi_monster_times	dec_troop_speed_rate	inc_prosperity_multiple
+SPRING	春	SPRING	1508	1508	0.2					
+SUMMER	夏	SUMMER	1508	1508		1				
+AUTUMN	秋	AUTUMN	1508	1508			0.5			
+WINTER	冬	WINTER	1508	1508				2	0.25	1

@@ -1,0 +1,3 @@
+地图块id	地图块名字	地图X长度	地图Y长度	城池数量限制	地块超过拥挤容量，新用户主城不再加入这个地块	阻挡块文件名，需要放在conf/block/目录下		自动扩张城池数量
+id	name	xlen	ylen	base_count_limit	new_hero_crowded_capcity	proto_file_name		Auto_Expand_Base_Count
+1	默认地图	100	86	60	30	default.pb		60

@@ -1,0 +1,143 @@
+# 抗击匈奴
+
+# 玩家加入的联盟如果开启了抗击匈奴的活动，玩家在上线或者刚刚加入联盟或者在联盟的时候联盟开启了，会收到：info_broadcast
+# 判断联盟今天有没有开启，通过 GuildProto.is_start_resist_xiong_nu_today 来判断
+# 判断该在联盟主页显示什么数据
+# 如果联盟没有开启，盟主什么的显示可挑战界面
+# 如果当前开启了，且有收到 info_broadcast，显示挑战中的数据
+# 如果没有收到 info_broadcast，显示最近一次战斗记录数据
+
+# 战斗信息都是通过 info_broadcast，在有变化时，会有服务器主动推送给客户端
+# XiongNuProto中：
+#
+#    int32 level = 1; // 等级
+#    int32 base_id = 2; // 主城id，用于让客户端知道场景中哪个是我们的主城
+#    int32 base_x = 3; // 主城在场景中的x坐标
+#    int32 base_y = 4; // 主城在场景中的y坐标
+#    int32 start_time = 5; // 开始时间
+#    int32 wipe_out_monster_count = 6; // 消灭怪物数量
+#    int32 morale = 7; // 士气
+#    int32 wave = 8; // 第几波
+#    int32 next_wave_time = 9; // 下一波的时间
+
+# 客户端可以通过等级取到 ResistXiongNuDataProto 数据
+# base数据可以知道主城在哪里
+# start_time 可以知道开始时间，每个波次的时间，通过 start_time + ResistXiongNuMiscProto.invade_wave_duration 来算出来每一轮的开始时间
+# wipe_out_monster_count 显示消灭的怪物数量
+# 总怪物数量再 ResistXiongNuDataProto.total_monster_count 获得
+# 总士气在 total_monster_count.max_morale 获得
+# next_wave_time 下一波的时间
+
+# 设置防守
+set_defender:
+  c2s:
+    id: bytes // 设置谁
+    to_set: bool // true表示设置防守
+  s2c:
+    id: bytes // 设置谁
+    to_set: bool // true表示设置防守
+  # 只会发给有权限的人
+  s2c_broacast:
+    id: bytes // 设置谁
+    to_set: bool // true表示设置防守
+  s2c_fail:
+    no_guild: 没有联盟
+    started: 已经开启了
+    target_not_found: 目标没有找到
+    no_permisison: 没有开启抗击匈奴的权限
+    target_not_member: 目标不是联盟成员
+    full: 防守成员已满
+    today_start: 今天已经参加了
+    home_not_alive: 目标主城流亡了，无法设置防守
+    server_error: 服务器忙，请稍后再试
+
+# 开启活动
+start:
+  c2s:
+    level: int32 // 挑战难度
+  # 提示联盟匈奴活动开启，紧接着客户端会收到 info_broadcast
+  s2c:
+    base_id: int // 匈奴主城id，用于让客户端知道场景中哪个是我们的主城
+    base_x: int // 匈奴主城在场景中的x坐标
+    base_y: int // 匈奴主城在场景中的y坐标
+  s2c_fail:
+    no_guild: 没有联盟
+    started: 已经开启了
+    invalid_level: 非法的等级数据
+    base_dead: 你主城当前已经流亡
+    no_permisison: 没有开启抗击匈奴的权限
+    not_enough: 防守成员不足
+    lock_level: 挑战难度未解锁
+    level_not_enough: 联盟等级不足
+    server_error: 服务器忙，请稍后再试
+    start_time_limit: 没到开启时间
+  # 开启广播，收到后，客户端可以来请求 info 协议获得活动信息
+  s2c_broadcast:
+    name: string // 开启后联盟聊天频道出现一则系统消息 “某某某 开启了 抗击匈奴 活动！”
+
+# 联盟匈奴活动广播
+info_broadcast:
+  s2c:
+    info: bytes // 联盟匈奴活动信息，长度为0表示当前没有活动，客户端解析为：XiongNuProto
+
+# 请求匈奴部队信息
+troop_info:
+  c2s:
+  s2c:
+    compress: snappy
+    baseTroops: bytes // 队伍信息 XionNuBaseTroopProto
+    morale: int // 当前士气
+  s2c_fail:
+    no_guild: 没有联盟
+    not_started: 没有开启
+    server_error: 服务器忙，请稍后再试
+
+# 联盟活动结束广播
+end_broadcast:
+  s2c:
+    guild_id: int // 联盟id，这个id用于客户端比较当前联盟id是否一致
+    resist_xiong_nu: bytes // 反击匈奴数据 LastResistXiongNuProto
+    unlock_next_level: bool // 是否有解锁下一级
+    add_prestige: int32 // 添加的声望
+
+# 查看场景中匈奴npc的数据
+get_xiong_nu_npc_base_info:
+  c2s:
+    guild_id: int // npc所属的联盟
+  s2c:
+    guild_id: int // npc所属的联盟
+    guild_name: string // 联盟名字
+    guild_flag: string // 联盟旗帜
+    morale: int // 当前士气
+    start_time: int // 挑战开启时间 客户端通过 ResistXiongNuMiscProto.invade_duration, ResistXiongNuMiscProto.resist_duration 算出入侵结束时间，反击结束时间
+                    // 入侵结束时间 = start_time + ResistXiongNuMiscProto.invade_duration
+                    // 反击结束时间 = start_time + ResistXiongNuMiscProto.invade_duration + ResistXiongNuMiscProto.resist_duration，不在入侵时间内的话，就是在反击时间内
+                    // 判断当前是在反击还是入侵时间内
+                    // repeated int32 invade_wave_duration = 4 [packed = false]; // 入侵时间，开始后多久开始入侵，客户端可以根据当前是第几波算出下一波的时间，通过这个时间可以算出下一波的时间
+    fighting_amount: int // 战斗力
+  s2c_fail:
+    not_started: 活动没开启
+
+# 获取防守战力
+#
+# 活动开启的时候，定时2秒请求一次（平时不要定时请求）
+# 客户端做如下逻辑，当服务器返回的版本号跟当前客户端的版本一致，什么都不干
+# 不一致，读取下面的防守成员id和战力
+get_defenser_fight_amount:
+  c2s:
+    version: int // 版本（首次发0，后续发s2c中的版本号）
+  s2c:
+    version: int // 版本（服务器版本号跟客户端版本号一致，下面2个字段长度为0）
+    defenser_id: bytes[] // 防守成员
+    defenser_fight_amount: int[] // 防守成员战力
+    defenser_enemy_count: int[] // 防守成员遭受攻击部队数
+
+# 抗击匈奴排行榜，里面的玩家数据未排序，排序的功能客户端自己做
+get_xiong_nu_fight_info:
+  c2s:
+  s2c:
+    compress: snappy
+    data: bytes // shared_proto.ResistXiongNuFightProto
+  s2c_fail:
+    not_in_guild: 你没有联盟，不能获取匈奴战斗排行榜
+    server_error: 服务器忙，请稍后再试

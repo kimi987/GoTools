@@ -1,0 +1,6 @@
+转生等级，从0开始	转生 CD（升到本级需要的 CD）	转生限制等级	转生属性	转生统帅	成长值上限	转生赠送的成长经验，1升2，配置在2级中	转生前等级	君主等级限制
+level	cd	required_captain_level	sprite_stat_point	soldier_capcity	ability_limit	ability_exp	before_rebirth_level	hero_level_limit
+0	0s	1	0	0	30	1	0	0
+1	3h	60	0	100	58	800	60	46
+2	72h	80	0	200	70	3900	80	80
+3	144h	100	0	300	100	5900	100	100

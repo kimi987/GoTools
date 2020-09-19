@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 1222660535
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cc113692acf87fe0e3283b2c8f3677f2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f38824681169df2b8fb05a288a4abe56
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_langZS_skill02daoguang.prefab
+Dependencies: []

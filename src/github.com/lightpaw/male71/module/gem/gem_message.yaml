@@ -1,0 +1,176 @@
+# module_name:  # 默认使用文件夹名字作为模块名，当模块名与文件夹名字不一致时候，通过这个值指定
+
+# 宝石文档说明：
+
+# 配置：
+
+#  所有宝石
+#   Config:
+#    repeated GemDataProto gem = 31; // 所有宝石
+
+#  所有槽位: 该数据可以知道总共有多少个槽位 len(Config.gem_slot) 每个槽位对应的装备部件，每个槽位开启需要的武将成长值
+#   Config:
+#    repeated GemSlotDataProto gem_slot = 32; // 宝石槽位
+#     int32 slot_idx = 1; // 宝石槽位，此处从0开始
+#     int32 need_ability = 2; // 该槽位需要的成长值
+#     EquipmentType type = 3; // 部件
+
+# 玩家当前背包里面的所有宝石：
+# message HeroDepotProto {
+#     repeated Int32Pair goods = 1; // 普通使用物品（堆叠起来那种），key是id，value是个数
+#     repeated EquipmentProto equipments = 2;
+#     repeated Int32Pair temp_expired_time = 3; // 临时背包过期时间，key是装备/宝石的id，value是过期删除时间
+#     // 所有宝石
+#     repeated GemProto gems = 4;
+# }
+# id在temp_expired_time里面的GemProto放在临时背包(装备也同理)，没有过期时间的放在背包中的，如果当前时间>=过期删除时间，客户端要让该物品不可以使用(或者删掉也行吧)，不可以拿去合成/不可以拿去佩戴
+
+# 武将当前镶嵌的所有宝石:
+# HeroCaptainProto:
+#   repeated HeroCaptainGemProto gems = 32;
+# HeroCaptainGemProto:
+#   GemProto gem = 1; // 宝石
+#   int32 slot_idx = 2; // 第几个槽位(从0开始)
+
+# 镶嵌宝石，可以参考穿戴装备equipment_message.yaml中的wear_equipment
+# 客户端不用自己删除/添加宝石回背包，服务器走通用协议通知
+use_gem:
+  c2s:
+    captain_id: int // 武将id
+    slot_idx: int // 卸下哪个槽位的宝石或者给哪个槽位加上宝石，即：GemSlotDataProto.slot_idx
+    down: bool // true表示给武将卸下宝石，否则表示给武将加上宝石，加宝石必须带上要镶嵌的宝石的id
+    gem_id: int // 操作的宝石id，如果是卸下，不用发
+  s2c:
+    captain_id: int // 武将id
+    slot_idx: int // 卸下哪个槽位的宝石或者给哪个槽位加上宝石，即：GemSlotDataProto.slot_idx
+    up_id: int // 该槽位上面的新的宝石id：0表示卸下了，非0表示设置的新的宝石
+  s2c_fail:
+    invalid_captain_id: 无效的武将id
+    invalid_gem_id: 无效的宝石id
+    invalid_slot_idx: 无效的宝石槽位
+    have_same_type_gem_in_this_type: 在该部位已经有该类型的宝石了
+    captain_outside: 武将出征中，不能卸下宝石
+    ability_not_enough: 成长值不够
+    gem_not_enough: 宝石不够
+    has_same_gem_in_the_slot: 上面镶嵌了相同的宝石
+    server_error: 服务器忙，请稍后再试
+    captain_outside_quality_err: 武将出征中，只能更换更高品质的宝石
+
+# 新版镶嵌宝石
+inlay_gem:
+  c2s:
+    captain_id: int // 武将id
+    slot_idx: int // 槽位(下标从0开始)，对应RaceDataProto.gem_types的下标
+    gem_id: int // 宝石id，非0时槽位上有旧宝石，自动摘除入包，0的话相当于只摘除
+  s2c:
+    captain_id: int // 武将id
+    slot_idx: int // 槽位(下标从0开始)，对应RaceDataProto.gem_types的下标
+    gem_id: int // 0表示卸下了，非0表示设置的新的宝石
+  s2c_fail:
+    no_gem: 宝石不存在
+    no_captain: 武将不存在
+    wrong_slot_idx: 该槽位无法镶嵌
+    wrong_gem: 无法镶嵌这类宝石
+    has_same_gem: 已镶嵌相同宝石
+
+# 合成宝石
+# 判断宝石等级是否已经满了，即：gemData.next_level>0，没有下一级就表示满级了
+# 客户端判断该宝石是否可以合成下一级，即：depot.getCount(gemData.Id) >= (gemData.upgrade_need_count - 1) 背包中宝石数量足够
+# 客户端判断该宝石是否可以一键合成下一级，即：将背包中所有 gemData.GemType 的宝石全部转成1级宝石 + 要合成到的宝石转化成的1级宝石，计算是不是超出了升级该宝石到下一级需要的以及宝石数量
+# 合成消耗的宝石服务器会通过通用的协议来告诉给客户端去删掉，客户端不用处理
+combine_gem:
+  c2s:
+    captain_id: int // 武将id
+    slot_idx: int // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+  s2c:
+    captain_id: int // 武将id
+    slot_idx: int // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+    gem_id: int // 新的宝石id
+  s2c_fail:
+    invalid_captain_id: 无效的武将id
+    invalid_gem_id: 无效的宝石id
+    invalid_slot_idx: 无效的宝石槽位
+    level_max: 宝石满级了
+    slot_not_open: 宝石槽位没有开启
+    captain_outside: 武将出征中，不能够合成宝石
+    not_enough: 宝石数量不够
+
+# 一键镶嵌宝石
+# 原本在槽位上面的宝石取下来都走服务器的其他消息处理
+# 消耗的宝石都走服务器的其他消息处理
+one_key_use_gem:
+  c2s:
+    captain_id: int // 武将id
+    down_all: bool // 卸下所有(true)/自动镶嵌(false)
+    equip_type: int // 卸下的部位(EquipmentType)，0表示全部卸下，否则只卸下发送上来部位的所有宝石，自动镶嵌这里发送0
+  s2c:
+    captain_id: int // 武将id
+    down_all: bool // 卸下所有(true)卸下所有不需要读取后面的gem_id了客户端完全清空掉该武将的宝石就好了/自动镶嵌(false)
+    gem_id: int[] // 各个槽位上面新的宝石id，如果是卸下所有，长度为0，客户端不需要处理，如果是自动镶嵌，该数组跟槽位一一对应，该数据中可能会存在为0的数据，表示没有宝石
+    equip_type: int // 卸下的部位(EquipmentType)，0表示全部卸下，否则只卸下发送上来部位的所有宝石
+  s2c_fail:
+    invalid_captain_id: 无效的武将id
+    no_can_upgrade_gem: 没有可以升级的宝石
+    captain_outside: 武将出征中，不能卸下宝石
+    no_gem_to_down_all: 武将没有宝石可以卸下
+    server_error: 服务器忙，请稍后再试
+
+# 一键合成宝石
+# 消耗的宝石都走服务器的其他消息处理
+one_key_combine_gem:
+  c2s:
+    captain_id: int // 武将id
+    slot_idx: int // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+    buy: bool // true表示花钱购买
+  s2c:
+    captain_id: int // 武将id
+    slot_idx: int // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+    gem_id: int // 新的宝石id
+  s2c_fail:
+    invalid_captain_id: 无效的武将id
+    invalid_slot_idx: 无效的宝石槽位
+    level_max: 宝石满级了
+    slot_not_open: 宝石槽位没有开启
+    captain_outside: 武将出征中，不能够合成宝石
+    not_enough: 宝石数量不够
+    cant_buy: 宝石未开放购买
+    cost_not_enough: 购买宝石，消耗不足
+    server_error: 服务器忙，请稍后再试
+
+# 请求一键合成消耗
+request_one_key_combine_cost:
+  c2s:
+    captain_id: int // 武将id
+    slot_idx: int // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+    gem_id: int // 宝石id
+  s2c:
+    captain_id: int // 武将id
+    slot_idx: int // 合成到哪个槽位的宝石上，即：GemSlotDataProto.slot_idx
+    can_combine: bool // 能够合成(true)，读取下面的宝石id跟数量/不能够合成(false)，后面数据就不用读取了
+    gem_id: int[] // 要消耗的宝石id，跟宝石数量一一丢应
+    gem_count: int[] // 要消耗的宝石数量，可能存在数量为0的
+    buy_count: int // 购买宝石个数
+    buy_yuanbao: int // 购买宝石消耗元宝数
+  s2c_fail:
+    invalid_captain_id: 无效的武将id
+    invalid_slot_idx: 无效的宝石槽位
+    level_max: 宝石满级了
+    slot_not_open: 宝石槽位没有开启
+    captain_outside: 武将出征中，不能够合成宝石
+
+# 合成背包中的宝石
+one_key_combine_depot_gem:
+  c2s:
+    gem_id: int // 宝石id
+    new_gem_count: int // 合成新宝石个数
+    buy: bool // true表示数量不够花钱购买
+  s2c:
+    new_gem_id: int // 新的宝石id
+    new_gem_count: int // 合成新宝石个数
+  s2c_fail:
+    invalid_gem_id: 无效的宝石id
+    level_max: 宝石满级了
+    not_enough: 宝石数量不够
+    cant_buy: 宝石未开放购买
+    cost_not_enough: 购买宝石，消耗不足
+    server_error: 服务器忙，请稍后再试

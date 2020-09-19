@@ -1,0 +1,55 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "activity";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/activity.proto";
+
+
+message S2CNoticeActivityShowProto {
+
+    repeated ActiviyShowProto show = 2; // 展示列表
+
+}
+
+message C2SCollectCollectionProto {
+
+    int32 id = 1; // 活动id ActivityCollectionDataProto.id
+
+    int32 exchange_id = 2; // 兑换id CollectionExchangeDataProto.Id
+
+}
+
+message S2CCollectCollectionProto {
+
+    int32 id = 1; // 活动id
+
+    int32 exchange_id = 2; // 根据id找到对应CollectionCollectedCountProto.Count自增1
+
+}
+
+message S2CNoticeCollectionProto {
+
+    repeated ActivityCollectionProto activity = 3; // 所有活动信息
+
+}
+
+message S2CNoticeCollectionCountsProto {
+
+    HeroAllCollectionProto counts = 3; // 兑换次数信息
+
+}
+
+message S2CNoticeTaskListModeProto {
+
+    repeated ActivityTaskListModeProto activity = 3; // 所有活动信息
+
+}
+
+message S2CNoticeTaskListModeProgressProto {
+
+    repeated HeroActivityTaskListModeProto activity = 3; // 所有活动进度信息
+
+}
+

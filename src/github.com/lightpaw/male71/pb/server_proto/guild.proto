@@ -1,0 +1,225 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/guild.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/xiongnu.proto";
+import "github.com/lightpaw/male7/pb/server_proto/snapshot.proto";
+
+message GuildServerProto {
+
+    string name = 2;
+    string flag_name = 3;
+    int64 create_time = 45; // 联盟创建时间
+
+    uint64 flagType = 4; // 旗子类型
+
+    uint64 level = 5; // 联盟等级
+    uint64 building_amount = 41; // 联盟建设值
+    int64 update_building_amount_time = 44; // 联盟建设值变更的时间
+    int64 upgrade_end_time = 42; // 升级结束时间（0表示当前没有在升级），unix时间戳，秒
+    uint64 cdr_times = 43; // 联盟升级已加速次数
+
+    string text = 8; // 联盟宣言（对外公告）
+    string internal_text = 9; // 对内公告
+    repeated string labels = 10; // 联盟标签
+
+    // 入盟条件
+    bool reject_auto_join = 11; // false表示达到条件直接入盟，true表示需要申请才能加入
+    uint64 required_hero_level = 12; // 君主等级
+    uint64 required_jun_xian_level = 13; // 百战军衔等级
+    uint64 required_tower_max_floor = 14; // 需要的最大千重楼的层数
+
+    repeated string class_names = 21; // 阶级名字，从低级到高级
+
+    repeated GuildMemberServerProto members = 22; // 帮派成员
+
+    int64 change_leader_id = 23; // 禅让盟主id
+    int64 change_leader_time = 24; // 禅让盟主倒计时
+
+    int64 next_change_name_time = 25; // 下次改名时间
+    bool free_change_name = 31; // true表示允许免费改名
+
+    uint64 kick_member_count = 32; // 踢人数，限制每日最多踢几个
+
+    GuildImpeachServerProto impeach_leader = 26; // 弹劾帮主
+
+    repeated int64 invate_hero_ids = 27; // 邀请列表
+    repeated int64 invate_expired_time = 28;
+
+    repeated int64 request_join_hero_ids = 29; // 申请加入列表
+    repeated int64 request_join_expired_time = 30;
+
+    GuildClassTitleProto class_title = 33; // 职称
+
+    uint64 last_prestige_rank = 38; // 上次联盟声望排行
+    uint64 prestige = 35; // 声望
+    uint64 history_max_prestige = 37; // 历史最高声望数
+    uint64 country = 34; // 声望目标，客户端去 Config.country 里面去取
+    repeated uint64 prestige_daily = 36; // 每日声望
+    repeated uint64 prestige_core_hourly = 39; // 每小时核心声望
+
+    uint64 hufu = 46; // 虎符
+    uint64 yinliang = 47; // 银两
+
+    string friend_guild_text = 50; // 友盟公告
+    string enemy_guild_text = 51; // 敌盟公告
+
+    repeated GuildDonateRecordProto donate_records = 55; // 捐献记录
+
+    repeated GuildBigEventProto big_events = 56; // 大事记
+
+    repeated GuildDynamicProto dynamics = 57; // 动态
+
+    uint64 complete_guild_target_times = 58; // 完成了的联盟目标次数
+
+    // 联盟雕像放置的场景
+    int64 statueRealmId = 59;
+
+    reserved 60; // uint64 statueRealmX = 60; // 联盟雕像放置的场景x
+    reserved 61; // uint64 statueRealmY = 61; // 联盟雕像放置的场景y
+
+    repeated GuildSeekHelpProto seek_help = 62; // 求助
+
+    uint64 big_box_id = 63; // 逼格宝箱id
+    uint64 big_box_energy = 64; // 逼格宝箱当前能量值
+
+    uint64 full_big_box_id = 65; // 充满的逼格宝箱id
+    repeated int64 full_big_box_member_ids = 66; // 充满的逼格宝箱领取成员列表
+
+    repeated uint64 technologys = 67; // 科技
+    uint64 upgrade_technology = 68; // 当前正在升级的科技id
+    int64 tech_upgrade_end_time = 69; // 科技升级结束时间（0表示当前没有在升级），unix时间戳，秒
+    uint64 tech_cdr_times = 70; // 科技升级已加速次数
+
+    int64 next_update_prestige_target_time = 71; // 下次更新联盟声望国家的时间，小于这个时间显示倒计时
+
+    bool is_start_resist_xiong_nu_today = 75; // 今天是否有开启抗击匈奴
+    repeated int64 resist_xiong_nu_defenders = 76; // 抗击匈奴的防守人
+    uint64 unlock_resist_xiong_nu_level = 77; // 解锁的抗击匈奴的等级
+    LastResistXiongNuProto last_resist_xiong_nu = 78; // 最近一次挑战匈奴
+    ResistXiongNuFightProto last_resist_xiong_nu_fight_proto = 83; // 最近一次匈奴战斗排行榜数据
+
+    map<int64, int64> member_leave_time_map = 79; // 成员离开联盟时间（离开联盟后一段时间之内不能再加入联盟）
+
+    McWarAllRecordProto record = 81; // 名城战记录
+
+    repeated GuildMarkProto mark = 80; // 联盟标识
+
+    uint64 template = 99; // npc模板
+    int64 daily_reset_time = 100; // 每日重置时间
+    int64 weekly_reset_time = 101; // 每周重置时间
+
+    repeated GuildYinliangRecordProto yinliang_record = 82; // 银两记录
+
+    repeated GuildYinliangSendToGuildProto yinliang_send_to_guild = 84; // 最近赠送联盟银两记录
+
+    map<int64, GuildYinliangSendProto> yinliang_send_to_me = 85; // 赠送给我的银两数据
+
+    map<uint64, int64> host_mingc_ids = 86; // 占领的名城
+
+    // 联盟工坊
+    GuildWorkshopServerProto workshop = 87;
+
+    bool workshop_today_completed = 88; // 今日是否竣工过
+
+    // 联盟工坊生产次数，奖励个数，不能因为拆了，就重新计算
+    uint64 workshop_output = 89;
+
+    // 联盟工坊产出奖励个数
+    uint64 workshop_prize_count = 90;
+
+    // 联盟工坊今日被破坏次数
+    uint64 workshop_been_hurt_times = 91;
+
+    repeated uint64 recommend_mc_builds = 92; // 推荐营建的名城
+
+    // 周任务进度
+    map<int32, uint64> weekly_tasks = 93;
+
+    // 联盟转国
+    int64 change_country_wait_end_time = 94; // 转国等待结束时间
+    uint64 change_country_target = 95; // 转国目标（转到哪个国家）
+    int64 change_country_next_time = 96; // 下次可以转国时间
+}
+
+message GuildWorkshopServerProto {
+
+    int32 start_time = 1; // 开工时间
+    int32 end_time = 2; // 竣工时间
+
+    bool is_complete = 3; // true表示已竣工
+
+    // 坐标
+    int32 x = 4;
+    int32 y = 5;
+
+    // 繁荣度
+    uint64 prosperity = 6;
+    // 日志
+    repeated GuildWorkshopLogProto log = 7;
+}
+
+message GuildMemberServerProto {
+    reserved 22; // int64 last_offline_time = 22; // 最后一次离线时间
+
+    int64 id = 1; // 玩家id
+    HeroBasicSnapshotServerProto hero = 31; // 玩家数据
+    //    string name = 2; // 玩家名字
+    //    string head = 3; // 头像
+    //    uint64 level = 4; // 君主等级
+    //    bool male = 5; // 君主性别,true-男 false-女
+
+    bool is_tech_helpable = 19; // 是否可以协助科技升级，true表示可以
+
+    uint64 class_title = 20; // 系统职称
+    uint64 class_level = 21; // 职务位置，从0开始（最低职务）
+    int64 create_time = 23; // 加入帮派时间
+
+    uint64 hufu_amount = 38; // 今日虎符贡献
+    uint64 hufu_total_amount = 39; // 虎符总贡献
+    repeated uint64 hufu_amount_per_day = 40; // 近几日的虎符贡献
+
+    uint64 contribution_amount = 41; // 今日贡献值
+    uint64 contribution_total_amount = 42; // 总贡献值
+    repeated uint64 contribution_amount_per_day = 43; // 近几日的贡献值
+
+    uint64 donation_amount = 44; // 今日捐献值
+    uint64 donation_total_amount = 45; // 总捐献值
+    repeated uint64 donation_amount_per_day = 46; // 近几日的贡献值
+
+    uint64 donation_total_yuanbao = 48; // 元宝捐献总量
+
+    uint64 salary = 49; // 工资
+    uint64 history_salary = 50; // 历史总工资
+
+    uint64 workshop_prize_count = 51; // 联盟工坊奖励
+}
+
+// 弹劾盟主
+message GuildImpeachServerProto {
+
+    int64 impeach_start_time = 11; // 弹劾开始时间
+
+    int64 impeach_end_time = 1; // 弹劾结束时间
+
+    repeated int64 candidates = 2; // 候选人
+
+    int64 impeach_member_id = 3; // 弹劾发起者
+
+    repeated int64 vote_heros = 4; // 选民（不在这里的帮派成员，说明还未投票）
+    repeated int64 vote_target = 5; // 选民投给谁
+}
+
+enum GuildTaskType {
+    InvalidGuildTask = 0;
+    BaoWu = 1; // 开启宝物
+    McWar = 2; // 名城作战
+    Workshop = 3; // 工坊生产
+    Donate = 4; // 联盟捐献
+    QuanRong = 5; // 挑战犬戎
+    HeBi = 6; // 天命合璧
+    XiongNv = 7; // 抗击匈奴
+}

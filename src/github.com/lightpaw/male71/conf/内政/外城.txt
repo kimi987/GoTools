@@ -1,0 +1,6 @@
+Id	名字	描述	解锁需要的官府等级	未解锁时的图标，配置 icon.txt 中的id	解锁图标，配置icon.txt 中的id	分城描述，即未解锁时点击显示的分城建筑物列表，配置 outer_city_desc.txt 中的id	分城描述，即未解锁时点击显示的分城建筑物列表，配置 outer_city_desc.txt 中的id	分城描述，即未解锁时点击显示的分城建筑物列表，配置 outer_city_desc.txt 中的id	分城描述，即未解锁时点击显示的分城建筑物列表，配置 outer_city_desc.txt 中的id	分城描述，即未解锁时点击显示的分城建筑物列表，配置 outer_city_desc.txt 中的id		野外资源模型		解锁前图片	解锁后图片	解锁描述			
+id	name	desc	unlock_guan_fu_level	lock_icon	unlock_icon	descs	descs	descs	descs	descs		region_model_res		unlock_before_image	unlock_after_image	unlock_desc	unlock_desc	unlock_desc	unlock_desc
+1	东城	军事外城	11	外城东	外城东	1	4	5	2	3		1		ui://MonarchOrMainCityUpgrade/Image_City_0	ui://MonarchOrMainCityUpgrade/Image_City_1	提升武将统兵	提升弓、器增伤	提升步、骑、车减伤	提升床弩攻击，提升城墙耐久
+2	南城	经济外城	20	外城南	外城南	6	9	10	7	8		3		ui://MonarchOrMainCityUpgrade/Image_City_1_1	ui://MonarchOrMainCityUpgrade/Image_City_2	提升农场铜币产量	提升农场石料产量	提升研究时间速度	提升建造速度
+3	西城	军事外城	24	外城西	外城西	1	4	5	2	3		2		ui://MonarchOrMainCityUpgrade/Image_City_2	ui://MonarchOrMainCityUpgrade/Image_City_3	提升武将统兵	提升弓、器增伤	提升步、骑、车减伤	提升床弩攻击，提升城墙耐久
+4	北城	经济外城	28	外城北	外城北	6	9	10	7	8		4		ui://MonarchOrMainCityUpgrade/Image_City_3_3	ui://MonarchOrMainCityUpgrade/Image_City_4	提升农场铜币产量	提升农场石料产量	提升研究时间速度	提升建造速度

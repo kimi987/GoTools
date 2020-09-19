@@ -1,0 +1,210 @@
+gen_error_msg: true
+
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+ - "github.com/lightpaw/male7/pb/shared_proto/country.proto"
+ - "github.com/lightpaw/male7/pb/shared_proto/mingc_war.proto"
+ - "github.com/lightpaw/male7/pb/shared_proto/mingc.proto"
+ - "github.com/lightpaw/male7/pb/shared_proto/base.proto"
+ - "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto"
+
+# 请求国家声望（兼容旧版本）
+request_country_prestige:
+  c2s:
+    vsn: int // 版本，刚上线，版本发送0
+  s2c:
+    vsn: int // 版本，这个为0或者nil，表示你的版本没有变化
+    ids: int[] // 国家id
+    prestige: int[] // 国家声望
+  s2c_fail:
+    sever_error: 服务器繁忙，请稍后再试
+
+# 请求所有国家
+# 新版本里 vsn 版本号没有用了，都传0就行
+request_countries:
+  c2s:
+    vsn: int // 版本，刚上线，版本发送0。
+  s2c:
+    vsn: int // 版本，这个为0或者nil，表示你的版本没有变化
+    countries: shared_proto.CountriesProto // 国家
+    mc_war: shared_proto.McWarProto // 名城战数据
+    mc: shared_proto.MingcsProto // 名城数据
+  s2c_fail:
+    sever_error: 服务器繁忙，请稍后再试
+
+# 国家基础数据更新通知
+# 上线就会通知，只要有变化就会主动推送
+# 和 request_countries 消息里的 countries 字段相同
+countries_update_notice:
+  s2c:
+    countries: shared_proto.CountriesProto // 国家
+
+# 转国
+# 转国后重置国家数据 heroProto.HeroCountryMiscProto
+hero_change_country:
+  c2s:
+    new_country: int // 新国家
+    buy: bool // 物品不足，直接购买
+  s2c:
+    new_country: int // 新国家
+    new_cd: int // 新手转国CD
+    normal_cd: int // 正常转国CD
+  s2c_fail:
+    invalid_country: 国家错误
+    in_guild: 在联盟中不能转国
+    in_cd: 在 cd 中
+    cost_not_enough: 花费不够
+    is_king: 国君不能转国
+
+# 请求一个国家的完整数据
+country_detail:
+  c2s:
+    country_id: int // 国家 id
+  s2c:
+    country: shared_proto.CountryDetailProto
+  s2c_fail:
+    invalid_id: 国家id不存在
+
+# 国家任职
+official_appoint:
+  c2s:
+    official_type: shared_proto.CountryOfficialType // 职位类型
+    hero_id: bytes // 要任职的人
+    pos: int // 界面位置，由客户端自己定义
+  s2c:
+  s2c_fail:
+    invalid_country: 国家不存在
+    deny: 没有权限
+    invalid_official: 职位错误
+    official_full: 职位满了
+    invalid_hero: 对方找不到人
+    hero_not_same_country: 对方不是一国人
+    hero_is_official: 对方已有职位
+    server_err: 服务器错误
+    hero_in_guild_change_country: 对方在联盟转国中
+
+# 自己被任命了国家职位
+official_appoint_notice:
+  s2c:
+    official_type: int32 // 职位类型
+
+# 自己被免去了国家职位
+official_depose_notice:
+  s2c:
+
+# 国家免职
+official_depose:
+  c2s:
+    hero_id: bytes // 要免职的人
+  s2c:
+  s2c_fail:
+    invalid_country: 国家不存在
+    deny: 没有权限
+    invalid_hero: 对方找不到人
+    hero_not_same_country: 对方不是一国人
+    hero_not_in_post: 对方没有职位或不在职位上
+    is_king: 是国王
+    server_err: 服务器错误
+    in_cd: cd 中
+
+# 国家官职卸任
+official_leave:
+  c2s:
+  s2c:
+  s2c_fail:
+    invalid_country: 国家不存在
+    no_official: 没有官职
+    is_king: 是国王
+    in_cd: cd 中
+    server_err: 服务器错误
+
+# 都城占领盟更换通知
+country_host_changed_notice:
+  s2c:
+    country_id: int // 被占都城的国家id
+
+# 灭国通知
+country_destroy_notice:
+  s2c:
+    country_id: int // 被灭国的国家id
+
+# 国君变更通知
+king_changed_notice:
+  s2c:
+    country_id: int // 国家id
+
+# 领取官职俸禄
+collect_official_salary:
+  c2s:
+  s2c:
+    salary: shared_proto.PrizeProto // 真正获得的俸禄
+  s2c_fail:
+    no_country: 没有国家
+    no_official: 没有官职
+    appoint_on_same_day: 任职当天不能领
+    already_collected: 今天已领
+    server_err: 服务器错误
+
+# 发起国家改名
+change_name_start:
+  c2s:
+    new_name: string // 新名字
+  s2c:
+  s2c_fail:
+    new_name_len_limit: // 长度错误
+    not_king: // 不是国君
+    cost_not_enough: // 消耗不够
+    in_cd: // 在改名CD中
+    new_name_in_default_name: 名字不能为默认其他国名
+    new_name_in_current_name: 名字不能为当前其他国名
+
+# 国君发起改名通知
+# 广播所有同国人
+# 如果正在投票阶段，玩家上线或转国也会通知
+change_name_start_notice:
+  s2c:
+
+# 国家改名投票
+change_name_vote:
+  c2s:
+    agree: bool // 是否同意
+  s2c:
+    agree: bool // 是否同意
+    count: int // 投了几票
+    reduce_count: int // 要在另一方的减去的上次投票数
+  s2c_fail:
+    not_in_vote: // 不在投票中
+    voted: // 在同一方投过票了
+    no_vote_count: // 没有票
+
+# 自己投的票数改变了
+hero_change_name_vote_count_update_notice:
+  s2c:
+    new_count: int // 新票数
+
+# 国家改名结束通知
+change_name_succ_notice:
+  s2c:
+    succ: bool // 是否成功
+    country: int // 国家id
+    new_name: string // 新名字
+
+# 国家任命玩家搜索列表
+search_to_appoint_hero_list:
+  c2s:
+    name: string // 模糊搜索名
+  s2c:
+    heros: shared_proto.HeroBasicSnapshotProto[] // 搜索出的玩家列表，已排序
+  s2c_fail:
+    server_err: 服务器错误
+    name_is_empty: 关键字是空的
+
+# 国家任命玩家默认列表
+default_to_appoint_hero_list:
+  c2s:
+  s2c:
+    heros: shared_proto.HeroBasicSnapshotProto[] // 搜索出的玩家列表，已排序
+  s2c_fail:
+    server_err: 服务器错误

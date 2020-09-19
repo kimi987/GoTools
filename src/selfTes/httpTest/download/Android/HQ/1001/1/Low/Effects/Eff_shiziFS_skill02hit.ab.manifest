@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 803976394
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ce0f6fcfd43b5f8f03e8a70d8d0d23d6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6441f4c48b8293a736413520ea1a9530
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_shiziFS_skill02hit.prefab
+Dependencies: []

@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 15146205
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d366da9ab9ffa0430ede1355732db6cf
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- "Assets/Resources/Audio/\u9ED1\u8C79_\u7267\u5E08-\u5927\u62DB-\u653B\u51FBCast.mp3"
+Dependencies: []

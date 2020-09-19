@@ -1,0 +1,49 @@
+索引	建筑类型	描述	建筑模型									
+id	buildType	desc	prefabPath									
+1	21	铜矿	Prefabs/Scene/DynamicData/GoldMine						-- 建筑类型--			
+2	22	农田	Prefabs/Scene/DynamicData/Cropland						BuildingType = {			
+3	23	伐木场	Prefabs/Scene/DynamicData/Sawmill						"    None = 0,"			
+4	24	采石场	Prefabs/Scene/DynamicData/StonePit									
+									    -- 主城--			
+									"    MainCity = 1,"			
+									    -- 官府--			
+									"    FeudalOfficial = 2,"			
+									    -- 仓库--			
+									"    Warehouse = 3,"			
+									    -- 酒馆--			
+									"    Tavern = 4,"			
+									    -- 军营--			
+									"    Barrack = 5,"			
+									    -- 城墙--			
+									"    Rampart = 6,"			
+									    -- 书院--			
+									"    Academy = 7,"			
+									    -- 外使院--			
+									"    Recruitment = 8,"			
+									    -- 铁匠铺			
+									"    Smithy = 9,"			
+									    -- 修炼馆			
+									"    PracticeHall = 10,"			
+									    -- 市场			
+									"    Bazaar = 11,"			
+												
+									"    -- 这里其实是客户端自己加的(为了城内建筑标签显示正确做的统一处理,包括以后的建筑图标显示)"			
+									    -- 农场			
+									"    Farm = 12,"			
+									    -- 千重楼			
+									"    ClimbingTower = 13,"			
+									    -- 鱼塘			
+									"    Fishpond = 14,"			
+												
+									    -- 添加新建筑时请修改此值，用于判断建筑个数，任务跳转判断等！！！			
+									"    CityBuildingCount = 14,"			
+												
+									    -- 铜矿--			
+									"    GoldMine = 21,"			
+									    -- 农田--			
+									"    Cropland = 22,"			
+									    -- 伐木场--			
+									"    Sawmill = 23,"			
+									    -- 采石场--			
+									"    StonePit = 24,"			
+									}			

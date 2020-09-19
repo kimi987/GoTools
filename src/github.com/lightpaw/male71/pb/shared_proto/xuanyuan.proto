@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+
+message XuanyuanTargetProto {
+    HeroBasicProto hero = 1; // 英雄基础数据
+
+    int32 win = 11; // 胜利次数
+    int32 lose = 12; // 失败次数
+    int32 score = 13; // 积分
+    int32 fight_amount = 14; // 战力
+}
+
+message XuanyuanRecordProto {
+    int32 id = 1; // 服务器推送过去的这个值是0，留给客户端自己赋值使用
+
+    XuanyuanRecordHeroProto attacker = 2; // 进攻方，进攻方永远不是npc
+    XuanyuanRecordHeroProto defender = 3; // 防守方
+    bool is_attacker_win = 5; // 进攻方是否赢了
+    int32 time = 6; // 发生时间unix时间
+
+    string link = 7; // 回放地址
+}
+
+message XuanyuanRecordHeroProto {
+    HeroBasicProto hero = 1; // 英雄基础数据
+
+    int32 fight_amount = 8; // 战斗力
+    repeated Race race = 11 [packed = false]; // 阵容，0表示空位
+
+    int32 score_changed = 12; // 积分变化
+}

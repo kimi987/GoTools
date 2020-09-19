@@ -1,0 +1,30 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "rank";
+option optimize_for = SPEED;
+
+
+message C2SRequestRankProto {
+
+    int32 rank_type = 1; // 排行榜类型，即 RankType
+
+    string name = 2; // 名字，为空表示不是精确查找
+
+    bool self = 3; // 查询自己(true)，如果是查询自己，start_count 就不需要发了，如果不是查自己，根据当前显示的第一个是第几个来请求
+
+    int32 start_count = 4; // 从第几个开始取
+
+    int32 jun_xian_level = 5; // 百战军衔等级
+
+    int32 sub_type = 6; // 子类型，百战榜单，表示军衔等级，联盟榜单，表示国家
+
+}
+
+message S2CRequestRankProto {
+
+    bytes rank = 1; // 返回数据，客户端解析成 RankProto，收到该数据后，客户端清掉其他排行榜的缓存
+
+}
+

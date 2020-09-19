@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "rpc7";
+option optimize_for = SPEED;
+
+message RpcRequest {
+    string handler = 1; // 请求类型
+    string version = 2; // 版本号
+
+    int64 key = 11; // 提供个key，某些情况下使用
+    bytes proto = 12; // 请求的proto数据
+
+    // pass 透传数据，登陆服中转
+    string pass_from = 31; // 透传源位置
+    string pass_to = 32; // 透传目标
+
+    enum PassType {
+        Pass = 0; // 固定透传
+        Random = 1; // 随机节点
+        Broadcast = 2; // 广播
+    }
+    PassType pass_type = 33; // 透传类型
+}
+
+enum RspCode {
+    SUCCESS = 0;
+    HANDLER_NOT_FOUND = 1; // 这边没找到这个请求的处理器
+    HANDLER_TOO_OLD = 2; // 处理函数的版本太低
+    BAD_C2S_PROTO = 3; // 无效的Proto内容
+    BAD_S2C_PROTO = 4; // 无效的Proto内容
+    HANDLE_ERROR = 5; // 函数报错
+
+    INVALID_CODE = 9; // 无效的Code
+
+    // 透传
+    CONTINUE = 30; // 继续后面逻辑
+    PASS_TO_NOT_FOUND = 31; // 透传目的地没找到
+    INVALID_PASS_TYPE = 32; // 透传类型无效
+    PASS_TO_TIMEOUT = 33; // 透传目的地超时
+
+    // 程序逻辑返回值
+    OUT_OF_KEY_RANGE = 51; // 超出Key的范围（这个key不是我这边处理的）
+}
+
+message RpcResponse {
+    RspCode code = 1; // 状态码
+    string msg = 2; // 状态消息
+
+    bytes proto = 12; // 返回的proto数据
+}
+
+// rpc service
+service RpcService {
+    rpc Handle (RpcRequest) returns (RpcResponse);
+    rpc Check (HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+message HealthCheckRequest {
+    string service = 1;
+}
+
+message HealthCheckResponse {
+    enum ServingStatus {
+        UNKNOWN = 0;
+        SERVING = 1;
+        NOT_SERVING = 2;
+    }
+    ServingStatus status = 1;
+}
+

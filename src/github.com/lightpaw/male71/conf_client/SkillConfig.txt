@@ -1,0 +1,12 @@
+技能id	描述	脚本	时间线1	时间线2
+id	desc	script	timeLine	timeLine
+0	弓箭手普攻	Skill/NormalAttackLogic	0	
+1	弓箭手技能1	Skill/NormalAttackLogic	1	
+10	骑兵普攻	Skill/NormalAttackLogic	10	
+11	骑兵技能1	Skill/NormalAttackLogic	11	
+20	步兵普攻	Skill/NormalAttackLogic	20	
+21	步兵技能1	Skill/NormalAttackLogic	21	
+30	战车普攻	Skill/NormalAttackLogic	30	
+31	战车技能1	Skill/NormalAttackLogic	31	
+40	投石车普攻	Skill/NormalAttackLogic	40	
+41	投石车技能1	Skill/NormalAttackLogic	41	

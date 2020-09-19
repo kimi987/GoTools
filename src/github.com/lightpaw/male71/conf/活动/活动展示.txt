@@ -1,0 +1,5 @@
+展示id	活动名	角色SpineId	图标	选中图标	是否显示倒计时	活动内容	活动时间	描述40字	奖励描述	时间规则(展示时间段)	排序	底图	底图位置 0 左 1 中 2 上	前往按钮名字	任务目标.txt的主键
+id	name	spine_id	icon	icon_select	show_countdown	name_icon	time_show	desc	prize_desc	time_rule	sort	image	image_pos	link_name	link_task_target
+1	名城争夺		ui://Activity/页签-名城争雄	ui://Activity/页签-名城争雄-选中	1	ui://Activity/名城之役-美术字	每周二、周四、周六名城争夺开战！	群雄崛起，名城争夺。名城战活动即将开启！	参与名城争夺，可以获得银两。银两用于银两商店购买各类道具。	1001	1000	ui://Activity/名城争雄大图	1	前往查看	70602
+2	王位争夺		ui://Activity/页签-王权逐鹿	ui://Activity/页签-王权逐鹿-选中	1	ui://Activity/王权逐鹿-美术字_1	每周二、周四、周六名城争夺开战！	决战都城，君临天下！即将开放申请挑战本国都城。占领都城的联盟盟主成为国君。	参与名城争夺，可以获得银两。银两用于银两商店购买各类道具。	1002	1001	ui://Activity/大背景2	2	前往查看	70602
+3	灭国战争		ui://Activity/页签-九州霸业	ui://Activity/页签-九州霸业-选中	1	ui://Activity/九州之战-美术字	每周二、周四、周六名城争夺开战！	逐鹿中原，一统天下！即将开放申请进攻其它国家都城。	参与名城争夺，可以获得银两。银两用于银两商店购买各类道具。	1003	1002	ui://Activity/大背景3	1	前往查看	70602

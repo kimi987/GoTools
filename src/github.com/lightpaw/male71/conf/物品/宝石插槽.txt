@@ -1,0 +1,1 @@
+	能够镶嵌该槽位，需要的成长值	部件，对应装备的部件slot_idx	need_ability	type0	0	TOU_KUI1	1	TOU_KUI2	3	TOU_KUI3	0	KAI_JIA4	1	KAI_JIA5	3	KAI_JIA6	0	HU_TUI7	1	HU_TUI8	3	HU_TUI9	0	WU_QI10	1	WU_QI11	3	WU_QI12	0	SHI_PIN13	1	SHI_PIN14	3	SHI_PIN

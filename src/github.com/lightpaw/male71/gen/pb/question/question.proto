@@ -1,0 +1,42 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "question";
+option optimize_for = SPEED;
+
+
+message C2SStartProto {
+
+    int32 id = 1; // 当前的问题 ID（QuestionProto.id）
+
+}
+
+message C2SAnswerProto {
+
+    int32 id = 1; // 当前的问题 ID（QuestionProto.id）
+
+    bool right = 2; // true:答对了，false:答错了
+
+    int32 answer = 3; // 答案序号
+
+}
+
+message S2CAnswerProto {
+
+    int32 id = 1; // 问题 ID（暂时用不上。服务器工具限制必须得写一个）
+
+}
+
+message C2SNextProto {
+
+    int32 id = 1; // 当前的问题 ID（QuestionProto.id）
+
+}
+
+message C2SGetPrizeProto {
+
+    int32 score = 1; // 本轮分数(答对了几题)
+
+}
+

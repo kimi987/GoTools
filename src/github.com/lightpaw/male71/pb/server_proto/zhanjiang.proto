@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+// 过关斩将
+message HeroZhanJiangServerProto {
+    uint64 open_times = 1; // 开启的次数
+    repeated uint64 pass_guan_qia = 2; // 通关了的关卡
+    ZhanJiangChallengeServerProto cur_challenge = 3; // 当前的挑战，可能为空
+    uint64 last_captain_id = 4; // 上次通关的武将id
+}
+
+message ZhanJiangChallengeServerProto {
+    uint64 guan_qia = 1; // 当前开启的关卡
+    uint64 passCount = 2; // 通关的数量
+    uint64 captain_id = 3; // 设置的武将的id
+}

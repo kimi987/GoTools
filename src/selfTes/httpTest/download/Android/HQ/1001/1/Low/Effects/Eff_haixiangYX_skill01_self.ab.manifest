@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 867773912
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 839ef414ae43a31f8757f126762bc063
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_haixiangYX_skill01_self.prefab
+Dependencies: []

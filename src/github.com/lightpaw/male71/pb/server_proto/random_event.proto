@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+
+message EventPositionServerProto {
+    int32 id = 1; // 事件ID
+    int32 posX = 2; // 事件的x坐标
+    int32 posY = 3; // 事件的y坐标
+    int64 endTime = 4; // 事件的结束时间
+}

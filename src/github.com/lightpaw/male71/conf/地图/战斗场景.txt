@@ -1,0 +1,18 @@
+地图id，可以是数字也可以是字母	地图名	地图资源	带城墙的地图资源
+id	name	map_res	wall_map_res
+			
+			
+World_Map_1	野外草地	Battle_PveChapter_1v1_1	Battle_Field_Wall_1v1_1
+Battle_Pvp100_1	百战	Battle_Pvp100_1v1_1	Battle_Field_Wall_1v1_2
+			
+NoviceGuide_Battle_1	新手战斗	Battle_Novice_1v1_1	Battle_Novice_Wall_2
+NoviceGuide_Battle_2	新手战斗2	Battle_Novice_1v1_2	Battle_Novice_Wall_1v1_2
+NoviceGuide_Battle_3	新手战斗2	Battle_Novice_1v1_3	Battle_Novice_Wall_1v1_3
+			
+Battle_ZhanJiang_1v1_1	过关斩将	Battle_ZhanJiang_1v1_1	Battle_Field_Wall_1v1_1
+			
+Battle_New_1	新版战斗	Battle_PveChapter_1v1_2	Battle_Field_Wall_1v1_2
+Battle_Field_1	新版重楼	Battle_Tower_1v1_2	Battle_Field_Wall_1v1_2
+Battle_Tower_Multi	新版密室	Battle_Tower_Multi	Battle_Tower_Multi
+			
+Battle_Valley_1V1_2	新版战斗2	Battle_Valley_1V1_2	Battle_Valley_1V1_2

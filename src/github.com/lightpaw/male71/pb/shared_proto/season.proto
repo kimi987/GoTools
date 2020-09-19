@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+enum Season {
+    InvalidSeason = 0;
+    SPRING = 1; // 春
+    SUMMER = 2; // 夏
+    AUTUMN = 3; // 秋
+    WINTER = 4; // 冬
+}
+
+message SeasonDataProto {
+    Season season = 1; // 季节
+    PrizeProto show_prize = 2; // 展示奖励
+    string bg_img = 3; // 背景图片
+    int32 worker_cdr = 4; // 增加建筑和研究效率, 这个值需要除以 1000，得到小数系数
+    int32 secret_tower_times = 5; // 增加重楼密室次数
+    int32 farm_base_inc = 6; // 农场基础效率提升, 这个值需要除以 1000，得到小数系数
+    int32 add_multi_monster_times = 7; // 增加讨伐野怪次数
+    int32 dec_troop_speed_rate = 8; // 降低行军速度, 这个值需要除以 1000，得到小数系数
+    int32 inc_prosperity_multiple = 9; // 增加领取繁荣度倍率, 这个值需要除以 1000，得到小数系数
+}
+
+message SeasonMiscProto {
+    int32 season_duration = 1; // 季节变换间隔，秒
+    int32 season_switch_duration = 2; // 季节切换间隔，秒（季节从春季切换到夏季中间的切换过程耗时）
+}

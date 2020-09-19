@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/chat.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+
+// 自己的红包数据
+message HeroRedPacketProto {
+    repeated BoughtRedPacketProto red_packets = 1; // 身上买到还没发的红包
+}
+
+// 买过的红包
+message BoughtRedPacketProto {
+    int32 data_id = 1; // 红包 data.Id
+    int32 count = 2; // 买到的数量
+}
+
+message RedPacketProto {
+    bytes id = 1;
+    int32 data_id = 2; // 红包data.Id
+    int32 create_time = 3; // 红包创建时间
+    HeroBasicProto create_hero = 4; // 创建红包的人
+    string text = 5; // 文字
+    ChatType chat_type = 6; // 聊天类型
+    int32 count = 7; // 红包总数
+    bool all_grabbed = 8; // 是不是小红包都抢光了
+    repeated RedPacketPartProto grabbed_parts = 9; // 每个被人抢到的小红包
+}
+
+// 每个小红包
+message RedPacketPartProto {
+    int32 money = 1; // 抢到了多少钱
+    int32 grabbed_time = 2; // 抢到的时间
+    HeroBasicProto grabbed_hero = 3; // 抢到红包的人
+}
+
+// 红包状态
+message RedPacketStateProto {
+    repeated SingleRedPacketStateProto state = 1; // 每个红包状态
+}
+
+// 单个红包状态
+message SingleRedPacketStateProto {
+    bytes red_packet_id = 1; // 红包id
+    bool all_grabbed = 2; // 抢光了
+    bool expired = 3; // 过期了
+    bool not_exist = 4; // 红包不存在，可能过期很久被删了
+}
+

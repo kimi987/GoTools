@@ -1,0 +1,138 @@
+client_pb_import:
+  "shared.proto"
+
+# 世界频道发言
+world_chat:
+  c2s:
+    text: string // 聊天内容
+  s2c:
+
+# 世界频道其他人在发聊天
+world_other_chat:
+  s2c:
+    id: bytes // 君主id
+    name: string // 君主名字
+    head: string // 君主头像 通过 config.Icons去获得图标
+    guild_flag: string // 联盟旗号
+    text: string // 聊天内容
+    white_flag_guild_flag_name: string // 插白旗联盟旗号，空表示没有
+
+# 联盟频道发言
+guild_chat:
+  c2s:
+    text: string // 聊天内容
+  s2c:
+  s2c_fail:
+    not_guild: 你当前没有联盟
+
+# 联盟频道其他人在发聊天
+guild_other_chat:
+  s2c:
+    id: bytes // 君主id
+    name: string // 君主名字
+    head: string // 君主头像 通过 config.Icons去获得图标
+    text: string // 聊天内容
+    white_flag_guild_flag_name: string // 插白旗联盟旗号，空表示没有
+
+
+# 获取自己的聊天列表，根据消息时间进行排序
+self_chat_window:
+  c2s:
+  s2c:
+    sender: bytes[] // shared_proto.ChatSenderProto
+    unread: int[] // 未读信息条数
+
+# 创建聊天列表
+create_self_chat_window:
+  c2s:
+    target: bytes // 目标玩家id
+    set_up: bool // 置顶
+  s2c:
+    target: bytes // 目标玩家id
+    set_up: bool // 置顶
+
+# 移除聊天
+remove_chat_window:
+  c2s:
+    chat_type: int // 类型 0-世界聊天 1-联盟聊天 2-私聊
+    chat_target: bytes // varint64 房间id，世界聊天留空，联盟聊天填联盟id，私聊填私聊对象id
+  s2c:
+    chat_type: int // 类型 0-世界聊天 1-联盟聊天 2-私聊
+    chat_target: bytes // varint64 房间id，世界聊天留空，联盟聊天填联盟id，私聊填私聊对象id
+
+# 获取聊天历史记录
+list_history_chat:
+  c2s:
+    chat_type: int // 类型 0-世界聊天 1-联盟聊天 2-私聊
+    chat_target: bytes // varint64 房间id，世界聊天留空，联盟聊天填联盟id，私聊填私聊对象id
+    min_chat_id: bytes // 当前最小聊天记录id，第一次留空，后续发送时间最小的那条聊天的id
+  s2c:
+    compress: snappy
+    chat_msg: bytes[] // shared_proto.ChatMsgProto
+
+# 发送聊天，在收到返回之前不能再次发送，收到返回，将玩家的聊天信息放到聊天框中
+# MiscConfigProto
+#    int32 world_chat_level = 25; // 世界聊天等级限制, >= 这个等级才能发世界聊天
+#    int32 world_chat_duration = 26; // 世界聊天CD，每条聊天最少相隔X秒
+#    int32 chat_text_length = 27; // 聊天文字长度限制（英文=1字节，中文=2字节），必须<=这个值
+send_chat:
+  c2s:
+    chat_msg: bytes // ChatMsgProto
+    receiver: bool // true表示需要接收者信息
+  s2c:
+    chat_id: bytes // 聊天id
+    receiver: bytes // shared_proto.ChatSenderProto 接收者的sender
+    replace_text: string // 替换的屏蔽字（空的时候，不要替换）
+  s2c_fail:
+    world_chat_level: 君主等级不足，不能使用世界聊天频道
+    world_chat_too_fast: 世界聊天太频繁了
+    not_in_guild: 你没有联盟，不能发送联盟聊天
+    invalid_target: 无效的目标id
+    text_too_long: 说话文字太长
+    invalid_pos: 无效的分享坐标
+    invalid_replay: 无效的分享回放连接
+    invalid_report: 无效的分享战报id
+    sensitive_words: 文字中包含敏感词
+    server_error: 服务器忙，请稍后再试
+    broadcast_goods_not_enough: 小喇叭不够
+    broadcast_money_not_enough: 买小喇叭钱不够
+    mc_war_not_join_fight: 名城战，没有参战
+    mc_war_not_in_fight_stage: 不在名城战战斗阶段内
+    guild_perm_deny: 没有联盟权限
+    ban_chat: 系统禁言
+    too_fast: 发送太频繁，请稍后再试
+    chat_too_fast: 通用聊天太频繁了
+    private_chat_level: 君主等级不足，不能使用私聊频道
+
+# 别人发聊天给你，收到聊天，显示未读聊天
+# 如果当前正在打开这个聊天窗口，则不用显示未读信息（私聊需要发送已读状态给服务器）
+other_send_chat:
+  s2c:
+    chat_msg: bytes // shared_proto.ChatMsgProto
+
+# 已读聊天，世界聊天和联盟聊天不发
+read_chat_msg:
+  c2s:
+    chat_type: int // 类型 0-世界聊天 1-联盟聊天 2-私聊
+    chat_target: bytes // varint64 房间id，世界聊天留空，联盟聊天填联盟id，私聊填私聊对象id
+  s2c:
+    chat_type: int // 类型 0-世界聊天 1-联盟聊天 2-私聊
+    chat_target: bytes // varint64 房间id，世界聊天留空，联盟聊天填联盟id，私聊填私聊对象id
+
+# 离线未读聊天
+offline_chat:
+  s2c:
+
+# 获取玩家简要数据
+get_hero_chat_info:
+  c2s:
+    id: bytes // 玩家id
+  s2c:
+    id: bytes // 玩家id
+    tower: int // 千重楼层数
+    jun_xian: int // 百战军衔
+
+# 系统禁言
+ban_chat:
+  s2c:
+    end_time: int // 禁言结束时间

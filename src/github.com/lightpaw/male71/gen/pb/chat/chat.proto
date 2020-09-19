@@ -1,0 +1,168 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "chat";
+option optimize_for = SPEED;
+
+
+message C2SWorldChatProto {
+
+    string text = 1; // 聊天内容
+
+}
+
+message S2CWorldOtherChatProto {
+
+    bytes id = 1; // 君主id
+
+    string name = 2; // 君主名字
+
+    string head = 3; // 君主头像 通过 config.Icons去获得图标
+
+    string guild_flag = 6; // 联盟旗号
+
+    string text = 5; // 聊天内容
+
+    string white_flag_guild_flag_name = 7; // 插白旗联盟旗号，空表示没有
+
+}
+
+message C2SGuildChatProto {
+
+    string text = 1; // 聊天内容
+
+}
+
+message S2CGuildOtherChatProto {
+
+    bytes id = 1; // 君主id
+
+    string name = 2; // 君主名字
+
+    string head = 3; // 君主头像 通过 config.Icons去获得图标
+
+    string text = 4; // 聊天内容
+
+    string white_flag_guild_flag_name = 5; // 插白旗联盟旗号，空表示没有
+
+}
+
+message S2CSelfChatWindowProto {
+
+    repeated bytes sender = 3; // shared_proto.ChatSenderProto
+
+    repeated int32 unread = 2 [packed = false]; // 未读信息条数
+
+}
+
+message C2SCreateSelfChatWindowProto {
+
+    bytes target = 1; // 目标玩家id
+
+    bool set_up = 2; // 置顶
+
+}
+
+message S2CCreateSelfChatWindowProto {
+
+    bytes target = 1; // 目标玩家id
+
+    bool set_up = 2; // 置顶
+
+}
+
+message C2SRemoveChatWindowProto {
+
+    int32 chat_type = 1; // 类型 0-世界聊天 1-联盟聊天 2-私聊
+
+    bytes chat_target = 2; // varint64 房间id，世界聊天留空，联盟聊天填联盟id，私聊填私聊对象id
+
+}
+
+message S2CRemoveChatWindowProto {
+
+    int32 chat_type = 1; // 类型 0-世界聊天 1-联盟聊天 2-私聊
+
+    bytes chat_target = 2; // varint64 房间id，世界聊天留空，联盟聊天填联盟id，私聊填私聊对象id
+
+}
+
+message C2SListHistoryChatProto {
+
+    int32 chat_type = 1; // 类型 0-世界聊天 1-联盟聊天 2-私聊
+
+    bytes chat_target = 2; // varint64 房间id，世界聊天留空，联盟聊天填联盟id，私聊填私聊对象id
+
+    bytes min_chat_id = 3; // 当前最小聊天记录id，第一次留空，后续发送时间最小的那条聊天的id
+
+}
+
+message S2CListHistoryChatProto {
+
+    repeated bytes chat_msg = 1; // shared_proto.ChatMsgProto
+
+}
+
+message C2SSendChatProto {
+
+    bytes chat_msg = 1; // ChatMsgProto
+
+    bool receiver = 2; // true表示需要接收者信息
+
+}
+
+message S2CSendChatProto {
+
+    bytes chat_id = 1; // 聊天id
+
+    bytes receiver = 2; // shared_proto.ChatSenderProto 接收者的sender
+
+    string replace_text = 3; // 替换的屏蔽字（空的时候，不要替换）
+
+}
+
+message S2COtherSendChatProto {
+
+    bytes chat_msg = 1; // shared_proto.ChatMsgProto
+
+}
+
+message C2SReadChatMsgProto {
+
+    int32 chat_type = 1; // 类型 0-世界聊天 1-联盟聊天 2-私聊
+
+    bytes chat_target = 2; // varint64 房间id，世界聊天留空，联盟聊天填联盟id，私聊填私聊对象id
+
+}
+
+message S2CReadChatMsgProto {
+
+    int32 chat_type = 1; // 类型 0-世界聊天 1-联盟聊天 2-私聊
+
+    bytes chat_target = 2; // varint64 房间id，世界聊天留空，联盟聊天填联盟id，私聊填私聊对象id
+
+}
+
+message C2SGetHeroChatInfoProto {
+
+    bytes id = 1; // 玩家id
+
+}
+
+message S2CGetHeroChatInfoProto {
+
+    bytes id = 1; // 玩家id
+
+    int32 tower = 2; // 千重楼层数
+
+    int32 jun_xian = 3; // 百战军衔
+
+}
+
+message S2CBanChatProto {
+
+    int32 end_time = 1; // 禁言结束时间
+
+}
+

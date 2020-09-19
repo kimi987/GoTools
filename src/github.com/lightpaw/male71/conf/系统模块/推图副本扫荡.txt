@@ -1,0 +1,1 @@
+领取扫荡次数的开始时间	领取扫荡次数的结束时间	领取的扫荡次数start_duration	end_duration	times9h	9h30m	2012h	12h30m	2018h	18h30m	20

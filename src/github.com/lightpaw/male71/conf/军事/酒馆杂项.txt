@@ -1,0 +1,3 @@
+默认次数	最大次数	次数恢复间隔			刷新消耗，配 消耗.txt id								
+default_times	max_times	recovery_duration			refresh_cost	refresh_cost	refresh_cost	refresh_cost	refresh_cost	refresh_cost	refresh_cost	refresh_cost	refresh_cost
+2	3	10h			1	80000008	80000009	80000010	80000011	80000012	80000013	80000014	80000015

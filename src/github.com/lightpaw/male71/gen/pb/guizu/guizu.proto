@@ -1,0 +1,26 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "guizu";
+option optimize_for = SPEED;
+
+
+message C2SCollectLevelPrizeProto {
+
+    int32 level = 1; // 贵族等级
+
+}
+
+message S2CCollectLevelPrizeProto {
+
+    int32 level = 1; // 贵族等级
+
+}
+
+message S2CLevelChangedProto {
+
+    int32 level = 1; // 贵族等级
+
+}
+

@@ -1,0 +1,60 @@
+gen_error_msg: true
+
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+  - "github.com/lightpaw/male7/pb/shared_proto/red_packet.proto"
+  - "github.com/lightpaw/male7/pb/shared_proto/chat.proto"
+
+# 购买红包
+buy:
+  c2s:
+    data_id: int // 红包数据ID， RedPacketData.Id
+  s2c:
+    data_id: int
+    new_count: int // 红包数量
+  s2c_fail:
+    invalid_data_id: 红包 data.id 错误
+    cost_not_enough: 钱不够
+    server_err: 服务器错误
+    rechange_yuanbao_limit: 元宝赠送额度不够
+
+# 发红包
+create:
+  c2s:
+    data_id: int // RedPacketData.Id
+    chat_type: shared_proto.ChatType //聊天类型- 世界，联盟
+    count: int // 红包个数
+    text: string // 吉祥话, 没填就不用发
+  s2c:
+    data_id: int // RedPacketData.Id
+  s2c_fail:
+    invalid_data_id: 红包 data.id 错误
+    invalid_chat_type: 聊天类型错误
+    not_bought: 没买
+    count_err: 数量错误
+    guild_limit: 联盟人太少
+    no_guild: 发联盟红包，但没有联盟
+    server_err: 服务器错误
+    text_too_long: 文字太长
+    recharge_not_enough: 充钱不够
+
+# 抢红包
+# 抢过或红包被抢光后再打开红包，也用这条
+grab:
+  c2s:
+    id: bytes // 具体红包的ID，RedPacketProto.Id
+  s2c:
+    red_packet: shared_proto.RedPacketProto // 红包
+    grab_money: int // 抢到了多少钱
+  s2c_fail:
+    invalid_id: 红包id不存在或已经删掉了
+    not_same_guild: 不是同联盟
+    expired: 过期了
+    server_err: 服务器错误
+
+# 红包抢光通知
+all_grabbed_notice:
+  s2c:
+    id: bytes // 红包id

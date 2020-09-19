@@ -1,0 +1,34 @@
+ManifestFileVersion: 0
+CRC: 3430067256
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d8dc96d270e683f072384144f549766b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 282fb0e9c8ea9d86312e6cd55470408e
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_wuguiFS_skill02Weap.prefab
+Dependencies: []

@@ -1,0 +1,53 @@
+ManifestFileVersion: 0
+CRC: 4108153602
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 86753299144d67b9a9e35c9d79ee4b5a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d081b5cd9ebf885147d1cb9b1a31b50f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 104
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 525ece82a472e4dea837e1ef938fd15d, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ad687dfd379d27e45817939b7347bc1a, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 157
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/Scenes/Start.unity
+Dependencies:
+- '/Users/kimiwang/Documents/ResPath/Dev
+
+  /Android/HQ/prefabs/loginbg.ab'

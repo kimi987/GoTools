@@ -1,0 +1,3 @@
+将魂等级跟玩家等级差限制	默认的将魂头像，配置 captain_soul/captain_soul.txt 中的id，且必须配置 default_open_head = 1
+level_diff_limit	default_head_captain_soul
+20	99

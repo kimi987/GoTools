@@ -1,0 +1,5 @@
+robot_ping:
+  c2s:
+    time: int
+  s2c:
+    time: int

@@ -1,0 +1,13 @@
+MsgFailCodeId#exchange#: 3
+MsgFailCodeId#exchange#cost_not_enough: 2
+MsgFailCodeId#exchange#invalid_times: 1
+MsgFailCodeId#exchange#server_err: 3
+MsgId#: 3
+MsgId#exchange#c2s: 1
+MsgId#exchange#s2c: 2
+MsgId#exchange#s2c_fail: 3
+MsgProtoFieldId#exchange#c2s#: 1
+MsgProtoFieldId#exchange#c2s#times#int32: 1
+MsgProtoFieldId#exchange#s2c#: 2
+MsgProtoFieldId#exchange#s2c#amount#int32: 2
+MsgProtoFieldId#exchange#s2c#times#int32: 1

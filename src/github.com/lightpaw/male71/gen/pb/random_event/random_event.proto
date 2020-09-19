@@ -1,0 +1,67 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "random_event";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/random_event.proto";
+
+
+message C2SChooseOptionProto {
+
+    int32 pos_x = 1; // 事件坐标x
+
+    int32 pos_y = 2; // 事件坐标y
+
+    int32 option = 3; // 选项 0，1，2
+
+}
+
+message S2CChooseOptionProto {
+
+    int32 pos_x = 3; // 事件坐标x
+
+    int32 pos_y = 4; // 事件坐标y
+
+    int32 option = 5;
+
+    bool success = 1; // true触发成功提示，false触发失败提示
+
+    bytes prize = 2; // shared_proto.PrizeProto
+
+}
+
+message C2SOpenEventProto {
+
+    int32 pos_x = 1; // 事件坐标x
+
+    int32 pos_y = 2; // 事件坐标y
+
+}
+
+message S2COpenEventProto {
+
+    int32 pos_x = 2; // 事件坐标x
+
+    int32 pos_y = 3; // 事件坐标y
+
+    int32 event_id = 4; // 随机事件表主键
+
+    repeated EventOptionProto options = 5;
+
+}
+
+message S2CNewEventProto {
+
+    repeated int32 arr_pos_x = 1 [packed = false]; // 事件坐标x列表
+
+    repeated int32 arr_pos_y = 2 [packed = false]; // 事件坐标y列表
+
+}
+
+message S2CAddEventHandbookProto {
+
+    int32 event_id = 1; // 随机事件表主键
+
+}
+

@@ -1,0 +1,185 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "country";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/country.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/mingc.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/mingc_war.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+
+
+message C2SRequestCountryPrestigeProto {
+
+    int32 vsn = 1; // 版本，刚上线，版本发送0
+
+}
+
+message S2CRequestCountryPrestigeProto {
+
+    int32 vsn = 1; // 版本，这个为0或者nil，表示你的版本没有变化
+
+    repeated int32 ids = 2 [packed = false]; // 国家id
+
+    repeated int32 prestige = 3 [packed = false]; // 国家声望
+
+}
+
+message C2SRequestCountriesProto {
+
+    int32 vsn = 1; // 版本，刚上线，版本发送0。
+
+}
+
+message S2CRequestCountriesProto {
+
+    int32 vsn = 1; // 版本，这个为0或者nil，表示你的版本没有变化
+
+    CountriesProto countries = 2; // 国家
+
+    McWarProto mc_war = 3; // 名城战数据
+
+    MingcsProto mc = 4; // 名城数据
+
+}
+
+message S2CCountriesUpdateNoticeProto {
+
+    CountriesProto countries = 1; // 国家
+
+}
+
+message C2SHeroChangeCountryProto {
+
+    int32 new_country = 1; // 新国家
+
+    bool buy = 2; // 物品不足，直接购买
+
+}
+
+message S2CHeroChangeCountryProto {
+
+    int32 new_country = 1; // 新国家
+
+    int32 new_cd = 2; // 新手转国CD
+
+    int32 normal_cd = 3; // 正常转国CD
+
+}
+
+message C2SCountryDetailProto {
+
+    int32 country_id = 1; // 国家 id
+
+}
+
+message S2CCountryDetailProto {
+
+    CountryDetailProto country = 1;
+
+}
+
+message C2SOfficialAppointProto {
+
+    CountryOfficialType official_type = 2; // 职位类型
+
+    bytes hero_id = 3; // 要任职的人
+
+    int32 pos = 4; // 界面位置，由客户端自己定义
+
+}
+
+message S2COfficialAppointNoticeProto {
+
+    int32 official_type = 2; // 职位类型
+
+}
+
+message C2SOfficialDeposeProto {
+
+    bytes hero_id = 3; // 要免职的人
+
+}
+
+message S2CCountryHostChangedNoticeProto {
+
+    int32 country_id = 2; // 被占都城的国家id
+
+}
+
+message S2CCountryDestroyNoticeProto {
+
+    int32 country_id = 1; // 被灭国的国家id
+
+}
+
+message S2CKingChangedNoticeProto {
+
+    int32 country_id = 1; // 国家id
+
+}
+
+message S2CCollectOfficialSalaryProto {
+
+    PrizeProto salary = 1; // 真正获得的俸禄
+
+}
+
+message C2SChangeNameStartProto {
+
+    string new_name = 1; // 新名字
+
+}
+
+message C2SChangeNameVoteProto {
+
+    bool agree = 1; // 是否同意
+
+}
+
+message S2CChangeNameVoteProto {
+
+    bool agree = 1; // 是否同意
+
+    int32 count = 2; // 投了几票
+
+    int32 reduce_count = 3; // 要在另一方的减去的上次投票数
+
+}
+
+message S2CHeroChangeNameVoteCountUpdateNoticeProto {
+
+    int32 new_count = 1; // 新票数
+
+}
+
+message S2CChangeNameSuccNoticeProto {
+
+    bool succ = 3; // 是否成功
+
+    int32 country = 1; // 国家id
+
+    string new_name = 2; // 新名字
+
+}
+
+message C2SSearchToAppointHeroListProto {
+
+    string name = 1; // 模糊搜索名
+
+}
+
+message S2CSearchToAppointHeroListProto {
+
+    repeated HeroBasicSnapshotProto heros = 1; // 搜索出的玩家列表，已排序
+
+}
+
+message S2CDefaultToAppointHeroListProto {
+
+    repeated HeroBasicSnapshotProto heros = 1; // 搜索出的玩家列表，已排序
+
+}
+

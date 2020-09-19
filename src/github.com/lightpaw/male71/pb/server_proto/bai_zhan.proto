@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/combat.proto";
+
+message BaiZhanObjServerProto {
+    int64 id = 1; // 玩家id
+
+    uint64 jun_xian_level = 2; // 军衔等级
+    uint64 last_jun_xian_level = 3; // 上次的军衔等级，如果是非0，跟当前等级的军衔比较，提示军衔升级还是降级
+    bool is_jun_xian_been_removed = 4; // 军衔是否被移除
+
+    uint64 challenge_times = 5; // 当前挑战次数
+    uint64 point = 6; // 当前积分
+    int64 last_point_change_time = 7; // 上次积分变更时间
+
+    bool is_collect_salary = 8; // 是否有领取俸禄
+    uint64 last_collected_jun_xian_prize_id = 9; // 最后领取的军衔奖励id，0表示没有领取
+
+    CombatPlayerProto mirror = 10; // 镜像
+    uint64 mirror_fight_amount = 13; // 镜像战斗力
+
+    uint64 history_max_jun_xian_level = 11; // 历史最高军衔等级
+    repeated uint64 history_max_points = 12; // 历史最高积分
+}
+
+message BaiZhanServerProto {
+    int64 last_reset_time = 1; // 上次重置时间
+    repeated BaiZhanObjServerProto bai_zhan_objs = 2; // 玩家百战数据
+}

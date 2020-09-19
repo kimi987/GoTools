@@ -1,0 +1,6 @@
+Id	下限，>=	上限，<=	挑战胜利积分	挑战失败积分	防守失败损失积分	战斗场景
+id	low_rank	high_rank	win_score	lose_score	defense_lost_score	combat_scene
+1	71	100	30	8	15	Battle_New_1
+2	41	70	20	8	12	Battle_New_1
+3	1	40	15	8	10	Battle_New_1
+4	-50	-1	10	0	0	Battle_New_1

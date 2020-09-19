@@ -1,0 +1,1 @@
+docker run -w /go/src/github.com/lightpaw/male7 -v %GOPATH%:/go -v %GOPATH%/src/github.com/lightpaw/male7/cmd/gogen:/usr/local/bin 7.lightpaw.com:5555/centos7-go191:v3 gogen_linux

@@ -1,0 +1,48 @@
+ManifestFileVersion: 0
+CRC: 2345242682
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a06a3f001b23c1cc53a19a46ac0d0c7e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: fe81abcad0caf192cf25a653247ae69a
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4c06477676487c44db44bc8f0f852861, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fa1fed194787c504ba0cc0d014fbe7b2, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- "Assets/ABConfig/HQ/Avatar/\u91CE\u732A_\u7267\u5E08_1.prefab"
+Dependencies: []

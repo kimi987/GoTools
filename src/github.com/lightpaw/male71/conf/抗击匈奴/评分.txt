@@ -1,0 +1,7 @@
+评分等级	名字	消灭入侵队伍	是否解锁下一级
+level	name	wipe_out_invade_monster_count	unlock_next_level
+1	一般	0	
+2	良好	25	
+3	优秀	40	
+4	杰出	50	
+5	卓越	60	1

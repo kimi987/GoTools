@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 1284727012
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b9b3c8c9400502ce496c27b1e720c7f5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_kaolaQS_zhanshi.prefab
+Dependencies: []

@@ -1,0 +1,177 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/military.proto";
+import "github.com/lightpaw/male7/pb/server_proto/buff.proto";
+import "github.com/lightpaw/male7/pb/server_proto/goods.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/region.proto";
+
+message MilitaryConditionProto {
+
+    bool isOr = 1; // false表示and，true表示or
+
+    repeated MilitaryConditionProto conditions = 2; // 子条件，最多支持3层，必要的话，放宽限制
+
+    repeated MilitaryAttributeProto attributes = 3; // 子参数
+
+    int64 base_id = 4; // 关注主城数据更新
+}
+
+message MilitaryAttributeProto {
+    // 下面条件中，同时设置，他们之间是或者关系
+    // 如果没有任何一项匹配成功，返回false
+    // region_id == 1 || start_base == 10001
+
+    // 部队出发城池（部队拥有者），0表示不检查该项
+    int64 start_base_id = 2;
+
+    // 部队目的地城池，0表示不检查该项
+    int64 target_base_id = 3;
+
+    // 部队出发城池联盟（部队拥有者），0表示不检查该项
+    int64 start_base_guild_id = 4;
+
+    // 部队目的地城池联盟，0表示不检查该项
+    int64 target_base_guild_id = 5;
+
+    // 部队状态，1-出征路上，2-援助路上，3-回家，4-援助驻守，5-持续掠夺，0表示不检查该项
+    int32 troop_state = 6;
+
+    // 集结包含玩家id
+    int64 join_assembly_hero_id = 7;
+}
+
+message HeroMilitaryServerProto {
+    map<uint64, Int32ArrayProto> official_view = 9; // 官职槽位是否红点浏览过
+    repeated uint64 captain_friendship = 1; // 已激活的武将羁绊
+    repeated HeroCaptainServerProto captains = 11; // 拥有的武将
+
+    repeated uint64 captain_index = 4; // 武将编队
+    repeated uint64 defenser = 5; // 城墙防守武将
+
+    uint64 soldier_level = 31; // 士兵等级
+    uint64 free_soldier = 32; // 空闲士兵数量
+    int32 last_recruit_time = 35; // 当前新兵数量
+    uint64 wounded_soldier = 36; // 伤兵数量
+
+    int64 free_soldier_start_recovery_time = 56; // 士兵恢复开始时间
+    uint64 overflow_free_soldier = 59; // 溢出的士兵个数
+    uint64 force_add_soldier_times = 60; // 强征次数
+
+    //    repeated HeroTrainingServerProto training = 41;
+
+    //    int64 jiu_guan_start_recovey_time = 45; // 酒馆恢复时间
+    uint64 jiu_guan_refresh_times = 46; // 酒馆刷新次数
+    uint64 jiu_guan_tutor_index = 47; // 酒馆导师Index，从0开始
+    uint64 jiu_guan_combine_times = 48; // 酒馆请教次数
+
+    int64 jun_ying_recruit_start_recovey_time = 50; // 军营招募次数恢复时间
+
+    // 部队
+    repeated HeroTroopsServerProto troops = 51;
+    HeroTroopsServerProto investigate_troop = 61;
+    repeated HeroPveTroopProto pve_troops = 54;
+
+    int64 next_expel_time = 52; // 下次可以驱逐的时间
+
+    int64 global_train_start_time = 53; // 训练馆训练开始时间
+    int64 captain_train_start_time = 55; // 武将训练开始时间
+
+    repeated string candidate_captain_head = 57; // 本次招募武将候选头像
+
+    int64 reserved_exp = 58; // 修炼馆到期的 buff 给加的、但还没领的武将经验
+}
+
+message HeroTroopsServerProto {
+
+    int32 sequence = 3; // 部队sequence
+    //    repeated HeroCaptainServerProto captain = 11;
+    repeated int32 captains = 12; // 武将ID列表，空阵位为0(新版本)
+    repeated int32 captains_x_index = 13; // 武将出征位置
+
+    // 出征数据
+    TroopsInvateProto invate_info = 51;
+}
+
+message TroopsInvateProto {
+    int64 realm_id = 1; // 所在的区域
+    int64 target_id = 2; // 目标的id，回家的时候设置为0
+    int64 origin_target_id = 3; // 原始目标的id，不会变
+    uint64 target_base_level = 10; // 目标等级
+
+    int32 state = 22;
+    int64 create_time = 17;
+    uint64 move_speed_rate = 19;
+    int64 move_start_time = 5;
+    int64 move_arrive_time = 6;
+    int64 robbing_end_time = 15;
+    int64 next_reduce_prosperity_time = 16;
+    int64 next_add_hate_time = 18;
+    int64 next_rob_baowu_time = 20;
+
+    int32 back_home_target_x = 7;
+    int32 back_home_target_y = 8;
+
+    bool owner_can_see_target = 9;
+
+    PrizeProto accum_rob_prize = 31; // 已获得的奖励
+    uint64 accum_reduce_prosperity = 32; // 已扣除的繁荣度
+    uint64 accum_add_hate = 33; // 累积要加的仇恨
+
+    int64 assembly_id = 41; // 集结id
+    int64 assembly_target_id = 42; // 集结目标id
+
+    uint64 dialogue = 43; // 头顶飘对话
+
+    uint64 npc_times = 44; // 讨伐野怪次数
+}
+
+//message HeroTrainingServerProto {
+//    uint64 level = 1;
+//    int64 start_time = 2;
+//
+//    uint64 captain = 11;
+//}
+
+message HeroCaptainGemServerProto {
+    uint64 gem = 1; // 宝石的id
+    int32 slot_idx = 2; // 第几个槽位
+}
+
+message HeroCaptainServerProto {
+
+    uint64 id = 1;
+
+    int64 gain_time = 7; // 获取时间
+
+    uint64 level_exp = 9; // 武将等级经验
+    uint64 level = 10; // 武将等级
+
+    uint64 soldier = 11; // 当前带兵数
+
+    uint64 star = 12; // 星数
+
+    uint64 ability_exp = 15; // 武将成长值经验
+    uint64 ability = 16; // 武将成长值
+
+    uint64 rebirth = 18;
+    int64 rebirth_cd_end_time = 22; // 转生CD结束时间
+
+    // 装备
+    repeated EquipmentServerProto equipment = 31;
+
+    // 宝石
+    repeated HeroCaptainGemServerProto gems = 34;
+
+    uint64 train_acc_exp = 38; // 训练累积经验
+
+    uint64 gongxun = 37; // 功勋
+    uint64 official = 39; // 官职 id（CaptainOfficialProto.id. 0表示没有官职）
+    uint64 official_idx = 40; // 官职下标
+
+    bool viewed = 41;
+}

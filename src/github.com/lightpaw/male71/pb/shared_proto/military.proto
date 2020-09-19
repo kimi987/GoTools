@@ -1,0 +1,611 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+//import "base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/goods.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+
+message StrongerDataProto {
+
+    int32 level = 1; // 君主等级
+
+    // 类型
+    // 1、达到推荐战力值
+    // 2、X个武将强化点数达到Y
+    // 3、X个武将穿上Y件Z级装备
+    // 4、X个武将穿上Y件Z星装备
+    // 5、X个武将穿上Y个Z级宝石
+    // 6、X个武将穿上Y级将魂
+    // 7、君主升到X级
+    // 8、士兵升到X阶
+    int32 type = 2; // 条件类型
+
+    int32 x = 11;
+    int32 y = 12;
+    int32 z = 13;
+}
+
+message JiuGuanMiscDataProto {
+    int32 max_times = 1; // 最大次数
+    repeated int32 refresh_cost_yuan_bao = 3 [packed = false, deprecated = true]; // （作废，用 refresh_cost）刷新消耗的元宝
+    repeated CostProto refresh_cost = 5; // 刷新消耗
+    int32 recovery_duration = 4; // 恢复间隔
+}
+
+message TutorDataProto {
+    string name = 1; // 导师名字
+    string image = 2; // 导师图片
+    PrizeProto prize = 3; // 奖励
+    string chat_content = 4; // 聊天内容
+    CostProto refresh_max_cost = 5; // 已经刷新最高消耗
+}
+
+message JiuGuanDataProto {
+    int32 level = 1; // 酒馆等级
+    repeated TutorDataProto tutor_datas = 2; // 导师数据，下标(服务器从0开始)最小的是最差的
+    string broadcast_content = 3; // 暴击广播内容
+    int32 recovery_duration = 4; // 恢复间隔
+    int32 max_times = 5; // 最大次数
+}
+
+message JunYingLevelDataProto {
+    int32 level = 1; // 军营等级
+    int32 max_times = 2; // 军营招募最大次数
+    int32 recovery_duration = 4; // 恢复间隔
+}
+
+message JunYingMiscProto {
+    int32 force_add_soldier_max_times = 2; // 强征最大次数，0表示不限次数
+    repeated int32 force_add_soldier_cost = 3 [packed = false, deprecated = true]; // （作废，用 force_add_soldier_new_cost）军营强征消耗，0表示免费，超过最大次数，使用最后一个消耗
+    repeated CostProto force_add_soldier_new_cost = 4; // 军营强征消耗，0表示免费，超过最大次数，使用最后一个消耗
+}
+
+message TrainingLevelProto {
+    int32 level = 1; // 等级
+    string name = 2; // 名称
+    string desc = 3; // 描述
+    int32 exp_output = 4; // 经验产出（每小时）
+    int32 exp_capcity = 5; // 经验产出上限
+    CostProto cost = 6; // 升级消耗
+
+    int32 coef = 7; // 系数, 这个值需要除以 1000，得到小数系数
+    // 经验产出（每小时）= 修理馆产出基数 * 修炼位等级系数
+    // 经验容量 = 修理馆容量基数 * 修炼位等级系数
+}
+
+message CaptainAbilityProto {
+    int32 ability = 1; // 成长值
+    int32 upgrade_exp = 2; // 升级经验（1级放的是1升2的升级经验）
+    PrizeProto sell_price = 3; // 这个成长值的武将卖强化符
+    PrizeProto fire_price = 5; // 这个成长值的武将解雇返还多少强化符
+
+    Quality quality = 4; // 这个成长值的武将什么品质
+
+    string desc = 6; // 描述文字
+
+    repeated int32 models = 7 [packed = false]; // 模型
+
+    // 解锁技能个数
+    int32 unlock_spell_count = 8;
+    // 重生消耗
+    CostProto reset_cost = 9;
+}
+
+message CaptainGeneratorProto {
+    int32 count = 1; // 武将数量
+    int32 need_hero_level = 2; // 需要君主等级
+}
+
+message CaptainLevelProto {
+    int32 rebirth = 11; // 转生等级，0表示0转
+    int32 level = 1; // 武将等级
+    int32 upgrade_exp = 2; //（1级放的是1升2的升级经验，数组第一个元素放的是0转的升级经验，以此类推）
+    int32 gem_slot_count = 22; // 当前解锁的宝石槽位数量（从实际槽位栏下标0开始解锁）
+    bool has_new_gem_slot = 3; // 当前等级是否有新的槽位激活（客户端展示用）
+    int32 ability_limit = 4; // 成长限制
+}
+
+message CaptainRebirthLevelProto {
+    int32 level = 1;
+    int32 rebirth_upgrade_exp = 2 [deprecated = true]; //（1级放的是1升2的升级经验）
+    int32 captain_level_limit = 3; // 武将等级上限
+    int32 yuanbao = 4 [deprecated = true]; // 转生所需的元宝（1升2读取2级的数据）
+    int32 sprite_stat_point = 5; // 转生属性（1升2读取2级的数据）
+    int32 soldier_capcity = 6; // 转生统帅（1升2读取2级的数据）
+    int32 ability_limit = 7; // 成长上限
+    int32 ability_exp = 8; // 转生赠送成长经验
+    int32 cd = 9; // 转生 CD（秒）
+    int32 before_rebirth_level = 10; // 转生前等级
+    int32 hero_level_limit = 11; // 君主等级限制
+}
+
+message CaptainSeekerProto {
+
+    int32 index = 1; // 索引号，从1开始
+    int32 sequence = 2; // 批次，招募第一个武将为1，第二个武将为2
+    int32 required_hero_level = 3; // 招募所需英雄等级
+
+    string family_name = 9; // 系统随机的姓氏
+    string given_name = 11; // 系统随机的名
+    CaptainNameProto name = 10 [deprecated = true]; // 名字
+    string icon_id = 4; // 图标id
+    bool male = 5; // true表示男人
+    Race race = 6; // 兵种
+    Quality quality = 7; // 品质
+    int32 ability = 8; // 成长值
+
+}
+
+message SoldierLevelProto {
+    int32 level = 1;
+    int32 load = 2; // 单兵负载
+    string desc = 3; // 升级描述
+    int32 jun_ying_level = 4; // 升级到该级别需要的军营等级
+
+    CostProto recruit_cost = 11; // 招募消耗资源
+    CostProto wounded_cost = 12; // 伤兵治疗消耗资源
+    // CostProto god_cost = 13; // 高价造兵消耗资源
+    CostProto upgrade_cost = 14; // 升级消耗资源
+
+    repeated SpriteStatProto base_stat = 21; // 士兵对应属性
+
+    int32 total_stat_sum = 22; // 总属性
+
+    repeated int32 models = 23 [packed = false]; // 模型
+}
+
+// 武将官职配置
+message CaptainOfficialProto {
+    int32 id = 1; // 官职 id
+    string official_name = 2; // 官职名
+    SpriteStatProto sprite_stat = 3; // 加成属性
+    int32 need_gongxun = 4; // 需要的功勋
+    string icon = 5;
+    string desc = 6;
+}
+
+//message MilitaryActionProto {
+//    MilitaryInfoProto info = 1; // 军情id
+//
+//    int32 tick_time = 2; // 下一次tickTime
+//}
+//
+//message MilitaryConditionProto {
+//
+//    bool isOr = 1; // false表示and，true表示or
+//
+//    repeated MilitaryConditionProto conditions = 2; // 子条件，最多支持3层，必要的话，联系服务器放宽限制
+//
+//    repeated MilitaryAttributeProto attributes = 3; // 子参数
+//}
+//
+//message MilitaryAttributeProto {
+//    // 下面条件中，同时设置，他们之间是或者关系
+//    // 如果没有任何一项匹配成功，返回false
+//    // region_id == 1 || start_base == 10001
+//
+//    // 地区id，0表示不检查该项
+//    int32 region_id = 1;
+//
+//    // 部队出发城池（部队拥有者），0表示不检查该项
+//    bytes start_base_id = 2;
+//
+//    // 部队目的地城池，0表示不检查该项
+//    bytes target_base_id = 3;
+//
+//    // 部队出发城池联盟（部队拥有者），0表示不检查该项
+//    int32 start_base_guild_id = 4;
+//
+//    // 部队目的地城池联盟，0表示不检查该项
+//    int32 target_base_guild_id = 5;
+//
+//    // 部队状态，1-出征路上，2-援助路上，3-回家，4-援助驻守，5-持续掠夺，0表示不检查该项
+//    int32 troop_state = 6;
+//}
+
+// 军情
+message MilitaryInfoProto {
+    int32 region_id = 102; // 地图id
+
+    bytes combine_id = 101; // 军情id
+
+    int32 action = 2; // 行为，0-入侵 1-救援 2-集结
+    int32 move_type = 3; // 移动类型，0-forward(往目标移动) 1-arrived(到达) 2-back(回家) 3-等待集结
+    int32 create_time = 8; // 创建时间（军情排序）
+    int32 move_start_rate1000 = 9; // 行军开始位置，需要除以1000
+    int32 move_start_time = 4; // 行军开始时间
+    int32 move_arrived_time = 5; // 行军到达时间
+    int32 robbing_end_time = 7; // 掠夺结束时间
+
+    int32 priority_action_id = 6; // 援助时优先打哪个目标，0表示没有优先目标
+
+    // 发起方
+    int32 self_npc_data_id = 18; // NPC配置id
+    int32 self_npc_type = 19; // NPC类型 0-普通npc 1-多等级野怪npc
+    HeroBasicSnapshotProto self = 21;
+    bool self_is_tent = 20; // true表示自己是行营，否则表示自己是主城
+
+    // arm 出征带的部队
+
+    repeated int32 captain_index = 15 [packed = false]; // 部队序号 1-5
+    repeated CaptainInfoProto captains = 16;
+
+    // 目标
+    int32 target_npc_data_id = 26; // NPC配置id
+    int32 target_npc_type = 27; // NPC类型 0-普通npc 1-多等级野怪npc
+    HeroBasicSnapshotProto target = 22; // 目标是玩家时候才有值
+    int32 target_base_x = 23; // 目标主城坐标（用这个，里面那个是最新坐标，比如迁城后的新坐标）
+    int32 target_base_y = 24;
+    bool target_is_tent = 25; // true表示目标是行营，否则表示目标是主城
+
+    // 援助击退
+    repeated string kill_enemy = 30;
+
+    // 当行为是入侵时，下面字段有效
+    // 待删除，使用PrizeProto代替 TODO
+    int32 gold = 51; // 掠夺的资源
+    int32 food = 52;
+    int32 wood = 53;
+    int32 stone = 54;
+    int32 jade_ore = 55; // 掠夺的玉石矿
+
+    PrizeProto accum_rob_prize = 56; // 累积持续掠夺获得的奖励
+
+    // 集结信息
+    int32 assembly_count = 61;
+    int32 assembly_total_count = 62; // > 0表示集结队伍
+    bytes assembly_id = 63; // 集结id
+    int32 assembly_target_npc_type = 64; // 集结目标Npc类型
+
+    int32 multi_level_monster_count = 65; // 本次讨伐野怪次数
+}
+
+message AssemblyInfoProto {
+
+    // 集结状态，直接使用State，1-集结出征 3-集结返回 4-等待集结状态 5-集结持续掠夺
+    // 0-集结出征
+    //   MoveStartTime() time.Time 出征开始时间
+    //   MoveArriveTime() time.Time 出征到达时间
+    //
+    // 1-集结持续掠夺
+    //   RobbingEndTime() time.Time 集结持续掠夺结束时间
+    //
+    // 2-集结返回
+    //   MoveStartTime() time.Time 返回开始时间
+    //   MoveArriveTime() time.Time 返回到达时间
+    //
+    // 3-等待集结状态
+    //   MoveStartTime() time.Time 集结出发时间
+    //
+    int32 move_type = 3; // 移动类型，0-forward(往目标移动) 1-arrived(到达) 2-back(回家) 3-等待集结
+    int32 move_start_time = 4;
+    int32 move_arrived_time = 5;
+    int32 robbing_end_time = 6;
+
+    // 集结发起者
+    HeroBasicSnapshotProto self = 11;
+    int32 self_fight_amount = 12; // 队伍战力
+
+    // 集结目标
+    int32 target_npc_data_id = 26; // NPC配置id
+    int32 target_npc_type = 27; // NPC类型 0-普通npc 1-多等级野怪npc
+    HeroBasicSnapshotProto target = 22; // 目标是玩家时候才有值
+    int32 target_base_x = 23; // 目标主城坐标（用这个，里面那个是最新坐标，比如迁城后的新坐标）
+    int32 target_base_y = 24;
+    int32 target_morale = 25; // 士气（匈奴专用）
+    int32 target_troop = 28; // 目标当前部队数（匈奴和集结怪使用）
+    int32 target_total_troop = 29; // 目标总部队数（匈奴和集结怪使用）
+
+    // 集结成员
+    repeated AssemblyMemberProto member = 30;
+    int32 total_count = 31; // 集结总数（当前集结个数使用上面的成员个数+1，1表示集结发起者）
+    SpriteStatProto added_stat = 32; // 集结附加属性
+}
+
+// 集结成员
+message AssemblyMemberProto {
+
+    bytes troop_id = 5; // 自己的队伍id
+    HeroBasicSnapshotProto hero = 1;
+    int32 fight_amount = 2 [packed = false]; // 队伍战力
+    int32 move_start_time = 3; // 行军开始时间，0表示已经到达集结地，否则表示行军中
+    int32 move_arrived_time = 4; // 行军到达时间
+}
+
+// 基地驻守部队
+message BaseDefenserProto {
+    repeated int32 captain_index = 15 [packed = false]; // 部队序号
+    repeated CaptainInfoProto captains = 16;
+}
+
+message CaptainInfoProto {
+    int32 id = 1; // 武将id
+
+    CaptainNameProto name = 14 [deprecated = true]; // 武将名称
+    string icon_id = 20 [deprecated = true]; // 图标id
+    bool male = 12 [deprecated = true]; // true表示男
+    Race race = 4 [deprecated = true]; // 武将兵种
+    Quality quality = 5; // 品质
+    int32 soldier = 6; // 当前士兵数量
+    int32 total_soldier = 7; // 带兵总量
+    int32 fight_amount = 8; // 战斗力
+    int32 full_fight_amount = 35; // 满兵战力
+    int32 spell_fight_amount_coef = 41; // 技能战斗力系数
+    int32 morale = 9; // 士气
+    int32 level = 10; // 武将等级
+    int32 soldier_level = 11; // 士兵等级
+
+    bool can_trigger_restraint_spell = 13; // 能否触发克制技
+
+    bool outside = 21; // true表示出征中
+    SpriteStatProto total_stat = 22; // 总属性
+
+    int32 life_per_soldier = 23; // 单兵血量
+    int32 load_per_soldier = 24; // 单兵负载
+
+    int32 model = 25; // 模型
+
+    int32 captain_soul = 31; // 附身将魂id
+    int32 captain_soul_level = 32; // 附身将魂等级（根据等级换星数）
+
+    int32 rebirth_level = 33; // 转生等级
+
+    bool yuan_jun = 34; // 是援军
+
+    int32 x_index = 36; // x布阵位置
+    int32 captain_id = 37; // 武将id
+    bool is_nameless = 38; // 无名之辈
+
+    int32 star = 39; // 星数
+
+    int32 unlock_spell_count = 40; // 解锁技能个数
+
+}
+
+message HeroMilitaryProto {
+    repeated int32 captain_friendship = 5 [packed = false]; // 已激活的武将羁绊
+    repeated CaptainProto captain = 11; // 拥有的武将(新版)
+    repeated HeroCaptainProto captains = 1; // 拥有的武将(老版，待删除)
+
+    repeated HeroCaptainOfficialCount official_count = 4; // 官职册封人数
+    repeated Int32PairInt32ArrayProto official_view = 9; // 还未浏览过的官职槽位(显示红点)
+
+    repeated HeroTroopProto troops = 6; // 队伍列表
+    HeroTroopProto investigate_troop = 61; //侦察部队
+    repeated HeroPveTroopProto pve_troop = 8; // pve队伍列表(新版)
+    repeated HeroPveTroopProto pve_troops = 7; // pve队伍列表
+
+    int32 soldier_level = 30; // 士兵等级
+    int32 soldier_capcity = 31; // 士兵最大容量
+    int32 free_soldier = 32; // 空闲士兵数量
+    int32 wounded_soldier = 33; // 伤兵数量
+    int32 wounded_soldier_capcity = 34; // 伤兵最大容量
+
+    int32 free_soldier_start_recovery_time = 56; // 士兵恢复开始时间
+    int32 free_soldier_capcity = 57; // 士兵最大上限
+    int32 free_soldier_output = 58; // 士兵恢复个数（每小时）
+    int32 overflow_free_soldier = 59; // 溢出的士兵个数
+    int32 force_add_soldier_times = 60; // 强征次数
+
+    int32 new_soldier = 35; // 当前新兵数量
+    int32 new_soldier_capcity = 36; // 新兵最大容量
+    int32 new_soldier_output = 37; // 新兵产量，每小时
+    int32 new_soldier_recruit_count = 38; // 每次新兵招募数量
+
+    //    repeated HeroTrainingProto training = 41; // 训练位
+
+    // 计算酒馆请教次数
+    // 当前时间 ctime，次数 = min((ctime - jiu_guan_start_recovey_time) / JiuGuanMiscDataProto.recovery_duration, JiuGuanMiscDataProto.max_times)
+    // 剩余恢复时间：
+    // if 次数 >= JiuGuanMiscDataProto.max_times 显示已满，不需要恢复时间了
+    // else 剩余恢复时间 = （次数+1）* JiuGuanMiscDataProto.recovery_duration + jiu_guan_start_recovey_time - ctime
+    //    int32 jiu_guan_start_recovey_time = 45; // 酒馆恢复时间
+    int32 jiu_guan_refresh_times = 46; // 酒馆刷新次数
+    int32 jiu_guan_tutor_index = 47; // 酒馆导师Index，从0开始
+    int32 jiu_guan_times = 48; // 酒馆已请教次数
+    int32 jiu_guan_next_time = 49; // 下次可请教时间，unix时间戳
+
+    // JunYingLevelDataProto 通过军营等级去取 BuildingType = JUN_YING
+    // 当前时间 ctime，次数 = min((ctime - start_recovey_time) / JunYingLevelDataProto.recovery_duration, JunYingLevelDataProto.max_times)
+    // 剩余恢复时间：
+    // if 次数 >= JunYingLevelDataProto.max_times 显示已满，不需要恢复时间了
+    // else 剩余恢复时间 = （次数+1）* JunYingLevelDataProto.recovery_duration + start_recovey_time - ctime
+    int32 jun_ying_recruit_start_recovey_time = 50; // 军营招募次数恢复时间
+
+    int32 next_expel_time = 51; // 下次可以驱逐的时间
+
+    int32 global_train_start_time = 53; // 训练馆训练开始时间
+    int32 captain_train_start_time = 54; // 武将训练开始时间
+    int32 train_coef = 55; // 训练馆系数
+}
+
+// 官职册封计数器
+message HeroCaptainOfficialCount {
+    int32 official_id = 1; // 官职 id
+    int32 count = 2; // 已册封的数量
+}
+
+//message HeroTrainingProto {
+//    int32 id = 1; // 修炼位
+//    int32 level = 2; // 修炼位等级
+//    int32 level_limit = 3; // 修炼位等级上限
+//
+//    int32 captain = 11; // 当前修炼武将
+//    int32 exp = 12; // 当前可领取经验，（经验上限,产量，从等级数据中获取）
+//
+//    int32 output = 13; // 经验产出，每小时
+//    int32 capcity = 14; // 经验产出最大上限
+//
+//}
+
+// pve队伍类型
+enum PveTroopType {
+    InvalidPveTroopType = 0; // 无效的类型
+    TOWER = 1; // 千重楼
+    SECRET_TOWER = 2; // 重楼密室
+    DUNGEON = 3; // 推图
+    BAI_ZHAN = 4; // 百战千军
+    PVE_XUAN_YUAN = 5; // 轩辕会武
+    HE_BI = 6; // 天命合璧
+    MINGC_WAR = 7; // 名城战
+}
+
+message PveTroopDataProto {
+    PveTroopType pve_troop_type = 1; // 队伍类型
+    int32 capacity = 2; // 队伍容量(队伍最高人数)
+    int32 min_captain_count = 3; // pve 时最少需要的武将数量
+}
+
+message HeroTroopProto {
+    int32 sequence = 1; // 序号
+    repeated int32 captains = 2 [packed = false]; // 队伍武将列表
+    repeated int32 captains2 = 4 [packed = false];
+    repeated int32 x_index = 5 [packed = false];
+    bool is_outside = 3; // true表示出征状态
+}
+
+message HeroPveTroopProto {
+    PveTroopType type = 1; // pve队伍类型
+    repeated int32 captains = 2 [packed = false]; // 队伍武将列表，0表示该位置没有武将
+    repeated int32 captains2 = 4 [packed = false];
+    repeated int32 x_index = 5 [packed = false];
+}
+
+message CaptainProto {
+    int32 id = 1;
+    string icon_id = 20; // 图标id
+    int32 star = 7; // 星级
+    int32 ability = 8; // 成长值
+    int32 ability_exp = 15; // 成长经验
+    int32 ability_limit = 19; // 成长上限
+
+    //int32 rebirth_exp = 23 [deprecated = true]; // 转生经验
+    int32 rebirth = 24; // 转生等级
+    int32 rebirth_cd_end_time = 26; // cd 结束时间
+
+    int32 exp = 9; // 武将经验
+    int32 level = 10; // 武将等级（根据等级获取升级所需经验值）
+
+    int32 soldier = 11; // 当前带兵数
+
+    int32 fight_amount = 13; // 战斗力
+    int32 full_soldier_fight_amount = 18; // 满兵战斗力
+
+    SpriteStatProto total_stat = 14; // 总属性，4围属性
+
+    int32 taoz = 17; // 套装id
+
+    //int32 race_cd_end_time = 22; // 武将转职cd
+
+    // 装备
+    repeated EquipmentProto equipment = 31;
+
+    // 宝石
+    repeated HeroCaptainGemProto gems = 34;
+
+    int32 gongxun = 37; // 功勋
+    int32 official = 38; // 官职 ID（CaptainOfficialProto.id. 0表示没有官职）
+    int32 official_idx = 39; // 官职下标（0~N，没有官职也是0）
+
+    bool viewed = 40; // false则显示小圆点
+}
+
+message HeroCaptainProto {
+    int32 id = 1;
+    //string family_name = 2; // 系统随机的姓氏，玩家改名后会清空
+    CaptainNameProto name = 25 [deprecated = true]; // 玩家手动修改的名字
+    string icon_id = 20; // 图标id
+    bool male = 5; // true表示男人
+    Race race = 6; // 兵种
+    Quality quality = 7; // 品质
+    int32 ability = 8; // 成长值
+    int32 ability_exp = 15; // 成长经验
+    int32 ability_limit = 19; // 成长上限
+
+    int32 rebirth_exp = 23 [deprecated = true]; // 转生经验
+    int32 rebirth = 24; // 转生等级
+    int32 rebirth_cd_end_time = 26; // cd 结束时间
+
+    int32 exp = 9; // 武将经验
+    int32 level = 10; // 武将等级（根据等级获取升级所需经验值）
+
+    int32 soldier = 11; // 当前带兵数
+
+    int32 fight_amount = 13; // 战斗力
+    int32 full_soldier_fight_amount = 18; // 满兵战斗力
+
+    SpriteStatProto total_stat = 14; // 总属性，4围属性
+
+    int32 morale = 16; // 士气
+    int32 taoz = 17; // 套装id
+
+    //    bool outside = 21; // true表示武将出征中
+
+    int32 race_cd_end_time = 22; // 武将转职cd
+
+    // 装备
+    repeated EquipmentProto equipment = 31;
+
+    // 宝石
+    repeated HeroCaptainGemProto gems = 34;
+
+    // 附身的将魂id，0表示没有附身的将魂
+    int32 fu_shen_captain_soul_id = 35;
+
+    // 克制技被解锁了
+    bool restraint_spell_unlocked = 36;
+
+    int32 gongxun = 37; // 功勋
+    int32 official = 38; // 官职 ID（CaptainOfficialProto.id. 0表示没有官职）
+
+    //    int32 train_start_time = 37; // 训练开始时间
+    //    int32 train_acc_exp = 38; // 训练累积经验
+
+}
+
+message HeroCaptainGemProto {
+    int32 gem = 1; // 宝石的id
+    int32 slot_idx = 2; // 第几个槽位
+}
+
+message CaptainSkillProto {
+    int32 id = 1;
+    int32 level = 2;
+}
+
+message HeroCaptainOtherProto {
+
+    int32 id = 1;
+
+    CaptainNameProto name = 25 [deprecated = true]; // 玩家手动修改的名字
+    string icon_id = 20; // 图标id
+    bool male = 5; // true表示男人
+    Race race = 6; // 兵种
+    Quality quality = 7; // 品质
+    int32 ability = 8; // 成长值
+
+    int32 rebirth = 24; // 转生等级
+
+    int32 level = 10; // 武将等级（根据等级获取升级所需经验值）
+    int32 soldier_level = 11; // 士兵等级
+
+    int32 full_soldier_fight_amount = 18; // 满兵战斗力
+
+    SpriteStatProto total_stat = 14; // 总属性，4围属性
+
+    // 装备
+    repeated EquipmentProto equipment = 31;
+
+    // 宝石
+    repeated HeroCaptainGemProto gems = 34;
+
+    int32 captain_soul = 35; // 附身将魂id
+    int32 captain_soul_level = 36; // 附身将魂等级（根据等级换星数）
+
+    int32 official = 38; // 官职 ID（CaptainOfficialProto.id. 0表示没有官职）
+    int32 star = 2; // 星级
+}

@@ -1,0 +1,2035 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+import "github.com/lightpaw/male7/pb/shared_proto/buff.proto";
+
+import "github.com/lightpaw/male7/pb/shared_proto/country.proto";
+
+import "github.com/lightpaw/male7/pb/shared_proto/domestic.proto";
+
+import "github.com/lightpaw/male7/pb/shared_proto/goods.proto";
+
+import "github.com/lightpaw/male7/pb/shared_proto/mingc.proto";
+
+import "github.com/lightpaw/male7/pb/shared_proto/mingc_war.proto";
+
+import "github.com/lightpaw/male7/pb/shared_proto/promotion.proto";
+
+import "github.com/lightpaw/male7/pb/shared_proto/region.proto";
+
+import "github.com/lightpaw/male7/pb/shared_proto/setting.proto";
+
+import "github.com/lightpaw/male7/pb/shared_proto/spell.proto";
+
+import "github.com/lightpaw/male7/pb/shared_proto/task.proto";
+
+message ConfigGen {
+
+    repeated MingcBaseDataProto mingc_base_data = 1;
+
+    XuanyuanMiscDataProto xuanyuan_misc_data = 2;
+
+    repeated XuanyuanRangeDataProto xuanyuan_range_data = 3;
+
+    repeated XuanyuanRankPrizeDataProto xuanyuan_rank_prize_data = 4;
+
+    MiscGenConfigProto misc_gen_config = 5;
+
+    repeated BaowuDataProto baowu_data = 6;
+
+    repeated BaozNpcDataProto baoz_npc_data = 7;
+
+    repeated PushDataProto push_data = 8;
+
+    repeated TitleDataProto title_data = 9;
+
+    repeated TitleTaskDataProto title_task_data = 10;
+
+    repeated SecretTowerWordsDataProto secret_tower_words_data = 11;
+
+    GuildGenConfigProto guild_gen_config = 12;
+
+    repeated LocationDataProto location_data = 13;
+
+    repeated CountryDataProto country_data = 14;
+
+    CountryMiscDataProto country_misc_data = 15;
+
+    repeated FamilyNameDataProto family_name_data = 16;
+
+    repeated LoginDayDataProto login_day_data = 17;
+
+    repeated HeroLevelFundDataProto hero_level_fund_data = 18;
+
+    PromotionMiscDataProto promotion_misc_data = 19;
+
+    repeated BlackMarketGoodsDataProto black_market_goods_data = 20;
+
+    ShopMiscDataProto shop_misc_data = 21;
+
+    MingcMiscDataProto mingc_misc_data = 22;
+
+    repeated MingcTimeDataProto mingc_time_data = 23;
+
+    repeated MingcWarBuildingDataProto mingc_war_building_data = 24;
+
+    repeated MingcWarMapDataProto mingc_war_map_data = 25;
+
+    repeated MingcWarSceneDataProto mingc_war_scene_data = 26;
+
+    RegionGenConfigProto region_gen_config = 27;
+
+    repeated OuterCityBuildingDataProto outer_city_building_data = 28;
+
+    repeated DiscountColorDataProto discount_color_data = 30;
+
+    repeated MingcWarTroopLastBeatWhenFailDataProto mingc_war_troop_last_beat_when_fail_data = 32;
+
+    repeated MingcWarTouShiBuildingTargetDataProto mingc_war_tou_shi_building_target_data = 33;
+
+    repeated CaptainDataProto captain_data = 34;
+
+    repeated CaptainRarityDataProto captain_rarity_data = 35;
+
+    repeated NamelessCaptainDataProto nameless_captain_data = 36;
+
+    repeated SpellFacadeDataProto spell_facade_data = 38;
+
+    repeated BufferDataProto buffer_data = 39;
+
+    repeated GuildRankPrizeDataProto guild_rank_prize_data = 40;
+
+    repeated ChargePrizeDataProto charge_prize_data = 41;
+
+    repeated SpCollectionDataProto sp_collection_data = 42;
+
+    repeated StrategyEffectDataProto strategy_effect_data = 43;
+
+    repeated DailyBargainDataProto daily_bargain_data = 44;
+
+    repeated DurationCardDataProto duration_card_data = 45;
+
+    CombatMiscConfigProto combat_misc_config = 46;
+
+    repeated FreeGiftDataProto free_gift_data = 47;
+
+    repeated ChargeObjDataProto charge_obj_data = 48;
+
+    repeated BuffEffectDataProto buff_effect_data = 49;
+
+    repeated AssemblyDataProto assembly_data = 50;
+
+    repeated JunTuanNpcDataProto jun_tuan_npc_data = 51;
+
+    repeated ProsperityDamageBuffDataProto prosperity_damage_buff_data = 52;
+
+    repeated BufferTypeDataProto buffer_type_data = 53;
+
+    repeated VipContinueDaysDataProto vip_continue_days_data = 54;
+
+    repeated VipLevelDataProto vip_level_data = 55;
+
+    VipMiscDataProto vip_misc_data = 56;
+
+    repeated PrivacySettingDataProto privacy_setting_data = 57;
+
+    repeated TimeLimitGiftDataProto time_limit_gift_data = 59;
+
+    repeated EventLimitGiftDataProto event_limit_gift_data = 60;
+
+    repeated McBuildAddSupportDataProto mc_build_add_support_data = 61;
+
+    repeated McBuildGuildMemberPrizeDataProto mc_build_guild_member_prize_data = 62;
+
+    repeated McBuildMcSupportDataProto mc_build_mc_support_data = 64;
+
+    McBuildMiscDataProto mc_build_misc_data = 65;
+
+    repeated CaptainFriendshipDataProto captain_friendship_data = 66;
+
+    repeated RedPacketDataProto red_packet_data = 67;
+
+    repeated TroopDialogueDataProto troop_dialogue_data = 68;
+
+    repeated TroopDialogueTextDataProto troop_dialogue_text_data = 69;
+
+    repeated CountryOfficialDataProto country_official_data = 70;
+
+    repeated CountryOfficialNpcDataProto country_official_npc_data = 71;
+
+    repeated RegionAreaDataProto region_area_data = 73;
+
+    repeated FishingCaptainProbabilityDataProto fishing_captain_probability_data = 74;
+
+}
+
+// 活动/收集活动.txt
+message ActivityCollectionDataProto {
+
+    int32 id = 3; // 活动ID
+
+    string name = 7; // 活动名
+
+    string name_icon = 4; // 活动名，美术字
+
+    string time_show = 10; // 活动时间展示
+
+    string desc = 1;
+
+    string icon = 8; // 图标
+
+    string icon_select = 9; // 选中图标
+
+    string image = 5; // 图片
+
+    int32 sort = 6; // 排序
+
+    repeated CollectionExchangeDataProto exchanges = 2;
+
+}
+
+// 活动/活动展示.txt
+message ActivityShowDataProto {
+
+    int32 id = 1; // 展示id
+
+    int32 spine_id = 19;
+
+    string name = 2; // 活动名
+
+    string name_icon = 13; // 活动名，美术字
+
+    string time_show = 4; // 活动时间展示
+
+    string desc = 5; // 描述
+
+    string prize_desc = 6; // 奖励描述
+
+    string icon = 7; // 图标
+
+    string icon_select = 8; // 选中图标
+
+    bool show_countdown = 9; // 是否显示倒计时
+
+    int32 sort = 10; // 排序
+
+    string image = 11; // 底图
+
+    int32 image_pos = 12; // 底图位置 0 左 1 中 2 上
+
+    string link_name = 14; // 前往按钮名字
+
+    TaskTargetType link_target_type = 16; // 和[任务目标.txt]的type一样
+
+    int32 link_target_sub_type = 17; // 每个类型的子类型
+
+    int32 link_target_sub_type_id = 18; // 子类型id
+
+}
+
+// 活动/活动任务.txt
+message ActivityTaskDataProto {
+
+    int32 id = 1;
+
+    string name = 2;
+
+    string text = 3;
+
+    TaskTargetProto target = 4;
+
+    string link = 5;
+
+    PrizeProto prize = 6;
+
+}
+
+// 活动/列表式任务活动.txt
+message ActivityTaskListModeDataProto {
+
+    string name = 5; // 活动名
+
+    string name_icon = 1; // 活动名，美术字
+
+    string time_show = 9; // 活动时间展示
+
+    string desc = 6;
+
+    string icon = 7; // 图标
+
+    string icon_select = 8; // 选中图标
+
+    string image = 2; // 图片
+
+    int32 sort = 4; // 排序
+
+    repeated ActivityTaskDataProto tasks = 3;
+
+}
+
+// 地图/区块链.txt
+message AreaDataProto {
+
+    int32 center_x = 1; // 根据中心位置设置环，最小半径为0，表示矩形或者圆
+
+    int32 center_y = 2;
+
+    int32 min_radius = 3;
+
+    int32 max_radius = 4;
+
+}
+
+// 武将/武将星数.txt
+message CaptainStarDataProto {
+
+    int32 star = 1;
+
+    int32 coef = 4; // 武将星级系数
+
+    SpriteStatProto added_stat = 5; // 1升2取2星的属性数据
+
+    CostProto cost = 2; // 1星的当成激活的消耗，1升2取2星的消耗数据
+
+    repeated int32 spell = 3 [packed=false]; // 武将技能列表
+
+}
+
+// 活动/收集兑换.txt
+message CollectionExchangeDataProto {
+
+    int32 id = 1; // 兑换id
+
+    GoodsCombineDataProto combine = 2;
+
+    int32 limit = 3; // 兑换次限,0的话则没有兑换次数限制
+
+}
+
+// 战斗/杂项.txt
+message CombatConfigProto {
+
+    repeated SpellDataProto spell = 1; // 技能数据
+
+    repeated StateDataProto state = 2; // 状态数据
+
+    repeated PassiveSpellDataProto passive_spell = 3; // 被动技能
+
+    repeated SpellIdProto spell_id_map = 4; // 技能id映射
+
+    repeated CaptainDataProto captain = 5; // 武将数据
+
+    repeated NamelessCaptainDataProto nameless_captain = 6;
+
+    repeated RaceDataProto race = 7; // 职业数据
+
+    int32 frame_per_second = 8; // 每秒帧数
+
+    int32 config_denominator = 9; // 系数的分母
+
+    int32 min_attack_duration = 10; // 最小攻速
+
+    int32 max_attack_duration = 11; // 最大攻速
+
+    int32 min_move_speed = 12; // 最小移动速度（每秒）
+
+    int32 max_move_speed = 13; // 最大移动速度（每秒）
+
+    SpriteStatProto min_stat = 14; // 最小战斗属性（避免属性被减到负数）
+
+    int32 max_duration = 15; // 每场战斗持续时间
+
+    repeated int32 score_percent = 16 [packed=false]; // 战斗结果分数比例
+
+    int32 check_move_duration = 17;
+
+    int32 crit_rate = 18;
+
+    int32 coef = 19;
+
+    int32 cell_len = 20;
+
+    int32 max_rage = 21; // 最大怒气值
+
+    int32 add_rage_per_hint = 22; // 每次命中增加的怒气值
+
+    int32 add_rage_lost1_percent = 23; // 每损失1%的血量增加的怒气值
+
+    int32 rage_recover_speed = 24; // 怒气恢复速度（每秒）
+
+    int32 init_attacker_x = 30;
+
+    int32 init_defenser_x = 31;
+
+    int32 init_wall_x = 32;
+
+    int32 wall_wait_duration = 25; // 城墙攻击等待间隔（过了这么久之后才能攻击）
+
+    int32 wall_attack_fix_damage_times = 26; // 城墙附加固定伤害次数
+
+    int32 wall_been_hurt_lost_max_percent = 27; // 每次城墙受到攻击损失最大值
+
+    int32 wall_spell = 28;
+
+    int32 wall_fly_min_duration = 33; // 城墙攻击最小飞行时间
+
+    int32 short_move_distance = 29; // 短移动距离
+
+}
+
+// 战斗/被动技能.txt
+message PassiveSpellDataProto {
+
+    int32 id = 1;
+
+    int32 animation = 2; // 动画特效
+
+    int32 trigger_rate = 3; // 触发概率
+
+    SpellTriggerType trigger_type = 4; // 触发类型，0-无 1-开局释放 2-首次攻击触发 3-攻击N次触发 4-被攻击触发 5-护盾被击破触发 6-己方获得护盾 7-己方护盾存续期间 8-自身存活期间
+
+    SpellTargetDataProto trigger_target = 5; // 触发目标
+
+    int32 trigger_hit = 6; // 连续攻击N次触发
+
+    int32 target_cooldown = 17; // 目标触发CD
+
+    repeated int32 self_state = 7 [packed=false]; // 给自己加状态
+
+    repeated int32 target_state = 8 [packed=false]; // 给目标加状态
+
+    int32 spell = 9; // 触发技能
+
+    int32 excite_effect_type = 10; // 持续效果立即生效
+
+    int32 rage = 11; // 添加额外初始怒气
+
+    SpriteStatProto sprite_stat = 12; // 加属性
+
+    repeated int32 been_hurt_effect_inc_type = 13 [packed=false]; // 别人打我，打的更疼
+
+    repeated int32 been_hurt_effect_inc = 14 [packed=false];
+
+    repeated int32 been_hurt_effect_dec_type = 15 [packed=false]; // 别人打我，打的更轻
+
+    repeated int32 been_hurt_effect_dec = 16 [packed=false];
+
+    int32 relive_percent = 18; // 原地复活，拥有兵力百分比
+
+}
+
+// 战斗/技能.txt
+message SpellDataProto {
+
+    int32 id = 1; // 技能id
+
+    string name = 2; // 名字
+
+    int32 animation = 3; // 动画特效
+
+    int32 cooldown = 4;
+
+    int32 stronge_duration = 5;
+
+    bool rage_spell = 6;
+
+    bool keep_move = 7;
+
+    bool friend_spell = 8; // true表示友方技能，否则表示敌方技能
+
+    bool self_as_target = 9;
+
+    SpellTargetSubType target_sub_type = 10; // 0-无 1-随机目标 2-血量比例最高 3-血量比例最低 4-怒气最高 5-怒气最低
+
+    SpellTargetDataProto target = 11; // 施法目标
+
+    int32 release_range = 12; // 施法距离
+
+    int32 hurt_range = 13; // 伤害范围
+
+    int32 hurt_count = 14; // 伤害个数
+
+    int32 hurt_type = 25; // 伤害类型 0-伤害公式 1-兵力*系数 2-平均4维伤害公式
+
+    int32 coef = 15; // 技能系数X
+
+    int32 fly_speed = 24; // 飞行速度
+
+    int32 effect_type = 17; // 技能效果分类 0-无 1-燃烧 2-中毒 3-流血
+
+    repeated int32 self_state = 18 [packed=false]; // 状态列表
+
+    repeated int32 self_state_rate = 19 [packed=false]; // 触发概率
+
+    repeated int32 target_state = 20 [packed=false];
+
+    repeated int32 target_state_rate = 21 [packed=false]; // 触发概率
+
+    int32 self_rage = 22; // 技能加怒气
+
+    int32 target_rage = 23;
+
+}
+
+// 
+message SpellTargetDataProto {
+
+    repeated Race target_race = 1 [packed=false]; // 触发目标职业
+
+    int32 target_effect_type = 2; // 触发目标有特定效果（燃烧，中毒)
+
+    bool target_unmovable = 3; // 目标不可行走时触发
+
+    bool target_not_attackable = 4; // 目标不可攻击（普攻）时触发
+
+    bool target_silence = 5; // 目标沉默时触发
+
+    bool target_stun = 6; // 目标晕眩时触发
+
+}
+
+// 战斗/状态.txt
+message StateDataProto {
+
+    int32 id = 1;
+
+    string name = 2;
+
+    int32 animation = 3; // 动画特效
+
+    StateStackType stack_type = 4; // 堆叠类型 0-不堆叠 1-刷新时间 2-堆叠
+
+    int32 stack_max_times = 5; // 堆叠最大层数
+
+    int32 tick_times = 6; // 跳跃次数
+
+    int32 tick_duration = 7; // 每次跳跃间隔
+
+    SpriteStatProto change_stat = 8; // 附加属性
+
+    bool is_add_stat = 9;
+
+    int32 move_speed_rate = 10; // 移动速度
+
+    int32 attack_speed_rate = 11; // 攻速
+
+    int32 shield_rate = 12; // 护盾
+
+    int32 shield_effect_rate = 26;
+
+    bool unmovable = 13; // 不可走
+
+    bool not_attackable = 14; // 不可攻击（普攻）
+
+    bool silence = 15; // 沉默（只能普攻）
+
+    bool stun = 16; // 晕眩
+
+    int32 effect_type = 17; // 状态类型 0-无 1-流血 2-中毒 3-燃烧
+
+    repeated int32 been_hurt_effect_inc_type = 23 [packed=false]; // 别人打我，打的更疼
+
+    repeated int32 been_hurt_effect_inc = 19 [packed=false];
+
+    repeated int32 been_hurt_effect_dec_type = 24 [packed=false]; // 别人打我，打的更轻
+
+    repeated int32 been_hurt_effect_dec = 25 [packed=false];
+
+    int32 damage_coef = 20; // 掉血，伤害系数
+
+    int32 damage_hurt_type = 27; // 伤害类型 0-伤害公式 1-兵力*系数 2-平均4维伤害公式
+
+    int32 rage = 21; // 固定加怒气
+
+    int32 rage_recover_rate = 22; // 怒气恢复速度buff
+
+}
+
+// 名城战/名城.txt
+message MingcBaseDataProto {
+
+    int32 id = 1; // 名城id
+
+    string name = 2; // 名字
+
+    string model = 3; // 模型
+
+    int32 base_x = 4; // 野外坐标
+
+    int32 base_y = 5;
+
+    int32 radius = 6; // 半径
+
+    MincType type = 7; // 名城类型，都城，郡城，县城
+
+    bool zhou_captain = 10; // 周朝都城
+
+    int32 default_yinliang = 11; // 初始银两
+
+    int32 daily_add_yinliang = 12; // 仓库每日新增银两
+
+    int32 max_yinliang = 13; // 仓库银两上限
+
+    int32 host_daily_add_yinliang = 14; // 占领盟每日收益
+
+    int32 country = 8; // 名称初始所属国家
+
+    string war_icon = 15; // 名城图标
+
+    int32 atk_min_hufu = 16; // 申请攻打名城最低虎符出价
+
+    int32 atk_min_guild_level = 17; // 申请攻打名城最低联盟等级
+
+    int32 ast_max_guild = 18; // 申请协助的最大联盟数
+
+    int32 base_min_distance = 19; // 建城最小距离
+
+}
+
+// 轩辕会武/杂项.txt
+message XuanyuanMiscDataProto {
+
+    int32 challenge_times_limit = 1; // 每日挑战次数
+
+}
+
+// 轩辕会武/积分区间.txt
+message XuanyuanRangeDataProto {
+
+    int32 id = 1;
+
+    int32 low_rank = 2; // 排名区间低
+
+    int32 high_rank = 3; // 排名区间高
+
+    int32 win_score = 4; // 挑战获胜积分
+
+    int32 lose_score = 5; // 挑战失败积分
+
+    int32 defense_lost_score = 6; // 防守失败（被挑战成功），损失积分
+
+    string combat_scene = 7; // 战斗场景
+
+}
+
+// 轩辕会武/排名奖励.txt
+message XuanyuanRankPrizeDataProto {
+
+    int32 id = 1;
+
+    int32 rank = 2; // 排名
+
+    PrizeProto prize = 3; // 排名奖励
+
+    PrizeProto show_prize = 5; // 展示奖励
+
+}
+
+// 杂项/杂项.txt
+message MiscGenConfigProto {
+
+    int32 dianquan_to_gold = 31; // 1点券兑换的钱币
+
+    int32 dianquan_to_stone = 32; // 1点券兑换的石头
+
+    repeated int32 stronger4_coef = 1 [packed=false]; // 变强系数4
+
+    int32 miao_baowu_duration = 2; // 秒宝物开启CD间隔
+
+    CostProto miao_baowu_cost = 3; // 秒宝物开启CD消耗
+
+    int32 daily_miao_baowu_limit = 4; // 每日秒宝物次数上限
+
+    int32 baowu_log_limit = 5; // 宝物日志条数上限
+
+    int32 first_npc_baowu = 8; // 第一次从npc处获得的宝物
+
+    int32 friend_max_count = 6; // 好友最大数量
+
+    int32 black_max_count = 7; // 黑名单最大数量
+
+    int32 buy_sp_value = 18; // 每次购买体力值增加的体力值
+
+    int32 buy_sp_cost = 19; // 购买体力值消耗（元宝）
+
+    int32 buy_sp_limit = 20; // 每日体力值购买次数上限
+
+    int32 sp_duration = 17; // 体力值恢复间隔
+
+    int32 auto_full_soldoer_duration = 9; // 驻防自动补兵时间间隔
+
+    int32 tax_duration = 10; // 加税收的间隔
+
+    repeated int32 fish_max_point = 11 [packed=false]; // 钓鱼积分最大值
+
+    repeated int32 fish_point_captain_soul = 12 [packed=false]; // 钓鱼积分兑换将魂列表（现在仅前端作展示用）
+
+    int32 da_zhao_switch_level_limit = 13; // 大招切换等级限制
+
+    CostProto update_outer_city_type_cost = 14; // 外城改建消耗
+
+    int32 random_event_big_refresh_duration = 15; // 随机事件大刷新间隔
+
+    int32 random_event_small_refresh_duration = 16; // 随机事件小刷新间隔
+
+    CostProto captain_reset_cost = 21; // 武将重生消耗
+
+    int32 skip_fighting_hero_level = 22; // 跳过战斗的君主等级
+
+    int32 skip_fighting_vip_level = 23; // 跳过战斗的Vip等级
+
+    int32 skip_fighting_wait_duration = 24; // 跳过战斗等待时间，秒
+
+    int32 secret_tower_cd = 25;
+
+    int32 xuanyuan_cd = 26;
+
+    int32 baizhan_cd = 27;
+
+    int32 hebi_cd = 28;
+
+    int32 xiongnu_cd = 29;
+
+    int32 mail_cd = 30;
+
+    int32 soldier_per_group = 33; // 每个兵阵多少兵
+
+    int32 hero_baoz_duration = 34; // 召唤殷墟持续时间
+
+    int32 hero_baoz_max_distance = 35;
+
+    AmountProto yuanbao_gift_percent = 37; // 可赠送元宝占充值元宝的最大比例。千分比
+
+}
+
+// 物品/宝物.txt
+message BaowuDataProto {
+
+    int32 id = 1; // 宝物id
+
+    int32 group = 2; // 宝物类型
+
+    int32 level = 3; // 宝物等级
+
+    string name = 4; // 宝物名字
+
+    string desc = 5; // 宝物描述
+
+    string icon = 6; // 图标
+
+    Quality quality = 7; // GoodsQuality
+
+    int32 goods_quality = 8; // 物品品质
+
+    int32 unlock_duration = 9; // 解锁时间
+
+    PrizeProto plunder_prize = 10; // 解锁奖励
+
+    int32 upgrade_need_count = 11; // 升下一级所需个数
+
+    int32 decompose_gold = 14; // 分解获得的铜币
+
+    int32 decompose_stone = 15; // 分解获得的石料
+
+    int32 miao_duration = 17; // 秒 CD 间隔
+
+    int32 prestige = 16; // 联盟增加声望值
+
+}
+
+// 地图/宝藏怪物.txt
+message BaozNpcDataProto {
+
+    int32 id = 1;
+
+    int32 npc = 2; // Npc野怪数据 NpcBaseDataProto
+
+    int32 required_hero_level = 3; // 出征所需君主等级
+
+}
+
+// 杂项/推送.txt
+message PushDataProto {
+
+    int32 id = 1;
+
+    SettingType type = 2; // 推送类型
+
+    string title = 3; // 标题
+
+    string content = 4; // 正文
+
+    string tick_time = 5; // 触发时间
+
+}
+
+// 任务/称号.txt
+message TitleDataProto {
+
+    int32 id = 1;
+
+    string name = 2; // 称号名称
+
+    string desc = 3; // 称号描述
+
+    string image = 9; // 插图
+
+    Quality quality = 7; // 称号品质
+
+    SpriteStatProto sprite_stat = 4; // 称号属性
+
+    repeated int32 task = 5 [packed=false]; // 称号任务
+
+    CostProto title_cost = 10; // 消耗（贡品）
+
+    SpriteStatProto total_stat = 6;
+
+    int32 polt_id = 8; // 剧情id（客户端专用）
+
+    int32 country_change_name_vote_count = 11; // 国家改名票数
+
+}
+
+// 任务/称号任务.txt
+message TitleTaskDataProto {
+
+    int32 id = 1;
+
+    string name = 2;
+
+    TaskTargetProto target = 3;
+
+}
+
+// 系统模块/重楼密室聊天.txt
+message SecretTowerWordsDataProto {
+
+    int32 id = 1;
+
+    string words = 2; // 气泡说话文字
+
+}
+
+// 联盟/联盟杂项.txt
+message GuildGenConfigProto {
+
+    int32 leave_after_join_duration = 1; // 成员离开联盟不能重新加入间隔
+
+    int32 guild_mark_count = 2; // 联盟标记个数
+
+    int32 guild_mark_msg_char_limit = 3; // 联盟标记文字个数限制，1个汉字算2个字符
+
+    int32 send_min_yinliang_to_member = 4; // 单发银两给玩家的最小值
+
+    int32 send_max_yinliang_to_member = 5; // 单发银两给玩家的最大值
+
+    int32 send_min_yinliang_to_guild = 6; // 发银两给联盟最小值
+
+    int32 send_max_yinliang_to_guild = 7; // 发银两给联盟最大值
+
+    int32 send_min_salary = 8; // 设置工资最小值
+
+    int32 send_max_salary = 9; // 设置工资最大值
+
+    int32 convene_cooldown = 10; // 联盟官员召集CD
+
+    int32 workshop_build_duration = 11; // 修建工坊所需时间
+
+    int32 workshop_hero_build_duration = 12; // 盟友修建工坊加速时间
+
+    int32 workshop_guild_build_max_times = 26; // 联盟工坊每日加速次数上限
+
+    int32 workshop_hero_build_max_times = 27; // 英雄每日修建工坊次数上限
+
+    int32 workshop_output_max_times = 28;
+
+    int32 workshop_output_recovery_duration = 29;
+
+    int32 workshop_hurt_duration = 15; // 敌人破坏减速时间
+
+    int32 workshop_hurt_total_times_limit = 16; // 联盟工坊每日破坏次数上限
+
+    int32 workshop_hurt_hero_times_limit = 17; // 英雄每日破坏敌方工坊次数上限
+
+    int32 workshop_hurt_cooldown = 18; // 英雄每次破坏CD
+
+    int32 workshop_hurt_prosperity = 19; // 破坏联盟工坊减少繁荣度
+
+    int32 workshop_prosperity_capcity = 20; // 联盟工坊繁荣度上限
+
+    int32 workshop_barren_prosperity = 25; // 联盟工坊荒芜繁荣度
+
+    int32 workshop_prize_max_count = 21; // 联盟工坊奖励个数上限
+
+    int32 workshop_reduce_prosperity_duration = 22; // 联盟工坊多久扣一次繁荣度
+
+    int32 workshop_reduce_prosperity = 23; // 联盟工坊每次扣多少点繁荣度
+
+    int32 workshop_distance_limit = 24; // 联盟工坊距离自己主城的最大距离限制
+
+    CostProto guild_change_country_cost = 30; // 联盟转国消耗
+
+    int32 guild_change_country_wait_duration = 31; // 联盟转国等待时间
+
+    int32 guild_change_country_cooldown = 32; // 联盟转国CD
+
+    int32 task_open_level = 33; // 联盟周任务开放等级
+
+}
+
+// 杂项/省市.txt
+message LocationDataProto {
+
+    int32 id = 1; // id
+
+    string name = 2; // 名称
+
+    repeated int32 recommend_country = 3 [packed=false]; // 地域荐国
+
+}
+
+// 国家/国家.txt
+message CountryDataProto {
+
+    int32 id = 1; // 国家id
+
+    string name = 2; // 国家名字
+
+    string desc = 3; // 国家描述
+
+    int32 default_prestige = 5; // 初始声望
+
+    int32 capital = 13; // 都城 MingcBaseDataProto.Id
+
+    repeated CountryOfficialType npc_official = 11 [packed=false]; // Npc 官职
+
+    repeated int32 npc_id = 12 [packed=false]; // Npc id CountryOfficialNpcData.Id，与 NpcOfficial 一一对应
+
+}
+
+// 国家/国家杂项.txt
+message CountryMiscDataProto {
+
+    int32 normal_change_country_goods = 1; // 转国消耗物品
+
+    int32 new_hero_change_country_cd = 2; // 新手转国 cd
+
+    int32 normal_change_country_cd = 3; // 普通转国 cd
+
+    int32 new_hero_max_level = 4; // 新手最大君主等级
+
+    int32 change_name_vote_duration = 7; // 更改名字的投票时间
+
+    CostProto change_name_cost = 6; // 更改名字的消耗
+
+    int32 change_name_cd = 5; // 改国号CD
+
+    int32 max_search_hero_default_count = 9; // 任命玩家默认列表最大长度
+
+    int32 max_search_hero_by_name_count = 10; // 搜索任命玩家列表最大长度
+
+}
+
+// 国家/姓氏荐国.txt
+message FamilyNameDataProto {
+
+    int32 id = 1; // id
+
+    string name = 2; // 姓氏
+
+    string desc = 3; // 描述
+
+    repeated int32 recommend_country = 4 [packed=false]; // 推荐国家
+
+}
+
+// 福利/7日登陆奖励.txt
+message LoginDayDataProto {
+
+    int32 day = 1;
+
+    PrizeProto prize = 2;
+
+}
+
+// 福利/君主等级基金.txt
+message HeroLevelFundDataProto {
+
+    int32 level = 1; // 君主等级
+
+    int32 rebate = 3; // 返利
+
+    PrizeProto prize = 2; // 奖励
+
+}
+
+// 福利/福利杂项.txt
+message PromotionMiscDataProto {
+
+    CostProto hero_level_fund_cost = 1; // 君主等级基金购买消耗
+
+}
+
+// 商店/黑市商品.txt
+message BlackMarketGoodsDataProto {
+
+    int32 id = 1; // 商品id
+
+    PrizeProto show_prize = 2; // 展示奖励
+
+    CostProto cost = 3; // 商品价格
+
+    Quality quality = 4; // 品质
+
+}
+
+// 商店/商店杂项.txt
+message ShopMiscDataProto {
+
+    repeated CostProto refresh_black_market_cost = 1; // 刷新云游商人消耗
+
+    repeated int32 auto_refresh_black_market_duration = 2 [packed=false]; // 政务自动刷新间隔
+
+}
+
+// 名城战/杂项.txt
+message MingcMiscDataProto {
+
+    int32 fight_prepare_duration = 1; // 战斗开始后的准备时间
+
+    int32 join_fight_duration = 2; // 入场时间
+
+    int32 apply_ast_limit = 3; // 联盟申请协助最大数量
+
+    int32 start_after_server_open = 4; // 开服多久后开始名城战
+
+    int32 start_self_capital_after_server_open = 30; // 开服多久后开始名城战本国都城
+
+    int32 start_other_capital_after_server_open = 31; // 开服多久后开始名城战他国都城
+
+    int32 start_self_capital_notice_after_server_open = 32; // 开服多久后开始名城战本国都城大事记
+
+    int32 start_other_capital_notice_after_server_open = 33; // 开服多久后开始名城战他国都城大事记
+
+    int32 destroy_prosperity_max_troop = 5; // 攻打据点摧毁繁荣度最多叠加队伍
+
+    int32 per_destroy_prosperity = 6; // 每支队伍每x秒摧毁繁荣度
+
+    int32 destroy_prosperity_duration = 7; // 摧毁繁荣度间隔
+
+    int32 relive_duration = 8; // 补兵持续时间
+
+    int32 wall_level = 10; // 城墙等级
+
+    int32 speed = 9; // 速度/秒
+
+    bool close_du_cheng = 12; // 是否关闭都城
+
+    int32 join_fight_hero_min_level = 13; // 参战最小君主等级
+
+    int32 daily_update_mingc_time = 27; // 每日重置名城的时间
+
+    int32 free_tank_speed = 14; // 免费攻城车速度/秒
+
+    int32 free_tank_per_destroy_prosperity = 15; // 免费攻城车每x秒摧毁繁荣度
+
+    int32 tou_shi_building_turn_duration = 16; // 投石机转向时长
+
+    int32 tou_shi_building_prepare_duration = 17; // 投石机装填时长
+
+    int32 tou_shi_building_destroy_prosperity = 18; // 投石机每次摧毁繁荣度
+
+    int32 tou_shi_building_base_hurt = 19; // 投石机对每支队伍的基础伤害
+
+    AmountProto tou_shi_building_hurt_percent = 21; // 投石机对每支队伍的伤害加成
+
+    int32 tou_shi_building_base_hurt_max_troop = 22; // 投石机最多伤害X支队伍
+
+    int32 tou_shi_building_bomb_fly_duration = 23; // 投石机炮弹飞行时长
+
+    int32 durm_duration = 24; // 击鼓间隔
+
+    int32 drum_stop_duration = 25; // 准备阶段最后多久停止击鼓
+
+    int32 drum_min_bai_zhan_level = 26; // 击鼓百战最低等级
+
+}
+
+// 名城战/时间.txt
+message MingcTimeDataProto {
+
+    int32 id = 1; // id
+
+    string desc = 2; // 文字描述
+
+    string apply_atk_start = 3; // 申请挑战开始。格式:星期,时间。例: w7,20h0m
+
+    int32 apply_atk_duration = 4; // 申请挑战持续时间
+
+    string apply_ast_start = 5; // 申请协助开始。格式:星期,时间。例: w7,20h0m
+
+    int32 apply_ast_duration = 6;
+
+    string fight_start = 7; // 战斗开始。格式:星期,时间。例: w7,20h0m
+
+    int32 fight_duration = 8;
+
+}
+
+// 名城战/据点.txt
+message MingcWarBuildingDataProto {
+
+    int32 id = 1; // id，值和 Type 相同
+
+    MingcWarBuildingType type = 2; // 建筑类型
+
+    int32 prosperity = 3; // 繁荣度
+
+    string atk_model = 9; // 攻方模型
+
+    string def_model = 10; // 守方模型
+
+    bool wall_atk = 5; // 城墙能不能攻击
+
+    bool can_be_atked = 6; // 能不能被攻击
+
+    string combat_scene = 7; // 战斗场景
+
+}
+
+// 名城战/地图.txt
+message MingcWarMapDataProto {
+
+    int32 id = 1;
+
+    int32 mingc = 2; // 名城 id
+
+    int32 start_x = 3; // 起始点坐标x
+
+    int32 start_y = 4; // 起始点坐标y
+
+    repeated int32 dest_x = 5 [packed=false]; // 所有能直接到达的坐标x
+
+    repeated int32 dest_y = 6 [packed=false]; // 所有能直接到达的坐标y
+
+}
+
+// 名城战/场景.txt
+message MingcWarSceneDataProto {
+
+    int32 id = 1; // 值和名城id 相同
+
+    string desc = 2; // 场景说明
+
+    string atk_relive_name = 21; // 攻方复活点名字
+
+    int32 atk_relive_pos_x = 3;
+
+    int32 atk_relive_pos_y = 4;
+
+    string atk_home_name = 22; // 攻方大本营名字
+
+    int32 atk_home_pos_x = 5;
+
+    int32 atk_home_pos_y = 6;
+
+    repeated string atk_castle_name = 23; // 攻方要塞名字
+
+    repeated int32 atk_castle_pos_x = 7 [packed=false];
+
+    repeated int32 atk_castle_pos_y = 8 [packed=false];
+
+    repeated string atk_gate_name = 24; // 攻方关卡名字
+
+    repeated int32 atk_gate_pos_x = 9 [packed=false];
+
+    repeated int32 atk_gate_pos_y = 10 [packed=false];
+
+    string def_relive_name = 25; // 守方复活点名字
+
+    int32 def_relive_pos_x = 11;
+
+    int32 def_relive_pos_y = 12;
+
+    string def_home_name = 26; // 守方大本营名字
+
+    int32 def_home_pos_x = 13;
+
+    int32 def_home_pos_y = 14;
+
+    repeated string def_castle_name = 27; // 守方要塞名字
+
+    repeated int32 def_castle_pos_x = 15 [packed=false];
+
+    repeated int32 def_castle_pos_y = 16 [packed=false];
+
+    repeated string def_gate_name = 28; // 守方关卡名字
+
+    repeated int32 def_gate_pos_x = 17 [packed=false];
+
+    repeated int32 def_gate_pos_y = 18 [packed=false];
+
+    repeated string atk_tou_shi_name = 32; // 攻方投石机名字
+
+    repeated int32 atk_tou_shi_pos_x = 33 [packed=false];
+
+    repeated int32 atk_tou_shi_pos_y = 34 [packed=false];
+
+    repeated string def_tou_shi_name = 35; // 守方投石机名字
+
+    repeated int32 def_tou_shi_pos_x = 36 [packed=false];
+
+    repeated int32 def_tou_shi_pos_y = 37 [packed=false];
+
+    int32 atk_full_prosperity = 19; // 攻方总繁荣度
+
+    int32 def_full_prosperity = 20; // 守方总繁荣度
+
+}
+
+// 地图/地区杂项.txt
+message RegionGenConfigProto {
+
+    int32 use_goods_mian_max_duraion = 1; // 破除免战后，最大的免战物品CD
+
+    int32 invase_hero_max_times = 2; // 讨伐玩家次数上限
+
+    int32 invase_hero_recovery_duration = 3; // 讨伐玩家次数恢复间隔
+
+    int32 jun_tuan_npc_max_times = 4; // 讨伐军团怪次数上限
+
+    int32 jun_tuan_npc_recovery_duration = 5; // 讨伐军团怪次数恢复间隔
+
+    int32 jun_tuan_win_time_limit = 6; // 讨伐军团怪进攻方连胜离场场次
+
+}
+
+// 内政/外城建筑.txt
+message OuterCityBuildingDataProto {
+
+    int32 id = 1;
+
+    string lock_icon_id = 2; // 建筑被锁的图标
+
+    string unlock_icon_id = 3; // 建筑解锁的图标
+
+    int32 building_id = 4; // 建筑，服务器自己根据类型读取的一级数据
+
+    string desc = 5; // 描述
+
+}
+
+// 商店/折扣颜色.txt
+message DiscountColorDataProto {
+
+    int32 discount = 1; // 折扣
+
+    string color = 2; // 颜色
+
+}
+
+// 名城战/舍命一击.txt
+message MingcWarTroopLastBeatWhenFailDataProto {
+
+    int32 bai_zhan_level = 1;
+
+    int32 solider_amount = 2;
+
+    AmountProto hurt_percent = 3;
+
+    AmountProto atk_back_hurt_percent = 4;
+
+}
+
+// 名城战/投石机目标.txt
+message MingcWarTouShiBuildingTargetDataProto {
+
+    int32 id = 1;
+
+    int32 mingc = 2; // 名城 id
+
+    int32 pos_x = 3; // 投石机坐标X
+
+    int32 pos_y = 4; // 投石机坐标Y
+
+    repeated int32 target_x = 5 [packed=false]; // 所有目标坐标x
+
+    repeated int32 target_y = 6 [packed=false]; // 所有目标坐标x
+
+}
+
+// 武将/武将.txt
+message CaptainDataProto {
+
+    int32 id = 1; // 武将id
+
+    int32 rarity = 2; // 武将稀有度 S,SR,SSR...
+
+    string name = 3; // 名字
+
+    string icon_id = 4; // 图标
+
+    string spine = 13; // 脊柱动画
+
+    string desc = 5; // 描述
+
+    Race race = 6; // 默认职业
+
+    PrizeProto prize_if_has = 7; // 在已有该武将的情况下，给的奖励
+
+    repeated int32 obtain_ways = 8 [packed=false]; // 获得的途径
+
+    bool fishing_obtain = 14; // true表示钓鱼可获得
+
+    string sound = 10; // 语音
+
+    int32 base_spell = 11; // 普攻
+
+    repeated CaptainStarDataProto star = 12; // 星数
+
+    int32 init_rage = 15; // 初始怒气
+
+}
+
+// 武将/稀有度.txt
+message CaptainRarityDataProto {
+
+    int32 id = 1; // 稀有度id
+
+    string name = 2; // 稀有度名称
+
+    int32 coef = 3; // 武将属性品质系数
+
+}
+
+// 武将/无名武将.txt
+message NamelessCaptainDataProto {
+
+    int32 id = 1;
+
+    string name = 2;
+
+    string icon_id = 3; // 图标
+
+    string spine = 8; // 脊柱动画
+
+    bool male = 4;
+
+    Race race = 5;
+
+    int32 base_spell = 6;
+
+    repeated int32 spell = 7 [packed=false];
+
+    int32 init_rage = 9; // 初始怒气
+
+}
+
+// 战斗/技能盒.txt
+message SpellFacadeDataProto {
+
+    int32 id = 1; // 技能id
+
+    string name = 2; // 名字
+
+    string icon_id = 3; // 图标
+
+    string desc = 4;
+
+    string sub_desc = 7;
+
+    int32 group = 5; // 分组
+
+    int32 level = 6; // 等级
+
+    int32 spell_type = 8; // 技能类型 0-战 1-怒 2-政
+
+}
+
+// 策略/增益.txt
+message BufferDataProto {
+
+    int32 id = 1; // 增益id
+
+    string name = 3; // 增益名称
+
+    string name_desc = 13; // 增益名称描述
+
+    string icon_id = 14; // 图标
+
+    string desc = 5; // 描述
+
+    int32 type = 6; // 类型
+
+    int32 show_keep_duration = 17;
+
+    int32 show_level = 18;
+
+    int32 buff_goods_id = 11; // buff物品ID
+
+}
+
+// 联盟/联盟排行奖励.txt
+message GuildRankPrizeDataProto {
+
+    int32 rank = 1;
+
+    PrizeProto prize = 2;
+
+    PrizeProto country_destroy_prize = 3;
+
+}
+
+// 充值/充值奖励.txt
+message ChargePrizeDataProto {
+
+    int32 id = 1;
+
+    string name = 6;
+
+    string image = 7; // 立绘
+
+    int32 amount = 2; // 充值额度，达到才有奖励
+
+    int32 value = 3; // 价值(元宝)，前端展示用
+
+    PrizeProto prize = 4;
+
+    string desc = 5;
+
+}
+
+// 福利/体力领取.txt
+message SpCollectionDataProto {
+
+    int32 id = 1; // 宴席id
+
+    string name = 2; // 名称
+
+    string icon = 3; // 图标
+
+    string time_show = 4; // 时间段
+
+    int32 start_duration = 5; // 从0点为基准的开始相对时间
+
+    int32 end_duration = 6; // 从0点为基准的结束相对时间
+
+    int32 sp = 7; // 获得体力（作废，可作展示用）
+
+    int32 repair_vip = 8; // 补领贵族等级
+
+    PrizeProto sp_prize = 9; // 奖励
+
+    CostProto repair_cost = 10; // 补领消耗
+
+}
+
+// 策略/策略效果.txt
+message StrategyEffectDataProto {
+
+    int32 strategy_id = 1; // 策略 id
+
+    StrategyEffectType effect_type = 9; // 策略效果类型
+
+    int32 hero_level = 2; // 君主等级
+
+    CombineCostProto cost = 3; // 消耗
+
+    PrizeProto prize = 4; // 策略数值收益
+
+    int32 farm_fast_harvest_duration = 6; // 农场减少时间
+
+    int32 target_reduce_solider = 10; // 对方减兵
+
+}
+
+// 福利/每日特惠.txt
+message DailyBargainDataProto {
+
+    int32 id = 1; // 特惠id
+
+    string name = 2; // 名称
+
+    int32 give_yuanbao = 3; // 购买即可获得N元宝
+
+    int32 show_yuanbao = 4; // 还可以获得价值N元宝大礼包
+
+    int32 limit = 5; // 每日限购(领)
+
+    int32 charge_amount = 6; // 充值金额
+
+    PrizeProto prize = 7; // 奖励包，prize里面要配上give_yuanbao的值
+
+}
+
+// 福利/尊享卡.txt
+message DurationCardDataProto {
+
+    int32 id = 1; // 尊享卡id
+
+    string name = 2; // 卡名
+
+    string icon = 3; // 图标
+
+    string desc = 4; // 描述
+
+    int32 duration = 5; // 持续时间（为0则永久生效）
+
+    int32 charge_amount = 6; // 充值金额
+
+    PrizeProto prize = 7; // 购买后立即获得的奖励
+
+    PrizeProto daily_prize = 8; // 每日获赠（领取）的奖励
+
+    int32 before_prompt_duration = 9; // 离到期前间隔多久提示续费
+
+}
+
+// 战斗/杂项.txt
+message CombatMiscConfigProto {
+
+    repeated int32 spell = 1 [packed=false];
+
+    repeated int32 spell_animation = 2 [packed=false];
+
+    repeated int32 passive_spell = 3 [packed=false];
+
+    repeated int32 passive_spell_animation = 4 [packed=false];
+
+    repeated int32 state = 5 [packed=false];
+
+    repeated int32 state_animation = 6 [packed=false];
+
+    int32 max_rage = 7; // 最大怒气值
+
+    int32 wall_attack_speed = 8; // 城墙攻速，这个值要除以1000，5600表示5.6
+
+}
+
+// 福利/免费礼包.txt
+message FreeGiftDataProto {
+
+    int32 id = 1;
+
+    string name = 2;
+
+    GiftType gift_type = 3;
+
+    bool daily = 4; // false则为一次性奖励礼包，否则为每日刷新的礼包
+
+    PrizeProto prize = 5;
+
+}
+
+// 充值/充值项.txt
+message ChargeObjDataProto {
+
+    int32 id = 1;
+
+    string name = 2;
+
+    string icon = 9;
+
+    string image = 3;
+
+    int32 product_id = 10;
+
+    int32 charge_amount = 4; // 充值金额
+
+    int32 yuanbao = 5; // 充值获得元宝
+
+    int32 yuanbao_addition = 6; // 充值附赠元宝
+
+    int32 first_charge_yuanbao = 7; // 首充附赠元宝
+
+    int32 vip_exp = 8; // vip经验增加值
+
+}
+
+// 杂项/buff.txt
+message BuffEffectDataProto {
+
+    int32 id = 1;
+
+    string name = 2; // 增益名称
+
+    string desc = 3; // 描述
+
+    int32 group = 13; // buff 分组
+
+    BuffEffectType effect_type = 4; // buff效果类型
+
+    int32 level = 8; // 同类型的等级
+
+    int32 keep_duration = 9; // 持续时间
+
+    bool no_duration = 15; // 没有持续时间
+
+    bool pvp_buff = 16; // pvp buff
+
+    SpriteStatProto stat_buff = 10; // 加buff
+
+    AmountProto captain_train = 11; // buff 效果，千分比
+
+    AmountProto farm_harvest = 12; // buff 效果，千分比
+
+    AmountProto tax = 14; // 税收，千分比
+
+    int32 advantage_id = 17; // 触发它的增益 Id. BufferDataProto.Id
+
+}
+
+// 地图/集结.txt
+message AssemblyDataProto {
+
+    int32 id = 1; // 集结类型 1-玩家 2-匈奴 3-军团怪
+
+    int32 member_count = 2; // 集结成员个数（包含创建者）
+
+    repeated int32 wait_duration = 3 [packed=false]; // 可选择的集结等待时间
+
+}
+
+// 地图/军团怪物.txt
+message JunTuanNpcDataProto {
+
+    int32 id = 1; // 军团怪id
+
+    int32 npc = 2; // 野怪npc shared_proto.NpcBaseDataProto
+
+    int32 troop_count = 3; // 队伍数量
+
+    int32 group = 4; // 分组
+
+    int32 level = 5; // 军团怪等级
+
+    int32 required_hero_level = 6; // 出征所需君主等级
+
+}
+
+// 内政/繁荣度buff.txt
+message ProsperityDamageBuffDataProto {
+
+    int32 id = 1;
+
+    int32 min_percent = 6; // 繁荣度受损最小范围。百分比 (min_percent, max_percent]
+
+    int32 max_percent = 7; // 繁荣度受损最大范围。百分比 (min_percent, max_percent]
+
+    string desc = 4; // 描述
+
+    int32 buff_id = 5; // 触发的 buff id。BuffEffectDataProto.Id
+
+}
+
+// 策略/增益类型.txt
+message BufferTypeDataProto {
+
+    int32 id = 1;
+
+    string type_name = 2; // 类型名称
+
+    string type_desc = 3; // 类型描述
+
+    bool is_mian = 5; // 是免战类型
+
+    int32 buff_group = 6; // 对应 buff 分组
+
+    string icon_id = 4; // 图标
+
+    int32 sort = 7; // 排序
+
+}
+
+// vip/连续登录奖励.txt
+message VipContinueDaysDataProto {
+
+    int32 level = 1; // 等级
+
+    repeated int32 days = 2 [packed=false]; // 连续登录天数
+
+    repeated int32 exp = 5 [packed=false]; // 连续登录VIP经验奖励，与 Days 一一对应
+
+}
+
+// vip/vip等级.txt
+message VipLevelDataProto {
+
+    int32 level = 1; // 等级。0级表示还不是VIP
+
+    string name = 2; // 名称
+
+    string icon_id = 3; // 图标
+
+    int32 upgrade_exp = 4; // 升到下一级需要的经验
+
+    int32 daily_exp = 8; // 每日赠送 vip 经验
+
+    PrizeProto daily_prize = 9; // vip 每日免费礼包
+
+    CostProto show_daily_prize_cost = 18; // vip 每日免费礼包展示价格
+
+    PrizeProto level_prize = 10; // vip 专属礼包
+
+    CostProto level_prize_cost = 11; // vip 专属礼包价格
+
+    CostProto show_level_prize_cost = 19; // vip 专属礼包展示价格
+
+    bool buy_prosperity = 20; // 立即恢复繁荣度
+
+    bool jiu_guan_auto_max = 13; // 酒馆一键白起
+
+    int32 jiu_guan_cost_refresh_count = 16; // 新增酒馆花钱刷新次数
+
+    bool jiu_guan_cost_refresh_infinite = 17; // 酒馆无限次花钱刷新
+
+    bool jiu_guan_quick_consult = 23; // 酒馆立即请教
+
+    int32 captain_train_coef = 21; // 提升修炼馆武将修炼经验
+
+    int32 captain_train_capacity = 22; // 延长修炼馆武将修炼时间
+
+    bool wall_auto_full_soldier = 24; // 自动补兵
+
+    int32 buy_sp_max_times = 25; // 增加购买体力最大次数
+
+    int32 dungeon_max_cost_times_limit = 30; // 推图最大购买次数
+
+    int32 worker_unlock_pos = 28; // 建筑队解锁pos
+
+    int32 invade_multi_level_monster_once_count = 29; // 增加一次出征讨伐野怪次数
+
+    bool guild_prize_one_key_collect = 31; // 联盟礼包一键开启
+
+    int32 add_black_market_refresh_times = 32; // 增加游商最大刷新次数
+
+    bool fishing_captain_probability = 33; // 金杆钓
+
+    bool show_region_home = 34; // 城堡外显
+
+    bool show_region_sign = 35; // 城堡签名
+
+    bool show_region_title = 36; // 城堡铭牌
+
+    bool show_head_frame = 37; // 君主头像框
+
+    bool zheng_wu_auto_completed = 38; // 政务自动完成
+
+    bool workshop_auto_completed = 39; // 铁匠铺自动完成
+
+    bool collect_daily_sp = 40; // 可以领取日常体力
+
+}
+
+// vip/vip杂项.txt
+message VipMiscDataProto {
+
+    int32 collect_vip_daily_exp_min_hero_level = 1; // 可领 vip 每日经验的最小君主等级
+
+    repeated CostProto dungeon_times_cost = 2; // 一次购买推图次数花费
+
+    repeated int32 dungeon_times_each_buy = 4 [packed=false]; // 一次购买获得的推图次数
+
+}
+
+// 设置/隐私设置.txt
+message PrivacySettingDataProto {
+
+    PrivacySettingType setting_type = 6;
+
+    string name = 2;
+
+    string name_type = 3;
+
+    string rule_title = 4;
+
+    string rule_desc = 5;
+
+}
+
+// 福利/定时时限礼包.txt
+message TimeLimitGiftDataProto {
+
+    int32 id = 1; // 礼包id
+
+    string name = 2; // 礼包名
+
+    string icon = 8; // 礼包icon
+
+    string image = 9; // 礼包插画
+
+    string desc = 10; // 礼包文本
+
+    int32 yuanbao_price = 3; // 现价(元宝)，不走cost表了，确定是元宝，否则old_price也无法展示
+
+    int32 old_price = 4; // 原价（展示用）
+
+    string sign_icon = 11; // 显示的标签（文件路径）
+
+    string sign_name = 12; // 标签内显示的文本
+
+    string discount_icon = 6; // 有红热和银亮等折扣标签
+
+    string discount = 13; // 标签内折扣值
+
+    int32 dianquan = 7; // 购买后立即获得的点券
+
+    int32 priority = 14; // 贴脸优先级，取最高值贴脸，如果是0则不贴脸
+
+    PrizeProto prize = 20;
+
+    int32 buy_limit = 19; // 该种礼包购买次限（不是一次性购买数量，而是购买次数，每次只能买1个），填0不作限制
+
+    int32 sort = 21; // 客户端用于排序
+
+    PrizeProto show_prize = 22; // 展示奖励
+
+    int32 guild_event_prize_id = 23; // 联盟礼包Id
+
+}
+
+// 福利/事件时限礼包.txt
+message EventLimitGiftDataProto {
+
+    int32 id = 1; // 礼包id
+
+    string name = 2; // 礼包名
+
+    string icon = 3; // 礼包icon
+
+    string image = 4; // 礼包插画
+
+    string desc = 5; // 礼包文本
+
+    int32 yuanbao_price = 6; // 现价(元宝)，不走cost表了，确定是元宝，否则old_price也无法展示
+
+    int32 old_price = 7; // 原价（展示用）
+
+    string sign_icon = 8; // 显示的标签（文件路径）
+
+    string sign_name = 9; // 标签内显示的文本
+
+    string discount_icon = 10; // 有红热和银亮等折扣标签
+
+    string discount = 11; // 标签内折扣值
+
+    int32 dianquan = 12; // 购买后立即获得的点券
+
+    int32 priority = 13; // 贴脸优先级，取最高值贴脸，如果是0则不贴脸
+
+    int32 buy_limit = 18; // 该种礼包购买次限（不是一次性购买数量，而是购买次数，每次只能买1个），填0不作限制
+
+    PrizeProto show_prize = 19; // 展示奖励
+
+    int32 guild_event_prize_id = 20; // 联盟礼包Id
+
+}
+
+// 名城营建/增加民心.txt
+message McBuildAddSupportDataProto {
+
+    int32 bai_zhan_level = 1; // 百战军衔
+
+    int32 add_support = 2; // 增加的民心
+
+}
+
+// 名城营建/联盟成员奖励.txt
+message McBuildGuildMemberPrizeDataProto {
+
+    int32 min_build_count = 2; // 最小营建次数
+
+    int32 max_build_count = 3; // 最大营建次数
+
+    PrizeProto prize = 4; // 营建奖励
+
+}
+
+// 名城营建/名城民心.txt
+message McBuildMcSupportDataProto {
+
+    int32 level = 7; // 民心等级
+
+    int32 upgrade_support = 8; // 升到下一级需要的民心
+
+    int32 add_daily_yinliang = 4; // 增加的名城每日新增银两
+
+    int32 add_max_yinliang = 5; // 增加的名城仓库银两上限
+
+    int32 add_host_daily_yinliang = 6; // 增加的占领盟每日收益银两
+
+}
+
+// 名城营建/营建杂项.txt
+message McBuildMiscDataProto {
+
+    int32 max_daily_add_support = 2; // 名城每日最高可加民心
+
+    int32 daily_reduce_support = 3; // 名城每日下降的民心
+
+    int32 build_cd = 8; // 营建CD
+
+    int32 daily_build_max_count = 5; // 每日营建最大次数
+
+    int32 build_min_hero_level = 6; // 可以营建的最小玩家等级
+
+    int32 max_recommend_mc_guild_count = 9; // 最多可推荐名城数量
+
+    int32 max_mc_build_log_count = 10; // 营建名城记录最大排名数量
+
+}
+
+// 武将/武将羁绊.txt
+message CaptainFriendshipDataProto {
+
+    int32 id = 1; // 羁绊id
+
+    string name = 2; // 羁绊名
+
+    string desc = 3; // 描述
+
+    string tips = 4; // 叹号弹窗提示
+
+    repeated int32 captains = 5 [packed=false]; // 羁绊武将id
+
+    repeated string effect_desc = 6; // 词条描述
+
+    repeated int32 effect_amount = 7 [packed=false];
+
+}
+
+// 杂项/红包.txt
+message RedPacketDataProto {
+
+    int32 id = 1;
+
+    IconProto icon = 2; // 红包图标
+
+    string name = 3; // 红包名字
+
+    string desc = 4; // 红包描述
+
+    string default_text = 5; // 红包默认文字
+
+    CostProto cost = 6; // 红包价格，现在一定是元宝
+
+    AmountType amount_type = 7; // 红包里包的数值类型
+
+    int32 money = 8; // 总钱数
+
+    PrizeProto all_garbbed_prize = 9; // 红包都抢完送的奖励
+
+    int32 expired_duration = 10; // 有效期
+
+    int32 min_count = 11; // 最小份数
+
+    int32 max_count = 12; // 最大份数
+
+    int32 max_text_len = 13; // 红包吉利话最大长度
+
+}
+
+// 地图/部队对话.txt
+message TroopDialogueDataProto {
+
+    int32 id = 1;
+
+    BaseTargetType base_target_type = 2; // 城池目标类型
+
+    int32 base_target_sub_type = 3; // 目标子类型
+
+    int32 first_delay = 4; // 显示初始延时
+
+    int32 next_delay = 5; // 延时多久显示下一个，0表示，不重复显示
+
+    bool random_text = 6; // true表示随机选择对话显示，否则表示顺序播放
+
+    repeated int32 texts = 7 [packed=false]; // 对话列表
+
+}
+
+// 地图/部队对话文字.txt
+message TroopDialogueTextDataProto {
+
+    int32 id = 1;
+
+    string head = 2; // 头像
+
+    string text = 3; // 说话的内容
+
+    int32 duration = 4; // 持续的时间
+
+    int32 direction = 5; // 方向 0-左 1-右
+
+}
+
+// 国家/官职.txt
+message CountryOfficialDataProto {
+
+    CountryOfficialType official_type = 2; // key。官职类型
+
+    string name = 13; // 名字
+
+    DomesticEffectProto building_effect = 3; // 内政技能
+
+    BuffEffectDataProto buff = 4; // 战斗buff
+
+    int32 count = 5; // 数量
+
+    PrizeProto show_salary = 6; // 展示俸禄
+
+    string icon = 8; // 图标 IconProto.Id
+
+    string head = 11; // 外显头像 HeadDataProto.Id。空表示没有特殊外显
+
+    int32 body = 12; // 外显形象 BodyDataProto.Id。0表示没有特殊外显
+
+    int32 cd = 9; // 任命CD,国王行表示禅让CD
+
+    string effect_desc = 14; // 官职效果描述
+
+    repeated CountryOfficialType sub_officials = 10 [packed=false]; // 下属类型
+
+}
+
+// 国家/官职npc.txt
+message CountryOfficialNpcDataProto {
+
+    int32 id = 1;
+
+    string name = 2; // 名字
+
+    string head = 3; // 外显头像 HeadDataProto.Id
+
+    int32 body = 4; // 外显形象 BodyDataProto.Id
+
+}
+
+// 地图/地区区域带.txt
+message RegionAreaDataProto {
+
+    int32 id = 1;
+
+    string name = 2;
+
+    AreaDataProto area = 3; // 区域范围
+
+    int32 workshop_prize_coef = 4; // 联盟工坊额外奖励
+
+}
+
+// 钓鱼/金杆钓.txt
+message FishingCaptainProbabilityDataProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 multiple = 2; // 倍率
+
+}
+

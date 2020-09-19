@@ -1,0 +1,106 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "dungeon";
+option optimize_for = SPEED;
+
+
+message C2SChallengeProto {
+
+    int32 id = 1; // 副本id（DungeonDataProto.id）
+
+}
+
+message S2CChallengeProto {
+
+    int32 id = 1; // 通关副本id（DungeonDataProto.id）
+
+    string link = 2; // 战报链接
+
+    bytes share = 5; // 战斗分享，客户端解析成 CombatShareProto
+
+    bytes prize = 3; // 奖励
+
+    bool pass = 4; // 是否挑战成功 true(挑战成功，同时有首胜奖励，将副本加入HeroDungeonProto中的已经通关副本)/false(挑战失败)
+
+    bool is_first_pass = 6; // 是否首次通关(pass为true时读取)
+
+    repeated bool enabled_star = 7 [packed = false]; // 星星是否激活的对应列表
+
+    int32 pass_seconds = 8; // 通关所消耗的秒数
+
+    int32 chapter_star = 9; // 章节的星数刷新
+
+    int32 pass_times = 10; // 刷新通关次数
+
+    bool is_refresh = 11; // 是否刷新
+
+}
+
+message S2CUpdateChallengeTimesProto {
+
+    int32 start_time = 1; // 挑战次数恢复时间
+
+}
+
+message C2SCollectChapterPrizeProto {
+
+    int32 id = 1; // DungeonChapterProto.id 副本章节id
+
+}
+
+message S2CCollectChapterPrizeProto {
+
+    int32 id = 1; // DungeonChapterProto.id 副本章节id, 将该id加入HeroDungeonProto中的已经领取了奖励的id
+
+}
+
+message C2SCollectPassDungeonPrizeProto {
+
+    int32 id = 1; // DungeonDataProto.id 副本id
+
+}
+
+message S2CCollectPassDungeonPrizeProto {
+
+    int32 id = 1; // DungeonDataProto.id 副本id, 将该id加入HeroDungeonProto中的已经领取了奖励的id
+
+}
+
+message C2SAutoChallengeProto {
+
+    int32 id = 1; // 副本id（DungeonDataProto.id）
+
+    int32 times = 2; // 扫荡次数
+
+}
+
+message S2CAutoChallengeProto {
+
+    int32 id = 1; // 副本id（DungeonDataProto.id）
+
+    repeated bytes prizes = 2; // 扫荡奖励列表，长度是几，就说明扫荡了几次，第几个表示第几次扫荡
+
+    int32 pass_times = 4; // 刷新通关次数
+
+}
+
+message C2SCollectChapterStarPrizeProto {
+
+    int32 id = 1; // ChapterDataProto.id 章节id
+
+    int32 collect_n = 2; // 第n个奖励 n = 1, 2, 3...
+
+}
+
+message S2CCollectChapterStarPrizeProto {
+
+    int32 id = 1; // ChapterDataProto.id 副本id
+
+    int32 collect_n = 2; // 第n个奖励已被领取
+
+    bytes prize = 3; // 奖励
+
+}
+

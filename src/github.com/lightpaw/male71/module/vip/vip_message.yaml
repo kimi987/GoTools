@@ -1,0 +1,59 @@
+client_pb_import:
+  "shared.proto"
+
+# vip 升级
+vip_level_upgrade_notice:
+  s2c:
+    vip_level: int // 新等级
+    vip_exp: int // 新经验
+
+# vip 加经验
+vip_add_exp_notice:
+  s2c:
+    vip_exp: int // 新经验
+
+# vip 登录推送
+vip_daily_login_notice:
+  s2c:
+    vip_level: int // vip等级
+    vip_exp: int // 获得的vip经验
+    continue_days: int // 连续登录天数
+    tomorrow_exp: int // 明天能获得的vip经验
+
+# vip 领取每日礼包
+# 如果当天升多级，每级都能领
+vip_collect_daily_prize:
+  c2s:
+    vip_level: int // 礼包的vip等级
+  s2c:
+    vip_level: int // 礼包的vip等级
+  s2c_fail:
+    invalid_level: vip_level不存在
+    level_not_enough: 等级不够
+    already_collected: 今天已经领过
+    no_daily_prize: 没有每日奖励
+
+# vip 领取专属礼包
+vip_collect_level_prize:
+  c2s:
+    vip_level: int // 礼包的vip等级
+  s2c:
+    vip_level: int // 礼包的vip等级
+  s2c_fail:
+    invalid_level: vip_level不存在
+    level_not_enough: 等级不够
+    already_collected: 已经买过
+    cost_not_enough: 钱不够
+    no_level_prize: 没有奖励
+
+# vip 购买推图次数
+vip_buy_dungeon_times:
+  c2s:
+    dungeon_id: int // 推图关卡 id
+  s2c:
+    dungeon_id: int // 推图关卡 id
+    new_times: int // 购买总次数
+  s2c_fail:
+    cost_not_enough: 钱不够
+    vip_level_limit: vip等级不够，买的次数已到最大
+    dungeon_id_invalid: 推图关卡 id 错误

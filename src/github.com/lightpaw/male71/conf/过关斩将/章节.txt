@@ -1,0 +1,4 @@
+章节id	名字	描述	背景图	关卡，配置 关卡.txt 中的id	关卡，配置 关卡.txt 中的id	关卡，配置 关卡.txt 中的id	关卡，配置 关卡.txt 中的id	关卡，配置 关卡.txt 中的id
+chapter_id	chapter_name	chapter_desc	bg_img	guan_qia	guan_qia	guan_qia	guan_qia	guan_qia
+1	第一章	不需要描述	第1章	101	102	103	104	105
+2	第二章	不需要描述	第2章	201	202	203	204	205

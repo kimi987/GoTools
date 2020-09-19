@@ -1,0 +1,34 @@
+ManifestFileVersion: 0
+CRC: 1026806008
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b4d20a0ce9bee70a909865b4e0ae2aa8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1cdf22f6cf8f393f0ffabd8c94a43999
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIEffect/UI_biaoqian_chuanshuo.prefab
+Dependencies: []

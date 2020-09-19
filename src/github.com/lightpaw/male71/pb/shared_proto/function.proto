@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+// 功能开启
+
+// 功能类型
+//enum FunctionType {
+//    Type_Invalid = 0; // 无效的功能类型
+//    TYPE_TOWER = 1; // 千重楼
+//    TYPE_SECRET_TOWER = 2; // 重楼密室
+//    TYPE_BAI_ZHAN = 3; // 百战千军
+//    TYPE_FISHING = 4; // 钓鱼
+//    TYPE_SHOP = 5; // 商店
+//    TYPE_MONSTER_REGION = 6; // 玉石地区
+//    TYPE_CAPTAIN = 7; // 武将
+//    TYPE_CAPTAIN_ABILITY = 8; // 武将成长
+//    TYPE_CAPTAIN_CHANGE_RACE = 9; // 武将转职
+//    TYPE_CAPTAIN_REBIRTH = 10; // 武将转生
+//    TYPE_CAPTAIN_SOUL = 11; // 武将将魂
+//    TYPE_EQUIP = 12; // 装备
+//    TYPE_EQUIP_UPGRADE = 13; // 装备升级
+//    TYPE_EQUIP_REFINE = 14; // 装备强化
+//    TYPE_EQUIP_GEM = 15; // 装备宝石
+//    TYPE_MAIN_TASK = 16; // 主线任务
+//    TYPE_ACTIVE_DEGREE_TASK = 17; // 活跃度任务
+//    TYPE_BA_YE = 18; // 霸业目标
+//    TYPE_ACHIEVE_TASK = 19; // 成就任务
+//    TYPE_GUILD = 20; // 联盟
+//    TYPE_GUILD_DONATE = 21; // 联盟捐献
+//    TYPE_GUILD_HELP = 22; // 联盟协助
+//    TYPE_GUILD_PACKAGE = 23; // 联盟礼包
+//    TYPE_REGION = 24; // 地区切换功能图标
+//    TYPE_REGION_NPC = 25; // 地区npc山寨
+//    TYPE_REGION_INFLUENCE = 26; // 地区势力开关
+//    TYPE_REGION_FAVORITE = 27; // 地区收藏
+//    TYPE_DUNGEON = 28; // 推图
+//    TYPE_FEN_CHENG = 29; // 分城
+//    TYPE_FEN_CHENG_2 = 56; // 分城2
+//    TYPE_FEN_CHENG_3 = 57; // 分城3
+//    TYPE_FEN_CHENG_4 = 58; // 分城4
+//    TYPE_DIAO_KE = 30; // 雕刻玉璧
+//    TYPE_EQUIP_FORGING = 31; // 装备锻造
+//    TYPE_EQUIP_SMELT = 32; // 装备熔炼
+//    TYPE_RECHARGE = 33; // 充值
+//    TYPE_ZHEN_BAO_GE = 34; // 珍宝阁
+//    TYPE_YUAN_BAO_SHOP = 35; // 元宝商店
+//    TYPE_GUILD_CONTRIBUTION_SHOP = 36; // 联盟贡献商店
+//    TYPE_JADE_SHOP = 37; // 玉璧商店
+//    TYPE_MULTI_LEVEL_MONSTER = 38; // 讨伐野怪
+//    TYPE_ZHENG_WU = 39; // 政务
+//    TYPE_TREASURY_TREE = 40; // 摇钱树
+//    TYPE_ZHAN_JIANG = 41; // 过关斩将
+//    TYPE_QUESTION = 42; // 答题
+//    TYPE_BWZL = 43; // 霸王之路
+//    TYPE_DUNGEON_AUTO = 44; // 幻境扫荡
+//    TYPE_COUNTDOWN_PRIZE = 45; // 倒计时礼包
+//    TYPE_XUANYUAN = 46; // 轩辕会武
+//    TYPE_HEBI = 47; // 天命合璧
+//    TYPE_BAOZANG = 48; // 宝藏争夺
+//    TYPE_JUNQING = 49; // 军情
+//    TYPE_TROOP = 50; // 队伍
+//    TYPE_WORKER = 51; // 研究队列
+//    TYPE_RANK = 52; // 排行
+//    TYPE_FARM = 53; // 农场
+//    TYPE_STRONGER = 54; // 变强
+//    TYPE_TITLE = 55; // 称号
+//    TYPE_TROOP_3 = 59; // 队伍3
+//    TYPE_OFFICIAL = 60; // 封官
+//    TYPE_PROMOTION_LOGIN = 61; // 登陆礼包
+//    TYPE_DUNGEON_ELITE = 62; // 开启精英副本
+//    TYPE_JUN_TUAN = 63; // 集结军团怪
+//    TYPE_BLACK_MARKET = 64; // 黑市商店
+//    TYPE_TEACH = 65; // 教学关卡
+//    TYPE_MC_BUILD = 66; // 名城营建
+//}
+
+message FunctionOpenDataProto {
+    int32 function_type = 1; // 功能
+    int32 guan_fu_level = 2; // 官府等级，0表示不需要官府等级
+    int32 hero_level = 3; // 君主等级，0表示不需要君主等级
+    int32 main_task = 4; // 主线任务，0表示不需要主线任务
+    int32 ba_ye_stage = 5; // 霸业阶段等级，0表示不需要霸业阶段
+    int32 building_id = 6; // 建筑id，0表示不需要建筑id，客户端发现不为0以后，在配置中通过id取得BuildingDataProto，通过里面的type取得当前该建筑类型的等级，跟BuildingDataProto.level进行比较
+    int32 tower_floor = 7; // 千重楼层级，0表示不需要千重楼层级
+    int32 dungeon = 8; // 环境ID，0表示不需要
+    string desc = 10; // 描述
+    string icon = 11; // 图标
+    int32 notify_order = 12; // 提示排序
+}
+
+message HeroFunctionProto {
+    repeated int32 open_types = 1 [packed = false]; // 解锁了的功能
+}

@@ -1,0 +1,510 @@
+不要改	旧中文	旧翻译	新中文	新翻译
+key	value	translation	new_value	new_translation
+s.地图/多等级野怪类型-txt-name-1			流寇	
+s.地图/多等级野怪类型-txt-name-2	戍卒		叛军	
+s.地图/多等级野怪类型-txt-name-3	叛军		戍卒	
+s.地图/多等级野怪类型-txt-name-4			蛮族	
+s.文字/广播-txt-text-BaiZhanTouFang	百战千军新的次数已经发放，君主们速速整装上阵提升军衔吧		横扫千军新的次数已经发放，君主们速速整装上阵提升军衔吧	
+s.文字/广播-txt-text-BaoZangDestory	[color=#FFD633]{{self_click}}[/color]身手不凡，击破[color=#FF3333]{{num}}级[/color]殷墟守卫，名震八方		[color=#FFD633]{{self}}[/color]身手不凡，击破[color=#FF3333]{{num}}级[/color]殷墟守卫，名震八方	
+s.文字/广播-txt-text-BaseLevel	普天同庆！恭喜[color=#FFD633]{{self_click}}[/color]的城池达到[color=#FFD633]{{num}}[/color]级势力大幅扩张		普天同庆！恭喜[color=#FFD633]{{self}}[/color]的城池达到[color=#FFD633]{{num}}[/color]级势力大幅扩张	
+s.文字/广播-txt-text-CaptainAbilityExp	恭喜[color=#FFD633]{{self_click}}[/color]首次将麾下武将强化到了{{quality}}品质		恭喜[color=#FFD633]{{self}}[/color]首次将麾下武将强化到了{{quality}}品质	
+s.文字/广播-txt-text-CaptainReBrith	恭喜[color=#FFD633]{{self_click}}[/color]首次将麾下武将转生至[color=#FFD633]{{num}}转[/color]		恭喜[color=#FFD633]{{self}}[/color]首次将麾下武将转生至[color=#FFD633]{{num}}转[/color]	
+s.文字/广播-txt-text-CaptainSoulLevel	恭喜[color=#FFD633]{{self_click}}[/color]首次将麾下武将升阶到[color=#FFD633]{{num}}星[/color]		恭喜[color=#FFD633]{{self}}[/color]首次将麾下武将升阶到[color=#FFD633]{{num}}星[/color]	
+s.文字/广播-txt-text-CaptainSoulUnlockSpell	恭喜[color=#FFD633]{{self_click}}[/color]将{{text}}级武将{{captain}}培养到[color=#FFD633]{{num}}星[/color]		恭喜[color=#FFD633]{{self}}[/color]将{{text}}级武将{{captain}}培养到[color=#FFD633]{{num}}星[/color]	
+s.文字/广播-txt-text-CountryChangeKing			恭喜{{hero}} 成为{{country}}国君！	
+s.文字/广播-txt-text-CountryChangeName			{{old_name}}国的国君将国号成功更改为{{new_name}}	
+s.文字/广播-txt-text-CountryDestroy			{{guild_country}}国{{guild}} 占领了{{country}}国的都城。{{country}}国所有玩家失去官职。	
+s.文字/广播-txt-text-DungeonPrizeCaptainSoul	恭喜[color=#FFD633]{{self_click}}[/color]于武将列传获得[color=#FFD633]{{text}}级[/color]武将{{captain}}		恭喜[color=#FFD633]{{self}}[/color]于武将列传获得[color=#FFD633]{{text}}级[/color]武将{{captain}}	
+s.文字/广播-txt-text-EquipLevel	恭喜[color=#FFD633]{{self_click}}[/color]首次将装备升到[color=#FFD633]{{num}}星[/color]		恭喜[color=#FFD633]{{self}}[/color]首次将装备升到[color=#FFD633]{{num}}星[/color]	
+s.文字/广播-txt-text-FishCaptainSoul	恭喜[color=#FFD633]{{self_click}}[/color]钓鱼时获得[color=#FFD633]{{text}}级[/color]武将[color=#FFD633]{{captain}}[/color]，战力更上一层楼		恭喜[color=#FFD633]{{self}}[/color]钓鱼时获得[color=#FFD633]{{text}}级[/color]武将[color=#FFD633]{{captain}}[/color]，战力更上一层楼	
+s.文字/广播-txt-text-FishEquip	恭喜[color=#FFD633]{{self_click}}[/color]钓鱼时获得{{equip_click}}，战力大幅提升		恭喜[color=#FFD633]{{self}}[/color]钓鱼时获得{{equip}}，战力大幅提升	
+s.文字/广播-txt-text-FishGem	恭喜[color=#FFD633]{{self_click}}[/color]钓鱼时获得[color=#FF3333]{{num}}级宝石[/color]战力突破了天际		恭喜[color=#FFD633]{{self}}[/color]钓鱼时获得[color=#FF3333]{{num}}级宝石[/color]战力突破了天际	
+s.文字/广播-txt-text-GemGet	恭喜[color=#FFD633]{{self_click}}[/color]获得[color=#FF3333]{{num}}级宝石[/color]战力突破了天际		恭喜[color=#FFD633]{{self}}[/color]获得[color=#FF3333]{{num}}级宝石[/color]战力突破了天际	
+s.文字/广播-txt-text-GuildChangeCountry	[color=#FFD633]{{guild_click}}[/color]已从[color=#FFD633]{{text}}国[/color]转到[color=#FFD633]{{country}}国[/color]		[color=#FFD633]{{guild}}[/color]已从[color=#FFD633]{{text}}国[/color]转到[color=#FFD633]{{country}}国[/color]	
+s.文字/广播-txt-text-GuildChangeFlag	[color=#FFD633]{{text}}[/color]已更改旗号为[color=#FFD633]{{guild_click}}[/color]		[color=#FFD633]{{text}}[/color]已更改旗号为[color=#FFD633]{{guild}}[/color]	
+s.文字/广播-txt-text-GuildChangeName	[color=#FFD633]{{text}}[/color]已改名为[color=#FFD633]{{guild_click}}[/color]		[color=#FFD633]{{text}}[/color]已改名为[color=#FFD633]{{guild}}[/color]	
+s.文字/广播-txt-text-GuildCreate	歃血为盟，群英聚首，联盟[color=#FFD633]{{guild_click}}[/color]在[color=#FFD633]{{name}}[/color]的带领下，开创于乱世之中		歃血为盟，群英聚首，联盟[color=#FFD633]{{guild}}[/color]在[color=#FFD633]{{name}}[/color]的带领下，开创于乱世之中	
+s.文字/广播-txt-text-GuildLevel	励精图治，广纳英才，联盟[color=#FFD633]{{guild_click}}[/color]成功提升至[color=#FFD633]{{num}}级[/color]		励精图治，广纳英才，联盟[color=#FFD633]{{guild}}[/color]成功提升至[color=#FFD633]{{num}}级[/color]	
+s.文字/广播-txt-text-GuildTanHe	[color=#FFD633]{{guild_click}}[/color]已弹劾不称职的旧盟主，新盟主[color=#FFD633]{{name}}[/color]将带领联盟走向新的时代		[color=#FFD633]{{guild}}[/color]已弹劾不称职的旧盟主，新盟主[color=#FFD633]{{name}}[/color]将带领联盟走向新的时代	
+s.文字/广播-txt-text-HeroLevel	普天同庆！恭喜[color=#FFD633]{{self_click}}[/color]达到[color=#FFD633]{{num}}[/color]级		普天同庆！恭喜[color=#FFD633]{{self}}[/color]达到[color=#FFD633]{{num}}[/color]级	
+s.文字/广播-txt-text-JiuGuanBaoJi	[color=#FFD633]{{self_click}}[/color]福星高照于驿站获得暴击[color=#FFD633]{{num}}倍[/color]数量强化符		[color=#FFD633]{{self}}[/color]福星高照于驿站获得暴击[color=#FFD633]{{num}}倍[/color]数量强化符	
+s.文字/广播-txt-text-JiuGuanQingJiao	恭喜[color=#FFD633]{{self_click}}[/color]于驿站被[color=#FFD633]{{npc}}[/color]授予大量强化符		恭喜[color=#FFD633]{{self}}[/color]于驿站被[color=#FFD633]{{npc}}[/color]授予大量强化符	
+s.文字/广播-txt-text-McWarAtkWin	恭喜联盟[color=#FFD633]{{guild_click}}[/color]浴血奋战，成功占领[color=#FFD633]{{mingc}}[/color]		恭喜联盟[color=#FFD633]{{guild}}[/color]浴血奋战，成功占领[color=#FFD633]{{mingc}}[/color]	
+s.文字/广播-txt-text-MixEquip	恭喜[color=#FFD633]{{self_click}}[/color]首次合成{{equip_click}}，战力大幅提升		恭喜[color=#FFD633]{{self}}[/color]首次合成{{equip}}，战力大幅提升	
+s.文字/广播-txt-text-NpcMonsterSucc	恭喜[color=#FFD633]{{self_click}}[/color]首次战胜[color=#FFD633]{{num}}级流寇[/color]获得玄冥装备碎片		恭喜[color=#FFD633]{{self}}[/color]首次战胜[color=#FFD633]{{num}}级流寇[/color]获得玄冥装备碎片	
+s.文字/广播-txt-text-TaozLevel	恭喜[color=#FFD633]{{self_click}}[/color]首次装备套装达到[color=#FFD633]{{num}}星[/color]		恭喜[color=#FFD633]{{self}}[/color]首次装备套装达到[color=#FFD633]{{num}}星[/color]	
+s.文字/广播-txt-text-TaskBwzlPrize	恭喜[color=#FFD633]{{self_click}}[/color]完成全部霸王之路任务，获得[color=#FFD633]神将[/color][color=#FFD633]鬼谷子[/color]		恭喜[color=#FFD633]{{self}}[/color]完成全部霸王之路任务，获得[color=#FFD633]神将[/color][color=#FFD633]鬼谷子[/color]	
+s.文字/广播-txt-text-TaskChengJiuLevel	恭喜[color=#FFD633]{{self_click}}[/color]累积[color=#FFD633]{{num}}个[/color]成就总星数获得丰厚奖励		恭喜[color=#FFD633]{{self}}[/color]累积[color=#FFD633]{{num}}个[/color]成就总星数获得丰厚奖励	
+s.文字/广播-txt-text-Title	恭喜[color=#FFD633]{{self_click}}[/color]励精图治，获得爵位[color=#FFD633]{{text}}[/color]		恭喜[color=#FFD633]{{self}}[/color]励精图治，获得爵位[color=#FFD633]{{text}}[/color]	
+s.文字/广播-txt-text-TowerFloor	恭喜[color=#FFD633]{{self_click}}[/color]首次通关千机楼[color=#FFD633]{{num}}层[/color]		恭喜[color=#FFD633]{{self}}[/color]首次通关千机楼[color=#FFD633]{{num}}层[/color]	
+s.文字/广播-txt-text-TowerPrizeEquip	恭喜[color=#FFD633]{{self_click}}[/color]首次于千机楼获得{{equip_click}}		恭喜[color=#FFD633]{{self}}[/color]首次于千机楼获得{{equip}}	
+s.文字/广播-txt-text-XiongNuSucc	恭喜[color=#FFD633]{{guild_click}}[/color]众志成城，成功抗击匈奴[color=#FFD633]{{text}}[/color]，获得[color=#FFD633]{{score}}[/color]评价		恭喜[color=#FFD633]{{guild}}[/color]众志成城，成功抗击匈奴[color=#FFD633]{{text}}[/color]，获得[color=#FFD633]{{score}}[/color]评价	
+s.文字/广播-txt-text-ZhanJiangZhangJieComplete	恭喜[color=#FFD633]{{self_click}}[/color]麾下武将通关单刀赴会-{{text}}，提升大量成长值		恭喜[color=#FFD633]{{self}}[/color]麾下武将通关单刀赴会-{{text}}，提升大量成长值	
+s.文字/广播-txt-text-ZhenBaoGeBaoJi	[color=#FFD633]{{self_click}}[/color]福星高照于珍宝阁获得暴击[color=#FFD633]{{num}}倍[/color]数量道具		[color=#FFD633]{{self}}[/color]福星高照于珍宝阁获得暴击[color=#FFD633]{{num}}倍[/color]数量道具	
+s.文字/文本-txt-text-BannerBaseFail			[color=#79B3F3]您[/color]的主城受到[color=#E7566B]{{attacker}}[/color]的进攻，防守失败。	
+s.文字/文本-txt-text-BannerBaseSuccess			[color=#79B3F3]您[/color]的主城受到[color=#E7566B]{{attacker}}[/color]的攻击，防守胜利。	
+s.文字/文本-txt-text-BannerTroopFail			队伍{{troop_index}}受到了{{attacker}}的攻击，战斗失败。	
+s.文字/文本-txt-text-BannerTroopSuccess			队伍{{troop_index}}受到了{{attacker}}的攻击，战斗胜利。	
+s.文字/文本-txt-text-GuildGongfangBuildComplete			联盟工坊修建成功！	
+s.文字/文本-txt-text-GuildGongfangBuildTimeAdd			[color=#E7566B]{{name}}[/color]破坏了联盟工坊，修建时间增加{{num}}分钟！	
+s.文字/文本-txt-text-GuildGongfangBuildTimeReduce			盟友[color=#79B3F3]{{name}}[/color]加速了修建，修建时间减少{{num}}分钟！	
+s.文字/文本-txt-text-GuildGongfangBuilding	{{guild_class_level}}[color=#79B3F3]{{name}}[/color]放置了联盟工坊，开始修建中！		{{class_name}}[color=#79B3F3]{{name}}[/color]放置了联盟工坊，开始修建中！	
+s.文字/文本-txt-text-GuildGongfangEfficiencyAdd			盟友[color=#79B3F3]{{name}}[/color]参与了联盟工坊生产，工坊效率增加{{num}}。	
+s.文字/文本-txt-text-GuildGongfangEfficiencyReduce			[color=#E7566B]{{name}}[/color]破坏了联盟工坊，工坊效率减少{{num}}。	
+s.文字/文本-txt-text-GuildGongfangPrizeSend			生产次数达到需求，所有盟友获得1个工坊奖励！	
+s.文字/文本-txt-text-GuildPleaseHelpMe			我的城池遭到了敌人的攻击，请求支援	
+s.文字/文本-txt-text-GuildSayHi	在下初入联盟，希望与诸位共创霸业。		在下初入联盟，愿与诸位共创霸业	
+s.文字/文本-txt-text-GuildWorkshopBuildShow			已帮联盟工坊修建加速{{num}}分钟	
+s.文字/文本-txt-text-GuildWorkshopCompletedChat			联盟工坊竣工了！大家快来生产吧！	
+s.文字/文本-txt-text-GuildWorkshopCreatedChat			我们正在修建联盟工坊！大家快来加速吧！	
+s.文字/文本-txt-text-GuildWorkshopPrizeShow			已领取当前联盟工坊奖励！	
+s.文字/文本-txt-text-GuildWorkshopProdShow			已帮联盟工坊生产1次	
+s.文字/文本-txt-text-MRDRAttBroken4a	进攻方主城流亡，掠夺结束		进攻方主城流亡，破坏结束	
+s.文字/文本-txt-text-MRDRAttBroken4d	进攻方主城流亡，掠夺结束		进攻方主城流亡，破坏结束	
+s.文字/文本-txt-text-MRDRAttMoveBase4a	进攻方迁城，掠夺结束		进攻方迁城，破坏结束	
+s.文字/文本-txt-text-MRDRAttMoveBase4d	进攻方迁城，掠夺结束		进攻方迁城，破坏结束	
+s.文字/文本-txt-text-MRDRBroken4a	防守方主城流亡，掠夺结束		防守方主城流亡，破坏结束	
+s.文字/文本-txt-text-MRDRBroken4d	防守方主城流亡，掠夺结束		防守方主城流亡，破坏结束	
+s.文字/文本-txt-text-MRDRExpelled4a	进攻方被驱逐，掠夺结束		进攻方被驱逐，破坏结束	
+s.文字/文本-txt-text-MRDRExpelled4d	进攻方被驱逐，掠夺结束		进攻方被驱逐，破坏结束	
+s.文字/文本-txt-text-MRDRFinished4a	掠夺时间已到，掠夺结束		时间已到，破坏结束	
+s.文字/文本-txt-text-MRDRFinished4d	掠夺时间已到，掠夺结束		破坏时间已到，破坏结束	
+s.文字/文本-txt-text-MRDRMian4a	防守方开启免战，掠夺结束		防守方开启免战，破坏结束	
+s.文字/文本-txt-text-MRDRMian4d	防守方开启免战，掠夺结束		防守方开启免战，破坏结束	
+s.文字/文本-txt-text-MRDRMoveBase4a	防守方迁城，掠夺结束		防守方迁城，破坏结束	
+s.文字/文本-txt-text-MRDRMoveBase4d	防守方迁城，掠夺结束		防守方迁城，破坏结束	
+s.文字/文本-txt-text-MRDRProtected4a	防守方今日繁荣度损失已达上限，掠夺结束		防守方今日繁荣度损失已达上限，破坏结束	
+s.文字/文本-txt-text-MRDRProtected4d	防守方今日繁荣度损失已达上限，掠夺结束		防守方今日繁荣度损失已达上限，破坏结束	
+s.文字/文本-txt-text-MRDRRecall4a	进攻方主动召回，掠夺结束		进攻方主动召回，破坏结束	
+s.文字/文本-txt-text-MRDRRecall4d	进攻方主动召回，掠夺结束		进攻方主动召回，破坏结束	
+s.文字/文本-txt-text-MailAddHateDesc	仇恨度增加		反击度增加	
+s.文字/文本-txt-text-MailLostProsperityDesc			损失繁荣度	
+s.文字/文本-txt-text-MailReduceProsperityDesc			摧毁繁荣度	
+s.文字/文本-txt-text-MailReportLoserDesc			战败损失	
+s.文字/文本-txt-text-MailReportWinnerDesc			战胜获得	
+s.文字/文本-txt-text-McWarAtkFail			攻击失败：你攻击了{{building}}，被{{hero}}击败	
+s.文字/文本-txt-text-McWarChatEnemyAtkBuildingDestroy			[color=#E7566B]攻方阵营[/color]{{building}}被摧毁！	
+s.文字/文本-txt-text-McWarChatEnemyDefBuildingDestroy			[color=#E7566B]守方阵营[/color]{{building}}被摧毁！	
+s.文字/文本-txt-text-McWarChatOurAtkBuildingDestroy			[color=#79B3F3]攻方阵营[/color]{{building}}被摧毁！	
+s.文字/文本-txt-text-McWarChatOurDefBuildingDestroy			[color=#79B3F3]守方阵营[/color]{{building}}被摧毁！	
+s.文字/文本-txt-text-McWarDefFail			防守失败：你防守了 {{building}}，被 {{hero}}击败。	
+s.文字/文本-txt-text-McWarReliveSucc			您的队伍已经完成补兵，可以行动了。	
+s.文字/文本-txt-text-MiscHelpGuildMember			{{member_name}}已帮您减少休息时间{{reduce_minute}}分钟	
+s.文字/文本-txt-text-MultiMonsterPrizeCount			{{count}}倍次数收益	
+s.文字/文本-txt-text-MysticAlly			神秘盟友	
+s.文字/文本-txt-text-RealmAssemblyArrived			{{troop_index}}队到达集结地，等待集结出发	
+s.文字/文本-txt-text-RealmAssemblyBackTimeout			{{troop_index}}队没有赶到集结地，开始返回	
+s.文字/文本-txt-text-RealmAssemblyCanceled			{{hero}}解散了本次集结，队伍{{troop_index}}开始返回。	
+s.文字/文本-txt-text-RealmAssemblyMemberCountNotEnough			本次集结没有成员参与，集结已解散	
+s.文字/文本-txt-text-RealmAssemblyMemberDestroy			由于集结中成员主城发生迁移，本次集结被强制解散。	
+s.文字/文本-txt-text-RealmAssemblyStart			集结队伍开始出发	
+s.文字/文本-txt-text-RealmAssemblyTargetDestroy			集结目标状态发生改变，本次集结被强制解散。	
+s.文字/文本-txt-text-RealmAssistArrivedBack			{{troop_index}}队开始返回	
+s.文字/文本-txt-text-RealmAssistArrivedStay			{{troop_index}}队开始驻守	
+s.文字/文本-txt-text-RealmAssistDefFail			{{troop_index}}队战斗失败	
+s.文字/文本-txt-text-RealmAssistDefSuccess			{{troop_index}}队战斗胜利	
+s.文字/文本-txt-text-RealmAssistFail			{{troop_index}}队战斗失败，队伍已返回主城	
+s.文字/文本-txt-text-RealmAssistSuccess			{{troop_index}}队战斗胜利，开始驻守	
+s.文字/文本-txt-text-RealmExpelledFail			{{troop_index}}队战斗失败	
+s.文字/文本-txt-text-RealmExpelledSuccess			{{troop_index}}队战斗胜利	
+s.文字/文本-txt-text-RealmInvadeFail			{{troop_index}}队战斗失败，队伍已返回主城	
+s.文字/文本-txt-text-RealmInvadeFinished			{{troop_index}}队开始返回	
+s.文字/文本-txt-text-RealmInvadeSuccess	{{troop_index}}队战斗胜利，开始掠夺		{{troop_index}}队战斗胜利，开始破坏	
+s.文字/文本-txt-text-RealmInvadeSuccessBack			{{troop_index}}队战斗胜利，开始返回	
+s.文字/文本-txt-text-RealmInvadeTargetLost			{{troop_index}}队的目标已不存在，队伍返回中	
+s.文字/文本-txt-text-RealmMonsterInvasion	{{monster}}对你的仇恨度已满，即将对你发起入侵，请注意防守。		{{monster}}的反击度已满，即将对你发起入侵，请注意防守。	
+s.文字/文本-txt-text-RealmTroopBacked			{{troop_index}}队已返回主城	
+s.文字/文本-txt-text-RealmTroopBaozRepatriate	{{troop_index}}队被遣返		{{troop_index}}队被{{killer}}遣返，队伍开始返回	
+s.文字/文本-txt-text-RealmTroopRecall			{{troop_index}}队开始返回	
+s.文字/文本-txt-text-RealmTroopRepatriate			{{troop_index}}队开始返回	
+s.文字/文本-txt-text-RealmTroopSpeedUp			{{troop_index}}队行军加速	
+s.文字/文本-txt-text-SysChatFriendAdded	你已将{{hero_name}}加为好友，开始聊天吧		你已将[color=#ffeb8f]{{hero_name}}[/color]加为好友，开始聊天吧	
+s.文字/文本-txt-text-SysChatSenderName			系统消息	
+s.文字/文本-txt-text-XiongNuResistBroadcast			匈奴大营免战结束，联盟所有成员可以在10分钟内前往反击匈奴大营！	
+s.文字/邮件-txt-desc-AssemblyAdaFail			战败损失	
+s.文字/邮件-txt-desc-AssemblyAdaSuccess			战胜获得	
+s.文字/邮件-txt-desc-AssemblyAddFail			战败损失	
+s.文字/邮件-txt-desc-AssemblyAddSuccess			战胜获得	
+s.文字/邮件-txt-desc-AssemblyAsaFail			战败损失	
+s.文字/邮件-txt-desc-AssemblyAsdFail			战败损失	
+s.文字/邮件-txt-desc-AssemblyAsdSuccess			战胜获得	
+s.文字/邮件-txt-desc-AssemblyAssFail			战败损失	
+s.文字/邮件-txt-desc-AssemblyAssSuccess			战胜获得	
+s.文字/邮件-txt-desc-AssemblyDoneAttacker			获得	
+s.文字/邮件-txt-desc-AssemblyDoneDefenser			损失	
+s.文字/邮件-txt-desc-AssemblyExpelAttackerFail			战败损失	
+s.文字/邮件-txt-desc-AssemblyExpelAttackerSuccess			战胜获得	
+s.文字/邮件-txt-desc-AssemblyExpelDefenserFail			战败损失	
+s.文字/邮件-txt-desc-AssemblyExpelDefenserSuccess			战胜获得	
+s.文字/邮件-txt-desc-AssemblySaaFail			战败损失	
+s.文字/邮件-txt-desc-AssemblySaaSuccess			战胜获得	
+s.文字/邮件-txt-desc-AssemblySadFail			战败损失	
+s.文字/邮件-txt-desc-AssemblySadSuccess			战胜获得	
+s.文字/邮件-txt-desc-AssemblySasFail			战败损失	
+s.文字/邮件-txt-desc-AssemblySasSuccess			战胜获得	
+s.文字/邮件-txt-desc-ReportAdaFail			战败损失	
+s.文字/邮件-txt-desc-ReportAdaSuccess			战胜获得	
+s.文字/邮件-txt-desc-ReportAddFail			战败损失	
+s.文字/邮件-txt-desc-ReportAddSuccess			战胜获得	
+s.文字/邮件-txt-desc-ReportAsaFail			战败损失	
+s.文字/邮件-txt-desc-ReportAsaSuccess			战胜获得	
+s.文字/邮件-txt-desc-ReportAsdFail			战败损失	
+s.文字/邮件-txt-desc-ReportAsdSuccess			战胜获得	
+s.文字/邮件-txt-desc-ReportAssFail			战败损失	
+s.文字/邮件-txt-desc-ReportAssSuccess			战胜获得	
+s.文字/邮件-txt-desc-ReportBaozRepatriateMoving			获得	
+s.文字/邮件-txt-desc-ReportBaozRepatriateRobber			获得	
+s.文字/邮件-txt-desc-ReportDoneAttacker	收益		获得	
+s.文字/邮件-txt-desc-ReportDoneBaoz			获得	
+s.文字/邮件-txt-desc-ReportDoneBaozBack	掠夺上限		探索上限	
+s.文字/邮件-txt-desc-ReportDoneDefenser			损失	
+s.文字/邮件-txt-desc-ReportExpelAttackerFail			战败损失	
+s.文字/邮件-txt-desc-ReportExpelAttackerSuccess			战胜获得	
+s.文字/邮件-txt-desc-ReportExpelDefenserFail			战败损失	
+s.文字/邮件-txt-desc-ReportExpelDefenserSuccess			战胜获得	
+s.文字/邮件-txt-desc-ReportSaaFail			战败损失	
+s.文字/邮件-txt-desc-ReportSaaSuccess			战胜获得	
+s.文字/邮件-txt-desc-ReportSadFail			战败损失	
+s.文字/邮件-txt-desc-ReportSadSuccess			战胜获得	
+s.文字/邮件-txt-desc-ReportSasFail			战败损失	
+s.文字/邮件-txt-desc-ReportSasSuccess			战胜获得	
+s.文字/邮件-txt-desc-ReportWatchAttacker	瞭望		侦查	
+s.文字/邮件-txt-desc-ReportWatchDefenser	被瞭望		被侦查	
+s.文字/邮件-txt-sub_title-GuildFirstJoin			恭喜您加入联盟，获得200点券奖励！	
+s.文字/邮件-txt-sub_title-ReportAdaFail	[color=#79B3F3]您[/color]进攻了[color=#E7566B]{{defenser}}[/color]的主城，战斗失败。		[color=#6Baaf0]您[/color]进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗失败。	
+s.文字/邮件-txt-sub_title-ReportAdaSuccess	[color=#79B3F3]您[/color]进攻了[color=#E7566B]{{defenser}}[/color]的主城，战斗胜利。		[color=#6Baaf0]您[/color]进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗胜利。	
+s.文字/邮件-txt-sub_title-ReportAddFail	[color=#79B3F3]您[/color]的主城受到[color=#E7566B]{{attacker}}[/color]的进攻，防守失败。		[color=#6Baaf0]您[/color]的主城受到[color=#ff304e]{{attacker}}[/color]的进攻，防守失败。	
+s.文字/邮件-txt-sub_title-ReportAddSuccess	[color=#79B3F3]您[/color]的主城受到[color=#E7566B]{{attacker}}[/color]的攻击，防守胜利。		[color=#6Baaf0]您[/color]的主城受到[color=#ff304e]{{attacker}}[/color]的攻击，防守胜利。	
+s.文字/邮件-txt-sub_title-ReportAsaFail	[color=#79B3F3]您[/color]进攻了[color=#E7566B]{{defenser}}[/color]的主城，战斗失败。		[color=#6Baaf0]您[/color]进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗失败。	
+s.文字/邮件-txt-sub_title-ReportAsaSuccess	[color=#79B3F3]您[/color]进攻了[color=#E7566B]{{defenser}}[/color]的主城，战斗胜利。		[color=#6Baaf0]您[/color]进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗胜利。	
+s.文字/邮件-txt-sub_title-ReportAsdFail	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]您[/color]的主城，未能抵御[color=#E7566B]{{attacker}}[/color]的进攻。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]您[/color]的主城，未能抵御[color=#ff304e]{{attacker}}[/color]的进攻。	
+s.文字/邮件-txt-sub_title-ReportAsdSuccess	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]您[/color]的主城，成功抵御了[color=#E7566B]{{attacker}}[/color]的进攻。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]您[/color]的主城，成功抵御了[color=#ff304e]{{attacker}}[/color]的进攻。	
+s.文字/邮件-txt-sub_title-ReportAssFail	[color=#79B3F3]您[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，未能抵御[color=#E7566B]{{attacker}}[/color]的进攻。		[color=#6Baaf0]您[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，未能抵御[color=#ff304e]{{attacker}}[/color]的进攻。	
+s.文字/邮件-txt-sub_title-ReportAssSuccess	[color=#79B3F3]您[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，成功抵御了[color=#E7566B]{{attacker}}[/color]的进攻。		[color=#6Baaf0]您[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，成功抵御了[color=#ff304e]{{attacker}}[/color]的进攻。	
+s.文字/邮件-txt-sub_title-ReportDoneAttacker	[color=#79B3F3]您[/color]在[color=#E7566B]{{defenser}}[/color]的主城持续破坏，{{reason}}。		[color=#6Baaf0]您[/color]在[color=#ff304e]{{defenser}}[/color]的主城持续破坏，{{reason}}。	
+s.文字/邮件-txt-sub_title-ReportDoneBaoz	[color=#79B3F3]您[/color]探索了[color=#E7566B]{{defenser}}[/color]		[color=#6Baaf0]您[/color]探索了[color=#ff304e]{{defenser}}[/color]	
+s.文字/邮件-txt-sub_title-ReportDoneBaozBack	由于目标殷墟已有4名其它君主正在掠夺，队伍{{num}}返回。		由于目标殷墟已有4名其它君主正在探索，队伍{{num}}返回。	
+s.文字/邮件-txt-sub_title-ReportDoneDefenser	[color=#E7566B]{{attacker}}[/color]在[color=#79B3F3]您[/color]的主城持续破坏，{{reason}}。		[color=#ff304e]{{attacker}}[/color]在[color=#6Baaf0]您[/color]的主城持续破坏，{{reason}}。	
+s.文字/邮件-txt-sub_title-ReportExpelAttackerFail	[color=#79B3F3]您[/color]的部队破坏[color=#E7566B]{{defenser}}[/color]的主城时被驱逐。		[color=#6Baaf0]您[/color]的部队破坏[color=#ff304e]{{defenser}}[/color]的主城时被驱逐。	
+s.文字/邮件-txt-sub_title-ReportExpelAttackerSuccess	[color=#79B3F3]您[/color]的部队破坏[color=#E7566B]{{defenser}}[/color]主城时被攻击，战斗胜利。		[color=#6Baaf0]您[/color]的部队破坏[color=#ff304e]{{defenser}}[/color]主城时被攻击，战斗胜利。	
+s.文字/邮件-txt-sub_title-ReportExpelDefenserFail	战斗失败。[color=#79B3F3]您[/color]未能驱逐[color=#E7566B]{{attacker}}[/color]的部队。		战斗失败。[color=#6Baaf0]您[/color]未能驱逐[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-sub_title-ReportExpelDefenserSuccess	战斗胜利！[color=#79B3F3]您[/color]成功驱逐了[color=#E7566B]{{attacker}}[/color]的部队。		战斗胜利！[color=#6Baaf0]您[/color]成功驱逐了[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-sub_title-ReportSaaFail	[color=#E7566B]{{assister}}[/color]援助了[color=#E7566B]{{defenser}}[/color]的主城，驱逐了[color=#79B3F3]您[/color]的部队。		[color=#ff304e]{{assister}}[/color]援助了[color=#ff304e]{{defenser}}[/color]的主城，驱逐了[color=#6Baaf0]您[/color]的部队。	
+s.文字/邮件-txt-sub_title-ReportSaaSuccess	[color=#E7566B]{{assister}}[/color]援助了[color=#E7566B]{{defenser}}[/color]的主城未能驱逐[color=#79B3F3]您[/color]的部队。		[color=#ff304e]{{assister}}[/color]援助了[color=#ff304e]{{defenser}}[/color]的主城未能驱逐[color=#6Baaf0]您[/color]的部队。	
+s.文字/邮件-txt-sub_title-ReportSadFail	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]您[/color]的主城，未能驱逐[color=#E7566B]{{attacker}}[/color]的部队。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]您[/color]的主城，未能驱逐[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-sub_title-ReportSadSuccess	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]您[/color]的主城，成功驱逐了[color=#E7566B]{{attacker}}[/color]的部队。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]您[/color]的主城，成功驱逐了[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-sub_title-ReportSasFail	[color=#79B3F3]您[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，未能驱逐[color=#E7566B]{{attacker}}[/color]的部队。		[color=#6Baaf0]您[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，未能驱逐[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-sub_title-ReportSasSuccess	[color=#79B3F3]您[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，成功驱逐了[color=#E7566B]{{attacker}}[/color]的部队。		[color=#6Baaf0]您[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，成功驱逐了[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-sub_title-ReportWatchAttacker	[color=#6Baaf0]您[/color]瞭望了[color=#ff304e]{{defenser}}[/color]的主城。		[color=#6Baaf0]您[/color]侦查了[color=#ff304e]{{defenser}}[/color]的主城。	
+s.文字/邮件-txt-sub_title-ReportWatchDefenser	[color=#ff304e]{{attacker}}[/color]瞭望了[color=#6Baaf0]您[/color]的主城。		[color=#ff304e]{{attacker}}[/color]侦查了[color=#6Baaf0]您[/color]的主城。	
+s.文字/邮件-txt-sub_title-XiongNuScore			城主大人，本次抗击匈奴已结束。	
+s.文字/邮件-txt-text-AssemblyAdaFail			[color=#6Baaf0]您[/color]参与集结进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗失败。	
+s.文字/邮件-txt-text-AssemblyAdaSuccess			[color=#6Baaf0]您[/color]参与集结攻击了[color=#ff304e]{{defenser}}[/color]的主城，战斗胜利。	
+s.文字/邮件-txt-text-AssemblyAddFail			[color=#6Baaf0]您[/color]的主城受到[color=#ff304e]{{attacker}}[/color]的集结进攻，防守失败。	
+s.文字/邮件-txt-text-AssemblyAddSuccess			[color=#6Baaf0]您[/color]的主城受到[color=#ff304e]{{attacker}}[/color]的集结攻击，防守胜利。	
+s.文字/邮件-txt-text-AssemblyAsaFail			[color=#6Baaf0]您[/color]参与集结进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗失败。	
+s.文字/邮件-txt-text-AssemblyAsdFail			[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]您[/color]的主城，未能抵御[color=#ff304e]{{attacker}}[/color]的集结攻击。	
+s.文字/邮件-txt-text-AssemblyAsdSuccess			[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]您[/color]的主城，成功抵御了[color=#ff304e]{{attacker}}[/color]的集结进攻。	
+s.文字/邮件-txt-text-AssemblyAssFail			[color=#6Baaf0]您[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，未能抵御[color=#ff304e]{{attacker}}[/color]的集结攻击。	
+s.文字/邮件-txt-text-AssemblyAssSuccess			[color=#6Baaf0]您[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，成功抵御[color=#ff304e]{{attacker}}[/color]的集结进攻。	
+s.文字/邮件-txt-text-AssemblyDoneAttacker			[color=#6Baaf0]您[/color]参与的集结部队在[color=#ff304e]{{defenser}}[/color]的主城持续破坏，{{reason}}。	
+s.文字/邮件-txt-text-AssemblyDoneDefenser			[color=#ff304e]{{attacker}}[/color]的集结部队在[color=#6Baaf0]您[/color]的主城持续破坏，{{reason}}。	
+s.文字/邮件-txt-text-AssemblyExpelAttackerFail			[color=#6Baaf0]您[/color]参与的集结部队破坏[color=#ff304e]{{defenser}}[/color]的主城时被驱逐。	
+s.文字/邮件-txt-text-AssemblyExpelAttackerSuccess			[color=#6Baaf0]您[/color]参与的集结部队破坏[color=#ff304e]{{defenser}}[/color]主城时被攻击，战斗胜利。	
+s.文字/邮件-txt-text-AssemblyExpelDefenserFail			战斗失败。[color=#6Baaf0]您[/color]未能驱逐[color=#ff304e]{{attacker}}[/color]的集结部队。	
+s.文字/邮件-txt-text-AssemblyExpelDefenserSuccess			战斗胜利！[color=#6Baaf0]您[/color]成功驱逐了[color=#ff304e]{{attacker}}[/color]的集结部队。	
+s.文字/邮件-txt-text-AssemblySaaFail			[color=#ff304e]{{assister}}[/color]援助了[color=#ff304e]{{defenser}}[/color]的主城，驱逐了[color=#6Baaf0]您[/color]的集结部队。	
+s.文字/邮件-txt-text-AssemblySaaSuccess			[color=#ff304e]{{assister}}[/color]援助了[color=#ff304e]{{defenser}}[/color]的主城未能驱逐[color=#6Baaf0]您[/color]参与的集结部队。	
+s.文字/邮件-txt-text-AssemblySadFail			[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]您[/color]的主城，未能驱逐[color=#ff304e]{{attacker}}[/color]的集结部队。	
+s.文字/邮件-txt-text-AssemblySadSuccess			[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]您[/color]的主城，成功驱逐了[color=#ff304e]{{attacker}}[/color]的集结部队。	
+s.文字/邮件-txt-text-AssemblySasFail			[color=#6Baaf0]您[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，未能驱逐[color=#ff304e]{{attacker}}[/color]的集结部队。	
+s.文字/邮件-txt-text-AssemblySasSuccess			[color=#6Baaf0]您[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，成功驱逐了[color=#ff304e]{{attacker}}[/color]的集结部队。	
+s.文字/邮件-txt-text-BaiZhanJunXianLevelDown	军衔下降为[color=#e2e2e2]{{jun_xian}}[/color]，快去日常-百战千军领取俸禄，继续提升实力吧！		军衔下降为[color=#e2e2e2]{{jun_xian}}[/color]，快去日常-横扫千军领取俸禄，继续提升实力吧！	
+s.文字/邮件-txt-text-BaiZhanJunXianLevelKeep	军衔维持为[color=#e2e2e2]{{jun_xian}}[/color]，快去日常-百战千军领取俸禄，继续提升实力吧！		军衔维持为[color=#e2e2e2]{{jun_xian}}[/color]，快去日常-横扫千军领取俸禄，继续提升实力吧！	
+s.文字/邮件-txt-text-BaiZhanJunXianLevelMaxKeep	您的军衔为[color=#e2e2e2]{{jun_xian}}[/color]，已经天下无敌了!快去日常-百战千军领取俸禄吧！		您的军衔为[color=#e2e2e2]{{jun_xian}}[/color]，已经天下无敌了!快去日常-横扫千军领取俸禄吧！	
+s.文字/邮件-txt-text-BaiZhanJunXianLevelUp	军衔提升为[color=#e2e2e2]{{jun_xian}}[/color]，请再接再厉，快去日常-百战千军领取俸禄吧！		军衔提升为[color=#e2e2e2]{{jun_xian}}[/color]，请再接再厉，快去日常-横扫千军领取俸禄吧！	
+s.文字/邮件-txt-text-BuyDaillyBargainSuccess			[color=#ff304e]{{name}}[/color]已购买成功，奖励已发放！	
+s.文字/邮件-txt-text-CopyDefenserBeenKilled	您设置的分身队伍驻防时被敌人[color=#e2e2e2]消灭[/color]，请注意调整驻防部队。		您设置的分身队伍驻防时被敌人[color=#e2e2e2]消灭[/color]，请注意调整驻防部队。
+提示：
+分身队伍只在无队伍驻防或者驻防队伍出征中时才会生效。
+分身队伍被攻击后会损失兵力，且不能出征，不能补兵，不能编辑阵型，不能撤防，属性不会变化。
+分身队伍持续时间结束后，自动消失。
+同时只能有一个分身队伍，再次设置将替换原有的分身队伍。	
+s.文字/邮件-txt-text-CopyDefenserExpired	您设置的分身队伍由于生效时间结束，已[color=#e2e2e2]自动消失[/color]，请注意调整驻防部队。		您设置的分身队伍由于生效时间结束，已[color=#e2e2e2]自动消失[/color]，请注意调整驻防部队。
+提示：
+分身队伍只在无队伍驻防或者驻防队伍出征中时才会生效。
+分身队伍被攻击后会损失兵力，且不能出征，不能补兵，不能编辑阵型，不能撤防，属性不会变化。
+分身队伍持续时间结束后，自动消失。
+同时只能有一个分身队伍，再次设置将替换原有的分身队伍。	
+s.文字/邮件-txt-text-CountryChangeNameFail			国君{{hero}} 更改国号失败。	
+s.文字/邮件-txt-text-CountryChangeNameSucc			您所在国的国君{{hero}}成功将国号由 {{old_name}} 更改为 {{new_name}}。	
+s.文字/邮件-txt-text-CountryDestroy			{{guild_country}}国{{guild}} 占领了本国的都城{{mingc}}城。国家官职全部失效。本国所有联盟通过声望排名活动获得奖励减半！/r/n本国联盟可以通过名城战夺回{{mingc}}城。本国联盟进攻{{mingc}}城时，进攻阵营中本国玩家鼓舞效果翻倍，舍命一击效果提升翻倍！	
+s.文字/邮件-txt-text-CountryOfficialAppoint			{{hero}} 任命您为{{official}}！	
+s.文字/邮件-txt-text-CountryOfficialDepose			{{hero}} 解除了您的{{official}}职位！	
+s.文字/邮件-txt-text-FirstBeenRob	您的主城被[color=#e2e2e2]破坏[/color]了，繁荣度有受损，当繁荣度降为0时，主城将会流亡。		您的主城被[color=#e2e2e2]破坏[/color]了，繁荣度有受损，当繁荣度降为0时，主城将会流亡。
+主城流亡，将在随机坐标重建，不影响城池数据。
+如何恢复繁荣度：
+通过迁城，可快速恢复繁荣度。
+迁城状态下，可从领民进贡中领取繁荣度。
+使用点券，可立即恢复繁荣度。
+进入冬天，繁荣度恢复速度提高1倍。	
+s.文字/邮件-txt-text-FirstProtectRemoved	您已[color=#e2e2e2]脱离新手保护[/color]，正式踏入七雄争霸的纷乱世界。		您已[color=#e2e2e2]脱离新手保护[/color]，正式踏入七雄争霸的纷乱世界。
+从现在开始，您可以：
+进攻其他玩家，获取资源和宝物。
+与联盟携手合作，争夺名城，称霸天下。
+乱世中实力是决定一切的关键，要想提升实力，可以查看【变强】。
+如果遇到强大的敌人，也可以使用【免战牌】、【随机迁城令】暂避锋芒。	
+s.文字/邮件-txt-text-FirstTowerFail	千机楼是君主战斗队伍验证实力，获取武将装备的地方。高处不胜寒，闯千机楼的过程并不是一帆风顺。武将可以通过转职卡转换职业，更换自身定位，让队伍阵型更佳完美搭配。		千机楼是君主战斗队伍验证实力，获取武将装备的地方。高处不胜寒，闯千机楼的过程并不是一帆风顺。武将可以通过调整阵型，让队伍完美搭配，发挥最强战力。	
+s.文字/邮件-txt-text-GuildBeKickedOut	由于您近期表现不佳，已被{{country}}{{leader}}踢出了联盟。请您不要灰心，可以加入本国其它联盟，或者更换国家。加入到其它6国的联盟。		由于您近期表现不佳，已被[color=#6Baaf0]{{country}}{{leader}}[/color]踢出了联盟。请您不要灰心，可以加入本国其它联盟，或者更换国家。加入到其它6国的联盟。	
+s.文字/邮件-txt-text-GuildBigBox	系统为您补发了未及时领取的联盟大宝箱奖励！		系统为您补发了未及时领取的[color=#e2e2e2]联盟大宝箱[/color]奖励！	
+s.文字/邮件-txt-text-GuildChangeCountry			你的联盟所属国由{{old_name}}国 转换为{{new_name}}国。您个人的所属国也同时转换。	
+s.文字/邮件-txt-text-GuildClassLevelDown	{{class_level}} {{name}} 将您的联盟职位由 {{old_class_level}} 降为 {{new_class_level}} 职位。		{{class_level}}[color=#6Baaf0]{{name}}[/color]将您的联盟职位由[color=#e2e2e2]{{old_class_level}}[/color]降为[color=#e2e2e2]{{new_class_level}}[/color]。	
+s.文字/邮件-txt-text-GuildClassLevelUp	由于您表现出色，{{class_level}} {{name}} 任命您为联盟{{new_class_level}}。		由于您表现出色，{{class_level}}[color=#6Baaf0]{{name}}[/color]任命您为联盟[color=#e2e2e2]{{new_class_level}}[/color]。	
+s.文字/邮件-txt-text-GuildConveneLeader	盟主[color=#6Baaf0]{{name}}[/color]邀请您迁城到他的主城附近[color=#ff304e]{{pos}}[/color]，一同并肩作战！		盟主[color=#6Baaf0]{{name}}[/color]邀请您迁城到他的主城附近[color=#ff304e]{{pos}}[/color]，一同并肩作战！
+使用联盟迁城令可以直接把城池迁到盟主身边
+联盟迁城令不足时可以使用高级迁城令	
+s.文字/邮件-txt-text-GuildConveneOfficer	联盟官员[color=#6Baaf0]{{name}}[/color]邀请您迁城[color=#ff304e]{{pos}}[/color]，一同并肩作战！		联盟官员[color=#6Baaf0]{{name}}[/color]邀请您迁城[color=#ff304e]{{pos}}[/color]，一同并肩作战！
+可以使用高级迁城令前往	
+s.文字/邮件-txt-text-GuildEventPrize	恭喜您获得联盟礼包！		由于您离开了联盟，系统为您补发了未领取的联盟礼包奖励。	
+s.文字/邮件-txt-text-GuildFirstJoin	恭喜您加入联盟，获得[color=#e2e2e2]200[/color]点券奖励！		恭喜您加入联盟，获得[color=#e2e2e2]200[/color]点券奖励！
+盟友可以互助，减少建筑工和研究者的疲劳时间。
+联盟成员可以领取联盟礼包。
+联盟捐献获得的贡献，可以在商店兑换资源道具。
+成员可以享受联盟科技带来的各类增益效果。	
+s.文字/邮件-txt-text-GuildFirstJoinNpc	欢迎加入系统联盟。		欢迎加入系统联盟。
+系统联盟为游戏内本身存在的联盟，盟主有系统配置。
+系统盟主会在每日14:00根据所有成员7日贡献，为排名靠前的成员提升职位。
+系统盟主会主动发起盟主竞选，票数最高的成员将成为新的盟主。	
+s.文字/邮件-txt-text-GuildLeaderChanged	[color=#6Baaf0]{{name}}[/color]将[color=#ff304e]盟主[/color]禅让给了[color=#6Baaf0]{{leader}}[/color]，希望新的盟主能带领联盟创造新的辉煌。		[color=#6Baaf0]{{name}}[/color]将盟主禅让给了[color=#6Baaf0]{{leader}}[/color]，希望新的盟主能带领联盟创造新的辉煌。	
+s.文字/邮件-txt-text-GuildLeaderGenerated	恭喜{{name}}众望所归，通过票选成为新的联盟盟主。		恭喜[color=#6Baaf0]{{name}}[/color]众望所归，通过票选成为新的联盟[color=#e2e2e2]盟主[/color]。	
+s.文字/邮件-txt-text-GuildMcWarApplyAtkFail	您的联盟申请挑战{{mingc}}名城失败，申请消耗的{{amount}}虎符已经返还至联盟。		您的联盟申请挑战[color=#ff304e]{{mingc}}[/color]失败，申请消耗的[color=#e2e2e2]{{amount}}[/color]虎符已返还至联盟。	
+s.文字/邮件-txt-text-GuildMcWarApplyAtkSucc	名城战申请阶段结束，您的联盟成为{{mingc}}城 的进攻联盟。当前为名城报名协助阶段，在该阶段，您可以联系其它联盟参与协助本联盟争夺{{mingc}}城。		您的联盟申请挑战[color=#ff304e]{{mingc}}[/color]成功，当前为名城报名协助阶段，在该阶段，您可以联系其它联盟参与助攻。	
+s.文字/邮件-txt-text-GuildPaySalary	联盟盟主{{leader}}对所有成员发放了工资，请查收。		联盟盟主[color=#6Baaf0]{{leader}}[/color]对所有成员发放了工资，请查收。	
+s.文字/邮件-txt-text-GuildReceiveYinliangFromGuild			{{guild}}联盟的盟主{{leader}}赠送了{{amount}}银两给本联盟。	
+s.文字/邮件-txt-text-GuildSendYinliangToMember	联盟盟主{{leader}}赠送{{amount}}银两，请查收。		联盟盟主[color=#6Baaf0]{{leader}}[/color]赠送[color=#e2e2e2]{{amount}}[/color]银两，请查收。	
+s.文字/邮件-txt-text-GuildTaskEvaluatePrize			您的联盟上周完成联盟任务数量{{num}}，获得[color=#ff304e]{{name}}[/color]评价。您作为联盟{{class_name}}获得以下奖励！	
+s.文字/邮件-txt-text-HebiBeRobbedPrize	您在合成[color=#e2e2e2]【{{goods}}】[/color]的过程中，遭到[color=#ff304e]{{attacker}}[/color]干扰，失去了部分奖励。		您在与[color=#6Baaf0]{{name}}[/color]合成[color=#e2e2e2]【{{goods}}】[/color]的过程中，遭到[color=#ff304e]{{attacker}}[/color]干扰，失去了部分奖励。	
+s.文字/邮件-txt-text-HebiCompletePrize	恭喜您成功合成[color=#e2e2e2]【{{goods}}】[/color]，获得了丰富奖励。		恭喜您与[color=#6Baaf0]{{name}}[/color]成功合成[color=#e2e2e2]【{{goods}}】[/color]，获得了丰富奖励。	
+s.文字/邮件-txt-text-HebiCopyBeRobbedPrize			您用分身在合成{{goods}}的过程中，遭到[color=#E7566B]{{attacker}}[/color]干扰，失去了部分奖励。	
+s.文字/邮件-txt-text-HebiCopyCompletePrize			恭喜您使用分身成功合成{{goods}}，获得了丰富奖励。	
+s.文字/邮件-txt-text-HebiRobPrize	您[color=#e2e2e2]成功干扰[/color]了合璧，得到丰富奖励。		您[color=#e2e2e2]成功干扰[/color]了[color=#ff304e]{{name}}[/color]与[color=#ff304e]{{hero_name}}[/color]合璧，得到丰富奖励。	
+s.文字/邮件-txt-text-HebiRoomBeenRobbed	您所在的合璧房间，被[color=#E7566B]{{attacker}}[/color]占位。		您所在的合璧房间，被[color=#ff304e]{{attacker}}[/color]占位。	
+s.文字/邮件-txt-text-McBuildGuildMemberPrize	营建成功，请查收奖励！		{{guild}}今日在 {{mingc}} 共营建{{count}}次，参与营建的成员获得以下奖励。联盟成员营建同一个名城的次数越多，获得的奖励越多	
+s.文字/邮件-txt-text-ReportAdaFail	[color=#79B3F3]{{attacker}}[/color]进攻了[color=#E7566B]{{defenser}}[/color]的主城，战斗失败。		[color=#6Baaf0]{{attacker}}[/color]进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗失败。	
+s.文字/邮件-txt-text-ReportAdaSuccess	[color=#79B3F3]{{attacker}}[/color]进攻了[color=#E7566B]{{defenser}}[/color]的主城，战斗胜利。		[color=#6Baaf0]{{attacker}}[/color]进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗胜利。	
+s.文字/邮件-txt-text-ReportAddFail	[color=#79B3F3]{{defenser}}[/color]的主城受到[color=#E7566B]{{attacker}}[/color]的进攻，防守失败。		[color=#6Baaf0]{{defenser}}[/color]的主城受到[color=#ff304e]{{attacker}}[/color]的进攻，防守失败。	
+s.文字/邮件-txt-text-ReportAddSuccess	[color=#79B3F3]{{defenser}}[/color]的主城受到[color=#E7566B]{{attacker}}[/color]的攻击，防守胜利。		[color=#6Baaf0]{{defenser}}[/color]的主城受到[color=#ff304e]{{attacker}}[/color]的攻击，防守胜利。	
+s.文字/邮件-txt-text-ReportAsaFail	[color=#79B3F3]{{attacker}}[/color]进攻了[color=#E7566B]{{defenser}}[/color]的主城，战斗失败。		[color=#6Baaf0]{{attacker}}[/color]进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗失败。	
+s.文字/邮件-txt-text-ReportAsaSuccess	[color=#79B3F3]{{attacker}}[/color]进攻了[color=#E7566B]{{defenser}}[/color]的主城，战斗胜利。		[color=#6Baaf0]{{attacker}}[/color]进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗胜利。	
+s.文字/邮件-txt-text-ReportAsdFail	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，未能抵御[color=#E7566B]{{attacker}}[/color]的进攻。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，未能抵御[color=#ff304e]{{attacker}}[/color]的进攻。	
+s.文字/邮件-txt-text-ReportAsdSuccess	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，成功抵御了[color=#E7566B]{{attacker}}[/color]的进攻。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，成功抵御了[color=#ff304e]{{attacker}}[/color]的进攻。	
+s.文字/邮件-txt-text-ReportAssFail	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，未能抵御[color=#E7566B]{{attacker}}[/color]的进攻。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，未能抵御[color=#ff304e]{{attacker}}[/color]的进攻。	
+s.文字/邮件-txt-text-ReportAssSuccess	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，成功抵御了[color=#E7566B]{{attacker}}[/color]的进攻。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，成功抵御了[color=#ff304e]{{attacker}}[/color]的进攻。	
+s.文字/邮件-txt-text-ReportBaozRepatriateMoving	您的队伍前往探索[color=#ff304e]{{defenser}}[/color]，被守卫消灭者[color=#ff304e]{{killer}}[/color]遣返。		您的队伍前往探索[color=#ff304e]{{defenser}}[/color]，被守卫消灭者[color=#ff304e]{{killer}}[/color]遣返。
+提示：殷墟守卫消灭者将控制该殷墟10分钟，期间可遣返其它前来探索的队伍。	
+s.文字/邮件-txt-text-ReportBaozRepatriateRobber	您的队伍探索[color=#ff304e]{{defenser}}[/color]时，被守卫消灭者[color=#ff304e]{{killer}}[/color]遣返。		您的队伍探索[color=#ff304e]{{defenser}}[/color]时，被守卫消灭者[color=#ff304e]{{killer}}[/color]遣返。
+提示：殷墟守卫消灭者将控制该殷墟10分钟，期间可遣返其它前来探索的队伍。	
+s.文字/邮件-txt-text-ReportDoneAttacker	[color=#79B3F3]{{attacker}}[/color]在[color=#E7566B]{{defenser}}[/color]的主城持续破坏，{{reason}}。		[color=#6Baaf0]{{attacker}}[/color]在[color=#ff304e]{{defenser}}[/color]的主城持续破坏，{{reason}}。	
+s.文字/邮件-txt-text-ReportDoneBaoz	[color=#79B3F3]{{attacker}}[/color]探索了[color=#E7566B]{{defenser}}[/color]。		[color=#6Baaf0]{{attacker}}[/color]探索了[color=#ff304e]{{defenser}}[/color]。	
+s.文字/邮件-txt-text-ReportDoneBaozBack	由于目标殷墟已有4名其它君主正在掠夺，队伍{{num}}返回。		由于目标殷墟已有4名其它君主正在探索，队伍{{num}}返回。	
+s.文字/邮件-txt-text-ReportDoneDefenser	[color=#E7566B]{{attacker}}[/color]在[color=#79B3F3]{{defenser}}[/color]的主城持续破坏，{{reason}}。		[color=#ff304e]{{attacker}}[/color]在[color=#6Baaf0]{{defenser}}[/color]的主城持续破坏，{{reason}}。	
+s.文字/邮件-txt-text-ReportExpelAttackerFail	[color=#79B3F3]{{attacker}}[/color]的部队破坏[color=#E7566B]{{defenser}}[/color]的主城时被驱逐。		[color=#6Baaf0]{{attacker}}[/color]的部队破坏[color=#ff304e]{{defenser}}[/color]的主城时被驱逐。	
+s.文字/邮件-txt-text-ReportExpelAttackerSuccess	[color=#79B3F3]{{attacker}}[/color]的部队破坏[color=#E7566B]{{defenser}}[/color]主城时被攻击，战斗胜利。		[color=#6Baaf0]{{attacker}}[/color]的部队破坏[color=#ff304e]{{defenser}}[/color]主城时被攻击，战斗胜利。	
+s.文字/邮件-txt-text-ReportExpelDefenserFail	战斗失败。[color=#79B3F3]{{defenser}}[/color]未能驱逐[color=#E7566B]{{attacker}}[/color]的部队。		战斗失败。[color=#6Baaf0]{{defenser}}[/color]未能驱逐[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-text-ReportExpelDefenserSuccess	战斗胜利！[color=#79B3F3]{{defenser}}[/color]成功驱逐了[color=#E7566B]{{attacker}}[/color]的部队。		战斗胜利！[color=#6Baaf0]{{defenser}}[/color]成功驱逐了[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-text-ReportSaaFail	[color=#E7566B]{{assister}}[/color]援助了[color=#E7566B]{{defenser}}[/color]的主城，驱逐了[color=#79B3F3]{{attacker}}[/color]的部队。		[color=#ff304e]{{assister}}[/color]援助了[color=#ff304e]{{defenser}}[/color]的主城，驱逐了[color=#6Baaf0]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-text-ReportSaaSuccess	[color=#E7566B]{{assister}}[/color]援助了[color=#E7566B]{{defenser}}[/color]的主城未能驱逐[color=#79B3F3]{{attacker}}[/color]的部队。		[color=#ff304e]{{assister}}[/color]援助了[color=#ff304e]{{defenser}}[/color]的主城未能驱逐[color=#6Baaf0]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-text-ReportSadFail	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，未能驱逐[color=#E7566B]{{attacker}}[/color]的部队。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，未能驱逐[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-text-ReportSadSuccess	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，成功驱逐了[color=#E7566B]{{attacker}}[/color]的部队。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，成功驱逐了[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-text-ReportSasFail	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，未能驱逐[color=#E7566B]{{attacker}}[/color]的部队。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，未能驱逐[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-text-ReportSasSuccess	[color=#79B3F3]{{assister}}[/color]援助了[color=#79B3F3]{{defenser}}[/color]的主城，成功驱逐了[color=#E7566B]{{attacker}}[/color]的部队。		[color=#6Baaf0]{{assister}}[/color]援助了[color=#6Baaf0]{{defenser}}[/color]的主城，成功驱逐了[color=#ff304e]{{attacker}}[/color]的部队。	
+s.文字/邮件-txt-text-ReportWatchAttacker	[color=#6Baaf0]{{attacker}}[/color]瞭望了[color=#ff304e]{{defenser}}[/color]的主城。		[color=#6Baaf0]{{attacker}}[/color]侦查了[color=#ff304e]{{defenser}}[/color]的主城。	
+s.文字/邮件-txt-text-ReportWatchDefenser	[color=#ff304e]{{attacker}}[/color]瞭望了[color=#6Baaf0]{{defenser}}[/color]的主城。		[color=#ff304e]{{attacker}}[/color]侦查了[color=#6Baaf0]{{defenser}}[/color]的主城。	
+s.文字/邮件-txt-text-SurveyMail			感谢各位主公参加本次测试，同时感谢您为我们游戏提出的宝贵意见和建议。这是我们精心准备的礼包，祝您游戏愉快！	
+s.文字/邮件-txt-text-XiongNuResistSuc	本次抗击匈奴已结束，匈奴大本营被我方联盟攻破。联盟增加声望{{prestige}},所有联盟成员获得额外奖励。		本次抗击匈奴已结束，匈奴大本营被我方联盟攻破。联盟增加声望[color=#e2e2e2]{{prestige}}[/color],所有联盟成员获得额外奖励。	
+s.文字/邮件-txt-text-XiongNuScore	本次抗击匈奴已结束。		本次抗击匈奴已结束。
+消灭匈奴部队：[color=#e2e2e2]{{wipe_out_count}}[/color]支
+活动评价：[color=#e2e2e2]{{score_name}}[/color]
+获得联盟声望：[color=#e2e2e2]{{prestige}}[/color]
+此外，所有联盟成员获得额外奖励。	
+s.文字/邮件-txt-title-AssemblyAdaFail			进攻失败	
+s.文字/邮件-txt-title-AssemblyAdaSuccess			进攻胜利	
+s.文字/邮件-txt-title-AssemblyAddFail			防守失败	
+s.文字/邮件-txt-title-AssemblyAddSuccess			防守胜利	
+s.文字/邮件-txt-title-AssemblyAsaFail			进攻失败	
+s.文字/邮件-txt-title-AssemblyAsdFail			盟友援助失败	
+s.文字/邮件-txt-title-AssemblyAsdSuccess			盟友援助胜利	
+s.文字/邮件-txt-title-AssemblyAssFail			援助失败	
+s.文字/邮件-txt-title-AssemblyAssSuccess			援助胜利	
+s.文字/邮件-txt-title-AssemblyDoneAttacker			破坏结束	
+s.文字/邮件-txt-title-AssemblyDoneDefenser			遭受破坏	
+s.文字/邮件-txt-title-AssemblyExpelAttackerFail			战斗失败	
+s.文字/邮件-txt-title-AssemblyExpelAttackerSuccess			战斗胜利	
+s.文字/邮件-txt-title-AssemblyExpelDefenserFail			战斗失败	
+s.文字/邮件-txt-title-AssemblyExpelDefenserSuccess			战斗胜利	
+s.文字/邮件-txt-title-AssemblySaaFail			战斗失败	
+s.文字/邮件-txt-title-AssemblySaaSuccess			战斗胜利	
+s.文字/邮件-txt-title-AssemblySadFail			盟友援助失败	
+s.文字/邮件-txt-title-AssemblySadSuccess			盟友援助胜利	
+s.文字/邮件-txt-title-AssemblySasFail			援助失败	
+s.文字/邮件-txt-title-AssemblySasSuccess			援助胜利	
+s.文字/邮件-txt-title-BaiZhanJunXianLevelDown	[color=#f8efca,#e2b47e]军衔下降[/color]		军衔下降	
+s.文字/邮件-txt-title-BaiZhanJunXianLevelKeep	[color=#f8efca,#e2b47e]军衔无变化[/color]		军衔无变化	
+s.文字/邮件-txt-title-BaiZhanJunXianLevelMaxKeep	[color=#f8efca,#e2b47e]军衔已到顶[/color]		军衔已到顶	
+s.文字/邮件-txt-title-BaiZhanJunXianLevelUp	[color=#f8efca,#e2b47e]军衔提升[/color]		军衔提升	
+s.文字/邮件-txt-title-BuyDaillyBargainSuccess			购买每日特惠成功	
+s.文字/邮件-txt-title-CopyDefenserBeenKilled	守城镜像被消灭		分身被消灭	
+s.文字/邮件-txt-title-CopyDefenserExpired	守城镜像时间已到		分身失效	
+s.文字/邮件-txt-title-CountryChangeNameFail			国号更改失败	
+s.文字/邮件-txt-title-CountryChangeNameSucc			国号更改成功	
+s.文字/邮件-txt-title-CountryDestroy			本国都城被占领	
+s.文字/邮件-txt-title-CountryOfficialAppoint			您被任命为XXX	
+s.文字/邮件-txt-title-CountryOfficialDepose			您的官职被解除	
+s.文字/邮件-txt-title-FirstBeenRob			城池恢复	
+s.文字/邮件-txt-title-FirstProtectRemoved			脱离新手期	
+s.文字/邮件-txt-title-FirstTowerFail	勇闯重楼		勇闯千机楼	
+s.文字/邮件-txt-title-GuildBeKickedOut			您被踢出联盟	
+s.文字/邮件-txt-title-GuildBigBox	[color=#f8efca,#e2b47e]联盟大宝箱[/color]		联盟大宝箱	
+s.文字/邮件-txt-title-GuildChangeCountry			联盟转国	
+s.文字/邮件-txt-title-GuildClassLevelDown			联盟职位下降	
+s.文字/邮件-txt-title-GuildClassLevelUp			联盟职位提升	
+s.文字/邮件-txt-title-GuildConveneLeader			盟主召集	
+s.文字/邮件-txt-title-GuildConveneOfficer			官员召集	
+s.文字/邮件-txt-title-GuildEventPrize	[color=#f8efca,#e2b47e]联盟礼包[/color]		联盟礼包	
+s.文字/邮件-txt-title-GuildFirstJoin	[color=#f8efca,#e2b47e]加入联盟[/color]		加入联盟	
+s.文字/邮件-txt-title-GuildFirstJoinNpc			加入系统联盟	
+s.文字/邮件-txt-title-GuildLeaderChanged			盟主变更	
+s.文字/邮件-txt-title-GuildLeaderGenerated			盟主变更	
+s.文字/邮件-txt-title-GuildMcWarApplyAtkFail			名城战申请挑战失败	
+s.文字/邮件-txt-title-GuildMcWarApplyAtkSucc			名城战申请挑战成功	
+s.文字/邮件-txt-title-GuildPaySalary			联盟发工资	
+s.文字/邮件-txt-title-GuildReceiveYinliangFromGuild			联盟获得赠送银两	
+s.文字/邮件-txt-title-GuildSendYinliangToMember			联盟赠送银两	
+s.文字/邮件-txt-title-GuildTaskEvaluatePrize			联盟任务评价奖励	
+s.文字/邮件-txt-title-HebiBeRobbedPrize	合璧被抢夺		合璧被干扰	
+s.文字/邮件-txt-title-HebiCompletePrize			合璧完成	
+s.文字/邮件-txt-title-HebiCopyBeRobbedPrize			合璧被干扰	
+s.文字/邮件-txt-title-HebiCopyCompletePrize			合璧完成	
+s.文字/邮件-txt-title-HebiRobPrize	合璧抢夺		合璧干扰	
+s.文字/邮件-txt-title-HebiRoomBeenRobbed	合璧房间被抢位		合璧房间被占位	
+s.文字/邮件-txt-title-McBuildGuildMemberPrize	营建成功		名城营建奖励	
+s.文字/邮件-txt-title-ReportAdaFail	[color=#f8efca,#e2b47e]进攻失败[/color]		进攻失败	
+s.文字/邮件-txt-title-ReportAdaSuccess	[color=#f8efca,#e2b47e]进攻胜利[/color]		进攻胜利	
+s.文字/邮件-txt-title-ReportAddFail	[color=#f8efca,#e2b47e]防守失败[/color]		防守失败	
+s.文字/邮件-txt-title-ReportAddSuccess	[color=#f8efca,#e2b47e]防守胜利[/color]		防守胜利	
+s.文字/邮件-txt-title-ReportAsaFail	[color=#f8efca,#e2b47e]进攻失败[/color]		进攻失败	
+s.文字/邮件-txt-title-ReportAsaSuccess	[color=#f8efca,#e2b47e]进攻胜利[/color]		进攻胜利	
+s.文字/邮件-txt-title-ReportAsdFail	[color=#f8efca,#e2b47e]盟友援助失败[/color]		盟友援助失败	
+s.文字/邮件-txt-title-ReportAsdSuccess	[color=#f8efca,#e2b47e]盟友援助胜利[/color]		盟友援助胜利	
+s.文字/邮件-txt-title-ReportAssFail	[color=#f8efca,#e2b47e]援助失败[/color]		援助失败	
+s.文字/邮件-txt-title-ReportAssSuccess	[color=#f8efca,#e2b47e]援助胜利[/color]		援助胜利	
+s.文字/邮件-txt-title-ReportBaozRepatriateMoving			队伍被遣返	
+s.文字/邮件-txt-title-ReportBaozRepatriateRobber			队伍被遣返	
+s.文字/邮件-txt-title-ReportDoneAttacker	掠夺结束		破坏结束	
+s.文字/邮件-txt-title-ReportDoneBaoz	掠夺结束		探索结束	
+s.文字/邮件-txt-title-ReportDoneBaozBack			队伍{{num}}返回	
+s.文字/邮件-txt-title-ReportDoneDefenser	遭受掠夺		遭受破坏	
+s.文字/邮件-txt-title-ReportExpelAttackerFail	[color=#f8efca,#e2b47e]战斗失败[/color]		战斗失败	
+s.文字/邮件-txt-title-ReportExpelAttackerSuccess	[color=#f8efca,#e2b47e]战斗胜利[/color]		战斗胜利	
+s.文字/邮件-txt-title-ReportExpelDefenserFail	[color=#f8efca,#e2b47e]战斗失败[/color]		战斗失败	
+s.文字/邮件-txt-title-ReportExpelDefenserSuccess	[color=#f8efca,#e2b47e]战斗胜利[/color]		战斗胜利	
+s.文字/邮件-txt-title-ReportSaaFail	[color=#f8efca,#e2b47e]战斗失败[/color]		战斗失败	
+s.文字/邮件-txt-title-ReportSaaSuccess	[color=#f8efca,#e2b47e]战斗胜利[/color]		战斗胜利	
+s.文字/邮件-txt-title-ReportSadFail	[color=#f8efca,#e2b47e]盟友援助失败[/color]		盟友援助失败	
+s.文字/邮件-txt-title-ReportSadSuccess	[color=#f8efca,#e2b47e]盟友援助胜利[/color]		盟友援助胜利	
+s.文字/邮件-txt-title-ReportSasFail	[color=#f8efca,#e2b47e]援助失败[/color]		援助失败	
+s.文字/邮件-txt-title-ReportSasSuccess	[color=#f8efca,#e2b47e]援助胜利[/color]		援助胜利	
+s.文字/邮件-txt-title-ReportWatchAttacker	瞭望成功		侦查成功	
+s.文字/邮件-txt-title-ReportWatchDefenser	被瞭望报告		被侦查报告	
+s.文字/邮件-txt-title-SurveyMail	[color=#f8efca,#e2b47e]调研奖励[/color]		调研奖励	
+s.文字/邮件-txt-title-SystemCompensation			系统补偿	
+s.文字/邮件-txt-title-XiongNuResistSuc	[color=#f8efca,#e2b47e]攻破匈奴大营[/color]		攻破匈奴大营	
+s.文字/邮件-txt-title-XiongNuScore	[color=#f8efca,#e2b47e]挑战匈奴成功[/color]		挑战匈奴成功	
+s.百战千军/等级-txt-name-1			小卒	
+s.百战千军/等级-txt-name-2			步兵	
+s.百战千军/等级-txt-name-3			骑士	
+s.百战千军/等级-txt-name-4			禁卫	
+s.百战千军/等级-txt-name-5			先锋	
+s.百战千军/等级-txt-name-6			将军	
+s.百战千军/等级-txt-name-7			元帅	
+s.百战千军/等级-txt-name-8			诸侯	
+s.联盟/联盟日志-txt-text-AssemblyWin			集结发起者[color=#6baaf0]{{hero_name}}[/color]率众击败了[color=#ffbc6c]{{text}}[/color]，联盟获得了[color=#ffbc6c]{{amount}}[/color]声望	
+s.联盟/联盟日志-txt-text-BaowuAddPrestige	[color=#6baaf0]{{hero_name}}[/color]开启了[color=#6baaf0]{{item}}[/color]，为联盟增加了[color=#6baaf0]{{amount}}[/color]声望。		[color=#77c7ff]{{hero_name}}[/color]开启了[color=#77c7ff]{{item}}[/color]，为联盟增加了[color=#77c7ff]{{amount}}[/color]声望。	
+s.联盟/联盟日志-txt-text-CollectSalary	[color=#6baaf0]{{hero_name}}[/color]领取了[color=#ffbc6c]{{jun_xian}}[/color]俸禄，为联盟增加了[color=#ffbc6c]{{prestige}}[/color]声望，[color=#6baaf0]{{hufu}}[/color]个虎符。		[color=#77c7ff]{{hero_name}}[/color]领取了[color=#ffbc6c]{{jun_xian}}[/color]俸禄，为联盟增加了[color=#ffbc6c]{{prestige}}[/color]声望，[color=#77c7ff]{{hufu}}[/color]个虎符。	
+s.联盟/联盟日志-txt-text-CreateGuild	[color=#6baaf0]{{hero_name}}[/color]创建了联盟		[color=#77c7ff]{{hero_name}}[/color]创建了联盟	
+s.联盟/联盟日志-txt-text-FAttDestroy	[color=#6baaf0]{{attacker}}[/color]将[color=#ff304e]{{defenser}}[/color]的主城破坏流亡了		[color=#77c7ff]{{attacker}}[/color]将[color=#ff304e]{{defenser}}[/color]的主城破坏流亡了	
+s.联盟/联盟日志-txt-text-FAttSucc	[color=#6baaf0]{{attacker}}[/color]进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗胜利		[color=#77c7ff]{{attacker}}[/color]进攻了[color=#ff304e]{{defenser}}[/color]的主城，战斗胜利	
+s.联盟/联盟日志-txt-text-FDefDestroy	[color=#6baaf0]{{defenser}}[/color]的主城被[color=#ff304e]{{attacker}}[/color]破坏流亡了		[color=#77c7ff]{{defenser}}[/color]的主城被[color=#ff304e]{{attacker}}[/color]破坏流亡了	
+s.联盟/联盟日志-txt-text-FDefFail	[color=#6baaf0]{{defenser}}[/color]的主城受到了[color=#ff304e]{{attacker}}[/color]的攻击，防守失败		[color=#77c7ff]{{defenser}}[/color]的主城受到了[color=#ff304e]{{attacker}}[/color]的攻击，防守失败	
+s.联盟/联盟日志-txt-text-HufuAdd	[color=#6baaf0]{{hero_name}}[/color]捐献了[color=#6baaf0]{{amount}}[/color]个虎符。		[color=#77c7ff]{{hero_name}}[/color]捐献了[color=#77c7ff]{{amount}}[/color]个虎符。	
+s.联盟/联盟日志-txt-text-InvaseMonster	[color=#6baaf0]{{hero_name}}[/color]讨伐了[color=#ffbc6c]{{level}}[/color]级野外势力，为联盟增加了[color=#ffbc6c]{{prestige}}[/color]声望		[color=#77c7ff]{{hero_name}}[/color]讨伐了[color=#ffbc6c]{{level}}[/color]级野外势力，为联盟增加了[color=#ffbc6c]{{prestige}}[/color]声望	
+s.联盟/联盟日志-txt-text-JoinGuild	[color=#6baaf0]{{hero_name}}[/color]加入了联盟		[color=#77c7ff]{{hero_name}}[/color]加入了联盟	
+s.联盟/联盟日志-txt-text-KickLeaveGuild	[color=#6baaf0]{{hero_name}}[/color]被[color=#6baaf0]{{leader_name}}[/color]踢出了联盟		[color=#77c7ff]{{hero_name}}[/color]被[color=#77c7ff]{{leader_name}}[/color]踢出了联盟	
+s.联盟/联盟日志-txt-text-LeaveGuild	[color=#6baaf0]{{hero_name}}[/color]离开了联盟		[color=#77c7ff]{{hero_name}}[/color]离开了联盟	
+s.联盟/联盟日志-txt-text-McWarApplyAtkFail	联盟申请挑战{{mingc}}名城失败，申请消耗的{{amount}}联盟虎符已返还。		联盟申请挑战[color=#ffbc6c]{{mingc}}[/color]失败，申请消耗的[color=#ffbc6c]{{amount}}[/color]联盟虎符已返还。	
+s.联盟/联盟日志-txt-text-McWarApplyAtkSucc	您的联盟成为{{mingc}}城 的进攻方。您可以联系其它联盟参与协助。		您的联盟成为[color=#ffbc6c]{{mingc}}[/color]的进攻方，您可以联系其它联盟参与协助。	
+s.联盟/联盟日志-txt-text-McWarAtkWin	恭喜联盟成功夺下{{country}}国[color=#E7566B]{{guild}}[/color]盟占领的{{mingc}}城！		恭喜联盟成功夺下{{country}}国[color=#ff304e]{{guild}}[/color]盟占领的[color=#ffbc6c]{{mingc}}城[/color]！	
+s.联盟/联盟日志-txt-text-McWarDefWin	恭喜联盟在{{mingc}}争夺战成功防守 {{country}}国[color=#E7566B]{{guild}}[/color]盟的进攻！		恭喜联盟在[color=#ffbc6c]{{mingc}}[/color]争夺战成功防守{{country}}国[color=#ff304e]{{guild}}[/color]盟的进攻！	
+s.联盟/联盟日志-txt-text-NewLeaderDemise	[color=#6baaf0]{{hero_name}}[/color]将盟主之位禅让给了[color=#6baaf0]{{leader}}[/color]		[color=#77c7ff]{{hero_name}}[/color]将盟主之位禅让给了[color=#77c7ff]{{leader}}[/color]	
+s.联盟/联盟日志-txt-text-NewLeaderImpeach	[color=#6baaf0]{{hero_name}}[/color]通过竞选成为了[color=#ffbc6c]盟主[/color]		[color=#77c7ff]{{hero_name}}[/color]通过竞选成为了[color=#ffbc6c]盟主[/color]	
+s.联盟/联盟日志-txt-text-PrestigePrize	恭喜联盟声望达到[color=#ffbc6c]{{prestige}}[/color]，国君奖励联盟[color=#ffbc6c]{{building_amount}}[/color]建设值，并赐予每位成员礼包可前往联盟礼包界面领取		恭喜联盟声望达到[color=#ffbc6c]{{prestige}}[/color]，国君奖励联盟[color=#ffbc6c]{{building_amount}}[/color]建设值与[color=#ffbc6c]{{amount}}[/color]虎符，并赐予每位成员礼包可前往联盟礼包界面领取	
+s.联盟/联盟日志-txt-text-ReplyJoinGuild	[color=#6baaf0]{{hero_name}}[/color]通过[color=#6baaf0]{{leader_name}}[/color]的批准加入了联盟		[color=#77c7ff]{{hero_name}}[/color]通过[color=#77c7ff]{{leader_name}}[/color]的批准加入了联盟	
+s.联盟/联盟日志-txt-text-ResistXiongNuAddPrestige	恭喜联盟众志成城，完成抗击匈奴[color=#f32e00]{{resist_xiong_nu_name}}[/color]，获得[color=#f32e00]{{score_name}}[/color]活动评价，获得[color=#f32e00]{{prestige}}[/color]联盟声望		恭喜联盟众志成城，完成抗击匈奴[color=#ffbc6c]{{resist_xiong_nu_name}}[/color]，获得[color=#ffbc6c]{{score_name}}[/color]活动评价，获得[color=#ffbc6c]{{prestige}}[/color]联盟声望	
+s.联盟/联盟日志-txt-text-StartImpeach	[color=#6baaf0]{{hero_name}}[/color]对当前盟主发起了[color=#ff304e]弹劾[/color]		[color=#77c7ff]{{hero_name}}[/color]对当前盟主发起了[color=#ff304e]弹劾[/color]	
+s.联盟/联盟日志-txt-text-StartXiongNu	[color=#6baaf0]{{hero_name}}[/color]开启了[color=#ffbc6c]抗击匈奴[/color]活动		[color=#77c7ff]{{hero_name}}[/color]开启了[color=#ffbc6c]抗击匈奴[/color]活动	
+s.联盟/联盟日志-txt-text-TerminateImpeach	盟主[color=#6baaf0]{{hero_name}}[/color]在弹劾期上线了，弹劾强制失败		盟主[color=#77c7ff]{{hero_name}}[/color]在弹劾期上线了，弹劾强制失败	
+s.联盟/联盟日志-txt-text-UnlockXiongNu	恭喜联盟众志成城，完美抗击匈奴{{resist_xiong_nu_name}}，解锁新难度{{unlock_xiong_nu_name}}		恭喜联盟众志成城，完美抗击匈奴[color=#ffbc6c]{{resist_xiong_nu_name}}[/color]，解锁新难度[color=#ffbc6c]{{unlock_xiong_nu_name}}[/color]	
+s.联盟/联盟日志-txt-text-UpdateCountry	盟主[color=#6baaf0]{{hero_name}}[/color]将联盟归属国家从[color=#ffbc6c]{{country}}[/color]修改为[color=#ffbc6c]{{country_name}}[/color]。		盟主[color=#77c7ff]{{hero_name}}[/color]将联盟归属国家从[color=#ffbc6c]{{country}}[/color]修改为[color=#ffbc6c]{{country_name}}[/color]。	
+s.联盟/联盟日志-txt-text-UpdateFlagName	盟主[color=#6baaf0]{{hero_name}}[/color]将联盟旗号修改为[color=#ffbc6c]{{flag_name}}[/color]		盟主[color=#77c7ff]{{hero_name}}[/color]将联盟旗号修改为[color=#ffbc6c]{{flag_name}}[/color]	
+s.联盟/联盟日志-txt-text-UpdateInternalText	[color=#6baaf0]{{hero_name}}[/color]修改了联盟公告		[color=#77c7ff]{{hero_name}}[/color]修改了联盟公告	
+s.联盟/联盟日志-txt-text-UpdateMark	[color=#6baaf0]{{hero_name}}[/color]标记了坐标[color=#6baaf0]({{pos}},{{pos}})[/color]，标记内容:"[color=#ffffff]{{text}}[/color]"。		[color=#6baaf0]{{hero_name}}[/color]标记了坐标[color=#6baaf0]({{pos_x}},{{pos_y}})[/color]，标记内容:"[color=#ffffff]{{text}}[/color]"。	
+s.联盟/联盟日志-txt-text-UpdateMemberClass	[color=#6baaf0]{{hero_name}}[/color]成为了[color=#ffbc6c]{{class_name}}[/color]		[color=#77c7ff]{{hero_name}}[/color]成为了[color=#ffbc6c]{{class_name}}[/color]	
+s.联盟/联盟日志-txt-text-UpdateName	盟主[color=#6baaf0]{{hero_name}}[/color]将联盟名修改为[color=#ffbc6c]{{guild_name}}[/color]		盟主[color=#77c7ff]{{hero_name}}[/color]将联盟名修改为[color=#ffbc6c]{{guild_name}}[/color]	
+s.联盟/联盟日志-txt-text-UpgradeLevel	联盟等级提升到了[color=#f32e00]{{level}}[/color]级		联盟等级提升到了[color=#ffbc6c]{{level}}[/color]级	
+s.联盟/联盟日志-txt-text-UpgradeTechnology	众志成城！联盟科技[color=#f32e00]{{tech_name}}[/color]提升到了[color=#f32e00]{{level}}级[/color]		众志成城！联盟科技[color=#ffbc6c]{{tech_name}}[/color]提升到了[color=#ffbc6c]{{level}}级[/color]	
+s.联盟/联盟日志-txt-text-WipeOutXiongNuTroop	[color=#6baaf0]{{hero_name}}[/color]击败了1支匈奴入侵队伍，匈奴大营守军士气[color=#ffbc6c]-{{reduce_morale}}[/color]		[color=#77c7ff]{{hero_name}}[/color]击败了1支匈奴入侵队伍，匈奴大营守军士气[color=#ffbc6c]-{{reduce_morale}}[/color]	
+s.联盟/联盟日志-txt-text-XiongNuBaseDestroy	[color=#6baaf0]{{hero_name}}[/color]击破了[color=#ffbc6c]匈奴大营[/color]，本次抗击匈奴活动结束		[color=#77c7ff]{{hero_name}}[/color]击破了[color=#ffbc6c]匈奴大营[/color]，本次抗击匈奴活动结束	
+s.联盟/联盟日志-txt-text-YinliangGuildPaySalary	盟主花费{{yinliang}}联盟银两为所有成员发放了工资		盟主花费[color=#ffbc6c]{{yinliang}}[/color]联盟银两为所有成员发放了工资	
+s.联盟/联盟日志-txt-text-YinliangGuildReceive	联盟[color=#6baaf0]{{sender}}[/color]赠送了[color=#ffbc6c]{{yinliang}}[/color]银两给本联盟		联盟[color=#77c7ff]{{sender}}[/color]赠送了[color=#ffbc6c]{{yinliang}}[/color]银两给本联盟	
+s.联盟/联盟日志-txt-text-YinliangGuildSend	盟主赠送了[color=#ffbc6c]{{yinliang}}[/color]银两给联盟[color=#6baaf0]{{target}}[/color]		盟主赠送了[color=#ffbc6c]{{yinliang}}[/color]银两给联盟[color=#77c7ff]{{target}}[/color]	
+s.联盟/联盟日志-txt-text-YinliangGuildSendMember	盟主发放了[color=#ffbc6c]{{yinliang}}[/color]银两给[color=#6baaf0]{{target}}[/color]		盟主发放了[color=#ffbc6c]{{yinliang}}[/color]银两给[color=#77c7ff]{{target}}[/color]	
+s.联盟/联盟日志-txt-text-YinliangMcWarAtkFail	联盟进攻{{mingc}}城遗憾落败，对敌方据点摧毁度{{destroy}}%，获得{{yinliang}}银两		联盟进攻[color=#ffbc6c]{{mingc}}[/color]遗憾落败，对敌方据点摧毁度{{destroy}}%，获得[color=#ffbc6c]{{yinliang}}[/color]银两	
+s.联盟/联盟日志-txt-text-YinliangMcWarAtkWin	联盟进攻{{mingc}}城大获全胜，获得{{yinliang}}银两		联盟进攻[color=#ffbc6c]{{mingc}}[/color]大获全胜，获得[color=#ffbc6c]{{yinliang}}[/color]银两	
+s.联盟/联盟日志-txt-text-YinliangMingcHost	联盟获得{{mingc}}城每日占领收益，获得{{yinliang}}银两		联盟获得[color=#ffbc6c]{{mingc}}[/color]每日占领收益，获得[color=#ffbc6c]{{yinliang}}[/color]银两	
+s.联盟/联盟权限-txt-name-1			邀请入盟	
+s.联盟/联盟权限-txt-name-10	设置官员		设置职位	
+s.联盟/联盟权限-txt-name-11			修改职称	
+s.联盟/联盟权限-txt-name-12			允许踢人	
+s.联盟/联盟权限-txt-name-13			修改入盟条件	
+s.联盟/联盟权限-txt-name-14			弹劾npc盟主	
+s.联盟/联盟权限-txt-name-15			联盟升级	
+s.联盟/联盟权限-txt-name-16			联盟升级加速	
+s.联盟/联盟权限-txt-name-17			升级联盟建筑	
+s.联盟/联盟权限-txt-name-18			升级联盟科技	
+s.联盟/联盟权限-txt-name-19			声望目标	
+s.联盟/联盟权限-txt-name-2			同意入盟	
+s.联盟/联盟权限-txt-name-20			开启抗击匈奴	
+s.联盟/联盟权限-txt-name-21			发全体消息	
+s.联盟/联盟权限-txt-name-22			科技加速	
+s.联盟/联盟权限-txt-name-23			修改联盟名称	
+s.联盟/联盟权限-txt-name-24			修改联盟简称	
+s.联盟/联盟权限-txt-name-25			退出联盟	
+s.联盟/联盟权限-txt-name-26			解散联盟	
+s.联盟/联盟权限-txt-name-27			禅让盟主	
+s.联盟/联盟权限-txt-name-28			联盟标记	
+s.联盟/联盟权限-txt-name-29			使用银两	
+s.联盟/联盟权限-txt-name-3			修改宣言	
+s.联盟/联盟权限-txt-name-30			成员召集	
+s.联盟/联盟权限-txt-name-31			查看在线情况	
+s.联盟/联盟权限-txt-name-32			联盟工坊	
+s.联盟/联盟权限-txt-name-33			推荐营建名城	
+s.联盟/联盟权限-txt-name-4	修改内部宣言		修改联盟公告	
+s.联盟/联盟权限-txt-name-5			修改联盟标签	
+s.联盟/联盟权限-txt-name-6			修改友盟	
+s.联盟/联盟权限-txt-name-7			修改敌盟	
+s.联盟/联盟权限-txt-name-8			修改阶级名称	
+s.联盟/联盟权限-txt-name-9			修改联盟旗帜	
+s.花园/摇钱树-txt-desc-1			施肥	
+s.花园/摇钱树-txt-desc-2			浇水	
+s.花园/摇钱树-txt-desc-3			除草	
+s.花园/摇钱树-txt-desc-4			扫雪	

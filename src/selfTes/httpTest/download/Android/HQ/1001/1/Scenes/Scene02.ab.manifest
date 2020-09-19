@@ -1,0 +1,46 @@
+ManifestFileVersion: 0
+CRC: 3185038479
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e282c2e56f6ae3b1c493e0961ed48129
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5bb238405f2929414341c5e8ac10ee8f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 104
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0f3ce2834a4364acdb68d36d44618394, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a131e6734d445466a9eaac47dd64ac75, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a57d7bc42a5dd4931afd6010d4784f9c, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 157
+  Script: {instanceID: 0}
+- Class: 258
+  Script: {instanceID: 0}
+Assets:
+- Assets/Scenes/Scene02.unity
+Dependencies: []

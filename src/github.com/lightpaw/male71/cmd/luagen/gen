@@ -1,0 +1,66 @@
+#!/bin/bash -xe
+
+if [ "$TRAVIS_PULL_REQUEST" = "false" ];then
+    echo "not pull request"
+else
+    echo "pull request. exit"
+    exit
+fi
+
+rm -Rf client_gen
+rm -Rf male7_lua_msg
+${TRAVIS_BUILD_DIR}/cmd/luagen/luagen_linux
+
+chmod 400 ${TRAVIS_BUILD_DIR}/cmd/luagen/genkey
+
+# github
+ssh-agent bash -c "ssh-add ${TRAVIS_BUILD_DIR}/cmd/luagen/genkey; git clone git@github.com:lightpaw/male7_lua_msg.git"
+
+cp -R male7_lua_msg/.git client_gen/
+
+cd client_gen
+git checkout -B ${TRAVIS_BRANCH}
+if [[ `git status --porcelain` ]]; then
+    # changes
+    git config user.email "noreply@lightpaw.com"
+    git config user.name "Gen Bot"
+    git add -A && git commit -a -m "${TRAVIS_COMMIT_MESSAGE}"
+    ssh-agent bash -c "ssh-add ${TRAVIS_BUILD_DIR}/cmd/luagen/genkey; git push -u origin HEAD --force"
+else
+    # no changes
+    echo "no change"
+fi
+
+# 706
+cd ..
+ssh-agent bash -c "ssh-add ${TRAVIS_BUILD_DIR}/cmd/luagen/genkey; git clone ssh://git@706.lightpaw.com:7691/male7/lua-msg.git"
+
+rm -rf client_gen/.git
+cp -R lua-msg/.git client_gen/
+
+cd client_gen
+git checkout -B ${TRAVIS_BRANCH}
+if [[ `git status --porcelain` ]]; then
+    # changes
+    git config user.email "noreply@lightpaw.com"
+    git config user.name "Gen Bot"
+    git add -A && git commit -a -m "${TRAVIS_COMMIT_MESSAGE}"
+    ssh-agent bash -c "ssh-add ${TRAVIS_BUILD_DIR}/cmd/luagen/genkey; git push -u origin HEAD --force"
+
+    cat > msg <<EOF
+    {"msgtype": "markdown",
+      "markdown": {
+          "title": "新生成lua代码",
+          "text": "## 新生成lua代码\n $(${TRAVIS_BUILD_DIR}/cmd/luagen/htmlescape ${TRAVIS_COMMIT_MESSAGE}) \n\n## diff地址\n [${TRAVIS_BRANCH}](http://git7.lightpaw.com/male7/lua-msg/commits/$(git rev-parse HEAD)) \n\n [zip下载](http://git7.lightpaw.com/male7/lua-msg/repository/$(git rev-parse HEAD)/archive.zip)"
+       }
+    }
+EOF
+
+curl 'https://oapi.dingtalk.com/robot/send?access_token=196c402f30a48508a3348435a0b93fc0c03d7197b5e7247e3e60f4772971a1fa' \
+                                                                                                     -H 'Content-Type: application/json' \
+                                                                                                     -d @msg
+
+else
+    # no changes
+    echo "no change"
+fi

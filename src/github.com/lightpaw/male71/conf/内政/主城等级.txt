@@ -1,0 +1,17 @@
+主城等级	升级所需繁荣度	解锁土地图片	外城模型		给繁荣度奖励需要当前繁荣度<该值	加的繁荣度	繁荣度奖励描述
+level	upgrade_prosperity	unlock_power_range	appearance_res		trigger_countdown_prize_prosperity	add_countdown_prize_prosperity	add_countdown_prize_desc
+1	1	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Beginner		1	1000	4
+2	1250	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Beginner		1500	1000	4
+3	4000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Medium		3600	1000	4
+4	5800	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced		5800	1200	4
+5	20000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced01		20000	1500	4
+6	40000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced01		40000	1800	4
+7	78000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced02		78000	2300	4
+8	150000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced02		150000	4500	4
+9	254000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced02		254000	7600	4
+10	329000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced02		329000	10000	4
+11	387000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced02		387000	12000	4
+12	473000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced02		473000	14000	4
+13	593000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced02		593000	18000	4
+14	701000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced02		701000	21000	4
+15	795000	ui://MonarchOrMainCityUpgrade/Image_City_Power_1	Prefabs/Scene/DynamicData/WorldCity_Advanced02		795000	24000	4

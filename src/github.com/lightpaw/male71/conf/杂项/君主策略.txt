@@ -1,0 +1,1 @@
+策略id	策略名字	策略描述	使用策略消耗的锦囊个数	解锁君主等级	使用cdid	name	desc	cost	required_hero_level	cooldown1	急行	减少行军时间	2	1	5m2	阻路	增加行军时间	4	2	10m

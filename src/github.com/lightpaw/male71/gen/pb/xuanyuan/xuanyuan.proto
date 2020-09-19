@@ -1,0 +1,127 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "xuanyuan";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+
+message S2CRankIsEmptyProto {
+
+    bool is_empty = 1;
+
+}
+
+message S2CSelfInfoProto {
+
+    int32 rank = 2; // 排名，0表示未上榜
+
+    int32 score = 3; // 积分
+
+    int32 win = 4; // 赢的次数
+
+    int32 lose = 5; // 输的次数
+
+    int32 range_id = 8; // 默认分组id
+
+    int32 first_target_rank = 7; // 挑战玩家列表中第一个玩家的排名
+
+    repeated bytes targets = 6; // shared_proto.XuanyuanTargetProto
+
+}
+
+message C2SListTargetProto {
+
+    int32 range_id = 1; // 分组id
+
+}
+
+message S2CListTargetProto {
+
+    int32 range_id = 1; // 分组id
+
+    int32 first_target_rank = 2; // 挑战玩家id列表中第一个玩家的排名
+
+    repeated bytes targets = 3; // shared_proto.XuanyuanTargetProto
+
+}
+
+message C2SQueryTargetTroopProto {
+
+    bytes id = 1; // 玩家id
+
+}
+
+message S2CQueryTargetTroopProto {
+
+    bytes id = 1; // 玩家id
+
+    int32 version = 2; // 挑战部队版本号
+
+    bytes player = 4; // shared_proto.CombatPlayerProto 玩家部队数据
+
+}
+
+message C2SChallengeProto {
+
+    bytes id = 1; // 玩家id
+
+    int32 version = 2; // 挑战版本号
+
+}
+
+message S2CChallengeProto {
+
+    bytes id = 1; // 玩家id
+
+    string link = 2; // 战斗回放地址
+
+    int32 add_score = 3; // 加多少积分
+
+}
+
+message S2CUpdateXyInfoProto {
+
+    int32 score = 1; // 当前积分
+
+    int32 win = 2; // 胜利次数
+
+    int32 lose = 3; // 失败次数
+
+}
+
+message S2CAddRecordProto {
+
+    int32 id = 1; // 记录id
+
+    bytes data = 2; // shared_proto.XuanyuanRecordProto 轩辕会武记录
+
+}
+
+message C2SListRecordProto {
+
+    int32 id = 1; // 第一次发0
+
+    bool up = 2; // true表示往上翻（发最大的id），false表示往下翻（发最小的id）
+
+}
+
+message S2CListRecordProto {
+
+    int32 id = 1; // 第一次发0
+
+    bool up = 2; // true表示往上翻，false表示往下翻
+
+    repeated int32 ids = 3 [packed = false]; // 记录id
+
+    repeated bytes data = 4; // shared_proto.XuanyuanRecordProto[] 轩辕会武记录
+
+}
+
+message S2CCollectRankPrizeProto {
+
+    PrizeProto prize = 1; // 领取到的奖励
+
+}
+

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/chat.proto";
+
+message TssChatCallbackProto {
+    int64 sender_id = 1;
+    int64 target_id = 2;
+    bytes room_id_bytes = 3;
+    bytes target_sender = 4;
+    ChatMsgProto proto = 5;
+}

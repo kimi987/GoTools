@@ -1,0 +1,90 @@
+任务序号	任务名字	任务内容	任务图标	任务目标	奖励		开放的成就任务	开放的成就任务	开放的成就任务
+id	name	text	icon	target	prize		achieve_task	achieve_task	achieve_task
+4011	升级官府	将官府等级提升到4级	ui://Library/Image_FunctionIcon_RoomOfficial	4011	44011				
+4012	钓鱼获取名将	钓鱼获取名将	ui://Library/Image_FunctionIcon_General	4012	44012				
+4013	领取修炼经验	在修炼馆领取1次武将经验	ui://Library/Image_FunctionIcon_General_GrowUp	4013	44013				
+4014	消灭匈奴残兵	消灭匈奴残兵	ui://Library/Image_FunctionIcon_Area_NpcCity	4014	44014				
+									
+4021	农场收获	在农场收获1次资源	ui://Library/Image_FunctionIcon_Rank	4021	44021				
+4022	升级修炼馆	将修炼馆等级提升到4级	ui://Library/Image_FunctionIcon_RoomAlliance	4022	44022				
+4023	挑战名士列传	通关名士列传1-2	ui://Library/Image_FunctionIcon_Pve	4023	44023				
+4024	驱逐攻城野外势力	驱逐攻城野外势力	ui://Library/Image_FunctionIcon_Area_NpcCity	4024	44024				
+									
+4031	升级军营	将军营等级提升到4级	ui://Library/Image_FunctionIcon_RoomBarracks	4031	44031				
+4032	补充兵力	给武将补充兵力1次	ui://Library/Image_FunctionIcon_General_Soul	4032	44032				
+4033	挑战名士列传	通关名士列传1-4	ui://Library/Image_FunctionIcon_Pve	4033	44033				
+4034	除贼安民	派出军队迎战10级野外势力1次	ui://Library/Image_FunctionIcon_Area_NpcCity	4034	44034				
+4035	看看世界	打开小地图看看世界	ui://Library/Image_FunctionIcon_Area_NpcCity	4035	44033				
+									
+4041	升级书院	将书院等级提升到4级	ui://Library/Image_FunctionIcon_RoomOfficial	4041	44041				
+4042	升级近战防御	将近战防御等级提升到1级	ui://Library/Image_FunctionIcon_Everyday	4042	44042				
+4043	挑战名士列传	通关名士列传1-6	ui://Library/Image_FunctionIcon_Pve	4043	44043				
+4044	升级主城	将主城等级提升到2级	ui://Library/Image_FunctionIcon_RoomAlliance	4044	44044				
+4045	获得新武将	获得第4个武将	ui://Library/Image_FunctionIcon_General	4045	44045				
+									
+									
+4052	升级官府	将官府等级提升到7级	ui://Library/Image_FunctionIcon_RoomOfficial	4052	44052				
+4053	升级仓库	将仓库等级提升到7级	ui://Library/Image_FunctionIcon_RoomWarehouse	4053	44053				
+4054	升级修炼馆	将修炼馆等级提升到7级	ui://Library/Image_FunctionIcon_RoomAlliance	4054	44054				
+4055	升级远程攻击	将远程攻击等级提升到3级	ui://Library/Image_FunctionIcon_Everyday	4055	44055				
+4056	挑战名士列传	通关名士列传2-3	ui://Library/Image_FunctionIcon_Pve	4056	44056				
+									
+4061	加入联盟	加入任意1个联盟	ui://Library/Image_FunctionIcon_Alliance_Help	4061	44061				
+4062	升级外使院	将外使院等级提升到7级	ui://Library/Image_FunctionIcon_RoomWarehouse	4062	44062				
+4063	联盟捐献	联盟捐献资源2次	ui://Library/Image_FunctionIcon_Alliance	4063	44063				
+4064	照料摇钱树	照料摇钱树1次	ui://Library/Image_FunctionIcon_Alliance_Help	4064	44064				
+4065	挑战名士列传	通关名士列传2-6	ui://Library/Image_FunctionIcon_Pve	4065	44065				
+4066	固守城池	成功抵抗攻城野外势力	ui://Library/Image_FunctionIcon_Area_NpcCity	4066	44066				
+									
+4071	请教名士	在驿站进行1次武将请教	ui://Library/Image_FunctionIcon_Alliance	4071	44071				
+4072	升级驿站	将驿站等级提升到7级	ui://Library/Image_FunctionIcon_RoomTech	4072	44072				
+4073	升级建筑术	将建筑术提升到1级	ui://Library/Image_FunctionIcon_Everyday	4073	44073				
+4074	除贼安民	战胜20级野外势力1次	ui://Library/Image_FunctionIcon_Area_NpcCity	4074	44074				
+4075	升级官府	将官府等级提升到9级	ui://Library/Image_FunctionIcon_RoomOfficial	4075	44075				
+4076	挑战名士列传	通关名士列传2-9	ui://Library/Image_FunctionIcon_Pve	4076	44076				
+									
+4081	领取爵位	领取一个爵位	ui://Library/Image_FunctionIcon_Honor	4081	44081				
+4082	探索殷墟	探索1次殷墟	ui://Library/Image_FunctionIcon_RoomFair_Cowry	4082	44082				
+4083	升级城墙	将城墙等级提升到7级	ui://Library/Image_FunctionIcon_RoomAlliance	4083	44083				
+4084	升级城防术	将城防术提升到4级	ui://Library/Image_FunctionIcon_Everyday	4084	44084				
+4085	城墙驻防	设置城防队伍	ui://Library/Image_FunctionIcon_UniteCity	4085	44023				
+4086	消灭匈奴先锋	消灭匈奴先锋	ui://Library/Image_FunctionIcon_Area_NpcCity	4086	44086				
+									
+4091	君主政务	完成君主政务1次	ui://Library/Image_FunctionIcon_Honor	4091	44091				
+4092	升级建筑术	将建筑术提升到2级	ui://Library/Image_FunctionIcon_Everyday	4092	44092				
+4093	升级主城	将主城等级提升到4级	ui://Library/Image_FunctionIcon_RoomAlliance	4093	44093				
+4094	活跃度	每日活跃度达到60	ui://Library/Image_FunctionIcon_Active	4094	44094				
+4095	开启宝物	开启1个宝物	ui://Library/Image_FunctionIcon_RoomFair_Cowry	4095	44095				
+4096	挑战千机楼	战胜千机楼5层守卫	ui://Library/Image_FunctionIcon_Room1000Tower	4096	44096				
+									
+4101	单刀赴会	单刀赴会取得1次胜利	ui://Library/Image_FunctionIcon_Area_Domain	4101	44101				
+4102	册封官职	给武将册封1次校尉官职	ui://Library/Image_FunctionIcon_General_ReLife	4102	44102				
+4103	升级修炼馆	将修炼馆等级提升到11级	ui://Library/Image_FunctionIcon_RoomBarracks	4103	44103				
+4104	霸王之路	完成1个霸王之路任务	ui://Library/Image_FunctionIcon_Honor	4104	44104				
+4105	升级统御术	将统御术提升到5级	ui://Library/Image_FunctionIcon_Everyday	4105	44105				
+4106	升级外城建筑	将司马府或司徒府提升到7级	ui://Library/Image_FunctionIcon_RoomOfficial	4106	44106				
+4107	挑战千机楼	战胜千机楼10层守卫	ui://Library/Image_FunctionIcon_Room1000Tower	4107	44107				
+									
+4111	升级军营	将军营等级提升到12级	ui://Library/Image_FunctionIcon_RoomBarracks	4111	44111				
+4112	士兵升阶	将士兵等阶提升到2阶	ui://Library/Image_FunctionIcon_Equip_Intensify	4112	44112				
+4113	锻造装备	在铁匠铺进行1次装备锻造	ui://Library/Image_FunctionIcon_RoomSmithy_Forge	4113	44113				
+4114	升级铁匠铺	将铁匠铺等级提升到9级	ui://Library/Image_FunctionIcon_RoomSmithy	4114	44114				
+4115	横扫千军	横扫千军取得2次胜利	ui://Library/Image_FunctionIcon_KingRoad	4115	44115				
+4116	挑战千机楼	战胜千机楼20层守卫	ui://Library/Image_FunctionIcon_Room1000Tower	4116	44116				
+4117	除贼安民	战胜30级野外势力1次	ui://Library/Image_FunctionIcon_Area_NpcCity	4117	44117				
+									
+4121	千机密室	战胜20层千机密室	ui://Library/Image_FunctionIcon_Room1000Tower2	4121	44121				
+4122	升级官府	将官府等级提升到14级	ui://Library/Image_FunctionIcon_RoomAlliance	4122	44122				
+4123	升级仓库	将仓库等级提升到14级	ui://Library/Image_FunctionIcon_RoomAlliance	4123	44123				
+4124	升级铁匠铺	将铁匠铺等级提升到14级	ui://Library/Image_FunctionIcon_RoomOfficial	4124	44124				
+4125	升级统御术	将统御术提升到6级	ui://Library/Image_FunctionIcon_Everyday	4125	44125				
+4126	挑战名士列传	通关名士列传3-5	ui://Library/Image_FunctionIcon_Pve	4126	44126				
+									
+4131	装备熔炼	进行1次装备熔炼	ui://Library/Image_FunctionIcon_RoomSmithy_Smelt	4131	44131				
+4132	装备升级	将1件装备升到5级	ui://Library/Image_FunctionIcon_Equip_Intensify	4132	44132				
+4133	天命合璧	参与1次天命合璧	ui://Library/Image_FunctionIcon_RoomWarehouse_Make	4133	44133				
+4134	抗击匈奴	参与1次抗击匈奴	ui://Library/Image_FunctionIcon_Goal	4134	44134				
+4135	升级建筑术	将建筑术提升到3级	ui://Library/Image_FunctionIcon_Everyday	4135	44135				
+4136	升级官府	将官府等级提升到16级	ui://Library/Image_FunctionIcon_RoomAlliance	4136	44136				
+4137	困难副本	战胜困难副本1-2	ui://Library/Image_FunctionIcon_Pve	4137	44137				
+4138	挑战千机楼	战胜千机楼30层守卫	ui://Library/Image_FunctionIcon_Room1000Tower	4138	44138				

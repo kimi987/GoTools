@@ -1,0 +1,126 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "xiongnu";
+option optimize_for = SPEED;
+
+
+message C2SSetDefenderProto {
+
+    bytes id = 1; // 设置谁
+
+    bool to_set = 2; // true表示设置防守
+
+}
+
+message S2CSetDefenderProto {
+
+    bytes id = 1; // 设置谁
+
+    bool to_set = 2; // true表示设置防守
+
+}
+
+message S2CBroacastSetDefenderProto {
+
+    bytes id = 1; // 设置谁
+
+    bool to_set = 2; // true表示设置防守
+
+}
+
+message C2SStartProto {
+
+    int32 level = 1; // 挑战难度
+
+}
+
+message S2CStartProto {
+
+    int32 base_id = 1; // 匈奴主城id，用于让客户端知道场景中哪个是我们的主城
+
+    int32 base_x = 2; // 匈奴主城在场景中的x坐标
+
+    int32 base_y = 3; // 匈奴主城在场景中的y坐标
+
+}
+
+message S2CBroadcastStartProto {
+
+    string name = 1; // 开启后联盟聊天频道出现一则系统消息 “某某某 开启了 抗击匈奴 活动！”
+
+}
+
+message S2CInfoBroadcastProto {
+
+    bytes info = 1; // 联盟匈奴活动信息，长度为0表示当前没有活动，客户端解析为：XiongNuProto
+
+}
+
+message S2CTroopInfoProto {
+
+    bytes baseTroops = 1; // 队伍信息 XionNuBaseTroopProto
+
+    int32 morale = 2; // 当前士气
+
+}
+
+message S2CEndBroadcastProto {
+
+    int32 guild_id = 6; // 联盟id，这个id用于客户端比较当前联盟id是否一致
+
+    bytes resist_xiong_nu = 7; // 反击匈奴数据 LastResistXiongNuProto
+
+    bool unlock_next_level = 4; // 是否有解锁下一级
+
+    int32 add_prestige = 5; // 添加的声望
+
+}
+
+message C2SGetXiongNuNpcBaseInfoProto {
+
+    int32 guild_id = 1; // npc所属的联盟
+
+}
+
+message S2CGetXiongNuNpcBaseInfoProto {
+
+    int32 guild_id = 1; // npc所属的联盟
+
+    string guild_name = 2; // 联盟名字
+
+    string guild_flag = 3; // 联盟旗帜
+
+    int32 morale = 4; // 当前士气
+
+    int32 start_time = 5; // 挑战开启时间 客户端通过 ResistXiongNuMiscProto.invade_duration, ResistXiongNuMiscProto.resist_duration 算出入侵结束时间，反击结束时间 // 入侵结束时间 = start_time + ResistXiongNuMiscProto.invade_duration // 反击结束时间 = start_time + ResistXiongNuMiscProto.invade_duration + ResistXiongNuMiscProto.resist_duration，不在入侵时间内的话，就是在反击时间内 // 判断当前是在反击还是入侵时间内 // repeated int32 invade_wave_duration = 4 [packed = false]; // 入侵时间，开始后多久开始入侵，客户端可以根据当前是第几波算出下一波的时间，通过这个时间可以算出下一波的时间
+
+    int32 fighting_amount = 6; // 战斗力
+
+}
+
+message C2SGetDefenserFightAmountProto {
+
+    int32 version = 1; // 版本（首次发0，后续发s2c中的版本号）
+
+}
+
+message S2CGetDefenserFightAmountProto {
+
+    int32 version = 1; // 版本（服务器版本号跟客户端版本号一致，下面2个字段长度为0）
+
+    repeated bytes defenser_id = 2; // 防守成员
+
+    repeated int32 defenser_fight_amount = 3 [packed = false]; // 防守成员战力
+
+    repeated int32 defenser_enemy_count = 4 [packed = false]; // 防守成员遭受攻击部队数
+
+}
+
+message S2CGetXiongNuFightInfoProto {
+
+    bytes data = 1; // shared_proto.ResistXiongNuFightProto
+
+}
+

@@ -1,0 +1,46 @@
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+- "github.com/lightpaw/male7/pb/shared_proto/activity.proto"
+
+
+# 活动展示
+notice_activity_show:
+  s2c:
+    show: shared_proto.ActiviyShowProto[] // 展示列表
+
+# 收集活动兑换
+collect_collection:
+  c2s:
+    id: int // 活动id ActivityCollectionDataProto.id
+    exchange_id: int // 兑换id CollectionExchangeDataProto.Id
+  s2c:
+    id: int // 活动id
+    exchange_id: int // 根据id找到对应CollectionCollectedCountProto.Count自增1
+  s2c_fail:
+    out_time: 不在活动期间内
+    invalid_id: 无效的id
+    limit: 兑换上限
+    not_enough_cost: 收集不足
+
+# 收集活动开启（活动开始了才会收到这条消息，收到后客户端立即清空掉收集进度）
+notice_collection:
+  s2c:
+    activity: shared_proto.ActivityCollectionProto[] // 所有活动信息
+
+
+# 收集活动当前兑换次数情况
+notice_collection_counts:
+  s2c:
+    counts: shared_proto.HeroAllCollectionProto // 兑换次数信息
+
+# 列表式任务活动
+notice_task_list_mode:
+  s2c:
+    activity: shared_proto.ActivityTaskListModeProto[] // 所有活动信息
+
+# 列表式任务活动当前任务进度
+notice_task_list_mode_progress:
+  s2c:
+    activity: shared_proto.HeroActivityTaskListModeProto[] // 所有活动进度信息

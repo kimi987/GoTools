@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+// 农场资源配置
+message FarmResConfigProto {
+    int32 id = 1;
+    int32 ripe_duration = 2; // 成熟时间
+    ResType res_type = 3; // 资源类型
+    AmountProto base_output = 4; // 基础产量
+    string Icon = 5; // 资源图标
+}
+
+// 农场杂项配置
+message FarmMiscConfigProto {
+    AmountProto early_harvest_percent = 1; // 提前收获，获得当前产量的比例
+    AmountProto steal_gain_percent = 2; // 每次偷菜获得的比例
+    int32 cube_steal_max_time = 3; // 每块地每次成熟，可偷菜的最大次数
+    int32 ripe_protect_duration = 4; // 成熟保护时间
+    int32 steal_log_max_count = 5;
+    int32 daily_steal_gold_max_amount = 7; // 每日偷铜币最大数量
+    int32 daily_steal_stone_max_amount = 8; // 每日偷石料最大数量
+}
+
+// 每个玩家自己的农场
+message HeroFarmProto {
+    bytes hero_id = 1;
+    repeated FarmCubeProto farm_cube = 2; // 当前的所有地块，包括降级删除的地块
+    AmountProto gold_effect = 3; // 农场产出铜币加成，千分比。只有自己农场有效
+    AmountProto stone_effect = 4; // 农场产出石料加成，千分比。只有自己农场有效
+}
+
+// 每一个农场地块
+// 这里改成删掉成熟时间和最大产量，增加开始时间、冲突时间和删除时间。
+// 成熟时间可以用当前时间+FarmResConfigProto.RipeDuration
+// 最大产量的科技加成需要取在收获时的加成
+message FarmCubeProto {
+    int32 cube_x = 1; // 坐标 x (偏移)
+    int32 cube_y = 2; // 坐标 y (偏移)
+    int32 start_time = 3; // 种植时间
+    int32 conflict_time = 4; // 冲突暂停时间 (>0 表示正在冲突)
+    int32 remove_time = 5; // 删除地块的时间 (>0 表示已经删除)（目前主城降级会删除）
+    int32 res_config = 7; // 资源id FarmResConfigProto.id
+    int32 steal_times = 9; // 本次种植被偷次数
+    bool show_animation = 10; // 展示解锁动画
+    bool npc_conflicted = 11; // 野怪冲突。在自己的农场里有效
+}
+
+// 一条农场偷菜记录
+message FarmStealLogProto {
+    int32 log_time = 1; // 日志时间
+    bytes hero_id = 2; // 被偷玩家 id
+    bytes thief_id = 8; // 偷菜玩家/有收益的玩家 id
+    string thief_name = 3; // 偷菜玩家/有收益的玩家 名
+    string thief_guild_flag = 4; // 偷菜玩家/有收益的玩家 帮旗
+    int32 thief_country_id = 7; // 偷菜玩家/有收益的玩家 国家 id
+    int32 gold_output = 5; // 被偷/收获铜币资源
+    int32 stone_output = 6; // 被偷/收获石料资源
+    FarmLogType type = 9; // 日志类型
+}
+
+// 偷菜记录列表
+message FarmStealLogListProto {
+    repeated FarmStealLogProto log = 1;
+}
+
+// 农场日志类型
+enum FarmLogType {
+    Steal = 0; // 兼容旧版本，默认是偷菜
+    Harvest = 1; // 收获
+}

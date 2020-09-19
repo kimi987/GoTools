@@ -1,0 +1,3 @@
+地区类型，1-蛮荒地区 2-联盟主城地区 3-荣誉地区	地区等级，荣誉地区有多个等级，蛮荒地区和联盟主城地区都只能是1级地区	地图块X长度	地图块Y长度	地图中心块		地图初始半径，填1，表示上下左右各加1，到达边缘为止	地图块，关联block/block.txt，填id		随机区域半径		出生区域半径	
+region_type	level	block_xlen	block_ylen	center_block_x	center_block_y	init_radius	block		random_min_radius	random_max_radius	born_min_radius	born_max_radius
+1	1	49	49	24	24	24	1		22	24	13	21

@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message ZhengWuDataProto {
+    int32 id = 1;
+    string name = 2; // 名字
+    string icon = 3; // 图标
+    Quality quality = 4; // 品质
+    int32 cost = 5; // 元宝消耗，此处可能是0，客户端要处理好
+    PrizeProto prize = 6; // 奖励
+    int32 duration = 7; // 完成耗时，单位秒
+}
+
+// 怎么根据当前次数获得消耗的元宝
+
+// 1、客户端从 HeroZhengWuProto 中取到政务刷新的次数 refreshTimes
+// 2、遍历配置中的 ZhengWuRefreshDataProto 列表 list，服务器发送给客户端的政务列表已经根据次数从小到大进行过排序了
+//      for(data: list){
+//          if data.times >= refreshTimes{
+//              return data.cost
+//          }
+//      }
+//      return null
+message ZhengWuRefreshDataProto {
+    int32 times = 1; // 次数
+    int32 cost = 2 [deprecated = true]; // （作废，用new_cost）消耗的元宝
+    CostProto new_cost = 3; // 消耗
+}
+
+message ZhengWuMiscProto {
+    repeated int32 auto_refresh_duration = 1 [packed = false]; // 自动刷新间隔
+}
+
+message HeroZhengWuProto {
+    int32 refresh_times = 1; // 刷新次数
+    int32 next_refresh_time = 2; // 上次自动刷新的时间，如果当前时间 >= next_refresh_time，客户端倒计时显示0，否则显示刷新剩余 next_refresh_time - 当前时间
+    ZhengWuProto doing = 3; // 正在做的政务
+    repeated ZhengWuDataProto to_do_list = 4; // 要做的任务列表，客户端可能需要拍下序，具体问策划吧，品质从高到低，相同品质的id从小到大什么的
+}
+
+message ZhengWuProto {
+    ZhengWuDataProto data = 1; // 政务数据
+    int32 end_time = 2; // 政务结束时间，单位秒
+}

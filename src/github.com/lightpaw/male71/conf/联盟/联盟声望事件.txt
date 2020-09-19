@@ -1,0 +1,48 @@
+事件	事件关联值，领取百战俸禄事件，表示军衔等级，讨伐了野外势力事件，表示野外势力配置id	触发次数	声望值	虎符	无人数上限，0表示检查本事件的人数，最多不超过联盟人数上限，1表示不检查	声望事件日志							事件例子
+trigger_event	trigger_event_condition	trigger_event_times	prestige	hufu	ignore_member_limit	event_log							
+HERO_EVENT_KILL_MONSTER	1		10	0	0	{{hero_name}}讨伐了10级野外势力，联盟获得{{prestige}}点声望。							HERO_EVENT_ACTIVITY = 4; // 活跃度变化
+HERO_EVENT_KILL_MONSTER	2		20	0	0	{{hero_name}}讨伐了20级野外势力，联盟获得{{prestige}}点声望。							HERO_EVENT_KILL_MONSTER = 7; // 打败野外怪物
+HERO_EVENT_KILL_MONSTER	3		30	0	0	{{hero_name}}讨伐了30级野外势力，联盟获得{{prestige}}点声望。							HERO_EVENT_COLLECT_BAI_ZHAN_SALARY = 9; // 领取百战俸禄
+HERO_EVENT_KILL_MONSTER	4		40	0	0	{{hero_name}}讨伐了40级野外势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_KILL_MONSTER	5		50	0	0	{{hero_name}}讨伐了50级野外势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_KILL_MONSTER	6		60	0	0	{{hero_name}}讨伐了60级野外势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_KILL_MONSTER	7		70	0	0	{{hero_name}}讨伐了70级野外势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_KILL_MONSTER	8		80	0	0	{{hero_name}}讨伐了80级野外势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_KILL_MONSTER	9		90	0	0	{{hero_name}}讨伐了90级野外势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_KILL_MONSTER	10		100	0	0	{{hero_name}}讨伐了100级野外势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_KILL_MONSTER	11		110	0	0	{{hero_name}}讨伐了110级野外势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_KILL_MONSTER	12		120	0	0	{{hero_name}}讨伐了120级野外势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_COLLECT_BAI_ZHAN_SALARY	1		50	100	0	{{hero_name}}领取了横扫千军小卒俸禄，联盟获得{{prestige}}点声望、{{hufu}}虎符。							
+HERO_EVENT_COLLECT_BAI_ZHAN_SALARY	2		100	101	0	{{hero_name}}领取了横扫千军步兵俸禄，联盟获得{{prestige}}点声望、{{hufu}}虎符。							
+HERO_EVENT_COLLECT_BAI_ZHAN_SALARY	3		200	102	0	{{hero_name}}领取了横扫千军骑士俸禄，联盟获得{{prestige}}点声望、{{hufu}}虎符。							
+HERO_EVENT_COLLECT_BAI_ZHAN_SALARY	4		400	103	0	{{hero_name}}领取了横扫千军禁卫俸禄，联盟获得{{prestige}}点声望、{{hufu}}虎符。							
+HERO_EVENT_COLLECT_BAI_ZHAN_SALARY	5		800	104	0	{{hero_name}}领取了横扫千军先锋俸禄，联盟获得{{prestige}}点声望、{{hufu}}虎符。							
+HERO_EVENT_COLLECT_BAI_ZHAN_SALARY	6		1000	105	0	{{hero_name}}领取了横扫千军将军俸禄，联盟获得{{prestige}}点声望、{{hufu}}虎符。							
+HERO_EVENT_COLLECT_BAI_ZHAN_SALARY	7		1200	106	0	{{hero_name}}领取了横扫千军元帅俸禄，联盟获得{{prestige}}点声望、{{hufu}}虎符。							
+HERO_EVENT_COLLECT_BAI_ZHAN_SALARY	8		1500	107	0	{{hero_name}}领取了横扫千军诸侯俸禄，联盟获得{{prestige}}点声望、{{hufu}}虎符。							
+HERO_EVENT_ACTIVITY	>=100	1	50	0	0	{{hero_name}}完成活跃度100分，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	1		10		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	2		20		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	3		30		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	4		40		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	5		50		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	6		60		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	7		70		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	8		80		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	9		90		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	10		100		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	11		110		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	12		120		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	13		130		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	14		140		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	15		150		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	16		160		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	17		170		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	18		180		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	19		190		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	20		200		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	21		210		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	22		220		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	23		230		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	24		240		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							
+HERO_EVENT_ASSEMBLY_KILL_MONSTER	25		250		0	{{hero_name}}集结讨伐了10级野外军团势力，联盟获得{{prestige}}点声望。							

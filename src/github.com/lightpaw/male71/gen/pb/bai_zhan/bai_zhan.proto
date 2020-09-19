@@ -1,0 +1,100 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "bai_zhan";
+option optimize_for = SPEED;
+
+
+message S2CQueryBaiZhanInfoProto {
+
+    bytes data = 1; // shared_proto.BaiZhanObjProto
+
+}
+
+message S2CBaiZhanChallengeProto {
+
+    bool win = 1; // 是否赢了 true(赢了)/false(输了)
+
+    int32 challenge_times = 2; // 当前的挑战次数
+
+    string link = 3; // 战斗数据存放位置，通过http获取回放数据
+
+    bytes share = 6; // 战斗分享，客户端解析成 CombatShareProto
+
+    int32 point = 4; // 新的积分
+
+    int32 history_max_point = 5; // 该等级历史最高积分 BaiZhanObjProto.history_max_points[当前军衔等级] = history_max_point
+
+}
+
+message C2SCollectJunXianPrizeProto {
+
+    int32 id = 1; // 要领取奖励的id
+
+}
+
+message S2CCollectJunXianPrizeProto {
+
+    int32 id = 1; // 要领取奖励的id
+
+}
+
+message C2SSelfRecordProto {
+
+    int32 version = 1; // 客户端当前版本号
+
+}
+
+message S2CSelfRecordProto {
+
+    int32 version = 1; // 服务器当前版本号，如果服务器版本号跟客户端版本号一致，则后面的data为空
+
+    repeated bytes data = 2; // shared_proto.BaiZhanReplayProto，时间越早的在前面
+
+}
+
+message C2SRequestRankProto {
+
+    bool self = 3; // 请求自己，如果请求自己，start_rank请发0
+
+    int32 start_rank = 2; // 开始的排名
+
+}
+
+message S2CRequestRankProto {
+
+    bool self = 6; // 请求自己的返回
+
+    int32 jun_xian_level = 2; // 该排行榜的军衔等级
+
+    int32 start_rank = 3; // 开始的排名
+
+    int32 total_rank_count = 4; // 总共排的人数
+
+    int32 level_up_need_min_point = 9; // 升级需要的最小积分，0表示不可以升级，level_change_type 是 LEVEL_KEEP，客户端计算要升级还差多少分= max(level_up_need_min_point - point, 0)
+
+    int32 level_keep_need_min_point = 10; // 能够保级的最小积分，0表示不可以降级，level_change_type 是 LEVEL_DOWN，客户端计算要保级还差多少分= max(level_keep_need_min_point - point, 0)
+
+    repeated bytes data = 5; // shared_proto.BaiZhanRankObjProto
+
+}
+
+message S2CRequestSelfRankProto {
+
+    int32 rank = 1; // 排名
+
+    int32 level_change_type = 2; // LevelChangeType
+
+    int32 level_up_need_min_point = 5; // 升级需要的最小积分，0表示不可以升级，level_change_type 是 LEVEL_KEEP，客户端计算要升级还差多少分= max(level_up_need_min_point - point, 0)
+
+    int32 level_keep_need_min_point = 6; // 能够保级的最小积分，0表示不可以降级，level_change_type 是 LEVEL_DOWN，客户端计算要保级还差多少分= max(level_keep_need_min_point - point, 0)
+
+}
+
+message S2CMaxJunXianLevelChangedProto {
+
+    int32 level = 1; // 等级
+
+}
+

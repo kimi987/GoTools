@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+// buff效果类型
+enum BuffEffectType {
+    Buff_ET_invalid = 0;
+    Buff_ET_captain_train = 1; // 武将训练
+    Buff_ET_farm_harvest = 2; // 农场成熟
+    Buff_ET_tax = 3; // 收税
+    Buff_ET_sprite_stat = 4; // 属性
+    Buff_ET_battle_mian = 5; // 免战
+}
+
+// buff 效果
+message StatBuffProto {
+    AmountProto Attack = 1;
+    AmountProto Defense = 2;
+    AmountProto Strength = 3;
+    AmountProto Dexterity = 4;
+    AmountProto SoldierCapcity = 5;
+    int32 DamageIncrePer = 6;
+    int32 DamageDecrePer = 7;
+}
+
+// 玩家的 buff
+message HeroBuffProto {
+    repeated BuffInfoProto buff = 1; // 当前所有 buff
+}
+
+// 每个具体的 buff
+message BuffInfoProto {
+    int32 start_time = 1; // 开始时间
+    int32 end_time = 2; // 结束时间
+    int32 buff_effect_id = 3; // BuffEffectDataProto.Id
+    bytes oper_hero_id = 4; // 对我使用 buff 的人
+}

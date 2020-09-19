@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 3887226398
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 79305cb19490425778b98322f108e2d3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 02fe62b1586670d2b2bf25f00afd0e8e
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_houziCK_skill02zidan.prefab
+Dependencies: []

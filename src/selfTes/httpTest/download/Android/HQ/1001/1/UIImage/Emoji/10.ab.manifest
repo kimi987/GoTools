@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1191747276
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9652fdc3bd04a7b87a45a072da3f7c16
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c73412a662fd4e4f36af34cbdf078b85
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIImage/Emoji/10.png
+Dependencies: []

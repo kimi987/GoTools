@@ -1,0 +1,66 @@
+# 收到 misc_message.yaml 中的 reset_daily 协议，将 HeroZhanJiangProto.open_times 重置为0
+
+# 开启挑战
+open:
+  c2s:
+    id: int // 关卡id，即 ZhanJiangGuanQiaProto 中的id
+  # 收到后，客户端将 HeroZhanJiangProto.open_times + 1
+  s2c:
+    id: int // 开启关卡成功，即 ZhanJiangGuanQiaProto 中的id
+    captain_id: int // 开启放置的武将id
+  s2c_fail:
+    not_found: 关卡没找到
+    prev_not_pass: 前置没有通关
+    func_not_open: 功能未开启
+    is_open: 关卡已经开启
+    no_captain: 没有设置上场武将
+    no_open_times: 开启次数不足
+    server_error: 服务器忙，请稍后再试
+
+# 放弃挑战
+give_up:
+  c2s:
+  # 收到后，客户端将 HeroZhanJiangProto.cur_challenge 设置为空
+  s2c:
+  s2c_fail:
+    not_open: 未开启
+    server_error: 服务器忙，请稍后再试
+
+# 设置武将
+update_captain:
+  c2s:
+    id: int // 武将的id
+  # 设置成功
+  s2c:
+    id: int // 武将的id
+  s2c_fail:
+    not_found: 武将没找到
+    not_open: 没有开启
+    server_error: 服务器忙，请稍后再试
+
+# 挑战
+challenge:
+  c2s:
+    pass_count: int // 通关该关卡的数量
+  # 挑战成功，将ZhanJiangChallengeProto.pass_count+1，显示的成长值在 ZhanJiangGuanQiaProto.ability_exp 读取
+  s2c:
+    pass: bool // 是否挑战成功 true(挑战成功，将ZhanJiangChallengeProto.pass_count+1，读取下面的数据)/false(挑战失败)
+    link: string // 战报链接
+    share: bytes // 战斗分享，客户端解析成 CombatShareProto
+    zhan_jiang_data_id: int32 // 当前小关卡的 id
+  s2c_fail:
+    not_open: 挑战没开启
+    no_captain: 没有设置武将
+    no_duplicate: 请勿重复发送挑战请求
+    not_set_captain: 未设置出战武将
+    server_error: 服务器忙，请稍后再试
+
+# 挑战
+pass:
+  s2c:
+    id: int // 通关的关卡
+
+# 更新斩将已经开启次数 HeroZhanJiangProto.open_times
+update_open_times:
+  s2c:
+    open_times: int // 已经开启的次数

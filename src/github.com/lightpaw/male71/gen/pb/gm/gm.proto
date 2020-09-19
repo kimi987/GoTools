@@ -1,0 +1,42 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "gm";
+option optimize_for = SPEED;
+
+
+message S2CListCmdProto {
+
+    repeated bytes datas = 1; // shared_proto.GmCmdListProto
+
+}
+
+message C2SGmProto {
+
+    string cmd = 1;
+
+}
+
+message S2CGmProto {
+
+    string result = 1;
+
+}
+
+message C2SInvaseTargetIdProto {
+
+    int32 npc_type = 1; // shared_proto.MultiLevelNpcType
+
+}
+
+message S2CInvaseTargetIdProto {
+
+    bytes target_id = 1; // 目标id
+
+    int32 target_x = 2; // 坐标
+
+    int32 target_y = 3;
+
+}
+

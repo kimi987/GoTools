@@ -1,0 +1,186 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "hebi";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/hebi.proto";
+
+
+message C2SRoomListProto {
+
+    int32 v = 1; // 上一次收到的版本号，第一次请求发0
+
+}
+
+message S2CRoomListProto {
+
+    int32 v = 1; // 本次数据的版本号。版本相同时，list 为空
+
+    HebiInfoProto list = 2; // 合璧数据
+
+}
+
+message S2CHeroRecordListProto {
+
+    HebiHeroRecordProto records = 1; // 合璧战斗记录
+
+}
+
+message C2SChangeCaptainProto {
+
+    int32 captain_id = 1; // 武将id
+
+}
+
+message S2CChangeCaptainProto {
+
+    int32 captain_id = 1; // 武将id
+
+}
+
+message S2CChangeRoomCaptainProto {
+
+    int32 room_id = 1; // 房间id
+
+    HebiCaptainProto cpatain = 2; // 新武将
+
+}
+
+message C2SCheckInRoomProto {
+
+    int32 room_id = 1; // 房间号
+
+    int32 goods_id = 2; // 玉璧 id。GoodsDataProto.Id
+
+}
+
+message S2CCheckInRoomProto {
+
+    int32 room_id = 1; // 房间号
+
+    int32 goods_id = 2; // 玉璧 id。GoodsDataProto.Id
+
+}
+
+message C2SCopySelfProto {
+
+    int32 room_id = 1; // 房间号
+
+    int32 goods_id = 2; // 分身物品id。GoodsDataProto.Id
+
+}
+
+message S2CCopySelfProto {
+
+    int32 room_id = 1; // 房间号
+
+}
+
+message C2SJoinRoomProto {
+
+    int32 room_id = 1; // 房间号
+
+    int32 goods_id = 2; // 玉璧 id。GoodsDataProto.Id
+
+}
+
+message S2CJoinRoomProto {
+
+    int32 room_id = 1; // 房间号
+
+    int32 goods_id = 3; // 玉璧 id。GoodsDataProto.Id
+
+    int32 prize_id = 4; // 合璧成功的奖励 id, HebiPrizeProto.Id
+
+}
+
+message S2CSomeoneJoinedRoomProto {
+
+    int32 room_id = 1; // 房间号
+
+}
+
+message C2SRobPosProto {
+
+    int32 room_id = 1; // 房间号
+
+}
+
+message S2CRobPosProto {
+
+    int32 room_id = 1; // 房间号
+
+    bool succ = 2; // 是否成功
+
+    string link = 3; // 战斗回放地址
+
+}
+
+message S2CSomeoneRobbedMyPosProto {
+
+    int32 room_id = 1; // 房间号
+
+}
+
+message C2SLeaveRoomProto {
+
+    int32 room_id = 1; // 房间 id
+
+}
+
+message S2CLeaveRoomProto {
+
+    int32 room_id = 1; // 房间 id
+
+}
+
+message C2SRobProto {
+
+    int32 room_id = 1; // 房间号
+
+}
+
+message S2CRobProto {
+
+    int32 room_id = 1; // 房间号
+
+    bool first_succ = 4; // 打第一个是否成功
+
+    string first_link = 5; // 打第一个战斗回放地址
+
+    bool second_succ = 6; // 打第二个是否成功
+
+    string second_link = 7; // 打第二个战斗回放地址
+
+    PrizeProto prize = 8; // 抢夺奖励
+
+}
+
+message S2CSomeoneRobbedMyPrizeProto {
+
+    int32 room_id = 1; // 房间号
+
+}
+
+message S2CCompleteProto {
+
+    int32 room_id = 1; // 房间号
+
+}
+
+message C2SViewShowPrizeProto {
+
+    int32 hero_level = 1; // 两个玩家等级中最高的
+
+    int32 goods = 2; // 两个玉璧中品质最高的
+
+}
+
+message S2CViewShowPrizeProto {
+
+    PrizeProto prize = 1; // 抢夺奖励
+
+}
+

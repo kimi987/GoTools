@@ -1,0 +1,40 @@
+ManifestFileVersion: 0
+CRC: 446250817
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 79d8ca70515bde52e5311f94f12557b0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 34db65ca0a2b2c347062ced55a248414
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7c0c54c083335444a993e4ce9b142dfb, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/UpgradeWordTips.prefab
+Dependencies: []

@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+
+message MingcsServerProto {
+    repeated MingcServerProto mcs = 1;
+}
+
+message MingcServerProto {
+    uint64 id = 1;
+    int64 host_guild_id = 2;
+    uint64 yinliang = 3;
+    uint64 extra_yinliang = 4;
+    int64 last_reset_time = 5;
+    uint64 host_extra_yinliang = 6;  // 占领盟的爆仓银两收入
+
+    McBuildProto mc_build = 7; // 名城营建
+}
+
+// 玩家名城营建
+message HeroMcBuildServerProto {
+    uint64 mc_build_count = 1; // 当天名城营建过的次数
+    int64 mc_build_next_time = 2; // 下次名城营建的时间
+}
+
+message McBuildProto {
+    uint64 level = 1;
+    uint64 support = 2;
+    uint64 daily_added_support = 3;
+    map<int64, McBuildGuildInfoProto> guild_infos = 4;
+}
+
+message McBuildGuildInfoProto {
+    uint64 support = 1;
+    uint64 build_count = 2;
+    map<int64, McBuildHeroInfoProto> hero_infos = 4;
+}
+
+message McBuildHeroInfoProto {
+    uint64 support = 1;
+    uint64 build_count = 2;
+}

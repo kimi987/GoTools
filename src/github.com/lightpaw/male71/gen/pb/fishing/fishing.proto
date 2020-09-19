@@ -1,0 +1,76 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "fishing";
+option optimize_for = SPEED;
+
+
+message C2SFishingProto {
+
+    int32 times = 1; // 钓鱼的次数类型(1表示钓1次，10表示钓10次，即FishingCostProto.times)
+
+    int32 fish_type = 2; // 钓鱼类型，0-高级 1-普通钓鱼 即：FishingCostProto.fish_type
+
+    bool use_goods = 3; // true表示使用鱼饵
+
+}
+
+message S2CFishingProto {
+
+    repeated bytes fishing_result = 5; // 钓鱼的结果PrizeProto数组
+
+    repeated bool have_soul_to_goods = 6 [packed = false]; // 对应的Prize中是否有将魂变成了物品
+
+    repeated int32 show_index = 9 [packed = false]; // 对应的Prize中是否有物品需要展示，下标从1开始
+
+    int32 times = 8; // 钓鱼的次数类型(1表示钓1次，10表示钓10次，即FishingCostProto.times)
+
+    int32 fish_type = 10; // 钓鱼类型，0-高级 1-普通钓鱼 即：FishingCostProto.fish_type
+
+    int32 fishing_times = 7; // 该 FishingCostProto.times 当前总共钓鱼的次数，将 HeroFishingProto中的fishing_times的对应钓鱼次数类型修改成新的钓鱼次数
+
+    int32 next_time = 11; // 下次可以钓鱼的时间，unix时间戳（免费钓鱼使用）
+
+}
+
+message S2CFishingBroadcastProto {
+
+    bytes id = 1; // 玩家id
+
+    string name = 2; // 玩家名字
+
+    string flagname = 3; // 旗号，可能为空
+
+    bytes prize = 7; // 奖励
+
+}
+
+message S2CUpdateFishPointProto {
+
+    int32 point = 1; // 钓鱼积分
+
+}
+
+message S2CFishPointExchangeProto {
+
+    bytes prize = 1; // shared_proto.PrizeProto
+
+    int32 exchange_index = 2; // 兑换下标
+
+    bool exist = 3; // true表示这个武将已经拥有，兑换成碎片
+
+}
+
+message C2SSetFishingCaptainProto {
+
+    int32 captain_id = 1; // 武将id
+
+}
+
+message S2CSetFishingCaptainProto {
+
+    int32 captain_id = 1;
+
+}
+

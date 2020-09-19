@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 1130224362
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9680052e9b58012d1537aced70a3e87e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c09971811e3a9da482e4f64bd1f6104c
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/GuaJiBox.prefab
+Dependencies: []

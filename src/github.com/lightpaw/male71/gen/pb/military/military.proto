@@ -1,0 +1,1060 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "military";
+option optimize_for = SPEED;
+
+
+message S2CUpdateSoldierCapcityProto {
+
+    int32 soldier_capcity = 1; // 士兵最大容量
+
+    int32 wounded_soldier_capcity = 2; // 伤兵最大容量
+
+    int32 new_soldier_capcity = 3; // 新兵最大容量
+
+    int32 new_soldier_output = 4; // 新兵产量，每小时
+
+    int32 new_recruit_soldier_count = 5; // 每次能够征兵的数量
+
+}
+
+message C2SRecruitSoldierProto {
+
+    int32 count = 1; // 招募数量
+
+}
+
+message S2CRecruitSoldierProto {
+
+    int32 new_soldier = 2; // 新兵数量
+
+    int32 free_soldier = 3; // 空闲士兵数量
+
+}
+
+message C2SRecruitSoldierV2Proto {
+
+    bool all = 1; // 全征
+
+}
+
+message S2CRecruitSoldierV2Proto {
+
+    int32 add_soldier = 2; // 增加的士兵数量，用于客户端提示
+
+}
+
+message S2CAutoRecoverSoldierProto {
+
+    int32 free_soldier = 1; // 空闲士兵数量
+
+    repeated int32 captain_id = 2 [packed = false]; // 武将id
+
+    repeated int32 captain_soldier_count = 3 [packed = false]; // 武将士兵数量
+
+}
+
+message S2CRecruitSoldierTimesChangedProto {
+
+    int32 start_recovery_time = 1; // 开始恢复时间
+
+}
+
+message S2CAddWoundedSoldierProto {
+
+    int32 toAdd = 1;
+
+    int32 total = 2;
+
+}
+
+message C2SHealWoundedSoldierProto {
+
+    int32 count = 1; // 伤兵数量
+
+}
+
+message S2CHealWoundedSoldierProto {
+
+    int32 count = 1; // 治疗数量，空闲士兵 += count 伤兵数量 -= count
+
+}
+
+message C2SCaptainChangeSoldierProto {
+
+    int32 id = 1; // 武将id
+
+    int32 count = 2; // 补兵数，负数表示减兵
+
+}
+
+message S2CCaptainChangeSoldierProto {
+
+    int32 id = 1; // 武将id
+
+    int32 soldier = 2; // 总兵数
+
+    int32 fight_amount = 3; // 战斗力
+
+    int32 free_soldier = 4; // 剩余空闲士兵数
+
+}
+
+message C2SCaptainFullSoldierProto {
+
+    repeated int32 id = 1 [packed = false]; // 武将id
+
+}
+
+message S2CCaptainFullSoldierProto {
+
+    repeated int32 id = 1 [packed = false]; // 武将id
+
+    repeated int32 soldier = 2 [packed = false]; // 新的士兵数
+
+    repeated int32 fight_amount = 3 [packed = false]; // 战斗力
+
+    int32 free_soldier = 4; // 剩余空闲士兵数
+
+}
+
+message S2CUpdateFreeSoldierProto {
+
+    int32 start_time = 2; // 士兵恢复开始时间
+
+    int32 capcity = 3; // 士兵最大上限
+
+    int32 output = 4; // 士兵恢复速度（每小时X个）
+
+    int32 overflow = 5; // 溢出士兵个数
+
+}
+
+message S2CForceAddSoldierProto {
+
+    int32 times = 1; // 强征次数
+
+}
+
+message S2CCaptainChangeDataProto {
+
+    int32 id = 1; // 武将id
+
+    int32 soldier = 2; // 当前带兵数
+
+    int32 max_soldier = 3; // 总带兵数
+
+    int32 fight_amount = 4; // 战斗力
+
+}
+
+message C2SFightProto {
+
+    bool wall = 1; // 带城墙的
+
+}
+
+message S2CFightProto {
+
+    bytes replay = 1; // shared_proto.CombatProto
+
+}
+
+message S2CMultiFightProto {
+
+    bytes replay = 1; // shared_proto.MultiCombatProto
+
+}
+
+message C2SFightxProto {
+
+    repeated int32 attacker = 2 [packed = false]; // 进攻方武将
+
+    repeated int32 defenser = 3 [packed = false]; // 防守方武将
+
+    bool wall = 1; // 带城墙的
+
+}
+
+message S2CFightxProto {
+
+    bytes replay = 1; // shared_proto.CombatXProto
+
+}
+
+message S2CUpgradeSoldierLevelProto {
+
+    int32 level = 1; // 最新士兵等级
+
+}
+
+message S2CRecruitCaptainV2Proto {
+
+    bytes captain = 1; // shared_proto.HeroCaptainProto
+
+    int32 captain_index = 2; // 队伍编号，0表示不加入队伍，1-5 一队序号 6-10 二队序号 11-15 三队序号
+
+}
+
+message S2CRandomCaptainHeadProto {
+
+    repeated string head = 2; // 头像id列表，按 CaptainSeekerProto 里配置的顺序
+
+}
+
+message C2SRecruitCaptainSeekerProto {
+
+    int32 index = 1; // 编号
+
+    string head = 2; // 头像id
+
+}
+
+message S2CRecruitCaptainSeekerProto {
+
+    int32 index = 1; // 编号
+
+    bytes captain = 2; // shared_proto.HeroCaptainProto
+
+    int32 captain_index = 3; // 队伍编号，0表示不加入队伍，1-5 一队序号 6-10 二队序号 11-15 三队序号
+
+}
+
+message C2SSetDefenseTroopProto {
+
+    bool is_tent = 1; // true表示设置行营防守队伍，false表示设置主城防守队伍
+
+    int32 troop_index = 2; // 0表示撤防，1表示1队 2表示2队
+
+}
+
+message S2CSetDefenseTroopProto {
+
+    bool is_tent = 1; // true表示设置行营防守队伍，false表示设置主城防守队伍
+
+    int32 troop_index = 2; // 0表示撤防，1表示1队 2表示2队
+
+}
+
+message S2CSetDenfeseTroopDefeatedMailProto {
+
+    bytes mail = 1; // 客户端解析成 MailProto，客户端自己在里面的战报里面读取 对方旗号、对方名字
+
+    bool is_tent = 2; // 是不是行营
+
+}
+
+message C2SClearDefenseTroopDefeatedMailProto {
+
+    bool is_tent = 1; // 是不是行营
+
+}
+
+message S2CClearDefenseTroopDefeatedMailProto {
+
+    bool is_tent = 1; // 是不是行营
+
+}
+
+message C2SSetDefenserAutoFullSoldierProto {
+
+    bool dont = 1; // false表示自动补兵，true表示不自动补兵
+
+}
+
+message S2CSetDefenserAutoFullSoldierProto {
+
+    bool dont = 1;
+
+}
+
+message C2SUseCopyDefenserGoodsProto {
+
+    int32 goods = 1; // 物品id
+
+    bool auto_buy = 2; // 物品自动购买
+
+    int32 troop_index = 3; // 队伍，1表示1队 2表示2队
+
+}
+
+message S2CUseCopyDefenserGoodsProto {
+
+    int32 troop_index = 1; // 队伍，1表示1队 2表示2队
+
+    int32 end_time = 2; // 过期时间
+
+}
+
+message S2CUpdateCopyDefenserProto {
+
+    int32 soldier = 1; // 剩余兵力
+
+    int32 total_soldier = 2; // 总兵力
+
+    int32 fight_amount = 3; // 战斗力
+
+}
+
+message C2SSellSeekCaptainProto {
+
+    int32 index = 1; // 0表示将所有的武将全部转换成强化符
+
+}
+
+message S2CSellSeekCaptainProto {
+
+    int32 index = 2; // 0表示将所有的武将全部转换成强化符
+
+}
+
+message C2SSetMultiCaptainIndexProto {
+
+    int32 index = 1; // 序号，0表示全改 一队发1，二队发2，3队发3
+
+    repeated int32 id = 2 [packed = false]; // 武将id，0表示这个位置没有武将
+
+    repeated int32 x_index = 3 [packed = false]; // 武将横向位移，0-左 1-中 2-右
+
+}
+
+message S2CSetMultiCaptainIndexProto {
+
+    int32 index = 1; // 序号，0表示全改 一队发1，二队发2，3队发3
+
+    repeated int32 id = 2 [packed = false]; // 武将id，武将id
+
+    repeated int32 x_index = 3 [packed = false]; // 武将横向位移，0-左 1-中 2-右
+
+}
+
+message C2SSetPveCaptainProto {
+
+    int32 pve_type = 1; // pve队伍类型 PveTroopType
+
+    repeated int32 id = 2 [packed = false]; // 武将id，0表示这个位置没有武将
+
+    repeated int32 x_index = 3 [packed = false]; // 武将横向位置，0-左，1-中，2-右
+
+}
+
+message S2CSetPveCaptainProto {
+
+    bytes troop = 1; // 客户端解析成 HeroPveTroopProto
+
+}
+
+message C2SFireCaptainProto {
+
+    int32 id = 1; // 武将id
+
+}
+
+message S2CFireCaptainProto {
+
+    int32 id = 1; // 解雇武将id（客户端同时将防守阵容和武将编队里面这个武将移除）
+
+}
+
+message C2SCaptainRefinedProto {
+
+    int32 captain = 1; // 武将id
+
+    repeated int32 goods_id = 2 [packed = false]; // 强化符id（有多种强化符，具体要用哪种）
+
+    repeated int32 count = 3 [packed = false]; // 使用个数
+
+}
+
+message S2CCaptainRefinedProto {
+
+    int32 captain = 1; // 武将id
+
+    int32 exp = 2; // 更新后的强化经验
+
+}
+
+message C2SCaptainEnhanceProto {
+
+    int32 captain = 1; // 武将id
+
+    repeated int32 goods_id = 2 [packed = false]; // 强化符id（有多种强化符，具体要用哪种）
+
+    repeated int32 count = 3 [packed = false]; // 使用个数
+
+}
+
+message S2CCaptainEnhanceProto {
+
+    int32 captain = 1; // 武将id
+
+    int32 ability = 2; // 成长值
+
+    int32 ability_exp = 3; // 成长值经验
+
+    int32 quality = 4; // 品质
+
+}
+
+message S2CCaptainRefinedUpgradeProto {
+
+    int32 captain = 1; // 武将id
+
+    int32 exp = 2; // 更新后的强化经验
+
+    int32 ability = 3; // 更新后的能力值
+
+    bytes name = 4; // 更新后的武将名字，客户端解析成 CaptainNameProto
+
+    int32 quality = 5; // 更新后的品质
+
+}
+
+message S2CUpdateAbilityExpProto {
+
+    int32 captain = 1; // 武将id
+
+    int32 exp = 2; // 更新后的经验
+
+}
+
+message S2CUpdateCaptainExpProto {
+
+    int32 captain = 1; // 武将id
+
+    int32 exp = 2; // 更新后的经验
+
+}
+
+message S2CUpdateCaptainLevelProto {
+
+    int32 captain = 1; // 武将id
+
+    int32 exp = 2; // 更新后的经验
+
+    int32 level = 3; // 更新后的等级
+
+    bytes name = 4; // 更新后的武将名字，客户端解析成 CaptainNameProto
+
+    int32 soldier_capcity = 5; // 更新后的武将士兵上限
+
+}
+
+message S2CCaptainLevelupProto {
+
+    int32 captain = 1; // 武将id
+
+    int32 exp = 2; // 更新后的经验
+
+    int32 level = 3; // 更新后的等级
+
+    int32 soldier_capcity = 4; // 更新后的武将士兵上限
+
+}
+
+message S2CUpdateCaptainStatProto {
+
+    int32 captain = 1; // 武将id
+
+    bytes total_stat = 2; // shared_proto.SpriteStatProto 总属性
+
+    int32 fight_amount = 3; // 当前战力
+
+    int32 full_fight_amount = 4; // 满兵战力
+
+}
+
+message C2SChangeCaptainNameProto {
+
+    int32 id = 1; // 武将id
+
+    string name = 2; // 武将名字
+
+}
+
+message S2CChangeCaptainNameProto {
+
+    int32 id = 1; // 武将id
+
+    string name = 2; // 武将名字
+
+}
+
+message C2SChangeCaptainRaceProto {
+
+    int32 id = 1; // 武将id
+
+    int32 race = 2; // 武将职业 shared_proto.Race
+
+    bool money = 4; // true表示使用点券改名
+
+}
+
+message S2CChangeCaptainRaceProto {
+
+    int32 id = 1; // 武将id
+
+    int32 race = 2; // 武将职业 shared_proto.Race
+
+    int32 cooldown = 3; // cd结束时间，单位秒
+
+    bytes name = 4; // 武将名字(传奇步将什么鬼的)，客户端解析成 CaptainNameProto
+
+}
+
+message C2SCaptainRebirthPreviewProto {
+
+    int32 id = 1; // 武将id
+
+}
+
+message S2CCaptainRebirthPreviewProto {
+
+    int32 id = 1; // 武将id
+
+    bytes name = 8; // 武将名字，客户端解析成 CaptainNameProto
+
+    int32 rebirth_level = 2; // 转生等级，1表示1转
+
+    int32 quality = 3; // 品质
+
+    int32 ability = 4; // 成长值
+
+    int32 ability_limit = 5; // 成长上限
+
+    int32 total_stat = 6; // 加多少属性
+
+    int32 soldier_capcity = 9; // 加多少统帅
+
+    bytes add_stat = 10; // shared_proto.SpriteStatProto 加的属性
+
+}
+
+message S2CCaptainRebirthCdStartProto {
+
+    int32 id = 1; // 武将
+
+    int32 cd_endtime = 2; // cd 结束时间
+
+}
+
+message C2SCaptainRebirthProto {
+
+    int32 id = 1; // 武将id
+
+    bool miao = 2;
+
+}
+
+message S2CCaptainRebirthProto {
+
+    int32 id = 1; // 武将id
+
+    bytes name = 13; // 武将名字，客户端解析成 CaptainNameProto
+
+    int32 rebirth_level = 2; // 转生等级，1表示1转
+
+    int32 rebirth_exp = 3; // 转生经验
+
+    int32 quality = 4; // 品质
+
+    int32 ability = 5; // 成长值
+
+    int32 ability_exp = 6; // 成长经验
+
+    int32 ability_limit = 7; // 成长上限
+
+    int32 soldier = 8; // 武将士兵数
+
+    int32 soldier_capcity = 9; // 武将士兵上限
+
+    bytes total_stat = 10; // shared_proto.SpriteStatProto 总属性
+
+    int32 fight_amount = 11; // 当前战力
+
+    int32 full_fight_amount = 12; // 满兵战力
+
+}
+
+message C2SCaptainProgressProto {
+
+    int32 id = 1; // 武将id
+
+    bool miao = 2;
+
+}
+
+message S2CCaptainProgressProto {
+
+    int32 id = 1; // 武将id
+
+    int32 rebirth_level = 2; // 转生等级，1表示1转
+
+    int32 rebirth_exp = 3; // 转生经验
+
+    int32 quality = 4; // 品质
+
+    int32 ability = 5; // 成长值
+
+    int32 ability_exp = 6; // 成长经验
+
+    int32 ability_limit = 7; // 成长上限
+
+    int32 soldier = 8; // 武将士兵数
+
+    int32 soldier_capcity = 9; // 武将士兵上限
+
+    bytes total_stat = 10; // shared_proto.SpriteStatProto 总属性
+
+    int32 fight_amount = 11; // 当前战力
+
+    int32 full_fight_amount = 12; // 满兵战力
+
+}
+
+message C2SCaptainRebirthMiaoCdProto {
+
+    int32 id = 1; // 武将 id
+
+}
+
+message S2CCaptainRebirthMiaoCdProto {
+
+    int32 id = 1; // 转生成功的武将 id
+
+}
+
+message S2CCollectCaptainTrainingExpProto {
+
+    int32 time = 1; // 领取经验时间
+
+}
+
+message S2CCaptainTrainExpProto {
+
+    int32 time = 1; // 领取经验时间
+
+}
+
+message S2CUpdateTrainingProto {
+
+    int32 gst = 4; // 修炼馆开始训练时间
+
+    int32 cst = 5; // 武将开始训练时间
+
+    int32 exp_per_hour = 6; // 修炼馆每小时产出经验(可以读取这里的值，也可以直接读取当前等级的修炼馆配置)
+
+    int32 coef = 7; // 修炼系数
+
+}
+
+message S2CCaptainCanCollectExpProto {
+
+    int32 exp = 1; // 可领经验
+
+    repeated int32 buff_coef = 2 [packed = false]; // buff系数(千分比)，可能有多个 buff，依次计算就行
+
+    int32 max_duration = 3; // 总修炼时长。修炼馆时长+vip特权时长
+
+}
+
+message C2SUseTrainingExpGoodsProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 goods_id = 2; // 物品id
+
+    int32 count = 3; // 使用个数
+
+}
+
+message S2CUseTrainingExpGoodsProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 goods_id = 2; // 物品id
+
+    int32 count = 4; // 使用个数
+
+    bool upgrade = 3; // true表示升级了
+
+}
+
+message C2SUseLevelExpGoodsProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 goods_id = 2; // 物品id
+
+    int32 count = 3; // 使用个数
+
+}
+
+message S2CUseLevelExpGoodsProto {
+
+    int32 captain_id = 1; // 武将id
+
+    int32 goods_id = 2; // 物品id
+
+    int32 count = 3; // 使用个数
+
+    bool upgrade = 4; // true表示升级了
+
+}
+
+message C2SUseLevelExpGoods2Proto {
+
+    int32 captain = 1; // 武将id
+
+    int32 goods_id = 4; // 经验书id（有多种经验书，具体要用哪种）
+
+}
+
+message S2CUseLevelExpGoods2Proto {
+
+    int32 captain = 1; // 武将id
+
+    int32 level = 5; // 刷新等级
+
+    int32 exp = 6; // 刷新经验
+
+    bool upgrade = 4; // true表示升级了
+
+}
+
+message C2SAutoUseGoodsUntilCaptainLevelupProto {
+
+    int32 captain = 1; // 武将id
+
+}
+
+message S2CAutoUseGoodsUntilCaptainLevelupProto {
+
+    int32 captain = 1; // 武将id
+
+    int32 level = 2; // 刷新等级
+
+    int32 exp = 3; // 刷新经验
+
+    bool upgrade = 4; // true表示升级了
+
+}
+
+message S2CGetMaxRecruitSoldierProto {
+
+    int32 count = 1; // 最大可招募士兵数量
+
+}
+
+message S2CGetMaxHealSoldierProto {
+
+    int32 count = 1; // 最大可治疗伤兵数量
+
+}
+
+message S2CJiuGuanConsultProto {
+
+    bytes prize = 1; // 请教奖励
+
+    int32 crit_multi = 2; // 暴击倍率，用于显示
+
+    int32 crit_multi_img_index = 3; // 暴击倍率图片下标，用于显示
+
+    int32 original_index = 5; // 原来的导师，
+
+    int32 tutor_index = 4; // 新的导师 index，数组中的第几个，从0开始
+
+}
+
+message S2CJiuGuanConsultBroadcastProto {
+
+    int32 level = 1; // 酒馆等级
+
+    int32 crit_multi = 2; // 暴击倍率
+
+    string hero_name = 3; // 玩家名字
+
+}
+
+message S2CJiuGuanTimesChangedProto {
+
+    int32 times = 2; // 当前已使用的次数
+
+    int32 next_time = 3; // 下次可请教的时间，unix时间戳
+
+}
+
+message C2SJiuGuanRefreshProto {
+
+    bool auto_max = 1; // true表示一键刷新到最高级
+
+}
+
+message S2CJiuGuanRefreshProto {
+
+    int32 tutor_index = 1; // 新的导师 index，数组中的第几个，从0开始
+
+    int32 refresh_times = 2; // 新的刷新次数
+
+    bool auto_max = 3; // true表示一键刷新到最高级
+
+}
+
+message C2SUnlockCaptainRestraintSpellProto {
+
+    int32 captain = 1; // 武将id
+
+}
+
+message S2CUnlockCaptainRestraintSpellProto {
+
+    int32 captain = 1; // 武将id
+
+}
+
+message S2CNewTroopsProto {
+
+    bytes troop = 1; // 客户端解析成 HeroTroopProto
+
+}
+
+message C2SGetCaptainStatDetailsProto {
+
+    int32 captain = 1; // 武将id
+
+}
+
+message S2CGetCaptainStatDetailsProto {
+
+    int32 captain = 1; // 武将id
+
+    bytes stats = 2; // shared_proto.SpriteStatArrayProto, 属性列表，依次为 武将属性，装备属性，宝石属性，将魂属性, 官职属性
+
+}
+
+message C2SCaptainStatDetailsProto {
+
+    int32 captain = 1; // 武将id
+
+}
+
+message S2CCaptainStatDetailsProto {
+
+    int32 captain = 1; // 武将id
+
+    bytes stats = 2; // shared_proto.SpriteStatArrayProto, 属性列表，依次为 武将属性，装备属性，宝石属性，将魂属性, 官职属性
+
+}
+
+message S2CUpdateTroopFightAmountProto {
+
+    repeated int32 troop_index = 1 [packed = false]; // 1表示1队 2表示2队
+
+    repeated int32 start_value = 6 [packed = false]; // 从start变到end
+
+    repeated int32 end_value = 7 [packed = false];
+
+}
+
+message C2SUpdateCaptainOfficialProto {
+
+    int32 captain = 3; // 武将 id
+
+    int32 official = 4; // 官职 id (CaptainOfficialProto.id)
+
+}
+
+message S2CUpdateCaptainOfficialProto {
+
+    int32 captain = 3; // 武将 id
+
+    int32 official = 4; // 官职 id (CaptainOfficialProto.id)
+
+}
+
+message C2SSetCaptainOfficialProto {
+
+    repeated int32 captain = 3 [packed = false]; // 武将 id
+
+    repeated int32 official = 4 [packed = false]; // 官职 id (CaptainOfficialProto.id)，如果发0就是卸任
+
+    repeated int32 official_idx = 5 [packed = false]; // 该官职的位置下标，从0开始，不允许>=该官职数量上限；如果是卸任，该数据无效
+
+}
+
+message S2CSetCaptainOfficialProto {
+
+    repeated int32 captain = 3 [packed = false]; // 武将 id
+
+    repeated int32 official = 4 [packed = false]; // 官职 id
+
+    repeated int32 official_idx = 5 [packed = false]; // 该官职的位置下标
+
+}
+
+message C2SLeaveCaptainOfficialProto {
+
+    int32 captain = 1; // 武将 id
+
+}
+
+message S2CLeaveCaptainOfficialProto {
+
+    int32 captain = 1; // 武将 id
+
+}
+
+message S2CAddGongxunProto {
+
+    int32 captain = 1; // 武将 id
+
+    int32 new_gongxun = 2; // 新功勋
+
+}
+
+message C2SUseGongXunGoodsProto {
+
+    int32 captain = 1; // 武将id
+
+    repeated int32 goods_id = 2 [packed = false]; // 功勋令牌id（有多种功勋令牌，具体要用哪种）
+
+    repeated int32 count = 3 [packed = false]; // 使用个数
+
+}
+
+message S2CUseGongXunGoodsProto {
+
+    int32 captain = 1; // 武将id
+
+    int32 new_gongxun = 2; // 新功勋
+
+}
+
+message C2SUseGongxunGoodsProto {
+
+    int32 captain = 1; // 武将id
+
+    repeated int32 goods_id = 2 [packed = false]; // 功勋令牌id（有多种功勋令牌，具体要用哪种）
+
+    repeated int32 count = 3 [packed = false]; // 使用个数
+
+}
+
+message S2CUseGongxunGoodsProto {
+
+    int32 captain = 1; // 武将id
+
+    int32 new_gongxun = 2; // 新功勋
+
+}
+
+message C2SCloseFightGuideProto {
+
+    bool close = 1; // 是否关闭
+
+}
+
+message S2CCloseFightGuideProto {
+
+    bool close = 1; // 是否关闭
+
+}
+
+message C2SViewOtherHeroCaptainProto {
+
+    bytes hero_id = 1; // 英雄id
+
+    int32 captain_id = 2; // 武将id
+
+}
+
+message S2CViewOtherHeroCaptainProto {
+
+    bytes hero_id = 2; // 英雄id
+
+    string hero_name = 3; // 英雄名字
+
+    bytes captain = 4; // HeroCaptainOtherProto
+
+}
+
+message C2SCaptainBornProto {
+
+    int32 captain_id = 1; // 武将id
+
+}
+
+message S2CCaptainBornProto {
+
+    bytes captain = 1; // shared_proto.CaptainProto
+
+}
+
+message C2SCaptainUpstarProto {
+
+    int32 captain_id = 1; // 武将id
+
+}
+
+message S2CCaptainUpstarProto {
+
+    int32 captain_id = 3;
+
+    int32 star = 2; // 更新星值
+
+}
+
+message C2SCaptainExchangeProto {
+
+    int32 cap1_id = 1; // 武将1 id
+
+    int32 cap2_id = 2; // 武将2 id
+
+}
+
+message S2CCaptainExchangeProto {
+
+    bytes cap1 = 1; // shared_proto.CaptainProto
+
+    bytes cap2 = 2; // shared_proto.CaptainProto
+
+}
+
+message C2SActivateCaptainFriendshipProto {
+
+    int32 id = 1; // 羁绊id，CaptainFriendshipDataProto.id
+
+}
+
+message S2CActivateCaptainFriendshipProto {
+
+    int32 id = 1; // 羁绊id，HeroMilitaryProto.captainFriendship列表中增加一个
+
+}
+
+message S2CShowPrizeCaptainProto {
+
+    int32 captain = 1; // 武将id
+
+    bool exist = 2; // true表示玩家已经有武将了（换碎片），否则表示获得新武将
+
+}
+
+message C2SNoticeOfficialHasViewedProto {
+
+    int32 official_id = 1; // 官职id
+
+    int32 official_idx = 2; // 槽位，0开始
+
+}
+
+message S2CNoticeOfficialHasViewedProto {
+
+    int32 official_id = 1;
+
+    int32 official_idx = 2;
+
+}
+

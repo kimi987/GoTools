@@ -1,0 +1,221 @@
+
+client_pb_import:
+  "shared.proto"
+
+# config.MainTask 主线任务数据
+# config.BranchTask 支线任务数据
+# heroProto.Task 英雄任务数据
+# config.TaskBox 任务宝箱数据
+# 从以上数据中可以获取到完整的任务列表
+
+# 更新任务进度
+update_task_progress:
+  s2c:
+    id: int // 任务id
+    progress: int // 任务进度
+    complete: bool // true表示任务完成，可以领取奖励了
+
+# 领取任务奖励
+collect_task_prize:
+  c2s:
+    id: int // 任务id
+  s2c:
+    id: int // 任务id，提示领取了奖励，如果是霸业目标任务，不要把任务删除了，继续显示，只是显示奖励已经领取，如果任务是成就任务：客户端不要删除任务，继续显示，只是显示奖励已经领取，删除任务走协议 remove_task
+  s2c_fail:
+    invalid_id: 无效的任务id
+    not_complete: 这个任务没有完成
+    is_collected: 奖励已经领取
+    can_not_collect_this_day: 未到该天，无法领取(霸王之路任务)
+    server_error: 服务器忙，请稍后再试
+
+# 接受新任务，任务接受的时候可能就已经有进度或者完成了
+new_task:
+  s2c:
+    id: int // 任务id
+    progress: int // 任务进度
+    complete: bool // true表示任务完成，可以领取奖励了
+    main: bool // true表示主线任务
+
+# 领取累积宝箱奖励
+collect_task_box_prize:
+  c2s:
+    id: int // 任务宝箱id
+  s2c:
+    id: int // 任务宝箱id
+  s2c_fail:
+    invalid_id: 无效的任务宝箱id
+    task_not_enough: 这个任务完成个数没有达成
+    collected: 这个宝箱已经领取过了
+    prev_not_collected: 前面还有宝箱未领取
+    server_error: 服务器忙，请稍后再试
+
+# 领取霸业目标阶段奖励
+collect_ba_ye_stage_prize:
+  c2s:
+  s2c:
+    stage: bytes // 领取霸业目标阶段奖励成功(客户端提示)，同时返回新的霸业目标，数组长度为0表示没有霸业目标了，解析成 HeroBaYeStageProto
+  s2c_fail:
+    no_ba_ye_stage: 没有霸业目标
+    has_task_not_complete: 有霸业目标任务没有完成
+    has_task_not_collect_prize: 有霸业目标任务没有领取奖励
+    server_error: 服务器忙，请稍后再试
+
+# 客户端判断当前要领取的成就奖励是否达到
+# 当前活跃度 degree
+# for(ActiveDegreeTaskProto task : HeroTaskProto.active_degree_task_list.list){
+#   degree = task.progress * config.GetAchieveTaskData(task.id).add_degree
+# }
+# for(int i = 0; i < len(config.active_degree_prize); i++){
+#   if HeroTaskProto.active_degree_task_list.collected_prize_index 中包含 i {
+#     continue
+#   }
+#
+#   ActiveDegreePrizeProto proto := config.active_degree_prize[i]
+#   if degree >= proto.degree{
+#     这个奖励可以领取
+#   } else {
+#     这个奖励不可以领取
+#   }
+# }
+
+# 收到 misc模块的 reset_daily 协议，将 HeroTaskProto.active_degree_task_list.collected_prize_index 设置为长度为0的数组
+
+# 领取活跃度奖励
+collect_active_degree_prize:
+  c2s:
+    collect_index: int // 领取的活跃度奖励的下标，下标从0开始
+  s2c:
+    collect_index: int // 领取的活跃度奖励的下标，下标从0开始
+  s2c_fail:
+    prize_not_found: 没找到该活跃度奖励
+    degree_not_enough: 活跃度不够
+    collected: 奖励已经领取了
+    server_error: 服务器忙，请稍后再试
+
+# 领取成就星数奖励
+# 计算总的星数，用来检测星数是够还是不够
+# int totalStar = 0
+# for(task: HeroTaskProto.achieve_task_list.list){
+#   if task.collectPrize{
+#       totalStar += task.TotalStar
+#   } else if task.prevTask != 0{
+#       totalStar += task.prevTask.TotalStar
+#   }
+# }
+# return totalStar
+
+# 判断某个成就是否已经领取，通过 判断该星数是不是在 HeroTaskProto.achieve_task_list.collect_star_count 中
+collect_achieve_star_prize:
+  c2s:
+    star_count: int // 领取的星数奖励
+  s2c:
+    star_count: int // 领取的星数奖励，将 star_count 加入 HeroTaskProto.achieve_task_list.collect_star_count 中
+  s2c_fail:
+    prize_not_found: 没找到该成就星数奖励
+    star_not_enough: 星数不够
+    collected: 奖励已经领取了
+    server_error: 服务器忙，请稍后再试
+
+# 成就任务达成
+# 收到该消息的时候，该任务可能没有完成，这时候，这个完成时间是上一个任务的完成时间，用于显示成就的达成时间，客户端在本地数据中取到id相同的 成就任务数据，将 reach_time 设置为下面的值
+achieve_reach:
+  s2c:
+    id: int // 成就任务的id，客户端 读取 AchieveTaskDataProto 中的 id
+    reach_time: int // 达成时间
+
+# 变更选择展示的成就
+# 查看他人：
+#   OtherHeroProto
+#     SelectShowAchievesProto select_show_achieves = 61; // 选中的成就列表(里面的数据是成就任务的id(config.AchieveTask)，客户端自己去成就任务列表里面去取)
+#
+# 查看自己展示的成就
+#
+# for(task: AchieveTaskListProto.list){
+#   if task.achieve_type 在 AchieveTaskListProto.select_show_achieves(成就类型) 数组中{
+#     这是一个展示的成就
+#   }
+# }
+#
+# 判断某个成就是否解锁了，也是通过 achieve_type 在不在 AchieveTaskListProto.select_show_achieves(成就类型) 数组中
+change_select_show_achieve:
+  c2s:
+    achieve_type: int // 成就任务类型
+    add_or_remove: bool // true 表示添加，false 表示移除
+  # 操作成功
+  s2c:
+    achieve_type: int // 成就任务类型
+    add_or_remove: bool // true 表示添加，false 表示移除
+  s2c_fail:
+    not_found: 成就类型没找到
+    locked: 成就未解锁
+    showing: 已经在展示了
+    show_to_many: 展示数量太多，请先移除其他展示成就
+    not_showing: 没在展示中，无法移除
+    server_error: 服务器忙，请稍后再试
+
+# 删除任务
+remove_task:
+  s2c:
+    id: int // 任务id
+
+# 领取霸王之路完成任务奖励
+collect_bwzl_prize:
+  c2s:
+    complete_count: int // 完成的数量
+  # 操作成功
+  s2c:
+    complete_count: int // 完成的数量
+  s2c_fail:
+    not_found: 奖励没找到
+    collected: 已经领取了
+    not_reach: 条件未达成
+    server_error: 服务器忙，请稍后再试
+
+server_pb_import:
+ "github.com/lightpaw/male7/pb/shared_proto/task.proto"
+
+# 查看他人成就列表
+view_other_achieve_task_list:
+  c2s:
+    id: bytes // 请求的人的id
+  s2c:
+    id: bytes // 请求的人的id
+    list: "*shared_proto.OtherAchieveTaskListProto"
+  s2c_fail:
+    invalid_id: 非法的id
+    cant_request_self: 请不要请求自己
+    server_error: 服务器忙，请稍后再试
+
+# 升级称号提升战力，打开面板请求一次
+get_troop_title_fight_amount:
+  c2s:
+    troop_index: int // 队伍id
+    title_id: int // 称号id
+  s2c:
+    troop_index: int // 队伍id
+    title_id: int // 称号id
+    fight_amount: int // 提升的战力
+
+# 升级称号
+upgrade_title:
+  c2s:
+  s2c:
+    complete_title_id: int // 完成的称号id
+  s2c_fail:
+    task_not_complete: 任务还未完成，不能升级
+    max_level: 已达到最高级称号
+    not_enough_cost: 贡品不足
+
+# 完成bool任务
+# TaskTargetProto.Type == shared_proto.TaskTargetType_TASK_TARGET_BOOL类型的任务
+# TaskTargetProto.SubType 对应的shared_proto.HeroBoolType类型
+#
+# 目前支持以下Bool类型（根据需求扩展）
+#
+# HeroBoolType
+#     BOOL_VIEW_MAP = 44; // 看过小地图
+complete_bool_task:
+  c2s:
+    bool_type: int // shared_proto.HeroBoolType
+  s2c:
+    bool_type: int // shared_proto.HeroBoolType

@@ -1,0 +1,6 @@
+	问卷调查的名字			奖励		解锁条件	君主等级	主城等级	联盟等级
+id	name	icon	url	prize			required_hero_level	required_base_level	required_guild_level
+1	初始阶段	1	http://ue.qq.com/mur/?a=survey&c=2&d=7770fe02ee27568156596b0791a4ef49&b=22488	1440			2		
+2	上手阶段	2	http://ue.qq.com/mur/?a=survey&c=2&d=fcc8a187bcd561bccad9fd7de3142897&b=22489	1440			15		
+3	熟悉阶段	3	http://ue.qq.com/mur/?a=survey&c=2&d=89c9fe8ca67b8395025c3709e864277d&b=22490	1440			30		
+4	成就阶段	4	http://ue.qq.com/mur/?a=survey&c=2&d=584b858ba83183c87597d910c7b21c58&b=22491	1440			35		

@@ -1,0 +1,3 @@
+战斗开始的准备时间	战斗中的入场时间	开服多久后开启	开服多久后开启本国都城	开服多久后开启别国都城	开服多久后开启本国都城	开服多久后开启别国都城	每次摧毁的繁荣度	多久摧毁一次繁荣度			补兵时间	速度	名城银两更新	击鼓间隔
+fight_prepare_duration	join_fight_duration	start_after_server_open	start_self_capital_after_server_open	start_other_capital_after_server_open	start_self_capital_notice_after_server_open	start_other_capital_notice_after_server_open	per_destroy_prosperity	destroy_prosperity_duration	wall_stat	wall_fix_damage	relive_duration	speed	daily_update_mingc_time	durm_duration
+15m	180s	168h	336h	504h	300h	474h	100	6s	9000104	20	60s	1	22h	3m

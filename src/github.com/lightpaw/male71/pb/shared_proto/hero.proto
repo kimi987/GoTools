@@ -1,0 +1,479 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+//import "domestic.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/hero_gen.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/domestic.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/military.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/depot.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/tower.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/task.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/captain_soul.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/shop.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/tag.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/dungeon.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/fishing.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/function.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/guizu.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/mail.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/region.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/garden.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/zhengwu.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/question.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/zhanjiang.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/survey.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/hebi.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/setting.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/promotion.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/random_event.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/buff.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/charge.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/vip.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/mingc.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/teach.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/red_packet.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/country.proto";
+
+
+message HeroProto {
+
+    int32 ctime = 101; // 服务器当前时间
+
+    bytes id = 1;
+    string name = 2;
+
+    // 联盟数据
+    int32 guild_id = 6 [deprecated = true]; // 联盟id
+    string guild_name = 5 [deprecated = true]; // 联盟名称
+    string guild_flag_name = 7 [deprecated = true]; // 联盟旗号
+    int32 country_id = 8 [deprecated = true]; // (废弃，用 hero_gen.country) 国家id
+
+    HeroGuildProto guild = 31; // 联盟数据
+    int32 contribution_coin = 32; // 联盟贡献币
+
+    repeated int32 guild_donate_times = 33 [packed = false]; // 联盟捐献次数
+    repeated int32 join_guild_ids = 34 [packed = false]; // 申请加入列表
+    repeated int32 been_invate_guild_ids = 35 [packed = false]; // 邀请列表
+    int32 next_notify_guild_time = 39; // 下次可以提醒加入联盟的时间，客户端在登录、在离开联盟后，发现如果没有联盟，取该时间与当前时间中的最大值+GuildConfigProto.notify_join_guild_duration_on_online_or_leave，在这个时间点来跟服务器请求推荐的联盟
+    //bool has_first_join_guild_prize = 39; // 有首次加入联盟奖励可以领取
+    bool collected_first_join_guild_prize = 40; // 领取了加入联盟奖励
+    bool collected_daily_guild_rank_prize = 44; // 是否当天已经领取了联盟排行奖励
+    int32 join_guild_time = 68; // 加入联盟时间
+    int32 workshop_output_start_time = 77; // 联盟工坊生产次数开始恢复时间
+    repeated Int32PairInt32ArrayProto collected_guild_task_stages = 130; // 联盟任务阶段奖励领取状况
+
+    int32 head = 20; // 头像（已过期）
+    string head2 = 22; // 小头像(Config.Heads中的id)
+    int32 body = 21; // 形象(Config.Bodys中的id)
+    int32 level = 12; // 君主等级
+    int32 exp = 13; // 君主经验
+    bool male = 14; // true表示男人
+
+    int32 location = 76; // 故乡，0表示未选择
+
+    bool has_old_name = 15; // true表示有曾用名
+    int32 next_change_name_time = 16; // 下次可以改名的时间，小于这个时间表示cd中
+    int32 change_hero_name_times = 18; // 变更英雄名字的次数
+    bool give_first_change_hero_name_prize = 19; // 是否有给首次改名奖励
+
+    int32 fight_amount = 17; // 君主战力
+
+    // 野外相关
+    HeroRegionProto region = 29;
+
+    // 主界面军情
+    repeated MilitaryInfoProto self_military_info = 28;
+
+    HeroDomesticProto domestic = 3;
+    HeroMilitaryProto military = 4;
+
+    // 元宝
+    int32 yuanbao = 41;
+    // 点券
+    int32 dianquan = 126;
+
+    int32 yinliang = 106;
+
+    int32 sp = 107;
+    int32 buy_sp_times = 108; // 当日已经购买体力值次数
+
+    int32 create_time = 42; // 创建角色的时间
+
+    int32 accum_login_day = 43; // 累积登陆天数
+
+    ChargeProto charge = 50; // 充值相关
+
+    HeroDepotProto depot = 51; // 背包
+
+    HeroTowerProto tower = 52; // 千重楼数据
+
+    HeroTaskProto task = 53; // 任务数据
+
+    HeroCaptainSoulProto captain_soul = 54; // 将魂数据
+
+    // 开启了的装备合成
+    HeroOpenCombineEquipProto open_combine_equip = 55;
+
+    // 商店数据
+    HeroShopProto shop = 56;
+
+    // 重楼密室
+    HeroSecretTowerProto secret_tower = 57;
+
+    // 副本
+    HeroDungeonProto dungeon = 59;
+
+    // 标签
+    HeroTagProto tag = 61;
+
+    // 君主策略
+    HeroStrategyProto strategy = 62;
+
+    // 客户端数据
+    HeroClientDatasProto client_datas = 63;
+
+    // 钓鱼
+    HeroFishingProto fishing = 64;
+
+    // 功能开启
+    HeroFunctionProto func_open = 65;
+
+    // 贵族
+    HeroGuiZuProto gui_zu = 66;
+
+    // 摇钱树
+    HeroTreasuryTreeProto treasury_tree = 67;
+
+    // 政务
+    HeroZhengWuProto zheng_wu = 69;
+
+    // 过关斩将
+    HeroZhanJiangProto zhan_jiang = 70;
+
+    // 答题
+    HeroQuestionProto question = 71;
+
+    // 关系
+    HeroRelationProto relation = 72;
+
+    // 随机事件
+    HeroRandomEventProto random_event = 78;
+
+    // 问卷调查
+    HeroSurveyProto survey = 73;
+
+    // 设置
+    HeroSettingsProto settings = 74;
+
+    // 合璧
+    HeroHebiProto hebi = 75;
+
+    // bool值
+    int32 bools = 102;
+
+    // arrayIndex = int(type / 32)
+    // boolIndex = (type % 32)
+    repeated uint32 bools_array = 104 [packed = false];
+
+    // 代码生成的proto
+    HeroGenProto hero_gen = 103;
+
+    // buff
+    HeroBuffProto buff = 109;
+
+    HeroVipProto vip = 110;
+
+    // 名城营建
+    HeroMcBuildProto mc_build = 111;
+
+    // 红包
+    HeroRedPacketProto red_packet = 112;
+
+    // 教学
+    HeroTeachProto teach = 116;
+
+    // 国家的一部分数据
+    HeroCountryMiscProto country_official = 117;
+
+    // 营销
+    HeroPromotionProto promotion = 105;
+
+    // 服务器配置
+    HeroServerInfoProto server_info = 127;
+
+}
+
+message HeroGuildProto {
+
+    // 联盟数据
+    int32 id = 1; // id
+
+    string name = 2; // 名字
+
+    string flagName = 3; // 旗号
+
+    int32 country = 4; // 国家，客户端去 Config.default_country 里面去取
+
+    int32 level = 5; // 联盟等级
+
+    bytes leader = 6; // 盟主
+
+}
+
+
+message HeroRelationProto {
+
+    repeated bytes friend = 1; // 好友
+    repeated int32 friend_create_time = 5 [packed = false];
+
+    repeated bytes black = 2; // 黑名单
+    repeated int32 black_create_time = 6 [packed = false];
+
+    repeated HeroEnemyProto enemy = 3; // 仇人
+    repeated HeroImportantFriendProto important = 4; // 星标好友
+}
+
+message HeroRandomEventProto {
+    repeated EventPositionProto events = 1; // 事件列表
+    repeated int32 handbooks = 2 [packed = false]; // 事件图鉴
+}
+
+message HeroEnemyProto {
+    bytes enemy_id = 1; // 仇人 id
+    int32 add_time = 2; // 添加时间
+}
+
+message HeroImportantFriendProto {
+    bytes friend_id = 1; // 星标好友id
+    int32 set_time = 2; // 添加时间
+}
+
+message HeroServerInfoProto {
+    //    int32 pid = 1; // 哪个平台的（暂时先不管这个值）
+    int32 sid = 2; // 哪个服
+    int32 start_time = 3; // 开服时间（计算季节等等）
+
+    // {{local}}/1.txt
+    // {{cos}}/1.txt
+    // http://192.168.1.5/1.txt
+    string local_url = 4; // 本地地址
+    string cos_url = 5; // cos地址
+}
+
+message OtherHeroProto {
+
+    bytes id = 1;
+    string name = 2;
+
+    int32 guild_id = 6; // 联盟id
+    string guild_name = 5; // 联盟名称
+    string guild_flag_name = 7; // 联盟旗号
+    int32 country_id = 8; // 国家id
+
+    string head = 19; // 小头像(将魂id)
+    int32 body = 27; // 形象(Config.Bodys中的id)
+    int32 level = 12; // 君主等级
+    bool male = 14; // true表示男人
+
+    int32 location = 76; // 故乡，0表示未选择
+
+    bool has_old_name = 15; // true表示有曾用名
+
+    int32 fight_amount = 17; // 君主战力
+
+    int32 max_tower_floor = 18; // 重楼层数
+
+    // 主城
+    HeroBaseProto home = 20;
+
+    // 行营
+    HeroBaseProto tent = 26; // 可能为空，空表示没有行营
+
+    // 是否有白旗
+    bool has_white_flag = 25;
+    string white_flag_name = 28; // 白旗旗号
+
+    // 内政
+    HeroDomesticOtherProto domestic = 21;
+
+    // 军衔等级
+    int32 jun_xian_level = 22;
+
+    // 历史最高军衔等级
+    int32 history_max_jun_xian_level = 24;
+
+    int32 max_base_level = 23; // 主城历史最高等级
+
+    // 标签
+    HeroTagProto tag = 59;
+
+    // 将魂
+    HeroCaptainSoulOtherProto captain_soul = 60;
+
+    SelectShowAchievesProto select_show_achieves = 61; // 选中的成就列表
+
+}
+
+message HeroRegionProto {
+
+    // 野外相关
+
+    // 主城
+    HeroBaseProto home = 1;
+
+    int32 white_flag_guild_id = 31; // 插白旗的帮派id
+    string white_flag_guild_flag_name = 32; // 插白旗的帮派旗号
+    int32 white_flag_disappear_time = 33; // 插白旗的消失时间，unix时间戳，单位秒
+
+    int32 mian_start_time = 38; // 免战开始时间，unix时间戳，单位秒
+    int32 mian_disappear_time = 34; // 免战的消失时间，unix时间戳，单位秒
+    int32 next_use_mian_goods_time = 37; // 下次使用免战的时间，unix时间戳，单位秒
+    int32 max_base_level = 35; // 主城最高等级
+
+    int32 move_base_restore_prosperity_buf_end_time = 36; // 主城恢复繁荣度的buf的结束时间，0表示没有buf
+
+    int32 home_defense_troop_index = 11; // 主城防守队伍，0表示没有防守队伍，1表示1队，2表示2队
+
+    MailProto home_troop_defeated_mail_proto = 13; // 主城防守部队被打败的邮件，可能为空
+
+    // 驻守镜像
+    repeated int32 copy_defenser_captain_id = 41 [packed = false]; // 驻守镜像武将id
+    repeated int32 copy_defenser_captain_xindex = 46 [packed = false]; // 驻守镜像武将阵型，012-左中右
+    int32 copy_defenser_soldier = 42; // 驻守镜像武将士兵数（5个加一起）
+    int32 copy_defenser_total_soldier = 43; // 驻守镜像武将总士兵数（5个加一起）
+    int32 copy_defenser_end_time = 44; // 驻守镜像结束时间
+    int32 copy_defenser_troop_index = 45; // 驻守镜像队伍序号，1表示1队
+
+    FavoritePosesProto favorite_poses = 55; // 收藏点
+
+    // 侦查
+    int32 next_investigate_time = 68; // 下一次侦查时间（unix时间戳，秒）
+
+    repeated HeroMultiLevelNpcProto multi_level_npc = 69; // 野怪配置
+    int32 multi_level_npc_pass_level = 70; // 野怪通关等级
+    RecoverableTimesWithExtraTimesProto multi_level_npc_start_recovery_time = 26; // 野怪次数
+
+    RecoverableTimesWithExtraTimesProto invase_hero_start_recovery_time = 27; // 打玩家次数
+
+    RecoverableTimesWithExtraTimesProto jun_tuan_npc_start_time = 28; // 军团野怪开始恢复时间
+
+}
+
+message HeroMultiLevelNpcProto {
+    MultiLevelNpcType type = 1;
+    int32 pass_level = 2; // 通关等级
+    int32 hate = 3; // 仇恨值
+}
+
+message FavoritePosesProto {
+    repeated FavoritePosProto poses = 1; // 收藏点
+}
+
+message FavoritePosProto {
+    int32 id = 1; // 地图id
+    int32 x = 2; // x
+    int32 y = 3; // y
+}
+
+message FavoritePosListProto {
+    repeated FavoritePosDetailProto detail = 1; // 详细列表
+}
+
+message FavoritePosDetailProto {
+    FavoritePosProto pos = 1; // 位置
+
+    bool have_hero = 4; // 是否有玩家在上面，为true读取下面的hero
+    HeroBasicProto hero = 5; // 玩家信息，如果是NPC不用读取下面的是否是主城的信息了
+    bool is_home = 6; // 是否是主城
+}
+
+message HeroBaseProto {
+    int32 base_region = 1; // 基地所在的区域
+    int32 base_level = 2; // 基地等级
+    int32 base_x = 3; // 坐标
+    int32 base_y = 4;
+
+    int32 prosperity = 5; // 当前繁荣度
+}
+
+message StratagemProto {
+    int32 id = 1; // 计策id
+    int32 daily_used_times = 2; // 今日已使用次数
+    int32 next_useable_time = 4; // 下次可使用的时间
+}
+
+message TrappedStratagemProto {
+    int32 id = 1; // 计策id
+    int32 end_time = 3; // 中招结束时间
+}
+
+message StratagemTargetTimesProto {
+    bytes id = 1; // 玩家id
+    int32 times = 2; // 施计次数
+}
+
+message HeroStrategyProto {
+    repeated StratagemProto stratagems = 1; // 计策列表
+    repeated TrappedStratagemProto trapped_stratagems = 2; // 中计列表
+    repeated StratagemTargetTimesProto today_target_times = 3; // 对他人施计次数列表
+}
+
+message HeroClientDatasProto {
+    // 数据，比如 30客户端设置为true了，里面的数组就会包括30，表示已经设置值了
+    repeated int32 int_value = 1 [packed = false];
+
+    repeated int32 client_keys = 2 [packed = false]; // 客户端Keys
+}
+
+enum HeroBoolType {
+    BOOL_JIUGUAN_REFRESH = 0; // 酒馆刷新
+    BOOL_JIUGUAN_CONSULT = 1; // 酒馆请教
+    BOOL_COLLECT_TRAIN_EXP = 2; // 领取修炼馆经验
+    BOOL_FORGE_EQUIPMENT = 3; // 锻造装备
+    BOOL_WEAR_EQUIPMENT = 4; // 武将穿装备
+    BOOL_WEAR_CAPTAIN_SOUL = 5; // 武将穿将魂
+    BOOL_REFINED_CAPTAIN = 6; // 武将强化
+    BOOL_INVASE_HOME_NPC = 7; // 出征暴民
+    BOOL_INVASE_ML_NPC = 8; // 出征野怪
+    BOOL_WORKSHOP_COLLECT = 9; // 领取锻造装备
+    BOOL_LEARN_TECH = 10; // 学习科技
+    BOOL_COLLECT_FARM = 11; // 领取农场
+    BOOL_RECOVER_SOLDIER = 12; // 补兵
+    BOOL_UPGRADE_SOLDIER = 13; // 士兵进阶
+    BOOL_WORKER_CDR = 14; // 建筑加速
+    BOOL_TECH_CDR = 15; // 科技加速
+    BOOL_VIEW_FARM = 16; // 农场
+    BOOL_COMPELTED_FIRST_ZHENGWU = 17; // 第一次刷新政务
+    BOOL_FREE_FISH = 18; // 免费钓鱼
+    BOOL_YUANBAO_FISH = 19; // 元宝钓鱼
+    BOOL_UPGRADE_BASE = 20; //升过主城等级
+    BOOL_BAYE_PRIZE = 21; //领取过霸业奖励（小任务奖励）
+    BOOL_USE_TU_FEI_GOODS = 22; //使用过突飞令
+    BOOL_USE_GEM = 23; //镶嵌过宝石
+    BOOL_GET_CAPTAIN_SOUL = 24; //获得过将魂
+    BOOL_SEEK_CATPAIN = 25; //招募过武将
+    BOOL_UPGRADE_CAPTAIN_SOUL = 26; //升级过将魂(吃过书就算)
+    BOOL_CAPTAIN_UPGRADE_OFFICIAL = 27; //封官过
+    BOOL_AUTO_DUNGEON = 28; // 推图扫荡过
+    BOOL_XUAN_YUAN = 29; // 挑战过轩辕会武
+    BOOL_CLOSE_FIGHT_GUIDE = 30; // 关闭战前部署克制界面
+    BOOL_SET_DEFENSER = 31; // 设置过
+    BOOL_JOIN_NPC_GUILD = 32; // 加入过Npc联盟
+    BOOL_TOWER_FAIL = 33; // 挑战千重楼失败过
+    BOOL_PROTECT_REMOVED = 34; // 脱离新手保护
+    BOOL_BEEN_ROB = 35; // 被掠夺过
+    BOOL_WATER = 36; // 摇钱树浇过水
+    BOOL_PLANT_FARM = 37; // 农场种植
+    BOOL_NPC_BAOWU = 38; // 从NPC处获得过宝物
+    BOOL_UNLOCK_BAOWU = 39; // 开过宝物
+    BOOL_BUY_LEVEL_FUND = 40; // 买过君主等级基金
+    BOOL_CAPTAIN_BORN = 41; // 使用碎片召唤过武将
+    BOOL_CAPTAIN_UP_STAR = 42; // 使用碎片升星过武将
+    BOOL_INVASE_BAOZ = 43; // 打过殷墟（到过就算）
+    BOOL_VIEW_MAP = 44; // 看过小地图
+}

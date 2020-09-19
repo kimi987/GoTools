@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+message GmCmdListProto {
+    string tab = 1; // 页签
+    repeated GmCmdProto cmd = 2;
+}
+
+message GmCmdProto {
+
+    string cmd = 1; // 命令名称
+    string desc = 2; // 描述，显示给使用者看
+
+    bool has_input = 11; // true表示有文本输入框
+    string default_input = 12; // 默认显示在输入框中的内容
+
+    // 还应该要有一个发送按钮，按完给服务器发一个gm消息上来，
+    // cmd = proto.cmd + "空格" + 文本框里面的值
+
+}

@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/monster.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/military.proto";
+
+message ResistXiongNuMiscProto {
+    int32 defense_member_count = 1; // 防守人数
+    int32 invade_duration = 2; // 入侵时长
+    int32 resist_duration = 3; // 反击时长
+    repeated int32 invade_wave_duration = 4 [packed = false]; // 入侵时间，开始后多久开始入侵，客户端可以根据当前是第几波算出下一波的时间
+    int32 max_morale = 5; // 最大士气
+    int32 wipe_out_reduce_morale = 6; // 消灭匈奴部队减少的士气
+    int32 one_morale_reduce_soldier_per = 7; // 一点士气减少士兵的万分比
+    int32 open_need_guild_level = 8; // 开启需要的联盟等级
+    int32 max_can_open_times_per_day = 9; // 每天最大可以开启多少次
+    int32 min_base_level = 10; // 最小主城等级
+    int32 max_distance = 11; // 与设置者的最大距离（里）(客户端用)
+    int32 start_after_server_open = 12; // 开服多久才能开启匈奴
+}
+
+message ResistXiongNuDataProto {
+    int32 level = 1; // 难度等级
+    string name = 8; // 难度名字
+    int32 npc = 2; // npc，NpcBaseDataProto 中的id
+    repeated MonsterMasterDataProto assist_monsters = 3; // 协助怪
+    repeated PrizeProto score_prizes = 4; // 评分奖励
+    repeated int32 score_prestiges = 5 [packed = false]; // 评分奖励联盟声望
+    PrizeProto resist_suc_prize = 6; // 反击成功奖励
+    int32 resist_suc_prestige = 7; // 反击奖励联盟声望
+    int32 total_monster_count = 9; // 总怪物数量
+    int32 max_fight_amount = 10; // 最高战斗力
+    repeated GuildLevelPrizeProto guild_level_prizes = 11; // 联盟等级奖励组
+    repeated PrizeProto show_prizes = 12; // 展示奖励
+}
+
+message ResistXiongNuScoreProto {
+    int32 level = 1; // 评分等级
+    string name = 2; // 评分的名字，此处要支持多语言
+    int32 wipe_out_invade_monster_count = 3; // 消灭入侵队伍数量
+    bool unlock_next_level = 5; // 该评分是否解锁下一难度
+}
+
+message XiongNuProto {
+    int32 level = 1; // 等级
+    int32 base_id = 2; // 主城id，用于让客户端知道场景中哪个是我们的主城
+    int32 base_x = 3; // 主城在场景中的x坐标
+    int32 base_y = 4; // 主城在场景中的y坐标
+    int32 start_time = 5; // 开始时间
+    int32 wipe_out_monster_count = 6; // 消灭怪物数量
+    int32 morale = 7; // 士气
+    int32 wave = 8; // 第几波，0表示第一波还没开始，下一波是第1波
+    int32 next_wave_time = 9; // 下一波的时间
+    repeated bytes can_resist_ids = 11; // 能够反击的人员id列表
+}
+
+// 上次抗击匈奴的数据
+message LastResistXiongNuProto {
+    int32 level = 1; // 等级
+    int32 wipe_out_monster_count = 2; // 消灭怪物数量
+    bool destroy_base = 3; // 是否摧毁了匈奴大营
+    repeated HeroBasicProto defenders = 4; // 防守者
+    int32 grade = 5; // 评分等级
+}
+
+// 抗击匈奴战斗详情，客户端自己做排序
+message ResistXiongNuFightProto {
+    repeated HeroBasicProto hero = 1; // 玩家数据
+    repeated int32 kill_soldier = 2 [packed = false]; // 击杀士兵数
+    repeated int32 been_kill_soldier = 3 [packed = false]; // 死亡士兵数
+    repeated bytes defenser = 4; // 防守成员君主id
+}
+
+// 匈奴主城队伍数据
+message XiongNuBaseTroopProto {
+    XiongNuTroopProto defender = 1; // 防守者
+    repeated XiongNuTroopProto assistors = 2; // 协助者
+}
+
+// 部队信息
+message XiongNuTroopProto {
+    HeroBasicSnapshotProto self = 21;
+    repeated int32 captain_index = 15 [packed = false]; // 部队序号 1-5
+    repeated CaptainInfoProto captains = 16;
+}

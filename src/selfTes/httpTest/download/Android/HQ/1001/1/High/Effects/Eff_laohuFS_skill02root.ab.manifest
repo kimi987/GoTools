@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 1443720535
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 00b7515a2480172a16756b1ddb5b8275
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6441f4c48b8293a736413520ea1a9530
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_laohuFS_skill02root.prefab
+Dependencies: []

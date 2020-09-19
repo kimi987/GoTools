@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 2072964706
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 613f2bbc941d550750e75a0c1b17828e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2c79f45795d053c3c8b37429cac7183d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_feifeiCK_skill02daoguang2.prefab
+Dependencies: []

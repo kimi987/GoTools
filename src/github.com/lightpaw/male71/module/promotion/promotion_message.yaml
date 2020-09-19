@@ -1,0 +1,128 @@
+
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+- "github.com/lightpaw/male7/pb/shared_proto/promotion.proto"
+
+# 领取7日礼包
+#
+# 登陆礼包配置
+# LoginDayDataProto
+#
+# 登陆天数
+# HeroProto
+#    int32 accum_login_day = 43; // 累积登陆天数
+#
+# HeroPromotionProto
+#     // 已领取的登陆天数奖励
+#    repeated int32 collect_login_prize_day = 1;
+#
+collect_login_day_prize:
+  c2s:
+    day: int // 天数
+  s2c:
+    day: int // 天数
+  s2c_fail:
+    invalid_day: 无效的天数
+    day_not_enough: 登陆天数不足
+    collected: 已经领取过奖励
+
+# 购买君主等级基金
+#
+# PromotionMiscDataProto
+#    CostProto hero_level_fund_cost = 1; // 君主等级基金购买消耗
+#
+# HeroBoolType
+#    BOOL_BUY_LEVEL_FUND = 40; // 买过君主等级基金
+buy_level_fund:
+  c2s:
+  s2c:
+  s2c_fail:
+    buyed: 你已购买过了
+    cost_not_enough: 消耗不足
+
+# 领取君主等级基金
+#
+# HeroPromotionProto
+#    // 已领取的君主等级基金
+#    repeated int32 collect_level_fund = 3 [packed = false];
+#
+collect_level_fund:
+  c2s:
+    level: int // 君主等级
+  s2c:
+    level: int // 君主等级
+  s2c_fail:
+    invalid_level: 无效的君主等级
+    not_buy: 你没有购买君主等级基金
+    level_not_enough: 君主等级不足
+    collected: 领取过这个等级的奖励了
+
+# 领取日常体力值奖励
+collect_daily_sp:
+  c2s:
+    id: int // 领取体力表的主键id
+  s2c:
+    id: int // 已经领取掉的id
+    sp: int // 体力值刷新
+  s2c_fail:
+    invalid_id: 无效的id
+    collected: 已经领取过
+    overdue: 不在领取时间段内
+    repair_cost_not_enough: 补领消耗不足
+
+# 领取免费礼包
+collect_free_gift:
+  c2s:
+    id: int // 礼包id
+  s2c:
+    id: int // 接到这个id后当天就不能再申请这个id领了（包括一次性奖励礼包）
+    prize: bytes
+  s2c_fail:
+    invalid_id: 无效的id
+    collected: 已经领取过
+
+# 查看时限礼包
+#view_time_limit_gifts:
+#  c2s:
+#    version: int // 版本（首次发0，后续发s2c中的版本号）
+#  s2c:
+#    version: int // 版本（服务器版本号跟客户端版本号一致，下面字段长度为0）
+#    gifts: shared_proto.TimeLimitGiftProto[] // 礼包列表
+
+# 推送时限礼包（改成主动推送机制），接到这条消息，所有时限礼包重新刷一遍
+notice_time_limit_gifts:
+  s2c:
+    gifts: shared_proto.TimeLimitGiftProto[] // 礼包列表
+
+# 购买时限礼包
+buy_time_limit_gift:
+  c2s:
+    grp_id: int // 时限礼包组id
+  s2c:
+    grp_id: int // 时限礼包组id
+    index: int // 下一个礼包组下标，如果为0则干掉整个group
+  s2c_fail:
+    invalid_id: 无效的id
+    cannot_buy: 无法购买
+    bought: 请等待下次刷新
+    refreshed: 礼包已刷新
+    not_enough_yuanbao: 元宝不足
+
+# 所有事件礼包倒计时结束还未购买的话，前端都要直接删掉该礼包，不再显示
+# 推送事件礼包，接到这条消息直接添加进列表就行了
+notice_event_limit_gift:
+  s2c:
+    gift: shared_proto.EventLimitGiftProto // 事件礼包
+
+# 购买事件礼包
+buy_event_limit_gift:
+  c2s:
+    id: int // 事件礼包id
+  s2c:
+    id: int // 购买成功的事件礼包id，前端直接删掉该礼包，不再显示
+  s2c_fail:
+    invalid_id: 无效的id
+    cannot_buy: 无法购买
+    not_enough_yuanbao: 元宝不足

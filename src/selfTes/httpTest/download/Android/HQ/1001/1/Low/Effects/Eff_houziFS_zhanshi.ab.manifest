@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 431100195
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cd0c4ae9a4ed90419126c0d37bb4dff5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 672de5baeff8deb601ea3679373c0cd1
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_houziFS_zhanshi.prefab
+Dependencies: []

@@ -1,0 +1,5 @@
+特惠id	名称	购买即可获得N元宝	还可以获得价值N元宝大礼包	每日限购(领)	充值金额	奖励包，prize里面要配上give_yuanbao的值
+id	name	give_yuanbao	show_yuanbao	limit	charge_amount	prize
+1	1元礼包	10	288	1	1	2201
+2	3元礼包	30	688	1	3	2202
+3	6元礼包	60	1488	1	6	2203

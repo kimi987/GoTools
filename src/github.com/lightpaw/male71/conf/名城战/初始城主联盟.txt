@@ -1,0 +1,9 @@
+Id	Name	FlagName	Level	Country
+id	name	flag_name	level	country
+10000001	Æë	Æë	3	1
+10000002	³þ	³þ	3	2
+10000003	ÇØ	ÇØ	3	3
+10000004	Ñà	Ñà	3	4
+10000005	ÕÔ	ÕÔ	3	5
+10000006	Îº	Îº	3	6
+10000007	º«	º«	3	7

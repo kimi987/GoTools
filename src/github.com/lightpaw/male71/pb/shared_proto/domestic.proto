@@ -1,0 +1,556 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+//import "base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message HeroLevelProto {
+
+    int32 level = 1; // 君主等级
+    int32 upgrade_exp = 2; // 升级所需经验（1级放的是1升2的升级经验）
+
+    int32 add_soldier_capacity = 22; // 增加带兵量
+    int32 equipment_level_limit = 11; // 装备等级限制
+    int32 captain_soul_level_limit = 21; // 将魂等级限制
+    int32 captain_level_limit = 12; // 武将等级限制
+    int32 captain_count_limit = 13; // 武将个数限制
+    repeated Race unlocked_races = 15 [packed = false]; // 已解锁的武将兵种
+    repeated int32 captain_training_level = 16 [packed = false]; // 武将修炼位初始等级
+    repeated int32 captain_training_level_limit = 17 [packed = false]; // 武将修炼位等级上限
+
+    int32 strategy_limit = 20; // 君主锦囊个数上限
+    int32 sp_limit = 26; // 君主体力值上限
+    int32 troops_count = 23; // 该等级的队伍数量
+    int32 troops_captain_count = 3; // 该等级队伍武将数量
+
+    repeated int32 captain_official_id = 24 [packed = false]; // 官职 ID
+    repeated int32 captain_official_count = 25 [packed = false]; // 官职最大数量
+}
+
+message BaseLevelProto {
+    int32 level = 1; // 主城等级
+    int32 upgrade_prosperity = 2; // 升级所需繁荣度
+    int32 unlock_guan_fu_level = 3; // 解锁的官府等级，0表示不解锁官府等级
+    string unlock_power_range = 4; // 解锁的势力范围图标，空表示不解锁势力范围
+    string appearance_res = 5; // 野外外观资源配置，客户端load不到该资源的话，客户端找个默认的
+}
+
+message BuildingLayoutProto {
+    int32 id = 1;
+    repeated BuildingType building = 2 [packed = false]; // 这个位置允许新建的建筑类型
+
+    int32 require_base_level = 3;
+    sint32 region_offset_x = 4;
+    sint32 region_offset_y = 5;
+
+    bool ignore_conflict = 6; // true表示不会与其他人产生冲突
+}
+
+enum BuildingType {
+    InvalidBuildingType = 0;
+    GUAN_FU = 2; // 官府
+    CANG_KU = 3; // 仓库
+    JIU_GUAN = 4; // 酒馆
+    JUN_YING = 5; // 军营
+    CHENG_QIANG = 6; // 城墙
+    SHU_YUAN = 7; // 书院
+    WAI_SHI_YUAN = 8; // 外使院
+    TIE_JIANG_PU = 9; // 铁匠铺
+    XIU_LIAN_GUAN = 10; // 修炼馆
+    SHI_CHANG = 11; // 市场
+    XING_YING = 12; // 行营
+    MA_CHE = 13; // 马车
+
+    GOLD_PRODUCER = 21; // 金币产出
+    FOOD_PRODUCER = 22; // 食物产出
+    WOOD_PRODUCER = 23; // 木头产出
+    STONE_PRODUCER = 24; // 石头产出
+
+    SI_TU_FU = 30; // 司徒府
+    ZHU_BI_CHANG = 31; // 铸币厂
+    CAI_SHI_CHANGE = 32; // 采石场
+    JI_XIA_XUE_GONG = 33; // 稷下学宫
+    LU_BAN_GONG_FANG = 34; // 鲁班工坊
+
+    SI_MA_FU = 40; // 司马府
+    SHEN_SHE_YING = 41; // 神射营
+    HU_BEN_YING = 42; // 虎贲营
+    CHENG_FANG_JI_GUAN = 43; // 城防机关
+    YU_BEI_BING_SUO = 44; // 预备兵所
+}
+
+message BuildingDataProto {
+    int32 id = 1;
+    BuildingType type = 2;
+    int32 level = 3;
+    int32 work_time = 4; // 施工时间（施工队休息时间）
+    int32 prosperity = 5; // 繁荣度
+    int32 hero_exp = 6; // 升级君主获得的经验值
+    string desc = 7; // 描述
+    string tips = 13; // tips内容
+    string icon_id = 8; // 头像
+    string model = 9; // 模型
+
+    string effect_desc = 10; // 建筑效果描述
+    DomesticEffectProto effect = 11;
+    string notice = 12; // 预告通知
+
+    CostProto cost = 21; // 建造或者升级所需花费
+    repeated int32 require_ids = 22 [packed = false]; // 前提条件，所需的建筑
+    int32 base_level = 23; // 建设时候要求主城等级
+}
+
+message BuildingUnlockDataProto {
+    BuildingType building_type = 1; // 建筑类型
+    int32 guan_fu_level = 2; // 解锁需要的官府等级，0表示不需要通过官府等级解锁
+    int32 hero_level = 3; // 解锁需要的君主等级，0表示不需要通过君主等级解锁
+    int32 main_task_sequence = 4; // 解锁需要的主线任务，0表示不需要通过主线任务解锁
+    int32 ba_ye_stage = 5; // 解锁需要的霸业阶段，0表示不需要通过霸业阶段解锁
+    string desc = 10; // 描述
+    string icon = 11; // 图标
+    int32 notify_order = 12; // 提示排序
+}
+
+message DomesticEffectProto {
+
+    // 建筑cd系数, 这个值需要除以 1000，得到小数系数
+    int32 building_worker_coef = 1;
+    int32 building_worker_fatigue_duration = 3; // 建筑队疲劳时间
+
+    // 科技cd系数, 这个值需要除以 1000，得到小数系数
+    int32 tech_worker_coef = 2;
+    int32 tech_worker_fatigue_duration = 4; // 建筑队疲劳时间
+
+    // 外使院
+    int32 seek_help_cdr = 21; // 求助减少CD
+    int32 seek_help_max_times = 22; // 求助最大被帮助次数
+    int32 guild_donate_times = 23; // 联盟捐献次数
+
+    // 仓库相关
+    repeated AmountProto capcity = 101; // 按顺序，依次 金，粮食，木材，石料
+    AmountProto protected_capcity = 102;
+
+    ResType output_type = 105; // 资源类型
+    AmountProto output = 103;
+    AmountProto output_capcity = 104;
+
+    // 军营相关
+    int32 soldier_capcity = 51; // 士兵最大数量
+    int32 soldier_output = 72; // 士兵产量每小时
+    int32 force_soldier = 73; // 强征士兵数
+    int32 new_soldier_output = 52; // 新兵产量每小时
+    int32 new_soldier_capcity = 53; // 新兵最大数量
+    int32 wounded_soldier_capcity = 54; // 伤兵最大数量
+    int32 recruit_soldier_count = 64; // 征兵招募数量
+
+    // 士兵
+    int32 soldier_load = 55; // 士兵负载
+
+    repeated Race soldier_race = 56 [packed = false]; // 兵种
+    SpriteStatProto soldier_stat = 57; // 士兵科技附加属性
+    SpriteStatProto far_stat = 66; // 远程直接加的属性
+    SpriteStatProto close_stat = 67; // 近战直接加的属性
+    SpriteStatProto all_soldier_stat = 69; // 给所有的兵种类型加的属性
+
+    int32 train_output = 58; // 修炼馆产出系数, 这个值需要除以 1000，得到小数系数
+    int32 train_capcity = 59; // 修炼馆容量系数, 这个值需要除以 1000，得到小数系数
+    int32 train_coef = 65; // 修炼馆经验加成系数, 这个值需要除以 1000，得到小数系数
+
+    int32 train_exp_per_hour = 63; // 修炼馆每小时获得经验值
+
+    int32 tent_prosperity_capcity = 60; // 行营繁荣度
+
+    SpriteStatProto home_wall_stat = 61; // 主城城墙属性，主城BuildingDataProto中的该字段不为空
+    SpriteStatProto tent_wall_stat = 62; // 行营城墙属性，行营BuildingDataProto中的该字段不为空
+
+    int32 home_wall_fix_damage = 70; // 主城城墙固定伤害
+    int32 tent_wall_fix_damage = 71; // 行营城墙固定伤害
+
+    ResType farm_output_type = 106; // 农场资源类型
+    AmountProto farm_output = 107; // 农场产出加成
+
+    repeated AmountProto tax = 108; // 按顺序，依次 金，粮食，木材，石料
+
+    SpriteStatProto added_defense_stat = 109; // 守城附加属性
+    SpriteStatProto added_assist_stat = 110; // 协防附加属性
+    SpriteStatProto added_copy_defense_stat = 113; // 镜像守城附加属性
+
+    int32 building_cost_reduce_coef = 111; // 建筑消耗减少系数，这个值除以1000，得到小数
+    int32 tech_cost_reduce_coef = 112; // 科技消耗减少系数，这个值除以1000，得到小数
+}
+
+message GuanFuLevelProto {
+    int32 level = 1; // 等级
+
+    int32 restore_prosperity = 5; // 繁荣度恢复
+    int32 move_base_restore_home_prosperity = 2; // 迁城buf期间繁荣度
+    int32 buy_prosperity_restore_duration_with1_yuanbao = 3 [deprecated = true]; // （作废，用 buy_prosperity_restore_duration_with1_cost） 购买繁荣度，1元宝能够抵扣的恢复间隔
+    int32 buy_prosperity_restore_duration_with1_cost = 4; // 购买繁荣度，1点券能够抵扣的恢复间隔
+    int32 move_base_restore_home_prosperity_duration = 6; // 迁城恢复繁荣度的buf的间隔
+
+    PrizeProto workshop_prize = 7; // 联盟工坊奖励
+}
+
+message TieJiangPuLevelProto {
+    int32 level = 1; // 等级
+
+    // 铁匠铺
+    int32 max_forging_times = 2; // 该等级的铁匠铺最大能够存多少次锻造次数
+    int32 recovery_forging_duration = 3; // 该等级的铁匠铺多长时间恢复一次
+    repeated int32 can_forging_equip_pos = 4 [packed = false]; // 该等级的铁匠铺能够打造的装备对应的位置，位置从1开始，跟can_forging_equip一一对应
+    repeated int32 can_forging_equip = 5 [packed = false]; // 该等级的铁匠铺能够打造的装备
+    repeated int32 locked_can_forging_equip_pos = 6 [packed = false]; // 该等级的铁匠铺未解锁的能够打造的装备对应的位置，位置从1开始，跟locked_can_forging_equip一一对应
+    repeated int32 locked_can_forging_equip = 7 [packed = false]; // 该等级的铁匠铺未解锁的能够打造的装备
+    repeated int32 locked_equip_need_level = 8 [packed = false]; // 该等级的铁匠铺未解锁的装备需要铁匠铺的等级
+    bool can_one_key_forging = 9; // 能否一键锻造
+}
+
+enum TechType {
+    InvalidTechType = 0;
+    TECH_NEI_ZHENG = 1; // 内政科技
+
+    TECH_BU = 11; // 步兵科技
+    TECH_QI = 12;
+    TECH_GONG = 13;
+    TECH_CHE = 14;
+    TECH_XIE = 15;
+
+    TECH_WALL = 20; // 城墙科技
+
+
+}
+
+message TechnologyDataProto {
+    int32 id = 1;
+    string name = 2;
+    string desc = 8; // 描述
+    TechType type = 3; // 枚举类型
+    int32 sequence = 9; // 序号
+    string icon = 4; // 图标
+    int32 int_icon = 10; // int 图标，客户端控制器使用
+    int32 group = 5; // 分组，如种植术的group都相同
+    int32 level = 6;
+
+    DomesticEffectProto effect = 7; // 效果
+
+    // 研究条件
+    repeated int32 require_building_ids = 11 [packed = false];
+    repeated int32 require_tech_ids = 12 [packed = false];
+
+    bool is_big_tech = 13; // 是否是大科技
+
+    CostProto cost = 21; // 研究消耗
+    int32 work_time = 22; // 研究耗时
+
+    int32 next_level_id = 23; // 该科技的下一级的id(即TechnologyDataProto中的id)，0或者空表示满级了，没有下一级了
+    int32 max_level = 24; // 该科技类型最高等级
+}
+
+message CountdownPrizeDescDataProto {
+    int32 id = 1; // id
+    string desc = 2; // 描述
+}
+
+message HeroDomesticProto {
+    int32 gold = 1; // 当前拥有金钱
+    int32 food = 2;
+    int32 wood = 3;
+    int32 stone = 4;
+
+    int32 safe_gold = 11;
+    int32 safe_food = 12;
+    int32 safe_wood = 13;
+    int32 safe_stone = 14;
+
+    int32 gold_capcity = 6; // 金钱上限
+    int32 food_capcity = 7;
+    int32 wood_capcity = 8;
+    int32 stone_capcity = 9;
+
+    //    int32 protected_gold = 11; // 受保护金钱
+    //    int32 protected_food = 12;
+    //    int32 protected_wood = 13;
+    //    int32 protected_stone = 14;
+
+    int32 protected_capcity = 15; // 受保护资源
+
+    repeated int32 worker_rest_end_time = 16 [packed = false]; // 建筑队休息到什么时候，时间戳(秒)
+    repeated bool worker_seek_help = 51 [packed = false]; // 建筑队是否可以申请帮助
+    repeated bool worker_always_unlocked = 61 [packed = false]; // 建筑队永久解锁
+    repeated int32 worker_lock_start_time = 62 [packed = false]; // 建筑队解锁结束重新锁住的时间, worker_always_unlocked[pos] = false 时有效
+    repeated Int32Pair resource_building = 17 [deprecated = true]; // 资源点 key对应layout的key，value对应BuildingDataProto的id
+    repeated int32 building = 18 [packed = false]; // 城内建筑，对应BuildingDataProto的id
+    repeated HeroResourcePointProto resource_point = 19; // 资源点列表
+    OuterCitiesProto cities = 20; // 所有分城
+
+    repeated int32 technology = 21 [packed = false]; // 当前已研究获得的科技
+    repeated int32 technology_rest_end_time = 22 [packed = false]; // 科技队列休息到什么时候，时间戳(秒)
+    repeated bool technology_seek_help = 52 [packed = false]; // 科研队是否可以申请帮助
+    int32 daily_help_member_times = 53; // 今日帮助盟友次数
+
+    int32 prosperity = 26; // 繁荣度
+    int32 max_prosperity = 27; // 最大繁荣度
+    int32 lost_prosperity = 28; // 损失的繁荣度
+
+    int32 building_worker_coef = 31; // 建筑队cd系数，这个值除以1000，得到小数
+    int32 tech_worker_coef = 32; // 科研队cd系数，这个值除以1000，得到小数
+    int32 building_worker_fatigue_duration = 33; // 建筑队疲劳时间，秒
+    int32 tech_worker_fatigue_duration = 34; // 科技队疲劳时间，秒
+
+    int32 forging_times = 35; // 锻造次数
+    int32 forging_next_time = 36; // 下次可以锻造的时间，unix时间戳
+    repeated int32 new_forging_pos = 46 [packed = false]; // 新锻造位置
+
+    repeated ResType next_collect_time_type = 37 [packed = false]; // 下次可征收资源类型
+    repeated int32 next_collect_time = 38 [packed = false]; // 下次可征收这种资源的时间
+    int32 daily_resource_collect_times = 39; // 今日征收资源次数
+
+    CityEventProto city_event = 40; // 城内事件
+
+    // 签名
+    string sign = 41;
+
+    // 语音
+    bytes voice = 42;
+
+    // 资源点
+    ResourcePointV2Proto resource_point_v2 = 43;
+
+    int32 jade = 44; // 玉石
+    int32 jade_ore = 45; // 玉石矿
+
+    int32 history_jade = 49; // 历史最高玉璧
+    int32 today_obtain_jade = 50; // 今天获得的玉璧
+
+    // 倒计时礼包
+    int32 countdown_collect_time = 55; // 领取的时间点，unix时间戳（秒）
+
+    bool is_collect_season_prize = 57; // 是否领取了季节奖励
+
+    int32 workshop_collect_time = 58; // 锻造中的装备领取时间（0或者nil表示没有锻造中的装备）
+
+    int32 building_cost_reduce_coef = 59; // 建筑消耗减少系数，这个值除以1000，得到小数
+    int32 tech_cost_reduce_coef = 60; // 建筑消耗减少系数，这个值除以1000，得到小数
+}
+
+message HeroDomesticOtherProto {
+
+    int32 prosperity = 26; // 繁荣度
+    int32 max_prosperity = 27; // 最大繁荣度
+    int32 lost_prosperity = 28; // 损失的繁荣度
+
+    // 签名
+    string sign = 41;
+
+    // 语音
+    bytes voice = 42;
+}
+
+// 资源
+message ResourcePointV2Proto {
+    // 资源
+    repeated SingleResourcePointV2Proto resource_point = 1;
+    int32 res_count = 2; // 地块数量
+    int32 conflict_res_count = 3; // 冲突地块数量
+}
+
+message SingleResourcePointV2Proto {
+    ResType res_type = 1; // 资源类型
+    int32 origin_output = 4; // 冲突前的产出
+    int32 real_output = 5; // 真实的产出
+}
+
+message CityEventProto {
+    // 城内事件接受次数
+    int32 accept_times = 1;
+    // 城内事件的时间
+    int32 can_exchange_time = 2;
+    // 城内事件id,0表示没有事件
+    int32 event_id = 3;
+}
+
+message CityEventDataProto {
+    int32 id = 1; // 事件id
+    string desc = 2; // 事件描述
+    CombineCostProto cost = 3; // 消耗
+    PrizeProto prize = 4; // 奖励
+}
+
+message CityEventMiscProto {
+    int32 max_times = 1; // 最大的次数
+    int32 recover_duration = 2; // 恢复间隔
+    int32 unlock_base_level = 3; // 解锁需要的主城的等级
+}
+
+// 装备作坊刷新消耗
+message WorkshopRefreshCostProto {
+    int32 id = 1; // 已经刷新的次数+1，此处从1开始
+    CostProto cost = 2; // 消耗
+}
+
+message StrategyDataProto {
+    int32 id = 1; // 策略id
+    int32 type = 5; // 策略类型 1.内政 2.军事
+    int32 target = 3; // 目标类型: 1.仅自己，2.仅敌人，3.友方，4.仅盟友
+    string name = 2; // 策略名字
+    int32 sp = 7; // 体力值消耗
+    int32 unlock_hero_level = 8; // 解锁等级
+    int32 cd = 9; // 冷却时间
+    int32 today_limit = 10; // 今日使用次限
+    string icon = 11; // 图标
+    string desc = 12; // 策略描述
+}
+
+// 君主策略效果类型
+enum StrategyEffectType {
+    Strategy_ET_invalid = 0;
+    Strategy_ET_prize = 1; // 数值
+    Strategy_ET_farm = 2; // 农场减时间
+    Strategy_ET_random_fast_move = 3; // 迁城
+    Strategy_ET_reduce_tax = 4 [deprecated = true]; // 减税
+    Strategy_ET_reduce_solider = 5; // 减兵
+    Strategy_ET_baoz = 6; // 召唤殷墟
+}
+
+message HeroResourcePointProto {
+    int32 layout_id = 1; // 布局id
+    int32 building_id = 2; // 资源点建筑id
+
+    int32 output_amount = 3; // 当前已产出资源量（可收获的量）
+
+    int32 output_per_hour = 4; // 资源点速度，每小时
+    int32 output_capcity = 5; // 资源点可产出的总量
+
+    // 资源点存在冲突，或者所需的主城等级不足，都不会产出资源
+    bool conflicted = 6; // true表示存在冲突
+    bool base_level_locked = 7; // true表示主城等级不足
+
+}
+
+message OuterCitiesProto {
+    repeated OuterCityProto cities = 1; // 所有分城
+}
+
+message OuterCityProto {
+    int32 city_data_id = 1; // 分城id，即 OuterCityDataProto 中的id
+    repeated int32 layout_ids = 2 [packed = false]; // 分城布局id列表，即 OuterCityLayoutDataProto.Id
+    int32 city_type = 3; // 外城类型 0-军事外城 1-经济外城
+}
+
+// 外城配置
+message OuterCityDataProto {
+    int32 id = 1; // id
+    string name = 2; // 名字
+    string desc = 3; // 描述
+    int32 unlock_guan_fu_level = 4; // 解锁需要的官府等级
+    string lock_icon_id = 5; // 外城被锁的图标
+    string unlock_icon_id = 6; // 外城解锁的图标
+    repeated int32 first_level_layout_datas = 7 [packed = false]; // 外城所有一级的布局配置，在目前一解锁外城就默认全部开启的情况下，客户端可以不处理该数据
+    repeated OuterCityBuildingDescDataProto descs = 8; // 外城建筑描述
+    string region_model_res = 9; // 野外模型
+    string unlock_before_image = 10; // 解锁前图片
+    string unlock_after_image = 11; // 解锁后图片
+    repeated string unlock_desc = 12; // 解锁描述
+}
+
+message OuterCityBuildingDescDataProto {
+    string name = 1; // 建筑名字
+    string icon_id = 2; // 建筑图标
+    string desc = 3; // 描述
+}
+
+message OuterCityLayoutDataProto {
+    int32 id = 1; // id
+    int32 layout = 2; // 布局id
+    string lock_icon_id = 3 [deprecated = true]; //（作废）被锁的图标
+    string unlock_icon_id = 4 [deprecated = true]; //（作废）解锁的图标
+    int32 building_id = 5 [deprecated = true]; //（作废）该布局时上面的建筑id，通过这个客户端可以取到 BuildingDataProto
+    int32 upgrade_require_layout_id = 6; // 升级需要的前置布局id，可能为0，比如升级需要司徒府10级，这里面给到的布局id，里面的 BuildingDataProto(building_id).Level = 10，客户端判断满不满足条件通过 取到该 Layout
+    repeated int32 upgrade_require_ids = 7 [packed = false]; // 升级到该级需要的主城建筑类型跟等级
+    int32 next_level = 8; // 下一级 即 OuterCityLayoutDataProto.id，可能为0，0表示没有下一级
+    string desc = 9 [deprecated = true]; //（作废）描述
+
+    int32 military_building = 10; // 军事分城建筑数据 OuterCityBuildingDataProto
+    int32 economic_building = 11; // 经济分城建筑数据 OuterCityBuildingDataProto
+    CostProto change_type_cost = 12; // 批量改建时候所需的消耗，唯主建筑有效
+}
+
+// 判断某个外城能否升级的判断
+
+// 选取某个外城，获得外城数据(OuterCityDataClass)
+// 选取某个外城建筑，获得 curOuterCityLayoutId
+
+// var curOuterCityLayoutId = ...
+// OuterCityLayoutDataProto curOuterCityLayout = configs.getOuterCityLayoutDataProto(curOuterCityLayoutId)
+// if (curOuterCityLayout == nil){
+//      return "异常了"
+// }
+//
+// if (curOuterCityLayout.next_level == nil || curOuterCityLayout.next_level == 0){
+//      return "满级了"
+// }
+//
+// var nextLevel = configs.getOuterCityLayoutDataProto(curOuterCityLayout.next_level)
+//
+// if nextLevel == nil{
+//      return "满级了"
+// }
+//
+// var nextLevelBuildingData = configs.getBuildingDataProto(nextLevel.building_id)
+// if nextLevelBuildingData == nil{
+//      return "异常了"
+// }
+//
+// for(var requireId in nextLevelBuildingData.require_ids){
+//      var require = configs.getBuildingDataProto(requireId)
+//      if require == nil{
+//          return "异常了"
+//      }
+//
+//      if require.Level > heroProto.GetBuildingLevel(require.Type){
+//          return "前置主城建筑等级不够"
+//      }
+// }
+//
+// for(var requireId in nextLevel.upgrade_require_ids){
+//      var require = configs.getBuildingDataProto(requireId)
+//      if require == nil{
+//          return "异常了"
+//      }
+//
+//      if require.Level > heroProto.GetBuildingLevel(require.Type){
+//          return "前置主城建筑等级不够"
+//      }
+// }
+//
+// if nextLevel.upgrade_require_layout_id != nil && nextLevel.upgrade_require_layout_id != 0 {
+//      var upgradeRquireLayout = configs.getOuterCityLayoutDataProto(nextLevel.upgrade_require_layout_id)
+//
+//      if upgradeRquireLayout == nil{
+//          return "异常了"
+//      }
+//
+//      var curLayout = OuterCityDataClass.getOuterCityLayout(upgradeRquireLayout.layout)
+//      if curLayout == nil{
+//          return "前置外城建筑等级不够"
+//      }
+//
+//      var curLayoutBuilding = configs.getBuildingDataProto(curLayout.building_id)
+//      if curLayoutBuilding == nil{
+//          return "异常了"
+//      }
+//
+//      var requireLayoutBuilding = configs.getBuildingDataProto(upgradeRquireLayout.building_id)
+//      if requireLayoutBuilding == nil{
+//          return "异常了"
+//      }
+//
+//      if curLayoutBuilding.level < requireLayoutBuilding.level{
+//          return "前置外城建筑等级不够"
+//      }
+// }
+//
+// 检查钱够不够

@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 3627504810
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ff693d696fdb84d28213ad0d5e4ee89c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d104e031def48b0f094b871daaefd347
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIEffect/choukaqiu_lan.prefab
+Dependencies: []

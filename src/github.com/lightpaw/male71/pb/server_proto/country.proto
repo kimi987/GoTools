@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message CountriesServerProto {
+    repeated CountryServerProto country = 1;
+}
+
+// 当前的国家
+message CountryServerProto {
+    uint64 id = 1; // 国家id
+    uint64 prestige = 2; // 声望
+    string name = 5;
+    bool destroyed = 4; // 是否被征服
+
+    repeated CountryOfficialServerProto officials = 3; // 官职
+
+    CountryChangeNameVoteServerProto vote = 6;
+
+    int64 next_change_name_time = 7; // 下次改名时间
+}
+
+message CountryChangeNameVoteServerProto {
+    int32 id = 6;
+    string new_name = 1;
+    int64 end_time = 2;
+    uint64 agree_count = 3;
+    uint64 disagree_count = 4;
+    bool completed = 5;
+}
+
+// 国家官职
+message CountryOfficialServerProto {
+    CountryOfficialType type = 1;
+    map<int64, CountryOfficialHeroServerProto> heros = 2; // 当前官职的人
+}
+
+message CountryOfficialHeroServerProto {
+    int64 hero_id = 1; // 当前官职的人
+    int64 appoint_time = 2; // 任命时间
+    int32 pos = 3; // 位置
+}
+
+message HeroCountryMiscServerProto {
+    CountryOfficialType official_type = 1; // 当前官职
+    int64 appoint_time = 3; // 任命时间
+    HeroCountryChangeNameVoteServerProto vote = 2;
+}
+
+message HeroCountryChangeNameVoteServerProto {
+    int32 id = 1;
+    uint64 votes = 2;
+    bool agree = 3;
+}
+

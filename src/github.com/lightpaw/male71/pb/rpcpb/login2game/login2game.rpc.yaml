@@ -1,0 +1,21 @@
+
+complete_questionnaire:
+  c2s:
+    hero_id: int64 // 1 英雄id
+    qnid: string // 2 问卷调查id
+  s2c:
+    success: bool // 1
+    msg: string // 2
+
+buy_product:
+  c2s:
+    order_id: string // 1 订单id
+    order_amount: uint64 // 2 商品价格，人民币分
+    order_time: int64 // 3 订单时间
+    pid: uint32 // 4 平台id
+    sid: uint32 // 5 服务器id
+    hero_id: int64 // 6 英雄id
+    product_id: uint64 // 7 商品id
+  s2c:
+    success: bool // 1
+    msg: string // 2

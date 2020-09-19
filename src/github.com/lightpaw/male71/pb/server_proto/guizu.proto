@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+message HeroGuiZuServerProto {
+    repeated uint64 collected_levels = 1; // 领取了奖励的等级
+}

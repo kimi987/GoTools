@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3688044225
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: caa9ec5a5d4fdf7c06e20a11c7773ef4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c73412a662fd4e4f36af34cbdf078b85
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIImage/CrossService/9.png
+Dependencies: []

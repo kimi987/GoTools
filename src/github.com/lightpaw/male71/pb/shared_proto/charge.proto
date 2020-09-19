@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+message ChargeProto {
+    int32 charge_amount = 1; // 充值总金额
+    repeated int32 collected_charge_prizes = 2 [packed=false]; // 领过的充值奖励
+    repeated BroughtBargainProto bought_bargain_times = 4; // 特惠已购（领）次数列表
+    repeated int32 collected_duration_card_daily_prizes = 3 [packed=false]; // 今日领过奖励的尊享卡
+    repeated DurationCardProto duration_cards = 5; // 尊享卡的结束时间（从未激活过的尊享卡不会在此列表中存在），永久卡则记录的是开卡时间
+    repeated int32 first_charged_objs = 6 [packed=false]; // 首充过的充值项，主键对应 充值项.txt，该列表会根据服务器的首充重置而重置
+}
+
+message BroughtBargainProto {
+    int32 id = 1; // 特惠id
+    int32 times = 2; // 已购（领）次数
+}
+
+message DurationCardProto {
+    int32 id = 1; // 卡片id
+    int32 end_time = 2; // 截止时间（如果是永久卡，则记录的是开卡时间，客户端根据DurationCardProto.Duration是否为0来判断是否是永久卡）
+}

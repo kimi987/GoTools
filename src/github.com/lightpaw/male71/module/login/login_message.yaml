@@ -1,0 +1,93 @@
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+  - "github.com/lightpaw/male7/pb/shared_proto/country.proto"
+
+
+# 客户端登陆，发生一个数字上来，表示用户id，然后收到HeroProto，里面附带英雄数据
+# 内网环境，配置信息通过读取服务器这边的配置，请求misc.NewConfigMsg消息
+# 然后客户端初始化主界面
+internal_login:
+  c2s:
+    id: bytes // int64的数字
+  s2c:
+    heroProto: bytes // shared_proto.HeroProto
+  s2c_fail:
+    already_login: 已经登陆了，不要重复登陆
+    invalid_proto: 发送上来的proto解析不了
+    invalid_id: 发送的id无效
+    kick: 被T下线
+    server_error: 服务器忙，请稍后再试
+
+# 登录协议，具体需要说明的是，如果玩家没有创建角色，服务器会发送新手教程进度协议(tutorial_progress)给客户端
+login:
+  c2s:
+    token: string // 平台token
+    tencent_info: bytes // shared_proto.TencentInfoProto
+  s2c:
+    created: bool // 返回true表示已经创建角色了
+    male: bool // true表示男人
+    head: string // 头像 通过 config.Icons去获得图标
+    building: int[] // 建筑id
+    is_debug: bool // true表示debug模式
+    countries: shared_proto.CountriesProto // 国家。只有id和国名，其他都是nil
+  s2c_fail:
+    already_login: 已经登陆了，不要重复登陆
+    invalid_proto: 发送上来的proto解析不了
+    invalid_id: 发送的id无效
+    kick: 被T下线
+    server_error: 服务器忙，请稍后再试
+    invalid_token: 无效的token
+    ban_login: 账号已被查封
+    invalid_tencent_info: 无效的 tencent_info
+
+# 当前新手教程进度，客户端收到该协议以后，来播放新手教程，如果当前进度在客户端是已经完成了的，那么可以发送 set_tutorial_progress: is_complete = true上来触发服务器发送 login.s2c 协议
+tutorial_progress:
+  s2c:
+    progress: int // 进度
+
+# 设置新手教程进度
+set_tutorial_progress:
+  c2s:
+    progress: int // 进度
+    is_complete: bool // 是否完成了新手教程，发送true，服务器会发送给客户端 login.s2c协议
+
+# 创建君主
+create_hero:
+  c2s:
+    name: string // 君主名称
+    male: bool // true表示男人，false表示女人
+    head_url: string // 默认头像，可以不发送，不发送就是策划配置的默认头像，发送的默认头像必须是 http 开头的
+    country: int // 国家 id
+  s2c: # 空消息，只表示创建成功
+  s2c_fail:
+    no_login: 还没登陆
+    invalid_proto: 发送上来的proto解析不了
+    invalid_name: 名字无效（长度不对）
+    name_exist: 名字已经存在
+    country_err: 国家错误
+    created: 英雄已经创建过了
+    sensitive_words: 名字包含敏感词
+    server_error: 服务器忙，请稍后再试
+
+# 进入场景（加载完资源发这条消息）
+loaded:
+  c2s:
+  s2c:
+    compress: snappy
+    heroProto: bytes // shared_proto.HeroProto
+  s2c_fail:
+    no_login: 还没登陆
+    no_created: 还没创建角色
+
+# 机器人登录, 只在IsDebug打开时允许
+robot_login:
+  c2s:
+    id: int32 // 登陆id
+  s2c:
+
+# 封号消息
+ban_login:
+  s2c:
+    result_time: int // 封号的剩余时间

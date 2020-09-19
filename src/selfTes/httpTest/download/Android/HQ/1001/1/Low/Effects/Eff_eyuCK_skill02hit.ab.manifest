@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 3711847098
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: fc62523349e10fdc834644da409b7528
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_eyuCK_skill02hit.prefab
+Dependencies: []

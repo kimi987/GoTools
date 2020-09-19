@@ -1,0 +1,158 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "captain_soul";
+option optimize_for = SPEED;
+
+
+message S2CSoulActivatedProto {
+
+    bytes data = 2; // 解析成 CaptainSoulProto
+
+}
+
+message C2SCollectFettersPrizeProto {
+
+    int32 id = 1; // 羁绊id
+
+}
+
+message S2CCollectFettersPrizeProto {
+
+    int32 id = 1; // 领取羁绊奖励成功
+
+}
+
+message C2SActivateFettersProto {
+
+    int32 id = 1; // 羁绊id
+
+}
+
+message S2CActivateFettersProto {
+
+    int32 id = 1; // 羁绊id
+
+}
+
+message C2SFuShenProto {
+
+    int32 captain = 1; // 武将id
+
+    bool up = 2; // true附身,false不附身
+
+    int32 soul_id = 4; // 如果是附身，需要带将魂id，不是附身可以发0
+
+    bool inherit = 5; // 附身时：true 传承，false 不传承
+
+}
+
+message S2CFuShenProto {
+
+    int32 captain = 1; // 武将id
+
+    int32 up_soul_id = 3; // 附身的将魂id(0表示将附身的将魂取下来了，非0表示附身了新的将魂，如果是非0且此前有附身的将魂的话，处理此前的将魂没有附身任何武将)
+
+    int32 replace_soul_captain = 4; // 替换了将魂的武将id(非0的话，将该武将身上的将魂取下来)
+
+}
+
+message C2SUpgradeProto {
+
+    int32 captain_soul_id = 1; // 将魂id
+
+}
+
+message S2CUpgradeProto {
+
+    int32 captain_soul_id = 1; // 将魂id
+
+    int32 captain_soul_level = 2; // 将魂新的等级
+
+}
+
+message C2SUpgradeV2Proto {
+
+    int32 captain_soul = 1; // 将魂id
+
+    repeated int32 goods_id = 2 [packed = false]; // 强化符id（有多种强化符，具体要用哪种）
+
+    repeated int32 count = 3 [packed = false]; // 使用个数
+
+}
+
+message S2CUpgradeV2Proto {
+
+    int32 captain_soul = 1; // 将魂id
+
+    int32 exp = 3; // 将魂新的经验
+
+}
+
+message S2CLevelUpgradeProto {
+
+    int32 captain_soul = 1; // 将魂id
+
+    int32 captain_soul_level = 2; // 将魂新的等级
+
+    bytes stat = 3; // 该将魂的总属性变更，如果等级没变，客户端不要读取该字段，依旧用以前的总属性来显示，解析成SpriteStatProto
+
+}
+
+message C2SUnlockSpellProto {
+
+    int32 captain_soul = 1; // 将魂id
+
+    int32 index = 2; // 第几个技能，从0开始
+
+}
+
+message S2CUnlockSpellProto {
+
+    int32 captain_soul = 1; // 将魂id
+
+    int32 index = 2; // 第几个技能，从0开始
+
+    bytes stat = 3; // 该将魂的总属性变更，解析成SpriteStatProto
+
+}
+
+message C2SMarkProto {
+
+    int32 captain_soul = 1; // 将魂id
+
+}
+
+message S2CMarkProto {
+
+    int32 captain_soul = 1; // 将魂id
+
+}
+
+message C2SRebornPreviewProto {
+
+    int32 captain_soul = 1; // 将魂id
+
+}
+
+message S2CRebornPreviewProto {
+
+    int32 captain_soul = 1; // 将魂id
+
+    bytes prize = 4; // shared_proto.PrizeProto
+
+}
+
+message C2SRebornProto {
+
+    int32 captain_soul = 1; // 将魂id
+
+}
+
+message S2CRebornProto {
+
+    int32 captain_soul = 1; // 将魂id
+
+}
+

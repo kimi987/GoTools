@@ -1,0 +1,7 @@
+副本id，对应dungeon表	是否第2次才教学引导		引导武将id	引导初始阵位，如果阵位不改变请src_pos=dst_pos		引导最终阵位，如果阵位不改变请src_pos=dst_pos																									
+id	not_first		captain	src_pos	src_pos_x	dst_pos	dst_pos_x		captain	src_pos	src_pos_x	dst_pos	dst_pos_x		captain	src_pos	src_pos_x	dst_pos	dst_pos_x		captain	src_pos	src_pos_x	dst_pos	dst_pos_x		captain	src_pos	src_pos_x	dst_pos	dst_pos_x
+10101		武将1	39	3	1	1	1	武将2	37	2	1	2	1	武将3	14	1	1	1	1	武将4						武将5					
+10103		武将1	37	3	1	2	1	武将2	39	2	1	2	1	武将3	14	1	1	1	1	武将4						武将5					
+10201		武将1	37	4	1	2	1	武将2	14	1	1	1	1	武将3	39	2	1	2	1	武将4	1	3	1	3	1	武将5					
+10203		武将1	14	2	1	2	2	武将2	39	4	1	4	2	武将3	37	1	1	1	1	武将4	1	3	1	3	1	武将5					
+10205		武将1	1	1	1	1	2	武将2	39	2	1	2	2	武将3	37	3	1	3	2	武将4	14	4	1	4	2	武将5					

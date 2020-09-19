@@ -1,0 +1,34 @@
+ManifestFileVersion: 0
+CRC: 2763071838
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 76aa21bcf0862c745b8d23bb31b2bacd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d7ce1352e9a269d74d6f25367f0de14c
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Bullet_huliFS.prefab
+Dependencies: []

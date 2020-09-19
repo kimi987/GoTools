@@ -1,0 +1,326 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message GoodsDataProto {
+
+    int32 id = 1; // id
+
+    string name = 2; // 名称
+
+    string desc = 3; // 描述
+
+    string icon_id = 7; // 图标id
+
+    repeated string obtain_ways = 12; // 获取途径
+
+    Quality quality = 5 [deprecated = true]; // 品质，作废，用 goods_quality = 10
+    int32 goods_quality = 10; // 物品品质 GoodsQualityProto.level
+
+    int32 yuanbao_price = 6; // 元宝售价
+
+    int32 dianquan_price = 9; // 点券售价
+
+    int32 yinliang_price = 11; // yinliang售价
+
+    int32 cd = 8; // 冷却时间，单位秒
+    int32 captain = 4; // 武将id
+
+    // 效果
+    GoodsEffectType effect_type = 20; // 效果类型
+    GoodsEffectProto goods_effect = 25; // 物品效果
+
+    GoodsSpecType spec_type = 31; // 特殊类型物品
+
+    HebiType hebi_type = 32; // 合璧类型
+    HebiSubType hebi_sub_type = 33; // 合璧子类型
+
+    int32 partner_hebi_goods = 34; // 匹配玉璧
+}
+
+// 物品品质
+message GoodsQualityProto {
+    int32 level = 1; // 品质等级
+    Quality quality = 3; // 品质
+    string name = 2; // 品质名
+}
+
+enum GoodsEffectType {
+    Normal = 0; // 普通物品
+    EFFECT_RESOURCE = 1; // 资源物品
+    EFFECT_CDR = 2; // 减cd物品
+    EFFECT_MOVE_BASE = 3; // 迁城物品
+    EFFECT_EXP = 4; // 经验丹（包含，君主经验丹，武将强化经验丹）
+    EFFECT_MIAN = 5; // 免战牌
+    EFFECT_SPEED_UP = 6; // 行军加速道具
+    EFFECT_TRAIN_EXP = 7; // 武将修炼经验丹
+    EFFECT_PARTS = 8; // 零件
+    EFFECT_TFL = 9; // 讨伐令
+    EFFECT_DURATION = 10; // 时间物品
+    EFFECT_AMOUNT = 11; // 数据类物品（比如,虎符）
+    EFFECT_GCL = 12; // 攻城令
+    EFFECT_BUFF = 13; // buff物品
+}
+
+enum GoodsExpEffectType {
+    InvalidGoodsExp = 0; // 无效值
+    EXP_HERO = 1; // 君主经验丹
+    EXP_CAPTAIN_REFINED = 2; // 武将强化经验丹
+    EXP_CAPTAIN_REBIRTH = 3; // 武将转生经验丹
+    EXP_CAPTAIN_SOUL_UPGRADE = 4; // 将魂升级加经验
+    EXP_GONG_XUN = 5; // 功勋令牌
+    EXP_CAPTAIN = 6; // 新突飞令
+}
+
+enum GoodsMoveBaseType {
+    InvalidGoodsMoveBase = 0; // 无效值
+    MOVE_BASE_POINT = 1; // 高级迁城令（可以选择位置）
+    MOVE_BASE_RANDOM = 2; // 随机迁城令
+    MOVE_BASE_GUILD = 3; // 联盟迁城令（迁到盟主附近）
+}
+
+enum GoodsAmountType {
+    InvalidAmount = 0;
+    AmountHufu = 1; // 虎符值
+    AmountZhanjiang = 2; // 过关斩将次数
+    AmountTower = 3; // 千重楼扫荡次数
+    AmountJunTuan = 4; // 讨伐军团Npc次数
+}
+
+enum GoodsSpecType {
+    InvalidGoodsAmountType = 0;
+    GAT_GOLD = 1; // 铜币
+    GAT_FOOD = 2; // 粮食
+    GAT_WOOD = 3; // 木材
+    GAT_STONE = 4; // 石材
+    GAT_YUANBAO = 5; // 元宝
+    GAT_CAPTAIN_EXP = 6; // 武将经验
+    GAT_HERO_EXP = 7; // 君主经验
+    GAT_PROSPERITY = 8; // 繁荣度
+    GAT_DIANQUAN = 9; // 点券
+    GAT_GUILD_CONTRIBUTION_COIN = 10; // 联盟贡献币
+    GAT_GUILD_CONTRIBUTION = 11; // 联盟贡献
+    GAT_HEBI = 12; // 合璧物品
+    GAT_HEBI_COPY_SELF = 13; // 合璧分身物品
+    GAT_CHANGE_COUNTRY = 14; // 转国物品
+    GAT_YIN_LIANG = 15; // 银两
+    GAT_SP = 16; // 体力
+}
+
+enum GoodsDurationEffectType {
+    InvalidGoodsDuration = 0; // 无效值
+    COPY_DEFENSER = 1; // 驻防镜像时间
+}
+
+// 玉璧类型
+enum HebiType {
+    HebiInvalidType = 0;
+    HeShiBi = 1; // 和氏璧
+    HuWenBi = 2;
+    XueFengBi = 3;
+}
+
+// 玉璧左右
+enum HebiSubType {
+    HebiInvalidSubType = 0;
+    HebiLeft = 1;
+    HebiRight = 2;
+}
+
+message GoodsEffectProto {
+    // 资源类物品
+    int32 gold = 1;
+    int32 food = 2;
+    int32 wood = 3;
+    int32 stone = 4;
+
+    // 减少cd类物品
+    bool building_cdr = 5; // true表示可以用于建筑减cd
+    bool tech_cdr = 6; // true表示可以用于科技减cd
+    bool workshop_cdr = 14; // true表示可以用于装备锻造减cd
+    int32 cdr = 7; // 减少cd时间，单位秒
+
+    // 经验丹物品
+    GoodsExpEffectType exp_type = 8; // 经验丹类型
+    int32 exp = 9; // 经验值
+
+    // 迁移城池物品
+    GoodsMoveBaseType move_base_type = 15; // 迁城令类型
+    bool move_base = 10 [deprecated = true]; // true表示迁城令
+    bool move_tent = 12 [deprecated = true]; // true表示迁行营令，行营只有高级，没有随机
+    bool random_pos = 11 [deprecated = true]; // true表示随机迁城令（低级），false表示高级迁城令（可以指定坐标）
+    bool guild_move_base = 13 [deprecated = true]; // true表示联盟主城迁城令
+
+    // 免战牌
+    int32 mian_duration = 21; // 免战持续时间，单位秒
+
+    int32 troop_speed_up_rate = 22; // 行军加速系数，这个值需要除以 1000，得到小数系数
+
+    // 修炼馆经验丹
+    int32 train_duration = 23; // 修炼时长
+
+    // 零件
+    int32 parts_combine_id = 24; // 零件合成完整物品id，可能是物品，装备，宝石
+    int32 parts_combine_count = 25; // 多少个零件合1个完整的物品
+    repeated PrizeProto parts_show_prize = 27; // 零件合成奖励预览
+    int32 parts_show_type = 28; // 零件合成展示类型，屌不屌的就看这个
+
+    // 讨伐令
+    bool add_multi_level_npc_times = 26;
+
+    // 攻城令
+    bool add_invase_hero_times = 33;
+
+    // 时间物品
+    GoodsDurationEffectType duration_type = 29;
+    int32 duration = 30;
+
+    // 数据类物品(比如虎符)
+    GoodsAmountType amount_type = 31;
+    int32 amount = 32;
+
+    // buff id
+    int32 buff_id = 34;
+}
+
+enum EquipmentType {
+    InvalidEquipmentType = 0;
+    WU_QI = 1; // 武器
+    TOU_KUI = 2; // 头盔
+    KAI_JIA = 3; // 铠甲
+    SHI_PIN = 4; // 饰品
+    HU_TUI = 5; // 护腿
+}
+
+message EquipmentDataProto {
+
+    int32 id = 1; // id
+
+    string name = 2; // 名字
+
+    string desc = 3; // 描述
+
+    string icon_id = 8; // 图标id
+
+    EquipmentType type = 5; // 部件
+
+    SpriteStatProto base_stat = 6; // 基础属性
+
+    int32 quality = 7; // 品质编号，根据这个值，EquipmentQualityProto
+}
+
+message EquipmentQualityProto {
+    int32 id = 1; // 装备品质编号
+
+    int32 level = 2 [deprecated = true]; // (作废，用 goods_quality) 从1开始，依次表示,白，绿，蓝，紫（紫1，紫2，紫3，具体问策划有多少个），橙，红
+
+    int32 goods_quality = 5; // 物品品质 GoodsQualityProto.level
+
+    int32 refined_level_limit = 3; // 最大可强化次数
+
+    int32 smelt_back_count = 4; // 装备熔炼返还物品个数
+}
+
+message EquipmentRefinedProto {
+    int32 level = 1; // 强化等级
+
+    int32 cost_count = 2; // 强化消耗物品个数
+
+    int32 total_cost_count = 3; // 当前等级总强化消耗个数（用于熔炼时候显示返回物品个数）
+
+    int32 hero_level_limit = 4; // 君主等级限制
+}
+
+// 装备套装属性
+message EquipmentTaozProto {
+    int32 level = 1; // 套装等级
+
+    int32 count = 2; // 装备件数
+
+    int32 refined_level = 3; // 强化等级
+
+    int32 morale = 4; // 士气
+
+    SpriteStatProto sprite_stat = 5; // 属性
+}
+
+message EquipmentProto {
+
+    int32 id = 1; // 唯一id
+
+    int32 data_id = 2; // 装备数据id
+
+    int32 level = 3; // 装备等级
+
+    int32 refined_level = 4; // 强化等级
+
+    SpriteStatProto total_stat = 5; // 装备总属性
+    SpriteStatProto level_stat = 6; // 装备等级属性
+    SpriteStatProto current_refined_stat = 7; // 装备强化属性
+
+    // 升级相关（客户端要处理最后一级，这个时候是没有数据的）
+    SpriteStatProto upgrade_level_stat = 21; // 升级加多少属性
+    int32 upgrade_level_cost = 22; // 升级等级消耗物品个数
+    int32 upgrade_level_total_cost = 23; // 升级等级总消耗的物品个数（重铸时返还个数）
+    // 熔炼返还个数 = 重铸返还个数 + EquipmentQualityProto.smelt_back_count
+
+    // 强化相关
+    SpriteStatProto refined_stat = 24; // 强化加多少属性
+    int32 refined_stat_percent = 25; // 强化百分比
+}
+
+message GoodsCombineDataProto {
+    int32 id = 1; // 合成的id
+    CostProto cost = 2; // 消耗
+    PrizeProto prize = 3; // 奖励
+}
+
+message EquipCombineDataProto {
+    int32 id = 1; // 分组id
+    string group_name = 2; // 分组, 用于显示XXX套装
+    int32 cost_goods_id = 3; // 消耗的物品id，用于显示：XXX碎片
+    repeated int32 combine_equip_id = 4 [packed = false]; // 合成的装备id，用于显示合成的装备名字 XXX头盔/XXX护腿，这里跟下面的combine_data是一一对应的
+    repeated GoodsCombineDataProto combine_data = 5; // 数据，用于客户端计算材料够不够，即合成按钮显示灰色还是蓝色
+}
+
+message GemDataProto {
+    int32 id = 1; // 配置id
+
+    string name = 2; // 名称
+
+    string desc = 3; // 描述
+
+    string icon_id = 12; // 图标id
+
+    int32 gem_type = 5; // 宝石类型，相同的宝石不可以放在同一个部位上
+
+    int32 level = 6; // 等级
+
+    Quality quality = 7; // 品质，可能每一级的品质也不同
+
+    SpriteStatProto base_stat = 8; // 基础属性
+
+    int32 yuanbao_price = 13; // 元宝价格
+
+    // 计算升级到该级总共需要多少一级宝石
+    // totalNeedCount = 1
+    // for(this.prevLevel != 0) {
+    //      totalNeedCount *= this.prevLevel.upgrade_need_count
+    //      this = this.prevLevel
+    // }
+    int32 upgrade_need_count = 9; // 该等级升级到下一级需要的数量，
+
+    int32 prev_level = 10; // 上一级的id，0表示没有上一级
+
+    int32 next_level = 11; // 下一级的id，0表示没有下一级
+}
+
+message GemSlotDataProto {
+    int32 slot_idx = 1; // 宝石槽位，此处从0开始
+    int32 need_ability = 2; // 该槽位需要的成长值
+    EquipmentType type = 3; // 部件
+}

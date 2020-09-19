@@ -1,0 +1,3 @@
+女性武将图像，配置icon.txt 中的id	女性武将图像，配置icon.txt 中的id	女性武将图像，配置icon.txt 中的id	女性武将图像，配置icon.txt 中的id	女性武将图像，配置icon.txt 中的id		男性武将图像，配置icon.txt 中的id	男性武将图像，配置icon.txt 中的id	男性武将图像，配置icon.txt 中的id	男性武将图像，配置icon.txt 中的id	男性武将图像，配置icon.txt 中的id
+female_heads	female_heads	female_heads	female_heads	female_heads		male_heads	male_heads	male_heads	male_heads	male_heads
+wujiang6	wujiang7	wujiang8	wujiang9	wujiang10		wujiang1	wujiang2	wujiang3	wujiang4	wujiang5

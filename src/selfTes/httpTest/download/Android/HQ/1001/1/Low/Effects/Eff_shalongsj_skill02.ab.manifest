@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 1784018208
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5d7fd757895f994fe251658434a1d42b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 77c0a258cbeb415febf6373a80a5154c
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_shalongsj_skill02.prefab
+Dependencies: []

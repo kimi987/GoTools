@@ -1,0 +1,3 @@
+默认次数	最大挑战次数	最大协助次数	恢复间隔
+default_times	max_times	max_help_times	recover_duration
+2	2	5	24h

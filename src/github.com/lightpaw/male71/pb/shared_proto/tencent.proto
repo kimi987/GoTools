@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+message TencentInfoProto {
+    bytes heroID = 1; // 玩家 ID
+    string openID = 2; // (必填)用户OPENID号
+    int32 platID = 3; // (必填)ios 0/android 1
+    string clientIP = 4; // (必填)客户端IP(后台服务器记录与玩家通信时的IP地址)
+    string clientTelecom = 5; // (必填)运营商
+    string clientNetwork = 6; // (必填)3G/WIFI/2G
+    string clientHardware = 7; // (必填)移动终端机型
+    string clientSoftware = 8; // (可选)移动终端操作系统版本
+    string clientVersion = 9; // (必填)客户端版本
+    string RegChannel = 10; // (必填)注册渠道
+    int32 ScreenWidth = 11; // (可选)显示屏宽度
+    int32 ScreenHight = 12; // (可选)显示屏高度
+    float Density = 13; // (可选)像素密度
+    string LoginChannel = 14; // (必填)登录渠道
+    string CpuHardware = 15; // (可选)cpu类型-频率-核数
+    int32 Memory = 16; // (可选)内存信息单位M
+    string GLRender = 17; // (可选)opengl render信息
+    string GLVersion = 18; // (可选)opengl版本信息
+    string DeviceId = 19; // (可选)设备ID
+}

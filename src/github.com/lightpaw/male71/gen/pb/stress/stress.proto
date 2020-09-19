@@ -1,0 +1,20 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "stress";
+option optimize_for = SPEED;
+
+
+message C2SRobotPingProto {
+
+    int32 time = 1;
+
+}
+
+message S2CRobotPingProto {
+
+    int32 time = 1;
+
+}
+

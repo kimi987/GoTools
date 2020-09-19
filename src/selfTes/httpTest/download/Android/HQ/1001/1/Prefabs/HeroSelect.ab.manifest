@@ -1,0 +1,47 @@
+ManifestFileVersion: 0
+CRC: 3433201136
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c80a06319c3dca034e35072ec8eac885
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b2751047f6805666a8a906be0dfbde5b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 69640b3be0bee7d4b851e3b526669f06, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 119
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/HeroSelect.prefab
+Dependencies:
+- '/Users/kimiwang/Documents/ResPath/Dev
+
+  /Android/HQ/uiimage/summon/commonbg.ab'

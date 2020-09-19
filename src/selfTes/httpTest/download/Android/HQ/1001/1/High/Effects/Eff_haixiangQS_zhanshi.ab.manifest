@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 3820568665
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ad460ea7e46ec957bc884b4c6b266052
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_haixiangQS_zhanshi.prefab
+Dependencies: []

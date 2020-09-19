@@ -1,0 +1,387 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+enum Race {
+    InvalidRace = 0; // 兼容proto2
+    BU = 1; // 步兵
+    QI = 2; // 骑兵
+    GONG = 3; // 弓兵
+    CHE = 4; // 车兵
+    XIE = 5; // 器械
+}
+
+enum RestraintRoundType {
+    InvalidType = 0; // 无效的轮次类型
+    ODD = 1; // 奇数轮
+    EVEN = 2; // 偶数轮
+}
+
+enum PosDiraction {
+    InvalidPosDiraction = 0; // 无效的方位类型
+    EAST = 1; // 东
+    SOUTH = 2; // 南
+    WEST = 3; // 西
+    NORTH = 4; // 北
+}
+
+message RaceDataProto {
+
+    int32 id = 1;
+
+    Race race = 2;
+
+    int32 attack_range = 3;
+    int32 move_times_per_round = 4;
+    int32 move_speed = 5;
+    int32 view_range = 19; // 可视范围
+
+    bool is_far = 6; // 是远程(true)/还是近战(false)
+
+    // 高优先级在前面
+    repeated Race priority = 11 [packed = false];
+
+    // 兵种克制系数
+    repeated int32 race_coef = 12 [packed = false];
+
+    // 对城墙的克制系数
+    int32 wall_coef = 18;
+
+    // 四维属性比例，分母1000
+    repeated int32 ability_rate = 22 [packed = false];
+
+    // 克制职业
+    repeated Race restraint_race = 13 [packed = false];
+
+    // 克制轮次类型
+    RestraintRoundType restraint_round_type = 14;
+
+    // 克制技，获取通过Config.spell_config.Get(id)
+    int32 restraint_spell_id = 15;
+
+    // 解锁克制技需要的成长值
+    int32 unlock_restraint_spell_need_ability = 16;
+
+    // 普通技，获取通过Config.spell_config.Get(id)
+    int32 normal_spell_id = 17;
+
+    // 宝石镶嵌的槽位类型列表
+    repeated int32 gem_types = 20 [packed = false];
+
+    // 兵种技能
+    repeated int32 soldier_spell = 21 [packed = false];
+
+    // 兵种攻速
+    int32 soldier_attack_speed = 23;
+
+    // 兵种攻击距离
+    int32 soldier_attack_range = 24;
+}
+
+enum Quality {
+    InvalidQuality = 0; // 兼容proto2
+    WHITE = 1; // 白色
+    GREEN = 2; // 绿色
+    BLUE = 3; // 蓝色
+    PURPLE = 4; // 紫色
+    ORANGE = 5; // 橙色
+    RED = 6; // 红色
+}
+
+enum ResType {
+    InvalidResType = 0; // 兼容proto2
+    GOLD = 1;
+    FOOD = 2;
+    WOOD = 3;
+    STONE = 4;
+}
+
+message ResProto {
+    ResType type = 1;
+    int32 amount = 2;
+    int32 percent = 3; // 万分比
+}
+
+message AmountProto {
+    int32 amount = 2;
+    int32 percent = 3; // 千分比
+}
+
+message CombineCostProto {
+    CostProto cost = 1; // 消耗
+    int32 building_worker_time = 2; // 建筑队耗时
+    int32 tech_worker_time = 3; // 科研队耗时
+    int32 soldier = 4; // 消耗的军营中空闲的士兵数量
+    int32 invade_times = 5; // 消耗的出征次数
+}
+
+message CostProto {
+    int32 gold = 1;
+    int32 food = 2;
+    int32 wood = 3;
+    int32 stone = 4;
+
+    int32 yuanbao = 7; // 元宝
+    int32 dianquan = 14; // 点券
+    int32 yinliang = 15; // 银两
+
+    int32 guild_contribution_coin = 8; // 帮派贡献币
+
+    int32 jade = 9; // 玉璧
+    int32 jade_ore = 12; // 玉石矿
+
+    repeated int32 goods_id = 5 [packed = false];
+    repeated int32 goods_count = 6 [packed = false];
+
+    repeated int32 gem_id = 10 [packed = false];
+    repeated int32 gem_count = 11 [packed = false];
+
+    bool is_not_empty = 127; // true表示非空
+}
+
+message PrizeProto {
+    int32 gold = 1;
+    int32 food = 2;
+    int32 wood = 3;
+    int32 stone = 4;
+
+    // 安全资源
+    int32 safe_gold = 21;
+    int32 safe_food = 22;
+    int32 safe_wood = 23;
+    int32 safe_stone = 24;
+
+    repeated int32 goods_id = 5 [packed = false];
+    repeated int32 goods_count = 6 [packed = false];
+
+    repeated int32 equipment_id = 7 [packed = false];
+    repeated int32 equipment_count = 8 [packed = false];
+
+    //    repeated int32 captain_soul_id = 9 [packed = false];
+    //    repeated int32 captain_soul_count = 10 [packed = false];
+
+    repeated int32 gem_id = 11 [packed = false];
+    repeated int32 gem_count = 12 [packed = false];
+
+    repeated int32 baowu_id = 13 [packed = false];
+    repeated int32 baowu_count = 14 [packed = false];
+
+    repeated int32 captain_id = 15 [packed = false];
+    repeated int32 captain_count = 16 [packed = false];
+
+    int32 captain_exp = 31; // 武将经验
+    int32 hero_exp = 32; // 君主经验
+
+    int32 prosperity = 35; // 繁荣度
+
+    int32 yuanbao = 40; // 元宝
+    int32 dianquan = 41; // 点券
+    int32 yinliang = 42; // 银两
+
+    int32 jade = 46; // 玉石
+    int32 jade_ore = 47; // 玉石矿
+    int32 vip_exp = 49; // VIP经验
+    int32 sp = 50; // 体力值
+
+    int32 guild_contribution_coin = 48; // 联盟贡献币
+
+    int32 amount_show_sort_id = 100; // 数值展示排序id，可能为0，0表示完全按照客户端的规则排序
+
+    bool is_not_empty = 127; // true表示非空
+}
+
+// 联盟条件奖励
+message GuildLevelPrizeProto {
+    int32 id = 1;
+    int32 group_id = 2; // 分组 id，每一组都有一整套联盟等级奖励
+    int32 guild_level = 3; // 联盟等级
+    PrizeProto prize = 4;
+}
+
+message AmountShowSortProto {
+    int32 id = 1; // id
+    repeated AmountType type_list = 2 [packed = false]; // 奖励类型列表
+}
+
+enum AmountType {
+    InvalidAmountType = 0;
+    PT_GOLD = 1; // 金币
+    PT_FOOD = 2; // 食物
+    PT_WOOD = 3; // 木头
+    PT_STONE = 4; // 石头
+    PT_GOODS = 5; // 物品
+    PT_EQUIP = 6; // 装备
+    PT_CAPTAIN = 7; // 武将
+    PT_GEM = 8; // 宝石
+    PT_CAPTAIN_EXP = 9; // 武将经验
+    PT_HERO_EXP = 10; // 君主经验
+    PT_PROSPERITY = 11; // 繁荣度
+    PT_YUANBAO = 12; // 元宝
+    PT_JADE = 13; // 玉石
+    PT_JADE_ORE = 14; // 玉石矿
+    PT_DIANQUAN = 15; // 点券
+    PT_GUILD_CONTRIBUTION_COIN = 16; // 联盟贡献币
+    PT_BAOWU = 17; // 宝物
+    PT_YINLIANG = 18; // 银两
+    PT_HUFU = 19; // 虎符
+    PT_SP = 20; // 体力
+}
+
+message ExchangeDataProto {
+    int32 id = 1; // id
+    CostProto cost = 2; // 扣一个东西
+    PrizeProto prize = 3; // 给一个东西
+}
+
+message UnlockConditionProto {
+
+    int32 required_hero_level = 1; // 需要君主等级
+
+    int32 required_base_level = 2; // 需要主城等级
+
+    int32 required_guild_level = 3; // 需要联盟等级
+
+    int32 required_vip_level = 4; // 需vip等级
+}
+
+enum StatType {
+    InvalidStatType = 0; // 兼容proto2
+    ATTACK = 1;
+    DEFENSE = 2;
+    STRENGTH = 3;
+    DEXTERITY = 4;
+}
+
+message Int32Pair {
+    int32 key = 1;
+    int32 value = 2;
+}
+
+message StringPair {
+    string key = 1;
+    string value = 2;
+}
+
+message StringInt32Pair {
+    string key = 1;
+    int32 value = 2;
+}
+
+message BytesInt32Pair {
+    bytes key = 1;
+    int32 value = 2;
+}
+
+message Int32ArrayProto {
+    repeated int32 v = 1 [packed = false];
+}
+
+message StringArrayProto {
+    repeated string v = 1;
+}
+
+message BytesArrayProto {
+    repeated bytes v = 1;
+}
+
+message Int32PairInt32ArrayProto {
+    int32 k = 1;
+    repeated int32 v = 2 [packed = false];
+}
+
+message SpriteStatProto {
+    int32 attack = 1; // 攻击
+    int32 defense = 2; // 防御
+    int32 strength = 3; // 体力
+    int32 dexterity = 4; // 敏捷
+    int32 soldier_capcity = 5; // 统帅
+    int32 damage_incre_per = 6; // 伤害增加万分比
+    int32 damage_decre_per = 7; // 伤害减少万分比
+    int32 been_hurt_incre_per = 8; // 易伤增加万分比
+    int32 been_hurt_decre_per = 9; // 易伤减少万分比
+}
+
+message SpriteStatArrayProto {
+    repeated SpriteStatProto sprite_stat = 1;
+}
+
+// 图像
+message IconProto {
+    string id = 1; // 图像id
+    string icon = 2; // 默认图像
+    string middle_icon = 3; // 中图像
+    string big_icon = 4; // 大图像
+    string head_icon = 8; // 头图标
+    string tail_icon = 9; // 底图标
+    string super_big_icon = 5; // 超大图像
+    int32 tab = 6; // 标签，0-神马都没有 1-随机标签
+    string text = 7; // 图标文字
+}
+
+// 英雄事件类型
+enum HeroEvent {
+    InvalidHeroEvent = 0;
+    HERO_EVENT_RECHARGE = 1; // 充值礼包X
+    HERO_EVENT_HERO_LEVEL = 2; // 英雄等级达到X级
+    HERO_EVENT_BASE_LEVEL = 3; // 主城等级达到X级
+    HERO_EVENT_ACTIVITY = 4; // 活跃度变化
+    HERO_EVENT_DUNGEON = 5; // 完成某个推图副本
+    HERO_EVENT_TOWER = 6; // 通关千重楼X层
+    HERO_EVENT_KILL_MONSTER = 7; // 打败野外怪物
+    HERO_EVENT_UNLOCK_FUNC = 8; // 功能解锁
+    HERO_EVENT_COLLECT_BAI_ZHAN_SALARY = 9; // 领取百战俸禄
+    HERO_EVENT_KILL_BAOZ = 10; // 打爆X级宝库
+    HERO_EVENT_BUY_GUILD_EVENT_PRIZE_FROM_SHOP = 11; // 商店购得联盟宝箱
+    HERO_EVENT_ASSEMBLY_KILL_MONSTER = 12; // 集结打败野外军团怪
+}
+
+enum ExtraTimesType {
+    InvalidExtraTimesType = 0; // 非法的类型
+    Ett_Season = 1; // 季节次数
+}
+
+message ExtraTimesListProto {
+    repeated ExtraTimesProto type_list = 1;
+}
+
+message ExtraTimesProto {
+    ExtraTimesType type = 1; // 类型
+    int32 used_times = 2; // 使用了的次数
+}
+
+message RecoverableTimesWithExtraTimesProto {
+    int32 start_time = 1; // 开始恢复时间
+    ExtraTimesListProto list = 2; // 列表
+}
+
+// 广播类型
+enum BCType {
+    BC_INVALID_TYPE = 0; // 无效类型
+    BC_GM = 1; // GM 人工广播
+    BC_TIMING_SYS = 2; // 系统定时广播
+    BC_SYS = 3; // 系统广播
+    BC_HERO = 4; // 玩家小喇叭广播
+}
+
+message CaptainNameProto {
+    string name = 1; // 武将名字，长度不为0直接显示这个，否则读取下面的数据客户端自己生成
+
+    string title = 2; // 能力值key 初级/中级/高级/传奇
+    string nickname = 3; // 昵称key(小/老)
+    string family_name = 4; // 姓氏key(张(sam)/李(lee)/夏侯(Obama))
+    string given_name = 6; // 名(大宝/小宝)
+    string race_name = 5; // 职业key
+}
+
+// 国家官职
+enum CountryOfficialType {
+    COT_NO_OFFICIAL = 0; // 没有官职
+    COT_KING = 1; // 国王
+    COT_QUEEN = 2; // 王后
+    COT_MINISTER = 3; // 丞相
+    COT_GENERAL = 4; // 将军
+    COT_CENSOR = 5; // 御史
+    COT_SIMA = 6; // 司马
+}

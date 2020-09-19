@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 1834555112
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f0ee7ed1a738ed84b59d2f59a686d675
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_kaolaFS_skill02Weap.prefab
+Dependencies: []

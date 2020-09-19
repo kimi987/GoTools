@@ -1,0 +1,3 @@
+可领 vip 每日经验的最小君主等级			一次购买获得的推图次数	一次购买获得的推图次数	一次购买获得的推图次数	一次购买获得的推图次数	一次购买获得的推图次数	一次购买获得的推图次数	一次购买推图次数花费							
+collect_vip_daily_exp_min_hero_level			dungeon_times_each_buy	dungeon_times_each_buy	dungeon_times_each_buy	dungeon_times_each_buy	dungeon_times_each_buy	dungeon_times_each_buy	dungeon_times_cost	dungeon_times_cost	dungeon_times_cost	dungeon_times_cost	dungeon_times_cost	dungeon_times_cost	dungeon_times_cost	dungeon_times_cost
+3			3	5	7	9	11	21	80000008	80000009	80000010	80000011	80000012	80000013	80000014	80000015

@@ -1,0 +1,40 @@
+ManifestFileVersion: 0
+CRC: 3320040695
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 210528711724d70e7fe9dee7d6815579
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4a137ca36b217ffca145a6e59fc5b1db
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 89
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7da1c28a420a90842b993f8eec3a840c, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/GuaJiBottle2.prefab
+Dependencies: []

@@ -1,0 +1,117 @@
+# module_name:  # 默认使用文件夹名字作为模块名，当模块名与文件夹名字不一致时候，通过这个值指定
+
+# 钓鱼
+
+# 钓鱼配置:
+# Config:
+#    repeated FishingShowProto fishing_show = 25; // 所有钓鱼展示数据
+#    repeated FishingCostProto fishing_cost = 26; // 钓鱼消耗数据
+#
+
+# 玩家钓鱼信息
+# // 玩家钓鱼
+# message HeroFishingProto {
+#    repeated int32 times = 1 [packed = false]; // 钓鱼次数类型，即：FishingCostProto.times
+#    repeated int32 fishing_times = 2 [packed = false]; // 次数类型对应的钓鱼次数，跟 times 一一对应
+# }
+# 收到重置协议 misc_message.yaml 中的 reset_daily 每日重置协议 将 HeroFishingProto 的times跟fishing_times重置为空
+
+# fishing_show 中的数据是用来展示钓鱼会获得什么的
+# message FishingShowProto {
+#    string icon = 1; // 图标
+#    string desc = 2; // 描述
+# }
+
+# fishing_cost 中的数据是用来展示钓鱼的消耗的
+# message FishingCostProto {
+#    int32 times = 1; // 钓鱼次数(即钓鱼类型)
+#    CostProto cost = 2; // 消耗
+#    int32 free_times = 3; // 免费次数
+#    int32 discount_times = 4; // 5折次数
+#    CostProto discount_cost = 5; // 五折消耗
+# }
+# 获得x连抽的消耗
+# for(c = config.fishing_cost){
+#    if (c.times == x){
+#       return c
+#    }
+# }
+# 获得x类型当前已经钓鱼的次数 fishing_times
+# for(index, times = HeroFishingProto.times){
+#    if times == x.times{
+#       return HeroFishingProto.fishing_times[index]
+#    }
+# }
+# 获得x连抽的免费次数 x.free_times, 折扣次数 c.discount_times, 折扣价格 c.discount_cost，正常消耗 c.cost
+# 获得当前消耗 if fishing_times < x.free_times{
+#    免费
+# } else if fishing_times < x.free_times+x.discount_times{
+#    x.discount_cost // 折扣价格
+# } else {
+#    x.cost // 正常价格
+# }
+
+# 如果钓到的是将魂，且 CaptainSoulDataProto.chat_content_when_activated 不为空，那么显示相遇内容
+fishing:
+  c2s:
+    times: int // 钓鱼的次数类型(1表示钓1次，10表示钓10次，即FishingCostProto.times)
+    fish_type: int // 钓鱼类型，0-高级 1-普通钓鱼 即：FishingCostProto.fish_type
+    use_goods: bool // true表示使用鱼饵
+  s2c:
+    fishing_result: bytes[] // 钓鱼的结果PrizeProto数组
+    have_soul_to_goods: bool[] // 对应的Prize中是否有将魂变成了物品
+    show_index: int32[] // 对应的Prize中是否有物品需要展示，下标从1开始
+    times: int // 钓鱼的次数类型(1表示钓1次，10表示钓10次，即FishingCostProto.times)
+    fish_type: int // 钓鱼类型，0-高级 1-普通钓鱼 即：FishingCostProto.fish_type
+    fishing_times: int // 该 FishingCostProto.times 当前总共钓鱼的次数，将 HeroFishingProto中的fishing_times的对应钓鱼次数类型修改成新的钓鱼次数
+    next_time: int // 下次可以钓鱼的时间，unix时间戳（免费钓鱼使用）
+  s2c_fail:
+    res_not_enough: 钱不够
+    cost_nout_found: 消耗没找到
+    invalid_fish_type: 无效的钓鱼类型
+    countdown: 钓鱼倒计时未结束
+    daily_times_limit: 钓鱼次数达到当日上限
+
+# 钓鱼广播，自己无法收到
+fishing_broadcast:
+  s2c:
+    id: bytes // 玩家id
+    name: string // 玩家名字
+    flagname: string // 旗号，可能为空
+    prize: bytes // 奖励
+
+# 钓鱼积分
+# HeroGenMiscDataProto
+#     int32 fish_point = 7; // 钓鱼积分
+update_fish_point:
+  s2c:
+    point: int // 钓鱼积分
+
+# 钓鱼积分兑换
+# MiscGenConfigProto
+#    int32 fish_max_point = 11; // 钓鱼积分最大值
+#    repeated int32 fish_point_captain_soul = 12 [packed=false]; // 钓鱼积分兑换将魂列表
+#
+# 玩家积分达到钓鱼积分最大值时候，可以进行积分兑换
+# 先看下是不是有还未拥有的将魂，如果全部拥有，则不能进行积分兑换
+fish_point_exchange:
+  c2s:
+  s2c:
+    prize: bytes // shared_proto.PrizeProto
+    exchange_index: int // 兑换下标
+    exist: bool // true表示这个武将已经拥有，兑换成碎片
+  s2c_fail:
+    point_not_enough: 钓鱼积分兑换，积分不足
+    owner_all: 钓鱼积分兑换，已拥有所有的兑换物
+
+# 设置金杆钓武将
+set_fishing_captain:
+  c2s:
+    captain_id: int // 武将id
+  s2c:
+    captain_id: int
+  s2c_fail:
+    vip_level_limit: vip等级不足
+    invalid_id: 无效的配置id
+    duplicate: 重复设置
+

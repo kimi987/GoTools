@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+// 功能开启
+message HeroFunctionServerProto {
+    repeated uint64 open_types = 1; // 解锁了的功能
+}

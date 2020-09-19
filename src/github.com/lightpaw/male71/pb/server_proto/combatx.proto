@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/combat.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/combatx.proto";
+
+// 请求打架
+message CombatXRequestServerProto {
+
+    int64 seed = 1; // 随机数种子
+    string upload_file_path = 2; // 文件上传到哪
+    bool return_result = 3; // 返回result
+
+    // 初始数据 进攻方 防守方
+    int64 attacker_id = 9;
+    int64 defenser_id = 10;
+    CombatPlayerProto attacker = 11;
+    CombatPlayerProto defenser = 12;
+
+    // 地图资源
+    string map_res = 13;
+    int32 map_x_len = 14;
+    int32 map_y_len = 15;
+
+    // 配置
+    string config_sum = 30;
+    bytes config = 31; // shared_proto.CombatConfigProto
+
+    bool debug = 32;
+}
+
+message CombatXResponseServerProto {
+
+    int32 return_code = 1; // 0表示正常，其他的都不用看下面的内容了，有错误
+    string return_msg = 2; // returnCode != 0 时，返回错误信息
+
+    string link = 5; // 战斗数据存放位置
+
+    CombatShareProto attacker_share = 6; // 进攻方分享
+    CombatShareProto defenser_share = 7; // 防守方分享
+
+    // 胜利方 true表示进攻方胜利了
+    int64 attacker_id = 9;
+    int64 defenser_id = 10;
+    bool attacker_win = 11;
+
+    // 双方剩余兵力 key是武将id，value是剩余兵力
+    map<int32, int32> attacker_alive_soldier = 12;
+    map<int32, int32> defenser_alive_soldier = 13;
+
+    map<int32, int32> attacker_kill_soldier = 15;
+    map<int32, int32> defenser_kill_soldier = 16;
+
+    // 评分，0-险胜 1-小胜 2-大胜 3-完胜
+    int32 score = 14;
+
+    // 总共花费的帧数
+    int32 total_frame = 17;
+
+    CombatXProto result = 99; // 正式来说没有这玩意的
+
+}

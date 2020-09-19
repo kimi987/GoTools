@@ -1,0 +1,9 @@
+音源id	名字	描述	图标							
+audioId	audioType	volume	channel							
+BGM_Login	1	1	0							
+BGM_City01	1	1	0							
+BGM_Field01	1	1	0							
+BGM_Battle01	1	1	0						audioType 	
+UI_Battle_Win	2	1	0						bg音乐 = 1	
+UI_Battle_Fail	2	1	0						音效 = 2	
+										

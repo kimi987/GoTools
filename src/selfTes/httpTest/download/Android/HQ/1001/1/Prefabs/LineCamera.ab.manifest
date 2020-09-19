@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 411668651
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ec33ec9e67e1a0a1ac368884417cd98d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c8a8c6dc28309b243e49e363d4075c4f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/LineCamera.prefab
+Dependencies: []

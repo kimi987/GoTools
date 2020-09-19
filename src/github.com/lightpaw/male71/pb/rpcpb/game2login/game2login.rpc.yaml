@@ -1,0 +1,47 @@
+
+# 校验login token
+verify_login_token:
+  c2s:
+    hero_id: int64 // 1 英雄id
+    token: string // 2 登陆token
+    client_ip: string // 3 客户端ip
+    pf: uint32 // 4 平台
+  s2c:
+    success: bool // 1
+    err_msg: string // 2 错误消息
+
+# 记录tlog日志
+write_tlog:
+  c2s:
+    hero_id: int64 // 1 英雄id
+  s2c:
+    success: bool // 1
+    err_msg: string // 2 错误消息
+
+# 游戏推送（单人）
+push:
+  c2s:
+    hero_id: int64 // 1 推送英雄id
+    sid: uint32 // 2 服务器id
+    title: string // 3 标题
+    content: string // 4 正文
+    start_time: int64 // 5 开始推送时间，0表示立即推送（unix时间戳）
+    expire_time: int64 // 6 过期时间，超过这个时间不再推送(unix时间戳)
+  s2c:
+    success: bool // 1
+    err_msg: string // 2 错误消息
+    dont_push: bool // 3 true表示停止此账号推送（已绑定其他区服）
+
+# 游戏推送(多人)
+push_multi:
+  c2s:
+    hero_ids: int64[] // 1 推送英雄id
+    sid: uint32 // 2 服务器id
+    title: string // 3 标题
+    content: string // 4 正文
+    start_time: int64 // 5 开始推送时间，0表示立即推送（unix时间戳）
+    expire_time: int64 // 6 过期时间，超过这个时间不再推送(unix时间戳)
+  s2c:
+    success: bool // 1
+    err_msg: string // 2 错误消息
+    dont_push_hero_ids: int64[] // 3 停止推送这些账号

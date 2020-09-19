@@ -1,0 +1,88 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "game2tss";
+option optimize_for = SPEED;
+
+
+message C2SUicJudgeUserInputNameV2Proto {
+
+    string msg = 1; // 消息内容，最大限制65536
+
+    bool if_replace = 2; // 如果包含敏感词，是否替换成“*”
+
+}
+
+message S2CUicJudgeUserInputNameV2Proto {
+
+    int32 ret = 1; // sdk返回值
+
+    string ret_msg = 2; // sdk返回消息
+
+    int32 msg_result_flag = 3; // 返回值 0:合法 1:不合法，不能显示 2:合法，但包含敏感词
+
+    string replace_msg = 4; // 替换敏感词的返回消息
+
+}
+
+message C2SUicJudgeUserInputChatV2Proto {
+
+    string openid = 1; // 用户OpenID
+
+    int32 platid = 2; // 用户设备类型, 0-IOS, 1-Android
+
+    int64 world_id = 3; // 大区号，roomid
+
+    int32 msg_category = 4; // 消息内容类别 1： 邮件；  2：聊天
+
+    int64 channel_id = 5; // 发言频道号
+
+    int32 client_ip = 6; // 客户端ip /* 127.0.0.1 */ = 0x100007f
+
+    int64 rold_id = 7; // 角色id
+
+    string role_name = 8; // 角色名
+
+    int32 role_level = 9; // 角色等级
+
+    string msg = 10; // 消息内容，最大限制65536
+
+    bytes callback_data = 11; // 回带字段内容
+
+    string callback_addr = 12; // 回调地址
+
+}
+
+message S2CUicJudgeUserInputChatV2Proto {
+
+    int32 ret = 1; // sdk返回值
+
+    string ret_msg = 2; // sdk返回消息
+
+}
+
+message C2SUicChatCallbackProto {
+
+    string openid = 1; // 用户OpenID
+
+    int32 platid = 2; // 用户设备类型,  0-IOS, 1-Android
+
+    int64 world_id = 3; // 大区号，roomid
+
+    int64 rold_id = 4; // 角色id
+
+    int32 msg_result_flag = 5; // 返回值 0:合法 1:不合法，不能显示 2:合法，但包含敏感词
+
+    string replace_msg = 6; // 替换敏感词的返回消息
+
+    bytes callback_data = 7; // 回带字段内容
+
+}
+
+message S2CUicChatCallbackProto {
+
+    bool success = 1; // 1
+
+}
+

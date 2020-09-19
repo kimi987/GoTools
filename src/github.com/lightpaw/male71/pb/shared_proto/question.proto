@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+// 答案的index从1开始递增
+message QuestionProto {
+    int32 id = 1; // 题目ID
+    string question = 2; // 问题
+    string right_answer = 3; // 正确答案
+    repeated string wrong_answer = 4; // 错误答案
+}
+
+message QuestionSayingProto {
+    int32 id = 1; // 名言 ID
+    string content = 2; // 名言内容
+    string author = 3; // 名言作者或出处
+}
+
+message QuestionPrizeProto {
+    int32 score = 1; // 答对的题数
+    PrizeProto prize = 2; // 对应的奖励
+}
+
+message QuestionMiscProto {
+    int32 max_times = 1; // 每人每天最大答题次数
+    int32 question_count = 2; // 每轮题目数
+}
+
+message HeroQuestionProto {
+    int32 used_times = 1; // 今天已使用的次数，0点重置
+    repeated HeroEachQuestionProto current_question = 2; // 本轮答过的题和正在答的题，每轮领奖后清空
+    int32 all_right_question_amount = 3; // 历史总答对题数
+}
+
+message HeroEachQuestionProto {
+    int32 current_question = 1; // 问题的ID
+    HeroQuestionState state = 2; // 回答状态
+    int32 answer = 3; // 选择的答案, 0表示未选择
+}
+
+// 回答状态
+enum HeroQuestionState {
+    QUESTION_INVALID_STATE = 0; // 非法状态
+    QUESTION_RIGHT = 1; // 答对了
+    QUESTION_WRONG = 2; // 答错了
+    QUESTION_WAIT = 3; // 正在答
+}

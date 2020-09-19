@@ -1,0 +1,55 @@
+不要改	不要改，不能重复	广播类型	同步到系统频道		"触发条件
+等于才触发，大于小于都不行
+没有条件就配0
+FishEquip装备品质id
+FishCaptainSoul品质id
+JiuGuanQingJiao导师id
+EquipLevel装备强化level
+TaozLevel套装level
+GemGet宝石level
+FishEquip装备品质id
+FishCaptainSoul品质id
+JiuGuanQingJiao导师id
+EquipLevel装备强化level
+TaozLevel套装level
+GemGet宝石level"	触发条件								内容		每日定时广播时间，12:30就填1230不需要定时就留空									
+id	sequence	bc_type	send_chat	only_send_once	condition	condition	condition	condition	condition	condition	condition	condition	condition	text		send_hour_minute	send_hour_minute	send_hour_minute	send_hour_minute			注释			
+BaiZhanTouFang	1	2	1											横扫千军新的次数已经发放，君主们速速整装上阵提升军衔吧		800	1200	1430	2030			涉及到XX的，看前面的condition配置的值，每个值都会触发			
+																									
+HeroLevel	2	3	1		50	60	70	80	90	100				普天同庆！恭喜[color=#FFD633]{{self}}[/color]达到[color=#FFD633]{{num}}[/color]级								君主等级达到XX级			bc_type
+BaseLevel	3	3	1	1	7	8	9	10	11	12	13	14	15	普天同庆！恭喜[color=#FFD633]{{self}}[/color]的城池达到[color=#FFD633]{{num}}[/color]级势力大幅扩张								主城等级首次达到XX级			BC_GM=1;//GM人工广播
+FishEquip	4	3	1		5	6								恭喜[color=#FFD633]{{self}}[/color]钓鱼时获得{{equip}}，战力大幅提升								钓鱼获得星神装备			BC_TIMING_SYS=2;//系统定时广播
+FishCaptainSoul	5	3	1		3									恭喜[color=#FFD633]{{self}}[/color]钓鱼时获得[color=#FFD633]{{text}}级[/color]武将[color=#FFD633]{{captain}}[/color]，战力更上一层楼								钓鱼获得神级将魂			BC_SYS=3;//系统广播
+FishGem	32	3	1		5									恭喜[color=#FFD633]{{self}}[/color]钓鱼时获得[color=#FF3333]{{num}}级宝石[/color]战力突破了天际								钓鱼获得5级宝石			
+JiuGuanQingJiao	6	3	1		20									恭喜[color=#FFD633]{{self}}[/color]于驿站被[color=#FFD633]{{npc}}[/color]授予大量强化符								驿站请教白起			BC_PLAYER=4;//玩家小喇叭广播，不需要配
+JiuGuanBaoJi	7	3	1		20									[color=#FFD633]{{self}}[/color]福星高照于驿站获得暴击[color=#FFD633]{{num}}倍[/color]数量强化符								驿站10倍暴击			
+ZhenBaoGeBaoJi	8	3	1		20									[color=#FFD633]{{self}}[/color]福星高照于珍宝阁获得暴击[color=#FFD633]{{num}}倍[/color]数量道具								废弃			
+CaptainAbilityExp	9	3	1	1	4	5	6							恭喜[color=#FFD633]{{self}}[/color]首次将麾下武将强化到了突破+{{quality}}								首个武将达到紫色、橙色、红色			
+CaptainReBrith	10	3	1	1	1	2	3							恭喜[color=#FFD633]{{self}}[/color]首次将麾下武将转生至[color=#FFD633]{{num}}转[/color]								首个武将转生1转、2转、3转			
+CaptainSoulLevel	11	3	1	1	4	5								恭喜[color=#FFD633]{{self}}[/color]首次将麾下武将升阶到[color=#FFD633]{{num}}星[/color]								"首次将武将升阶到4,5星"			
+CaptainSoulUnlockSpell	29	3	1	1	3									恭喜[color=#FFD633]{{self}}[/color]将{{text}}级武将{{captain}}培养到[color=#FFD633]{{num}}星[/color]								首次将神级将魂升阶到3星			
+EquipLevel	12	3	1	1	6									恭喜[color=#FFD633]{{self}}[/color]首次将装备升到[color=#FFD633]{{num}}星[/color]								首个装备强化到3星			
+TaozLevel	13	3	1	1	6									恭喜[color=#FFD633]{{self}}[/color]首次装备套装达到[color=#FFD633]{{num}}星[/color]								首次激活装备套装3星			
+TowerFloor	14	3	1	1	70	90								恭喜[color=#FFD633]{{self}}[/color]首次通关千机楼[color=#FFD633]{{num}}层[/color]								首次通关千机楼50层			
+TowerPrizeEquip	15	3	1	1	7	8	9	10	11	12	13	14		恭喜[color=#FFD633]{{self}}[/color]首次于千机楼获得{{equip}}								首次通过40层以上的千机楼获得相应装备			
+GemGet	16	3	1		10									恭喜[color=#FFD633]{{self}}[/color]获得[color=#FF3333]{{num}}级宝石[/color]战力突破了天际								废弃			
+NpcMonsterSucc	17	3	1	1	6									恭喜[color=#FFD633]{{self}}[/color]首次战胜[color=#FFD633]{{num}}级流寇[/color]获得玄冥装备碎片								首次战胜60级野怪			
+DungeonPrizeCaptainSoul	18	3	1		3									恭喜[color=#FFD633]{{self}}[/color]于武将列传获得[color=#FFD633]{{text}}级[/color]武将{{captain}}								在副本获得神级将魂			
+ZhanJiangZhangJieComplete	19	3	1	1	10507	20507								恭喜[color=#FFD633]{{self}}[/color]麾下武将通关单刀赴会-{{text}}，提升大量成长值								首次通关单刀赴会第一章			
+XiongNuSucc	20	3	1		5									恭喜[color=#FFD633]{{guild}}[/color]众志成城，成功抗击匈奴[color=#FFD633]{{text}}[/color]，获得[color=#FFD633]{{score}}[/color]评价								联盟抗击匈奴获得卓越评价			
+TaskBwzlPrize	21	3	1		64									恭喜[color=#FFD633]{{self}}[/color]完成全部霸王之路任务，获得[color=#FFD633]神将[/color][color=#FFD633]鬼谷子[/color]								霸王之路拿到鬼谷子			
+TaskChengJiuLevel	22	3	1		60	80	100	120	140	160	180	200		恭喜[color=#FFD633]{{self}}[/color]累积[color=#FFD633]{{num}}个[/color]成就总星数获得丰厚奖励								成就拿到XX星奖励			
+GuildLevel	23	3	1		2	3	4	5	6	7	8	9	10	励精图治，广纳英才，联盟[color=#FFD633]{{guild}}[/color]成功提升至[color=#FFD633]{{num}}级[/color]								联盟升到XX级			
+GuildCreate	24	3	1		0									歃血为盟，群英聚首，联盟[color=#FFD633]{{guild}}[/color]在[color=#FFD633]{{name}}[/color]的带领下，开创于乱世之中								玩家建立联盟			
+GuildTanHe	25	3	1		0									[color=#FFD633]{{guild}}[/color]已弹劾不称职的旧盟主，新盟主[color=#FFD633]{{name}}[/color]将带领联盟走向新的时代								弹劾盟主成功			
+GuildChangeCountry	26	3	1		0									[color=#FFD633]{{guild}}[/color]已从[color=#FFD633]{{text}}国[/color]转到[color=#FFD633]{{country}}国[/color]								联盟转国成功			
+GuildChangeName	27	3	1		0									[color=#FFD633]{{text}}[/color]已改名为[color=#FFD633]{{guild}}[/color]								联盟更名成功			
+GuildChangeFlag	28	3	1		0									[color=#FFD633]{{text}}[/color]已更改旗号为[color=#FFD633]{{guild}}[/color]								联盟更改旗号成功			
+Title	30	3	1		5	6								恭喜[color=#FFD633]{{self}}[/color]励精图治，获得爵位[color=#FFD633]{{text}}[/color]								获得第X个爵位			
+BaoZangDestory	31	3	1	1	2	3	4	5						[color=#FFD633]{{self}}[/color]身手不凡，击破[color=#FF3333]{{num}}级[/color]殷墟守卫，名震八方								首次击破X级殷墟守卫			
+MixEquip	33	3	1	1	7	10								恭喜[color=#FFD633]{{self}}[/color]首次合成{{equip}}，战力大幅提升											
+McWarAtkWin	34	3	1											恭喜联盟[color=#FFD633]{{guild}}[/color]浴血奋战，成功占领[color=#FFD633]{{mingc}}[/color]											
+																									
+CountryChangeKing	35	3	1	1	0									恭喜{{hero}} 成为{{country}}国君！											
+CountryChangeName	36	3	1	1	0									{{old_name}}国的国君将国号成功更改为{{new_name}}											
+CountryDestroy	37	3	1	1	0									{{guild_country}}国{{guild}} 占领了{{country}}国的都城。{{country}}国所有玩家失去官职。											

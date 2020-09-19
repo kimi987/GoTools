@@ -1,0 +1,31 @@
+
+# 请求配置
+config:
+  c2s:
+    path: string // 路径 表的路径，表在 conf/client 目录下的路径，如 conf/client/a.xlsx，那么 table_path就是这个数据了(conf/client/a.xlsx)
+  s2c:
+    data: bytes // 解析成shared_proto.Table
+  s2c_fail:
+    path_not_exist: 路径不存在
+
+# 设置客户端数据，该消息没有返回
+set_client_data:
+  c2s:
+    index: int // 下标，该值必须 >= 0 且 < 服务器提供的数量, 目前服务器提供640个设置的数据，如果后面客户端说不够，可以来调整
+    toSetBool: bool // 设置成的值
+
+# 设置Key
+# HeroClientDatasProto
+#   repeated int32 client_keys = 2; // 客户端Keys
+#
+# key_type := clientKey % 16
+# key_value := clientKey / 16
+#
+# 服务器只保存256个值，防止被攻击，客户端在使用的时候，需要预测一下，是不是会超出这个限制
+set_client_key:
+  c2s:
+    key_type: int // 类型，0-推图章节剧情
+    key_value: int // 设置的值
+  s2c:
+    key_type: int // 类型，0-推图章节剧情
+    key_value: int // 设置的值

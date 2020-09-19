@@ -1,0 +1,26 @@
+"Ø¤¾n    ST_BUILDING = 1; // úQòn    ST_TECH = 2; // fbòn    ST_RECRUIT_SOLDIER_FULL = 3; // u!pòá    ST_TRAINING = 4; // fî¼?î¼†ÏŒaá†    ST_FARM = 5; // ? ®ßŸö    ST_BEEN_ATTACKING = 6; // L›e?«ºe?    ST_GUILD_MEMBER_BEEN_ATTACKING = 7; // ßË??    ST_TIE_JIANG_PU_TIMES = 8; // ? ; !p??VMnÐà*öô¹¨	    ST_TIE_JIANG_PU_FORGE_COLLECT = 9; //  ? ; ?ï†?    ST_DUNGEON_TIMES = 10; // B{?PVE	 !pòá    ST_MULTI_LEVEL_NPC = 11; // ?PVE	 ?!pòá    ST_BAI_ZHAN = 12; // ~PVE	 ?!pM„N?VMnÐà*öô¹¨	    ST_INVESTIGATE = 13; // ? «º?    ST_BEEN_ROBBING = 14; // í : «ºí :ö¨1!    ST_GUILD_MEMBER_BEEN_ROBBING = 15; // ßË?í : ßË«ºí :?1!    ST_TROOP_BACK_HOME = 16; // ?ÔÞ ?ÞÎ?    ST_COUNTDOWN_PRIZE = 17; // lf šö<ï†?    ST_TREASURE_TREE = 18; // G?V±ï?G?V±ï?    ST_GUILD_BIG_BOX = 19; // TßZÆ 	*†„T?<V?    ST_GUILD_XIONG_NU = 20; // T?te?T?/?te?    ST_GUILD_IMPEACH = 21; // T??T??¾ß;??Ù@	X    ST_CHAT_PRIVATE = 22; // J)-ÁJ 	°„?*û„ÁJáo    ST_ZHENG_WU_REFRESH EACH = 21; // ÁªÃËµ¯ÛÀ ÁªÃË¿ªÊ¼µ¯ÛÀÃËÖ÷Ê±£¬ÍÆËÍ¸øËùÓÐ³ÉÔ±    ST_CHAT_PRIVATE = 22; // ÁÄÌì-Ë½ÁÄ ÓÐÐÂµÄÈÎÒâÎ´¶ÁµÄË½ÁÄÐÅÏ¢    ST_ZHENG_WU_REFRESH = 23; // ÈÎÎñ-¾ýÖ÷ÕþÎñ ÕþÎñÒÑË¢ÐÂ£¨²ß»®ÅäÖÃÄ³¼¸¸öÊ±¼äµãÍÆËÍ£©"	Ä¬ÈÏÉèÖÃ	Ä¬ÈÏÉèÖÃ	Ä¬ÈÏÉèÖÃ	Ä¬ÈÏÉèÖÃ	Ä¬ÈÏÉèÖÃ	Ä¬ÈÏÉèÖÃ	Ä¬ÈÏÉèÖÃ						
+default_settings	default_settings	default_settings	default_settings	default_settings	default_settings	default_settings	default_settings	default_settings	default_settings	default_settings	default_settings	default_settings	default_settings
+ST_BUILDING	ST_TECH	ST_TRAINING	ST_FARM	ST_TIE_JIANG_PU_FORGE_COLLECT			ST_DUNGEON_TIMES	ST_MULTI_LEVEL_NPC	ST_BAI_ZHAN	ST_BEEN_ROBBING	ST_TREASURE_TREE	ST_GUILD_BIG_BOX	ST_GUILD_XIONG_NU
+												ST_BUILDING = 1; // ½¨ÖþÏÐÖÃ	
+												    ST_TECH = 2; // ÊéÔºÏÐÖÃ	
+												    ST_RECRUIT_SOLDIER_FULL = 3; // Õ÷±ø´ÎÊýÒÑÂú	
+												    ST_TRAINING = 4; // Îä½«ÐÞÁ¶¹Ý  ÐÞÁ¶¹Ý¾­ÑéÌõÂúÁË	
+												    ST_FARM = 5; // Å©³¡  Á¸Ê³³ÉÊìÊ±	
+												    ST_BEEN_ATTACKING = 6; // µÐ¾üÈëÇÖ  ±»ÈËÈëÇÖ	
+												    ST_GUILD_MEMBER_BEEN_ATTACKING = 7; // ÃËÓÑ±»¹¥»÷	
+												    ST_TIE_JIANG_PU_TIMES = 8; // Ìú½³  ¶ÍÔì´ÎÊýÒÑË¢ÐÂ£¨²ß»®ÅäÖÃÄ³¼¸¸öÊ±¼äµãÍÆËÍ£©	
+												    ST_TIE_JIANG_PU_FORGE_COLLECT = 9; //  Ìú½³  ¶ÍÔìÍê³É¿ÉÁìÈ¡	
+												    ST_DUNGEON_TIMES = 10; // ÃûÊ¿ÁÐ´«£¨PVE£©  ÌôÕ½´ÎÊýÒÑÂú	
+												    ST_MULTI_LEVEL_NPC = 11; // ÌÖ·¥£¨PVE£©  ÌÖ·¥´ÎÊýÒÑÂú	
+												    ST_BAI_ZHAN = 12; // °ÙÕ½£¨PVE£©  ·¢ËÍ´ÎÊýÇ°µÄN·ÖÖÓ£¨²ß»®ÅäÖÃÄ³¼¸¸öÊ±¼äµãÍÆËÍ£©	
+												    ST_INVESTIGATE = 13; // ²tÍû  ±»ÈË²tÍû	
+												    ST_BEEN_ROBBING = 14; // ³ÖÐøÆÆ»µ  ±»ÈË³ÖÐøÆÆ»µÊ±ÍÆËÍ1´Î	
+												    ST_GUILD_MEMBER_BEEN_ROBBING = 15; // ÃËÓÑ±»³ÖÐøÆÆ»µ  ÃËÓÑ±»ÈË³ÖÐøÆÆ»µÍÆËÍ1´Î	
+												    ST_TROOP_BACK_HOME = 16; // ²¿¶Ó·µ»Ø  ²¿¶Ó»Ø³ÇºóÍ¨Öª	
+												    ST_COUNTDOWN_PRIZE = 17; // Âí³µ  ¶¨Ê±Àñ°ü¿ÉÁìÊ±	
+												    ST_TREASURE_TREE = 18; // Ò¡Ç®Ê÷½±Àø¿ÉÁì  Ò¡Ç®Ê÷½±Àø¿ÉÁì	
+												    ST_GUILD_BIG_BOX = 19; // ÁªÃË¾Û±¦Åè  ÓÐÎ´ÁìµÄÁªÃË´óÀñ°ü½±Àø	
+												    ST_GUILD_XIONG_NU = 20; // ÁªÃË-ÐÙÅ«ÈëÇÖ  ÁªÃË¿ªÆôÁËÐÙÅ«ÈëÇÖ	
+												    ST_GUILD_IMPEACH = 21; // ÁªÃËµ¯ÛÀ  ÁªÃË¿ªÊ¼µ¯ÛÀÃËÖ÷Ê±£¬ÍÆËÍ¸øËùÓÐ³ÉÔ±	
+												    ST_CHAT_PRIVATE = 22; // ÁÄÌì-Ë½ÁÄ  ÓÐÐÂµÄÈÎÒâÎ´¶ÁµÄË½ÁÄÐÅÏ¢	
+												    ST_ZHENG_WU_REFRESH = 23; // ÈÎÎñ-¾ýÖ÷ÕþÎñ  ÕþÎñÒÑË¢ÐÂ£¨²ß»®ÅäÖÃÄ³¼¸¸öÊ±¼äµãÍÆËÍ£©	

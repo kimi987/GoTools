@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+message HeroTeachServerProto {
+    repeated uint64 passed_chapter_ids = 1;
+    repeated uint64 collected_chapter_ids = 2;
+}

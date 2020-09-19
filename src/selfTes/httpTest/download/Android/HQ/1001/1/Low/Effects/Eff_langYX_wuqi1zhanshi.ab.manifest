@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 2415833204
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9ddd27f71172575d20fa0b502d310fe2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6441f4c48b8293a736413520ea1a9530
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/Eff_langYX_wuqi1zhanshi.prefab
+Dependencies: []

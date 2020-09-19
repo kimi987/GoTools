@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+message HeroVipServerProto {
+    uint64 level = 1;
+    uint64 exp = 2;
+    int64 daily_first_login_time = 3;
+    uint64 continue_days = 4;
+    int64 collect_daily_prize_time = 5;
+    map<uint64, bool> daily_prize_can_collect_level = 6;
+    map<uint64, bool> level_prize_collected_level = 7;
+    map<uint64, uint64> vip_shop_bought_count = 8;
+    repeated uint64 daily_prize_collected_level = 9;
+}

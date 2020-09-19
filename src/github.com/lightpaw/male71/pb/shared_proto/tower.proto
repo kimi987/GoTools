@@ -1,0 +1,206 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/combat.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/monster.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+
+message TowerDataProto {
+
+    int32 floor = 1; // 层数
+    PrizeProto first_pass_prize = 2; // 首胜奖励
+    PrizeProto show_prize = 3; // 展示奖励（除了首胜奖励外的其他奖励）
+    PrizeProto box_prize = 4; // 重楼宝箱，只有重点楼层才有
+    string desc = 5; // 描述
+
+    int32 unlock_secret_tower_id = 6; // 解锁的密室id
+
+    // 防守武将信息
+    MonsterMasterDataProto monster = 21;
+}
+
+message TowerFloorReplayProto {
+    int32 floor = 1; // 层数
+
+    repeated TowerReplayProto replay = 2; // 按顺序，第一个时间最早
+    TowerReplayProto lowest_replay = 3; // 最低战力通关
+}
+
+message TowerReplayProto {
+    int32 floor = 1; // 层数
+    int32 time = 2; // 通关时间
+    string link = 3; // 通关回放地址
+    CombatShareProto share = 6; // 战斗分享
+    PrizeProto first_pass_prize = 4; // 首通奖励
+    PrizeProto prize = 5; // 获得奖励
+
+    HeroBasicProto hero = 10; // 英雄数据
+    bytes hero_id = 11 [deprecated = true]; // 君主id
+    string hero_name = 12 [deprecated = true]; // 君主名字
+    string hero_head = 18 [deprecated = true]; // 君主头像
+    int32 guild_id = 13 [deprecated = true]; // 联盟id
+    string guild_name = 14 [deprecated = true]; // 联盟名字
+    string guild_flag_name = 15 [deprecated = true]; // 旗号
+    repeated int32 race = 16 [packed = false]; // 整容搭配
+    int32 fight_amount = 17; // 战斗力
+}
+
+message SecretTowerDataProto {
+    int32 id = 1; // 楼层id，id从1开始，逐层递增
+    string name = 2; // 楼层名字
+    int32 max_attacker_count = 3; // 最大的进攻方数量
+    int32 min_attacker_count = 4; // 最少的进攻方数量
+    string desc = 5; // 描述
+    string image = 14; // 配图
+    int32 unlock_tower_data = 15; // 解锁需要的千重楼 TowerDataProto.floor
+
+    PrizeProto first_pass_prize = 6; // 首通奖励
+
+    PrizeProto prize = 7; // 通关奖励
+
+    PrizeProto super_prize = 8; // 超级大奖
+
+    // 防守部队的武将信息
+    repeated MonsterMasterDataProto monster = 9;
+
+    // 武将队长的id
+    int32 monster_leader_id = 12;
+
+    int32 guild_help_contribution = 10; // 协助的联盟贡献奖励
+
+    int32 max_attacker_continuew_win_times = 11; // 进攻方最大连胜，0表示永不下场
+}
+
+message SecretTowerMiscProto {
+    int32 recover_duration = 1; // 恢复间隔(单位秒)
+    int32 max_times = 2; // 最大挑战次数，即最大可以恢复到几次
+    int32 max_help_times = 3; // 最大协助次数，即最大可以恢复到几次
+    int32 max_record = 5; // 最大记录个数
+}
+
+// 队伍展示信息
+message SecretTeamShowProto {
+    int32 team_id = 1; // 队伍id
+    bytes leader = 2; // 队长，解析成SecretTowerTeamMemberProto
+    int32 secret_tower_id = 3; // 密室id
+    int32 cur_member_count = 4; // 当前成员数量
+    int32 max_member_count = 5; // 最大成员数量
+    int32 guild_id = 6; // 需要的联盟id，如果此处>0显示仅限盟友，如果该联盟id等于我的联盟id，那么表示是我的盟友创建的
+    int32 create_time = 7; // 队伍创建时间
+    repeated int32 member_tower_floor = 8 [packed = false]; // 除了队长以外的队伍成员的千重楼层数
+}
+
+// 队伍详细信息
+message SecretTeamDetailProto {
+    int32 team_id = 1; // 队伍id
+    bytes leader_id = 2; // 队长id
+    repeated bytes members = 3; // 队伍成员，解析成 SecretTowerTeamMemberProto 数组
+    int32 secret_tower_id = 4; // 密室id
+    int32 guild_id = 5; // 需要的联盟id，如果此处>0显示仅限盟友，如果该联盟id等于我的联盟id，那么表示是我的盟友创建的
+    int32 protect_end_time = 6; // 开始保护结束时间，就是这个时间之前无法开启战斗
+}
+
+message SecretTowerTeamMemberProto {
+    int32 said_words = 1; // 气泡说话文字ID, SecretTowerWordsDataProto.id
+    int32 said_time = 2; // 说话时间
+
+    HeroBasicSnapshotProto hero = 8; // 玩家数据
+
+    // 模式
+    TowerTeamMode mode = 10;
+
+    repeated Race captain_race = 15 [packed = false]; // 出战武将的职业
+
+    // 战斗力
+    int32 fight_amount = 16;
+}
+
+message SecretChallengeResultProto {
+    bytes attack_leader_id = 9;
+    bytes defence_leader_id = 10;
+    int32 attack_count = 13; // 进攻方数量
+    int32 defence_count = 14; // 防守方数量
+
+    bool win = 1; // 赢了还是输了
+    string link = 2; // 链接
+    repeated string multi_link = 12; // 多链接
+
+    CombatShareProto share = 11; // 战斗分享
+
+    int32 secret_tower_id = 8; // 挑战的重楼密室的id
+
+    int32 kill_monster = 3; // 击杀怪物数量
+    int32 left_monster = 4; // 剩余怪物数量
+
+    // 赢了的内容
+    bytes super_prize_id = 5; // 拿到超级大奖的id，空表示没人拿到
+    PrizeProto super_prize = 7; // 超级大奖的奖励内容
+
+    // 挑战成员
+    repeated SecretMemberResultProto members = 6; // 成员
+}
+
+message SecretMemberResultProto {
+    bytes id = 1; // 玩家id
+    string name = 2; // 玩家名字
+    string head = 3; // 玩家头像
+    int32 level = 4; // 玩家等级
+
+    // 帮派数据
+    int32 guildId = 5; // 玩家帮派id，0后面的帮旗、帮派名都不用读了
+    string guildFlagName = 6;
+    string guildName = 7;
+
+    int32 continue_kill_count = 10; // 连胜次数
+
+    // 赢了的内容
+    bool first_pass_prize = 15; // 首通奖励，客户端自己通过密室id去取里面的首通奖励
+    int32 guild_contribution = 16; // 联盟贡献，>0表示有联盟贡献
+    PrizeProto prize = 17; // 通关奖励
+}
+
+// 重楼密室战报
+message SecretRecordProto {
+    bool win = 1; // true 表示胜利
+    CombatShareProto share = 2; // 回放分享链接
+    int32 kill_monster = 3; // 击杀怪物数量
+    int32 left_monster = 4; // 剩余怪物数量
+}
+
+enum TowerTeamMode {
+    CHALLENGE = 0; // 挑战
+    HELP = 1; // 挑战
+}
+
+message HeroTowerProto {
+
+    int32 challenge_times = 1; // 当前挑战次数，最大挑战次数Config.MiscConfig.TowerChallengeMaxTimes
+    int32 next_reset_challenge_time = 8; // 下次重置挑战次数时间
+    int32 current_floor = 2; // 当前第几层，0表示还没开始打，最高层表示已经全部通关
+    int32 history_max_floor = 3; // 历史到达的最高层
+    int32 auto_max_floor = 4; // 可以扫荡到的哪一层
+    repeated int32 collected_box_floors = 6 [packed = false]; // 已领取的宝箱，10表示已领取第10层的宝箱
+
+}
+
+// 密室数据
+message HeroSecretTowerProto {
+    int32 challenge_times = 11; // 当前挑战次数，最大挑战次数Config.SecretTowerMisc.MaxTimes
+    int32 help_times = 1; // 当前协助次数，最大协助次数Config.SecretTowerMisc.MaxHelpTimes
+    int32 max_open_tower_id = 3; // 最大开启的密室id，0表示没开启密室，判断某个密室能否进去，通过 目标密室id <= max_open_tower_id 判断
+    repeated int32 collected_first_prize_id = 4 [packed = false]; // 领取过了首胜的重楼密室
+    int32 history_challenge_times = 5; // 历史挑战的记录，用于处理成就中的 助人为乐
+}
+
+// 重楼密室聊天记录
+message SecretTowerChatRecordProto {
+    bytes hero_id = 1; // 玩家的id
+    string hero_name = 2; // 玩家名字
+    string guild_flag_name = 3; // 联盟旗号
+    int32 words_id = 4; // 说的话 id, SecretTowerWordsDataProto.id
+    string text = 5; // 当words_id=0的时候,就取这里的内容显示
+}

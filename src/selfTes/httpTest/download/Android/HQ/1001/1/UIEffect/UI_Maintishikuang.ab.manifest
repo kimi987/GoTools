@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 4291680986
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 241d8ea0681006835094216c9a8e9e65
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0d3f0b8534e973a9f8d8d5b3fde2cde8
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIEffect/UI_Maintishikuang.prefab
+Dependencies: []

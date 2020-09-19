@@ -1,0 +1,25 @@
+推送类型	推送标题	推送正文	推送时间		
+type	title	content	tick_time		
+1	建筑闲置	建造队伍已处于闲置状态			ST_BUILDING = 1; // 建筑闲置
+2	书院闲置	研究队伍已处于闲置状态			ST_TECH = 2; // 书院闲置
+3	强征次数	军营强征次数已满			ST_RECRUIT_SOLDIER_FULL = 3; // 征兵次数已满
+4	修炼馆经验	修炼馆武将经验已满			ST_TRAINING = 4; // 武将修炼馆  修炼馆经验条满了
+5	农场	农场资源已成熟，可收获			ST_FARM = 5; // 农场 粮食成熟时
+6	敌军入侵	{{attacker}}正在向你的城池进军			ST_BEEN_ATTACKING = 6; // 敌军入侵 被人入侵
+7	盟友被攻击	{{attacker}}正在向你的盟友{{friend}}城池进军			ST_GUILD_MEMBER_BEEN_ATTACKING = 7; // 盟友被攻击
+8	铁匠铺	锻造次数已刷新			ST_TIE_JIANG_PU_TIMES = 8; // 铁匠   锻造次数已刷新（策划配置某几个时间点推送）
+9	铁匠铺	{{quality}}的{{equipment}}已为你锻造完毕！快来领取吧！			ST_TIE_JIANG_PU_FORGE_COLLECT = 9; //  铁匠  锻造完成可领取
+10	名士列传	名士列传扫荡次数已满			ST_DUNGEON_TIMES = 10; // 名士列传（PVE）    挑战次数已满
+11	野外讨伐	讨伐次数已满			ST_MULTI_LEVEL_NPC = 11; // 讨伐（PVE）    讨伐次数已满
+12	横扫千军	横扫千军次数已发放			ST_BAI_ZHAN = 12; // 百战（PVE）   发送次数前的N分钟（策划配置某几个时间点推送）
+13	侦察警戒	{{attacker}}侦察了你			ST_INVESTIGATE = 13; // 瞭望 被人瞭望
+14	被持续破坏	{{attacker}}正在持续破坏你的城池			ST_BEEN_ROBBING = 14; // 持续掠夺  被人持续掠夺时推送1次
+15	盟友被持续破坏	{{attacker}}正在持续破坏盟友{{friend}}的城池			ST_GUILD_MEMBER_BEEN_ROBBING = 15; // 盟友被持续掠夺  盟友被人持续掠夺推送1次
+16	部队返回	你的[{{troop_index}}]号队伍已经返回城池			ST_TROOP_BACK_HOME = 16; // 部队返回   部队回城后通知
+17	领民进贡	领民进贡了贡品，快来领取吧			ST_COUNTDOWN_PRIZE = 17; // 马车 定时礼包可领时
+18	摇钱树奖励可领	摇钱树奖励可领			ST_TREASURE_TREE = 18; // 摇钱树奖励可领  摇钱树奖励可领
+19	联盟礼包领取奖励	联盟礼包可以领取			ST_GUILD_BIG_BOX = 19; // 联盟聚宝盆    有未领的联盟大礼包奖励
+20	抗击匈奴已开启	抗击匈奴活动已开启			ST_GUILD_XIONG_NU = 20; // 联盟-抗击匈奴 联盟开启了抗击匈奴
+21	弹劾盟主	{{self}}发起了对盟主{{leader}}的弹劾			ST_GUILD_IMPEACH = 21; // 联盟弹劾 联盟开始弹劾盟主时，推送给所有成员
+22	私聊	{{self}}:{{content}}			ST_CHAT_PRIVATE = 22; // 聊天-私聊 有新的任意未读的私聊信息
+23	君主政务	君主政务已刷新			ST_ZHENG_WU_REFRESH = 23; // 任务-君主政务   政务已刷新（策划配置某几个时间点推送）

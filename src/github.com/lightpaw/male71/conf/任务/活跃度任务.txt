@@ -1,0 +1,29 @@
+任务序号，从1开始连续配置	任务名字	任务内容	任务图标	任务目标	增加的活跃度			
+id	name	text	icon	target	add_degree			
+80001	建筑升级	完成3次建筑升级	ui://Library/Image_FunctionIcon_UniteCity	80001	3		3	9
+80002	科技升级	完成1次科技升级	ui://Library/Image_FunctionIcon_Everyday	80002	4		1	4
+80003	领取修炼经验	在修炼馆领取1次修炼经验	ui://Library/Image_FunctionIcon_General	80003	5		1	5
+80004	锻造装备	完成2次装备锻造	ui://Library/Image_FunctionIcon_RoomSmithy_Forge	80004	3		2	6
+80005	请教名士	在驿站进行3次请教	ui://Library/Image_FunctionIcon_RoomOfficial	80005	3		3	9
+80006	收获资源	在农场收获1次资源	ui://Library/Image_FunctionIcon_RoomFair_Jade	80006	3		3	9
+80007	采集资源	前往其他玩家农场采集1次资源	ui://Library/Image_FunctionIcon_RoomFair_Jade	80007	3		1	3
+80008	补充兵力	给武将补充1次兵力	ui://Library/Image_FunctionIcon_RoomBarracks	80008	2		1	2
+80009	讨伐野外势力	讨伐野外势力3次	ui://Library/Image_FunctionIcon_Area_Domain	80009	3		3	9
+80010	开启宝物	开启2次宝物	ui://Library/Image_FunctionIcon_Activity	80010	3		2	6
+80012	挑战千机楼	挑战1次千机楼守卫	ui://Library/Image_FunctionIcon_Room1000Tower	80012	5		1	5
+80013	单刀赴会	开启1次单刀赴会	ui://Library/Image_FunctionIcon_KingRoad	80013	5		1	5
+80014	横扫千军	完成5次横扫千军	ui://Library/Image_FunctionIcon_Goal	80014	1		5	5
+80015	盟友互助	帮助盟友加速3次	ui://Library/Image_FunctionIcon_Alliance_Help	80015	1		3	3
+80016	联盟捐献	联盟捐献3次	ui://Library/Image_FunctionIcon_Activity	80016	3		3	9
+80017	贡献兑换	在贡献商店进行1次道具兑换	ui://Library/Image_FunctionIcon_Alliance_Gift	80017	5		1	5
+80018	摇钱树	照顾摇钱树1次	ui://Library/Image_FunctionIcon_Recharge	80018	2		1	2
+80019	君主策略	使用1次君主策略	ui://Library/Image_FunctionIcon_General_GrowUp	80019	2		1	2
+80020	使用加速	使用1次加速道具	ui://Library/Image_FunctionIcon_UniteCity	80020	4		1	4
+80021	鱼塘钓鱼	完成2次钓鱼	ui://Library/Image_FunctionIcon_RoomFishpond	80021	2		2	4
+80022	扫荡列传	进行1次列传扫荡	ui://Library/Image_FunctionIcon_Pve	80022	2		1	2
+80023	千机密室	战胜1次千机密室	ui://Library/Image_FunctionIcon_Room1000Tower	80023	2		1	2
+80024	协助千机密室	协助千机密室1次	ui://Library/Image_FunctionIcon_Room1000Tower	80024	2		1	2
+80025	熔炼装备	熔炼1次装备	ui://Library/Image_FunctionIcon_RoomSmithy_Forge	80025	1		1	1
+80026	云台合璧	完成3次云台合璧	ui://Library/Image_FunctionIcon_RoomWarehouse_Make	80026	2		3	6
+80027	群雄会武	挑战1次群雄会武	ui://Library/Image_FunctionIcon_Goal	80027	3		1	3
+								122

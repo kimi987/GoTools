@@ -1,0 +1,3 @@
+商店类型，不要改，1-云游商人		优先折扣	优先折扣个数					折扣	折扣权重																						分组		
+id		must_discount	must_discount_count	must_discount	must_discount_count			discount	discount_weight	discount	discount_weight	discount	discount_weight	discount	discount_weight	discount	discount_weight	discount	discount_weight	discount	discount_weight	discount	discount_weight	discount	discount_weight	discount	discount_weight				group	group	group
+1		0.1	1	0.2	1			1	3	0.9	1	0.8	3	0.7	3	0.6	3	0.5	2	0.4	2	0.3	2	0.2	1	0.1	1				1	2	3

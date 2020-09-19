@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 3636603429
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cda54f5846e82ae6f111abd65aa4919a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIEffect/Eff_zhuanchang.prefab
+Dependencies: []

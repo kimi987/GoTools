@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 1869186435
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 73628b4aff83c99e7b726d2215739e43
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Eff_lingyangFS_skill02hit.prefab
+Dependencies: []

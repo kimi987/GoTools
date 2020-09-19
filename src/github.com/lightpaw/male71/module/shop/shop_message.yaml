@@ -1,0 +1,103 @@
+
+# 更新每日限购数据
+# HeroShopProto 存放着每日限购的物品
+#    repeated int32 daily_shop_goods = 1 [packed = false]; // 每日购买物品id
+#    repeated int32 daily_buy_times = 2 [packed = false]; // 每日已购买次数次数，用于限购使用
+#
+# 收到每日重置消息时候misc.S2C_RESET_DAILY，需要将这里面的数据清空
+update_daily_shop_goods:
+  s2c:
+    id: int // 购买物品id
+    count: int // 已买次数
+
+# 购买物品
+# ShopProto 存放着每个商店的数据，目前只有帮派商店，以后会慢慢增加
+#    int32 type = 1; // 商店类型, 1表示帮派商店
+#                                2表示元宝商店
+#                                3表示银两商店
+#    repeated ShopGoodsProto goods = 2; // 商品
+#
+# 购买成功，如果是限购物品，服务器会主动推送更新每日限购数据消息 update_daily_shop_goods。
+# VIP商品刷新机制不一样，需要从 HeroVipProto.VipShopBoughtCount 中获得每日购买数据。
+buy_goods:
+  c2s:
+    id: int // 商品id，对应ShopGoodsProto.id
+    count: int // 购买个数
+  s2c:
+    id: int // 商品id，对应ShopGoodsProto.id
+    count: int // 购买个数
+    multi: int // 暴击倍率
+    prize: bytes // 奖励，客户端解析成PrizeProto
+  s2c_fail:
+    invalid_id: 无效的商品id
+    invalid_count: 无效的购买个数
+    limit: 购买数量超过限购数量
+    cost_not_enough: 购买消耗不足
+    locked: 不满足解锁条件
+    server_error: 服务器忙，请稍后再试
+    vip_level_not_enough: vip等级不够
+    daily_bought_limit: 今天不能买了
+    cant_use_goods: 当前不能使用该物品
+
+# 暴击广播
+multi_crit_broadcast:
+  s2c:
+    shop_type: int // 商店类型 (ShopProto.type)
+    multi: int // 暴击倍率
+    name: string // 玩家名字
+    prize: bytes // 奖励，客户端解析成PrizeProto
+
+# 服务器推送黑市商店数据
+#
+# 服务器在以下情况下会推送
+# 1、刚登陆
+# 2、倒计时结束，刷新商店刷新时候
+#
+# 商品数据类型 BlackMarketGoodsDataProto
+push_black_market_goods:
+  s2c:
+    refrash: bool // 登陆时候推送为false，刷新时候推送为true
+    next_refresh_time: int // 下次刷新时间
+    goods_id: int[] // 商品id列表
+    discount: int[] // 商品折扣列表，要除1000，900表示9折
+    buy: bool[] // 是否已购买
+
+# 购买黑市商店物品
+buy_black_market_goods:
+  c2s:
+    index: int // 商品下标，从0开始
+  s2c:
+    index: int // 商品下标，从0开始
+  s2c_fail:
+    invalid_index: 无效的商品下标
+    cost_not_enough: 购买物品，消耗不足
+    buyed: 这个物品已经购买过了
+
+# 手动刷新商店
+#
+# ShopMiscDataProto
+#    repeated CostProto refresh_black_market_cost = 1; // 刷新云游商人消耗
+#
+# 今日已刷新次数
+# HeroGenShopProto
+#      int32 black_market_daily_refresh_times = 1; // 黑市每日刷新次数
+#
+# 客户端根据刷新次数，计算下次刷新消耗，刷新次数收到每日重置消息，需要重置为0
+#
+# 刷新成功后，服务器会主动推送 load_black_market_goods.s2c消息
+refresh_black_market_goods:
+  c2s:
+  s2c:
+  s2c_fail:
+    cost_not_enough: 刷新消耗不足
+    times_limit: 刷新次数已达上限
+
+# 更新VIP商店已购数据
+# HeroVipProto 存放着每日限购的物品
+#    repeated int32 vip_shop_bought_id = 1 [packed = false]; // vip商店已购商品id
+#
+# 收到每日重置消息时候misc.S2C_RESET_DAILY_ZERO，需要将这里面的数据清空
+update_vip_shop_goods:
+  s2c:
+    id: int // 购买物品id
+    count: int // 已买次数

@@ -1,0 +1,6 @@
+导师id	导师名字	导师图片	导师保级权重	保级倍率	暴击图片下标	导师保级权重	保级倍率	暴击图片下标	导师保级权重	保级倍率	暴击图片下标		导师奖励，配置 prize.txt 中的id	一键刷新最高消耗	对话内容
+id	name	image	weight	crit	crit_img_index	weight	crit	crit_img_index	weight	crit	crit_img_index		prize	refresh_max_cost	chat_content
+1	东施	Image_1	80	1	-1	19	2	0	1	10	2		11101001	11101001	大哥哥，一起学习吧！
+2	韩非	Image_2	80	1	-1	19	2	0	1	10	2		11102001	11102001	韩非子一书，献给英雄！
+3	西施	Image_3	80	1	-1	19	2	0	1	10	2		11103001	11103001	妾身这里有吴越争霸美人计篇，特来与君共赏。
+4	白起	Image_4	80	1	-1	19	2	0	1	10	2		11104001		看好了，这就是横扫六国之霸气！

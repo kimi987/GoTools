@@ -1,0 +1,8 @@
+建筑物类型，配置同 building.txt 中的 type		解锁需要的官府等级的ID	解锁需要的玩家等级	解锁需要做完哪些主线任务	解锁需要到达第几个霸业阶段				
+building_type	sm	guan_fu_level	hero_level	main_task_sequence	ba_ye_stage		desc	icon	notify_order
+xiu_lian_guan		20004					building_unlockdesctie_jiang_pu	ui://MainCity/Image_NotOpen	1
+tie_jiang_pu			11				building_unlockdesctie_jiang_pu	ui://MainCity/Image_NotOpen	7
+JUN_YING			3				building_unlockdescxing_ying	ui://MainCity/Image_NotOpen	5
+shu_yuan			4				building_unlockdescshu_yuan	ui://MainCity/Image_NotOpen	9
+JIU_GUAN			7				building_unlockdescxing_ying	ui://MainCity/Image_NotOpen	22
+cang_ku			5				building_unlockdesctie_jiang_pu	ui://MainCity/Image_NotOpen	23

@@ -1,0 +1,186 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+// 阻挡区域
+message BlockInfoProto {
+    string name = 4; // 阻挡块名称
+    repeated int32 x = 1 [packed = false];
+    repeated int32 y = 2 [packed = false];
+    repeated int32 type = 3 [packed = false];
+    repeated int32 h = 5 [packed = false];
+}
+
+message BlockLayoutProto {
+    int32 x_len_per_block = 1; // 每个block的X坐标长度
+    int32 y_len_per_block = 2; // 每个block的X坐标长度
+
+    int32 block_len = 3; // 横向有多少个block
+    repeated string block_name = 4; // 阻挡块数组
+}
+
+// 场景中的单位
+
+enum BaseTargetType {
+    NpcHome = 0; // Npc行营入侵
+    NpcMultiLevelMonster = 1; // 多等级野怪
+    NpcMonster = 2; // 野怪
+    NpcGuild = 3; // 联盟Npc
+    NpcXiongNu = 4; // 抗击匈奴Npc
+    NpcBaoZang = 5; // 宝藏Npc
+    NpcMingCheng = 6; // 名城Npc
+    NpcJunTuan = 7; // 军团怪Npc
+
+    Hero = 32; // 英雄
+}
+
+// 主城单位
+message BaseUnitProto {
+    bytes hero_id = 1; // 玩家的id
+    string hero_name = 2; // 玩家名字
+    int32 guild_id = 3; // 联盟Id
+    string guild_flag_name = 5; // 联盟旗号
+    int32 country_id = 17; // 国家id
+    int32 level = 6; // 玩家主城等级
+    int32 base_x = 7; // x坐标 x坐标和y坐标都发0，表示随机建城
+    int32 base_y = 8; // y坐标
+    int32 mian_disappear_time = 9; // 免战结束时间，unix时间戳（秒）
+    int32 white_flag_guild_id = 10; // 插白旗的联盟id
+    string white_flag_guild_flag_name = 11; // 插白旗的联盟旗号
+    int32 white_flag_disappear_time = 12; // 插白旗的过期时间，unix时间戳（秒）
+    int32 outer_city_unlock_bit = 13; // 外城配置 每2个bit表示一个数据，0-没有分城 1-军事分城 2-经济分城
+    string sign = 14; // 个人签名
+    int32 prosperty = 15; // 繁荣度
+    bool stop_lost_prosperity = 16; // true表示损失繁荣度已达上限
+    int32 title = 18; // 称号
+    int32 vip_level = 19; // vip 等级
+}
+
+enum TroopType {
+    TT_HERO = 0; // 英雄部队类型
+    TT_NORMAL_NPC = 1; // 普通npc部队类型
+    TT_MULTI_LEVEL = 2; // 多等级怪物
+    TT_XIONG_NU = 3; // 匈奴npc部队类型
+    TT_BAO_ZANG = 4; // 宝藏Npc
+    TT_ASSEMBLY = 5; // 集结队伍
+}
+
+enum TroopOperate {
+    ToNone = 0; // 无效的操作
+    ToInvasion = 1; // 出征
+    ToAssist = 2; // 援助
+    ToAssembly = 3; // 集结
+    ToWorkshopBuild = 4; // 联盟工坊建造
+    ToWorkshopProd = 5; // 联盟工坊生产
+    ToWorkshopPrize = 6; // 领取联盟工坊奖励
+    ToInvestigate = 7; // 侦查
+}
+
+// 部队单位
+message TroopUnitProto {
+    bytes troop_id = 101; // 部队id == 军情id
+    int32 action = 2; // TroopOperate
+    int32 move_type = 3; // 移动类型，0-forward(往目标移动) 1-arrived(到达) 2-back(回家)
+    int32 move_start_time = 4; // 行军开始时间
+    int32 move_arrived_time = 5; // 行军到达时间
+
+    bytes start_base_id = 11; // 所属玩家id
+    int32 start_base_x = 12; // 出发主城坐标
+    int32 start_base_y = 13;
+    int32 start_base_guild_id = 14; // 所属玩家的联盟id
+
+    bytes target_base_id = 21; // 目标id
+    int32 target_base_x = 22; // 目标主城坐标
+    int32 target_base_y = 23;
+    int32 target_base_guild_id = 24; // 目标玩家的联盟id
+
+    TroopType type = 25; // 部队类型
+
+    int32 dialogue = 26; // 对话id
+}
+
+enum RegionType {
+    InvalidRegionType = 0; // 兼容proto2
+    HOME = 1; // 蛮荒地区（默认放主城的地区）
+    GUILD = 2; // 主城地区（帮派放主城的地区）
+    MONSTER = 3; // 荣誉地区（打怪的地区）
+}
+
+message RegionDataProto {
+    int32 id = 1; // id
+    RegionType region_type = 2; // 地区类型
+    int32 level = 3; // 地区等级
+
+    int32 basic_output = 4; // 基础产量
+
+    int32 is_very_much_jade_ore_threshold = 5; // >=这个玉石矿数量，显示很多
+    int32 is_much_jade_ore_threshold = 6; // >=这个玉石矿数量，显示多，其他的都是少
+
+    // 拥挤度主城数分界线，假设3个状态，空闲，拥挤，爆满
+    // 此时这个数组会提供2个数作为分界线
+    // 地区人数<=第一个值，说明是空闲
+    // 第一个值<地区人数<=第二个值，说明拥挤
+    // 第二个值<地区人数，说明爆满
+    repeated int32 crowded_base_count = 11 [packed = false];
+
+    int32 sub_block_x_len = 12; // 每个小块的X长度
+    int32 sub_block_y_len = 13; // 每个小块的Y长度
+
+    int32 guild_move_base_min_radius = 14; // 联盟随机迁城令最小半径
+    int32 guild_move_base_max_radius = 15; // 联盟随机迁城令最大半径
+}
+
+enum MultiLevelNpcType {
+    InvalidMultiLevelNpcType = 0;
+    LIU_KOU = 1; // 流寇
+    PAN_JUN = 2; // 叛军
+    HAI_DAO = 3; // 海盗
+    JIE_FEI = 4; // 劫匪
+}
+
+message RegionMultiLevelNpcTypeProto {
+
+    MultiLevelNpcType type = 2; // Npc类型
+
+    string name = 5; // 类型名字
+
+    int32 max_hate = 3; // 仇恨最大值
+
+    int32 fight_hate = 4; // 怪物攻城仇恨值，>=这个仇恨值，怪物会出兵
+
+}
+
+message RegionMultiLevelNpcDataProto {
+    int32 id = 1; // id
+
+    MultiLevelNpcType type = 2; // Npc类型
+
+    repeated int32 level_base_id = 3 [packed = false]; // shared_proto.NpcBaseDataProto
+
+    int32 offset_base_x = 4; // 野怪坐标（配置在小块地图的坐标，真实坐标需要做偏移）
+    int32 offset_base_y = 5;
+}
+
+message DiaoKeDataProto {
+    int32 cost_jade_ore = 1; // 消耗的玉石矿
+    int32 jade_prize = 2; // 玉璧奖励
+}
+
+message DiaoKeMiscDataProto {
+    repeated int32 time_cost = 1 [packed = false]; // 消耗的时间，第一个表示第一次，第二个表示第二次，如果次数超出了长度，取最后一个
+    int32 one_yuan_bao_exchange_duration = 2; // 1元宝兑换的雕刻时长
+    DiaoKeDataProto default_diao_ke_data = 3; // 默认的雕刻数据(没有放置行营时的数据)
+}
+
+// 盟友驻扎恢复繁荣度日志
+message AstDefendLogProto {
+    int32 log_time = 1; // 日志时间
+    string hero_name = 2; // 玩家名字: [旗号]玩家名字
+    int32 defending_duration = 3; // 驻扎时长（秒）
+    int32 add_prosperity = 4; // 恢复的繁荣度
+}
+

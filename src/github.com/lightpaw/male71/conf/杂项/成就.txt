@@ -1,0 +1,13 @@
+成就id	成就名字	成就描述	成就背景图	"成就类型    BASE_LEVEL = 1; // 城池等级，成就目标为：城池等级    JUN_XIAN = 2; // 军衔，成就目标为：军衔等级    TOWER_FLOOR = 3; // 重楼，成就目标为：重楼层数    SECRET_TOWER_CHALLENGE = 4; // 助人为乐(重楼密室组队)，成就目标为：重楼密室组队次数"	"成就目标    BASE_LEVEL = 1; // 城池等级，成就目标为：城池等级    JUN_XIAN = 2; // 军衔，成就目标为：军衔等级    TOWER_FLOOR = 3; // 重楼，成就目标为：重楼层数    SECRET_TOWER_CHALLENGE = 4; // 助人为乐(重楼密室组队)，成就目标为：重楼密室组队次数"	奖励
+id	name	desc	bg_img	type	target	prize
+1	城池1级	城池1级	1	BASE_LEVEL	1	1
+2	城池2级	城池2级	2	BASE_LEVEL	2	2
+						
+10	军衔1级	军衔1级	10	JUN_XIAN	1	1
+11	军衔2级	军衔2级	11	JUN_XIAN	2	2
+						
+20	千机楼1层	千机楼1层	20	TOWER_FLOOR	1	1
+21	千机楼2层	千机楼2层	21	TOWER_FLOOR	2	2
+						
+30	助人为乐10次	助人为乐10次	30	SECRET_TOWER_CHALLENGE	10	1
+31	助人为乐20次	助人为乐20次	31	SECRET_TOWER_CHALLENGE	20	2

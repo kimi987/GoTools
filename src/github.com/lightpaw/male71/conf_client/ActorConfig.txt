@@ -1,0 +1,14 @@
+编号	描述	预设	脚本	图标	角色类型	技能1	技能2								
+id	desc	prefab	script	icon	actorType	skill	skill								
+1	步兵1	Prefabs/Monster/Cha_soldier	Actor/ActorFighter		1	20	21								
+2	骑兵1	Prefabs/Monster/Cha_cavalry	Actor/ActorFighter		2	10	11						    -- 步兵--		
+3	弓兵1	Prefabs/Monster/Cha_Archer	Actor/ActorFighter		3	0	1						"    Infantry = 1,"		
+4	车兵1	Prefabs/Monster/Zhanche01	Actor/ActorFighter		4	30	31						    -- 骑兵--		
+5	械兵1	Prefabs/Monster/Toushiche01	Actor/ActorFighter		5	40	41						"    Cavalry = 2,"		
+6	骑兵.军情展示	Prefabs/Monster/Cha_cavalry_low	Actor/ActorFighter										    -- 弓兵--		
+													"    Archer = 3,"		
+													    -- 车兵--		
+													"    Chariots = 4,"		
+													    -- 械兵--		
+													"    Catapult = 5,"		
+															

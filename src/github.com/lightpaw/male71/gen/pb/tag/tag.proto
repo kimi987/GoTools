@@ -1,0 +1,46 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "tag";
+option optimize_for = SPEED;
+
+
+message C2SAddOrUpdateTagProto {
+
+    bytes id = 1; // 目标玩家id
+
+    string tag = 2; // 标签内容
+
+}
+
+message S2CAddOrUpdateTagProto {
+
+    bytes id = 1; // 目标玩家id
+
+    bytes record = 4; // 解析成 TagRecordProto，然后提示 // 客户端将记录加到最后一条上面，如果当前总条数>最大条数，删掉第一条 // 客户端寻找该标签，存在的话，将 count + 1
+
+    bytes tag = 2; // 客户端解析成 TagProto，将TagProto更新到 HeroTagProto的tags上面
+
+}
+
+message S2COtherTagMeProto {
+
+    bytes record = 1; // 解析成 TagRecordProto，然后提示 // 客户端将记录加到最后一条上面，如果当前总条数>最大条数，删掉第一条 // 客户端寻找该标签，存在的话，将 count + 1
+
+    bytes tag = 2; // 客户端解析成 TagProto，将TagProto更新到 HeroTagProto的tags上面
+
+}
+
+message C2SDeleteTagProto {
+
+    repeated string tags = 2;
+
+}
+
+message S2CDeleteTagProto {
+
+    repeated string tags = 2;
+
+}
+

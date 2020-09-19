@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 1842509473
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 81a2fb9c977fd6dbda9d505f2817ec67
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIEffect/UI_weituolingqu.prefab
+Dependencies: []

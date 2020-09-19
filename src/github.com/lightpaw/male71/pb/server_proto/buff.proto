@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+message HeroBuffServerProto {
+    map<int32, BuffInfoServerProto> buff = 1;
+}
+
+message BuffInfoServerProto {
+    int64 start_time = 1; // 开始时间
+    int64 end_time = 2; // 结束时间
+    uint64 buff_effect_id = 3; // BuffEffectDataProto.Id
+    int64 oper_id = 4;
+}

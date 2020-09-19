@@ -1,0 +1,7 @@
+总的活跃度	奖励，配置 prize.txt 中的id	随机掉落，如果不配，直接给prize，如果配了，prize只做展示，真正给的是plunder中的随机掉落
+degree	prize	plunder
+10	81010	
+35	81035	
+60	81060	
+85	81085	
+100	81100	

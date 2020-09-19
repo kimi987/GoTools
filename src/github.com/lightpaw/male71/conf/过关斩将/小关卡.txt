@@ -1,0 +1,72 @@
+Id	名字	描述	图标	通关奖励	掉落，可以不配置，不配置给通关奖励	展示奖励	怪物	CombatScene	奖励的功勋
+id	name	desc	icon	pass_prize	plunder	show_prize	monster	combat_scene	gong_xun
+10101	乐羊	第1小关描述	第1小关图标				12301110	Battle_ZhanJiang_1v1_1	50
+10102	魏击	第2小关描述	第2小关图标				12301120	Battle_ZhanJiang_1v1_1	60
+10103	西门豹	第3小关描述	第3小关图标				12301130	Battle_ZhanJiang_1v1_1	70
+10104	魏成	第4小关描述	第4小关图标				12301140	Battle_ZhanJiang_1v1_1	90
+10105	李悝	第5小关描述	第5小关图标				12301150	Battle_ZhanJiang_1v1_1	120
+10106	翟璜	第6小关描述	第6小关图标				12301160	Battle_ZhanJiang_1v1_1	140
+10107	吴起	第7小关描述	第7小关图标	2000208			12301170	Battle_ZhanJiang_1v1_1	250
+10201	龙贾	第1小关描述	第1小关图标				12301210	Battle_ZhanJiang_1v1_1	100
+10202	惠施	第2小关描述	第2小关图标				12301220	Battle_ZhanJiang_1v1_1	130
+10203	公叔痤	第3小关描述	第3小关图标				12301230	Battle_ZhanJiang_1v1_1	160
+10204	魏申	第4小关描述	第4小关图标				12301240	Battle_ZhanJiang_1v1_1	190
+10205	魏昂	第5小关描述	第5小关图标				12301250	Battle_ZhanJiang_1v1_1	220
+10206	公孙衍	第6小关描述	第6小关图标				12301260	Battle_ZhanJiang_1v1_1	250
+10207	庞涓	第7小关描述	第7小关图标	2000214			12301270	Battle_ZhanJiang_1v1_1	450
+10301	田盼	第1小关描述	第1小关图标				12301310	Battle_ZhanJiang_1v1_1	220
+10302	田横	第2小关描述	第2小关图标				12301320	Battle_ZhanJiang_1v1_1	260
+10303	匡章	第3小关描述	第3小关图标				12301330	Battle_ZhanJiang_1v1_1	300
+10304	淖齿 	第4小关描述	第4小关图标				12301340	Battle_ZhanJiang_1v1_1	340
+10305	田法章	第5小关描述	第5小关图标				12301350	Battle_ZhanJiang_1v1_1	380
+10306	田忌	第6小关描述	第6小关图标				12301360	Battle_ZhanJiang_1v1_1	420
+10307	田单	第7小关描述	第7小关图标	2000303			12301370	Battle_ZhanJiang_1v1_1	680
+10401	骑劫	第1小关描述	第1小关图标				12301410	Battle_ZhanJiang_1v1_1	300
+10402	剧辛	第2小关描述	第2小关图标				12301420	Battle_ZhanJiang_1v1_1	360
+10403	粟腹	第3小关描述	第3小关图标				12301430	Battle_ZhanJiang_1v1_1	420
+10404	苏代	第4小关描述	第4小关图标				12301440	Battle_ZhanJiang_1v1_1	480
+10405	苏秦	第5小关描述	第5小关图标				12301450	Battle_ZhanJiang_1v1_1	540
+10406	秦开	第6小关描述	第6小关图标				12301460	Battle_ZhanJiang_1v1_1	600
+10407	乐毅	第7小关描述	第7小关图标	2000304			12301470	Battle_ZhanJiang_1v1_1	800
+10501	景舍	第1小关描述	第1小关图标				12301510	Battle_ZhanJiang_1v1_1	400
+10502	昭阳	第2小关描述	第2小关图标				12301520	Battle_ZhanJiang_1v1_1	460
+10503	逢侯丑	第3小关描述	第3小关图标				12301530	Battle_ZhanJiang_1v1_1	520
+10504	屈丐	第4小关描述	第4小关图标				12301540	Battle_ZhanJiang_1v1_1	580
+10505	李园	第5小关描述	第5小关图标				12301550	Battle_ZhanJiang_1v1_1	640
+10506	庄蹻	第6小关描述	第6小关图标				12301560	Battle_ZhanJiang_1v1_1	700
+10507	养由基	第7小关描述	第7小关图标	2000305			12301570	Battle_ZhanJiang_1v1_1	1050
+20101	乌获	第1小关描述	第1小关图标				12302110	Battle_ZhanJiang_1v1_1	500
+20102	孟贲	第2小关描述	第2小关图标				12302120	Battle_ZhanJiang_1v1_1	560
+20103	鲜于	第3小关描述	第3小关图标				12302130	Battle_ZhanJiang_1v1_1	620
+20104	休屠王	第4小关描述	第4小关图标				12302140	Battle_ZhanJiang_1v1_1	680
+20105	右贤王	第5小关描述	第5小关图标				12302150	Battle_ZhanJiang_1v1_1	740
+20106	左贤王	第6小关描述	第6小关图标				12302160	Battle_ZhanJiang_1v1_1	800
+20107	冒顿	第7小关描述	第7小关图标	2000306			12302170	Battle_ZhanJiang_1v1_1	1120
+20201	陈庄	第1小关描述	第1小关图标				12302210	Battle_ZhanJiang_1v1_1	600
+20202	张若	第2小关描述	第2小关图标				12302220	Battle_ZhanJiang_1v1_1	660
+20203	都尉墨	第3小关描述	第3小关图标				12302230	Battle_ZhanJiang_1v1_1	720
+20204	魏章	第4小关描述	第4小关图标				12302240	Battle_ZhanJiang_1v1_1	780
+20205	甘茂	第5小关描述	第5小关图标				12302250	Battle_ZhanJiang_1v1_1	840
+20206	张仪	第6小关描述	第6小关图标				12302260	Battle_ZhanJiang_1v1_1	900
+20207	司马错	第7小关描述	第7小关图标	2000307			12302270	Battle_ZhanJiang_1v1_1	1200
+20301	赵胜	第1小关描述	第1小关图标				12302310	Battle_ZhanJiang_1v1_1	700
+20302	黄歇	第2小关描述	第2小关图标				12302320	Battle_ZhanJiang_1v1_1	760
+20303	项燕	第3小关描述	第3小关图标				12302330	Battle_ZhanJiang_1v1_1	820
+20304	田文	第4小关描述	第4小关图标				12302340	Battle_ZhanJiang_1v1_1	880
+20305	赵奢	第5小关描述	第5小关图标				12302350	Battle_ZhanJiang_1v1_1	940
+20306	廉颇	第6小关描述	第6小关图标				12302360	Battle_ZhanJiang_1v1_1	1000
+20307	李牧	第7小关描述	第7小关图标	2000308			12302370	Battle_ZhanJiang_1v1_1	1250
+20401	王离	第1小关描述	第1小关图标				12302410	Battle_ZhanJiang_1v1_1	740
+20402	李信	第2小关描述	第2小关图标				12302420	Battle_ZhanJiang_1v1_1	800
+20403	蒙恬	第3小关描述	第3小关图标				12302430	Battle_ZhanJiang_1v1_1	860
+20404	蒙毅	第4小关描述	第4小关图标				12302440	Battle_ZhanJiang_1v1_1	920
+20405	蒙骜	第5小关描述	第5小关图标				12302450	Battle_ZhanJiang_1v1_1	980
+20406	王翦	第6小关描述	第6小关图标				12302460	Battle_ZhanJiang_1v1_1	1040
+20407	白起	第7小关描述	第7小关图标	2000309			12302470	Battle_ZhanJiang_1v1_1	1280
+20501	赵光	第1小关描述	第1小关图标				12302510	Battle_ZhanJiang_1v1_1	840
+20502	屠睢	第2小关描述	第2小关图标				12302520	Battle_ZhanJiang_1v1_1	900
+20503	译吁宋	第3小关描述	第3小关图标				12302530	Battle_ZhanJiang_1v1_1	960
+20504	赵胡	第4小关描述	第4小关图标				12302540	Battle_ZhanJiang_1v1_1	1020
+20505	仲始	第5小关描述	第5小关图标				12302550	Battle_ZhanJiang_1v1_1	1080
+20506	任嚣	第6小关描述	第6小关图标				12302560	Battle_ZhanJiang_1v1_1	1140
+20507	赵佗	第7小关描述	第7小关图标	2000310			12302570	Battle_ZhanJiang_1v1_1	1380

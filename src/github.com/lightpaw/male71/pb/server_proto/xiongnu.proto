@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+message AllXiongNuServerProto {
+    repeated XiongNuServerProto datas = 1;
+    repeated int64 today_join_ids = 2; // 今天参加活动了的人
+    int64 last_reset_daily_time = 3; // 上次每日重置时间
+}
+
+message XiongNuServerProto {
+    uint64 level = 1; // 等级
+    int64 guild_id = 2; // 联盟
+    int64 base_id = 3; // 主城id
+    int32 base_x = 13; // 主城在场景中的x坐标
+    int32 base_y = 14; // 主城在场景中的y坐标
+    int64 start_time = 4; // 开始时间
+    uint64 wipe_out_monster_count = 5; // 消灭怪物数量
+    uint64 morale = 6; // 士气
+    repeated int64 give_prize_members = 7; // 给奖励的成员
+    repeated int64 defenders = 8; // 防守者
+    uint64 wave = 10; // 第几波
+    uint64 add_monster_count = 11; // 加的怪物数量
+    int64 next_refresh_monster_time = 12; // 下次刷新怪物的时间
+    uint64 accum_reduce_morale = 15; // 累计减少的士气
+    bool defeated = 16; // 是否击败了对方
+    bool resist = 9; // 是否开始反击了
+
+    repeated int64 hero_id = 17; // 玩家战斗数据
+    repeated uint64 hero_kill_soldier = 18; // 玩家击杀数
+    repeated uint64 hero_been_kill_soldier = 19; // 玩家被击杀数
+}

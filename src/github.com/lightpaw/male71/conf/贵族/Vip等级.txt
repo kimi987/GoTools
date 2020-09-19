@@ -1,0 +1,13 @@
+vip等级	升下一级所需vip经验，vip等级封顶为0	名称	额外建筑队列	每次建造时间额外减少	是否可付费立即恢复繁荣度	每次书院研究时间额外减少	装备锻造立即完成	驿站额外购买次数	是否可付费一键白起	驿站请教后无CD	修炼馆产出经验速度增加百分之N	修炼馆经验条子上限增加百分之N	付费强征次数	驻防可设置自动补兵	PVP行军速度提升百分之N	PVE行军速度提升百分之N	一键讨伐N次	政务免CD	每日初始活跃度	激活金杆钓	每日体力值购买	每日精英星级推图副本购买次数	好友上限	一键领取所有联盟礼包	官府税收增加百分之N	君主头像VIP标识	君主头像框	聊天气泡	君主签名可外显在野外	铭牌	贵族商场可购买专享坐骑	提前解锁武将队伍至第几队	增加每日游商的最大刷新次数	每日大餐体力值补领
+vip_level	vip_exp	name	building_worker_addition_count	building_time_reduce	enable_prosperity_full_recover_deal	teach_time_reduce	enable_forging_without_cd	jiu_guan_refresh_addition_deal_times	enable_jiu_guan_highest_tutor_refresh_deal	enable_consultation_without_cd	training_speed_percent_addition	training_store_exp_max_percent_addition	force_conscription_deal_times	enable_set_auto_reorganize_soldiers	pvp_move_speed_percent_addition	pve_move_speed_percent_addition	once_invase_same_target_max_count	enable_zheng_wu_without_cd	daily_init_active_degree	enable_special_fishing	sp_max_deal_times	elite_star_dungeon_deal_times	relation_max_count	enable_once_collect_all_guild_gifts	guan_fu_tax_percent_addition	enable_hero_head_vip_icon	enable_hero_head_frame	enable_chat_bubble	enable_hero_sign_outside_show	enable_hero_nameplate	enable_vip_market_special_riding_deal	unlock_last_troop_to	black_market_refresh_addition_deal_times	enable_repair_sp_collection
+0	60	平民															1				1		200											
+1	300	贵族I		1m	1	1m	1	1	1	1	1	1	1	1	1	1	1	1	10		2	1	210	1	1	1	1	1	1	1	1		1	1
+2	980	贵族II		2m	1	2m	1	2	1	1	2	2	2	1	2	2	1	1	20	1	2	2	220	1	2	1	1	1	1	1	1		2	1
+3	1980	贵族III	1	3m	1	3m	1	3	1	1	3	3	3	1	3	3	1	1	30	1	3	3	230	1	3	1	1	1	1	1	1	2	3	1
+4	3280	贵族IV	1	4m	1	4m	1	4	1	1	4	4	4	1	4	4	5	1	40	1	3	4	240	1	4	1	1	1	1	1	1	2	4	1
+5	6480	贵族V	1	5m	1	5m	1	5	1	1	5	5	5	1	5	5	5	1	50	1	4	5	250	1	5	1	1	1	1	1	1	2	5	1
+6	6480	贵族VI	1	6m	1	6m	1	6	1	1	6	6	6	1	6	6	5	1	60	1	5	6	260	1	6	1	1	1	1	1	1	2	6	1
+7	6480	贵族VII	1	7m	1	7m	1	7	1	1	7	7	7	1	7	7	5	1	70	1	6	7	270	1	7	1	1	1	1	1	1	3	7	1
+8	6480	贵族VIII	2	8m	1	8m	1	8	1	1	8	8	8	1	8	8	5	1	80	1	7	8	280	1	8	1	1	1	1	1	1	3	8	1
+9	6480	贵族IX	2	9m	1	9m	1	9	1	1	9	9	9	1	9	9	5	1	90	1	8	9	290	1	9	1	1	1	1	1	1	3	9	1
+10		贵族X	3	10m	1	10m	1	10	1	1	10	10	10	1	10	10	5	1	100	1	9	10	300	1	10	1	1	1	1	1	1	3	10	1

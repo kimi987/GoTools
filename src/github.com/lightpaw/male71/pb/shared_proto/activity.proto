@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/config_gen.proto";
+
+
+// 一堆收集活动
+message HeroAllCollectionProto {
+    repeated HeroCollectionProto collections = 1; // 所有的收集活动
+}
+
+// 收集活动
+message HeroCollectionProto {
+    int32 id = 1; // 活动id
+    repeated Int32Pair exchange_times = 2; // <兑换id, 兑换次数>
+}
+
+message ActivityCollectionProto {
+    ActivityCollectionDataProto data = 1; // 活动配置信息
+    int32 end_time = 2; // 结束时间
+}
+
+message ActivityTaskListModeProto {
+    ActivityTaskListModeDataProto data = 1; // 活动配置信息
+    int32 end_time = 2; // 结束时间
+}
+
+// 列表式活动任务进度
+message HeroActivityTaskListModeProto {
+    int32 id = 1; // 活动id
+    repeated Int32Pair progress = 2; // <任务id, 当前进度>
+    repeated int32 collected = 3 [packed = false]; // 领取过奖励的任务id
+}
+
+message ActiviyShowProto {
+    ActivityShowDataProto data = 1; // 展示配置信息
+    int32 end_time = 2; // 结束时间
+}

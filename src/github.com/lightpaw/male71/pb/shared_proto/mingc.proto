@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/guild.proto";
+
+enum MincType {
+    MC_INVALID_MINC = 0; // 无效的名称类型
+    MC_XIAN = 1; // 县城
+    MC_JUN = 2; // 郡城
+    MC_DU = 3; // 都城
+}
+
+// 所有名城
+message MingcsProto {
+    repeated MingcProto mingcs = 1;
+}
+
+// 名城
+message MingcProto {
+    int32 id = 1;
+    int32 yinliang = 2; // 当前银两
+    int32 extra_yinliang = 4; // 爆仓银两
+    GuildBasicProto host_guild = 3; // 占领联盟，无占领时为nil
+    int32 host_extra_yinliang = 5; // 占领盟的爆仓银两收入
+
+    int32 level = 6; // 民心等级
+    int32 support = 7; // 民心
+    int32 daily_added_support = 8; // 今天已经加了的民心数
+}
+
+// 玩家名城营建
+message HeroMcBuildProto {
+    int32 mc_build_count = 1; // 当天名城营建过的次数
+    int32 mc_build_next_time = 2; // 下次名城营建的时间
+}
+
+// 名城营建记录
+message GuildMcBuildProto {
+    repeated SingleGuildMcBuildProto log = 1; // 每条营建记录，已排好序
+}
+
+message SingleGuildMcBuildProto {
+    GuildBasicProto guild = 1;
+    int32 support = 2; // 民心
+    int32 build_count = 3; // 营建次数
+}

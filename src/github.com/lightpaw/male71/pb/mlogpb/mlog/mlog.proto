@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "mlog";
+option optimize_for = SPEED;
+
+message MlogProto {
+    int64 pid = 1;
+    int64 sid = 2;
+    bytes content = 3;
+}

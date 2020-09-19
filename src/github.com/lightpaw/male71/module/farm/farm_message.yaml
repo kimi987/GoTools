@@ -1,0 +1,201 @@
+gen_error_msg: true
+
+# 农场
+# 所有 cube 坐标都是偏移
+#
+
+# 农场有更新了
+# 收到消息时，请求 view_farm 刷新农场数据
+farm_is_update:
+  s2c:
+
+# 种植
+# 这里不再发成熟时间和最大产量了
+# 成熟时间可以用当前时间+FarmResConfigProto.RipeDuration
+# 最大产量的科技加成需要取在收获时的加成
+plant:
+  c2s:
+    cube_x: int // 地块坐标x
+    cube_y: int // 地块坐标y
+    res_id: int // 种植资源id。 FarmResConfigProto.id
+  s2c:
+    cube_x: int // 地块坐标x
+    cube_y: int // 地块坐标y
+    res_id: int // 种植资源id。 FarmResConfigProto.id
+  s2c_fail:
+    invalid_cube: 无效地块。不是自己的
+    invalid_res_id: 资源 id 错误
+    not_idle_cube: 不是空闲地块
+    server_err: 服务器错误
+
+# 收获
+harvest:
+  c2s:
+    cube_x: int // 地块坐标x
+    cube_y: int // 地块坐标y
+  s2c:
+    cube_x: int // 地块坐标x
+    cube_y: int // 地块坐标y
+    current_output: int // 当前收获的产量
+  s2c_fail:
+    invalid_cube: 无效地块。不是自己的、没有种植或者在冲突中
+    server_err: 服务器错误
+    no_output: 产量为0
+
+
+# 改建
+change:
+  c2s:
+    cube_x: int // 地块坐标x
+    cube_y: int // 地块坐标y
+    res_id: int // 改建的种植资源id。 FarmResConfigProto.id
+  s2c:
+    cube_x: int // 地块坐标x
+    cube_y: int // 地块坐标y
+    res_id: int // 改建的种植资源id。 FarmResConfigProto.id
+    old_res_id: int // 原来的资源id   FarmResConfigProto.id
+    old_output: int // 原来资源收获的产量
+  s2c_fail:
+    invalid_cube: 无效地块。不是自己的、没有种植或者在冲突中
+    server_err: 服务器错误
+
+# 一键种地
+one_key_plant:
+  c2s:
+    gold_conf_id: int // 铜币资源id. FarmResConfigProto.id
+    stone_conf_id: int // 石料资源id. FarmResConfigProto.id
+    gold_count: int // 铜币数量
+    stone_count: int // 石料数量
+  s2c:
+    compress: snappy
+    cube_x: int[] // 地块坐标x cube_x，cube_y，res_id，max_output 一一对应
+    cube_y: int[] // 地块坐标y
+    res_id: int[] // 种植资源id。 FarmResConfigProto.id
+  s2c_fail:
+    none_idle_cube: 没有空白地块了
+    server_err: 服务器错误
+    invalid_count: 数量都是0
+
+# 一键收获 只收获成熟的地块
+one_key_harvest:
+  c2s:
+    res_type: int // 要收获的资源类型， shared_proto.ResType. 发0表示全收
+  s2c:
+    compress: snappy
+    cube_x: int[] // 地块坐标x
+    cube_y: int[] // 地块坐标y, 与 cube_x 一一对应
+    gold_output: int[] // 这块地的铜币产量, 与 cube_x 一一对应
+    stone_output: int[] // 这块地的石料产量, 与 cube_x 一一对应
+  s2c_fail:
+    none_idle_cube: 还没有成熟的地块
+    server_err: 服务器错误
+    res_type_err: 资源类型错误
+
+# 一键犁地
+# 客户端收到成功消息，就把所有地块置空。特殊处理：保留地块冲突状态，删掉删除状态地块
+one_key_reset:
+  c2s:
+  s2c:
+    compress: snappy
+    cube_x: int[] // 地块坐标x
+    cube_y: int[] // 地块坐标y, 与 cube_x 一一对应
+    gold_output: int[] // 这块地的铜币产量, 与 cube_x 一一对应
+    stone_output: int[] // 这块地的石料产量, 与 cube_x 一一对应
+  s2c_fail:
+    server_err: 服务器错误
+
+
+# 查看农场，查看自己时只在第一次打开时请求一次
+view_farm:
+  c2s:
+    target: bytes // 目标id
+    open_win: bool // 玩家打开窗口
+  s2c:
+    compress: snappy
+    target: bytes
+    target_basic: bytes // HeroBasicProto, 查看别人农场有效。因为从缓存里取可能不是最新的
+    hero_farm: bytes // 农场 HeroFarmProto
+    next_level_cube_x: int[] // 即将开启的地块坐标x，查看自己的农场时有效
+    next_level_cube_y: int[] // 即将开启的地块坐标y，查看自己的农场时有效
+    can_steal: bool // 能不能偷，查看别人农场有效
+  s2c_fail:
+    invalid_target: 无效的 target
+    server_err: 服务器错误
+
+# 偷菜
+steal:
+  c2s:
+    target: bytes // 目标id
+    cube_x: int // 地块坐标x
+    cube_y: int // 地块坐标y
+  s2c:
+    target: bytes // 目标id
+    cube_x: int // 地块坐标x
+    cube_y: int // 地块坐标y
+    steal_output: int // 偷了多少
+  s2c_fail:
+    invalid_target: 无效的 target
+    invalid_cube: 无效的 cube, 没有这块地或没种东西
+    in_protected_duration: 在保护期
+    no_steal_time: 这块地偷菜次数用完了
+    server_err: 服务器错误
+    cube_already_stealed: 已经偷过了
+    daily_steal_full: 今天偷满了
+
+# 有人偷我的菜
+who_steal_from_me:
+  s2c:
+    target: bytes // 谁来偷菜
+    gold_output: int // 偷了多少铜币
+    stone_output: int // 偷了多少石料
+
+
+# 一键偷菜
+one_key_steal:
+  c2s:
+    target: bytes // 目标id
+  s2c:
+    compress: snappy
+    gold_output: int // 当前收获的铜币总量
+    stone_output: int // 当前收获的石料总量
+    cube_x: int[] // 单块地偏移X
+    cube_y: int[] // 单块地偏移Y， 与cube_x 一一对应
+    cube_gold_output: int[] // 这块地的铜币产量, 与cube_x，cube_y 一一对应
+    cube_stone_output: int[] // 这块地的石料产量, 与cube_x，cube_y 一一对应
+  s2c_fail:
+    invalid_target: 无效的 target
+    server_err: 服务器错误
+    no_can_steal_cube: 没有可偷的地块
+    daily_steal_full: 今天偷满了
+
+# 我被一键偷菜了
+who_one_key_steal_from_me:
+  s2c:
+    compress: snappy
+    target_id: bytes // 关系玩家 id
+    cube_x: int[] // 地块坐标x cube_x，cube_y，steal_times 一一对应
+    cube_y: int[] // 地块坐标y
+    steal_times: int[] // 一共被偷了多少次
+
+
+# 偷菜记录列表，倒序排列
+# 传入start_time，返回这个时间之后的新记录。相当于增量更新
+steal_log_list:
+  c2s:
+    target: bytes // 目标id
+    newest: bool // 只请求最新一条
+  s2c:
+    newest: bool // 只请求最新一条
+    logs: bytes // shared_proto.FarmStealLogListProto
+  s2c_fail:
+    invalid_target: target 非法
+    invalid_start_time: start_time 非法
+    server_err: 服务器错误
+
+# 我的偷菜关系列表
+can_steal_list:
+  c2s:
+  s2c:
+    can_steal_id: bytes[] // 能被偷的关系玩家 id
+  s2c_fail:
+    server_err: 服务器错误

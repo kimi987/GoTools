@@ -1,0 +1,1 @@
+简称	语言	客户端是否显示该语言id	language	displaycn	简体中文	1tw	繁体中文	en	English	

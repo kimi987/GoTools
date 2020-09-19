@@ -1,0 +1,159 @@
+
+syntax = "proto3";
+
+package proto;
+option go_package = "relation";
+option optimize_for = SPEED;
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+
+
+message C2SAddRelationProto {
+
+    bool friend = 1; // true-好友 false-黑名单
+
+    bytes id = 2; // 添加玩家id
+
+}
+
+message S2CAddRelationProto {
+
+    bool friend = 1; // true-好友 false-黑名单
+
+    bytes id = 2; // 添加玩家id
+
+    bytes proto = 3; // shared_proto.HeroBasicSnapshotProto
+
+    int32 create_time = 4; // 创建时间
+
+}
+
+message S2CAddEnemyProto {
+
+    bytes id = 1; // 添加玩家id
+
+}
+
+message C2SRemoveEnemyProto {
+
+    bytes id = 1; // 移除玩家id
+
+}
+
+message S2CRemoveEnemyProto {
+
+    bytes id = 1; // 移除玩家id
+
+}
+
+message C2SRemoveRelationProto {
+
+    bytes id = 1; // 移除玩家id
+
+}
+
+message S2CRemoveRelationProto {
+
+    bytes id = 1; // 移除玩家id
+
+    int32 rt = 2; // 类型 0-陌生人 1-好友 2-黑名单
+
+}
+
+message C2SListRelationProto {
+
+    int32 version = 1; // 好友数据版本号，第一次发0
+
+}
+
+message S2CListRelationProto {
+
+    int32 version = 1; // 最新的好友数据版本号，每次拿到后，客户端存着这个值，下次请求时，带上这个值
+
+    repeated bytes proto = 2; // 好友数据（如果没有变化不会推送） shared_proto.HeroBasicProto
+
+}
+
+message C2SNewListRelationProto {
+
+    int32 version = 1; // 好友数据版本号，第一次发0
+
+}
+
+message S2CNewListRelationProto {
+
+    int32 version = 1; // 最新的好友数据版本号，每次拿到后，客户端存着这个值，下次请求时，带上这个值
+
+    repeated bytes proto = 2; // 好友数据（如果没有变化不会推送） shared_proto.HeroBasicSnapshotProto
+
+}
+
+message C2SRecommendHeroListProto {
+
+    int32 page = 1; // 页数，从0开始
+
+    bool need_loc = 2; // 需要故乡条件
+
+    int32 loc = 3; // 故乡id
+
+}
+
+message S2CRecommendHeroListProto {
+
+    int32 page = 1; // 页数，从0开始
+
+    repeated HeroBasicSnapshotProto heros = 2;
+
+}
+
+message C2SSearchHerosProto {
+
+    string name = 1; // 模糊搜索关键字，hero_id == 0 时有效
+
+    int32 page = 2; // 第几页， 0表示第1页。精确搜索时传0
+
+}
+
+message S2CSearchHerosProto {
+
+    repeated HeroBasicSnapshotProto heros = 1;
+
+}
+
+message C2SSearchHeroByIdProto {
+
+    bytes hero_id = 1; // 要精确搜索的玩家 id
+
+}
+
+message S2CSearchHeroByIdProto {
+
+    HeroBasicSnapshotProto hero = 1;
+
+}
+
+message C2SSetImportantFriendProto {
+
+    bytes id = 1; // 好友id
+
+}
+
+message S2CSetImportantFriendProto {
+
+    bytes id = 1;
+
+    int32 set_time = 2; // 设置时间
+
+}
+
+message C2SCancelImportantFriendProto {
+
+    bytes id = 1; // 好友id
+
+}
+
+message S2CCancelImportantFriendProto {
+
+    bytes id = 1;
+
+}
+

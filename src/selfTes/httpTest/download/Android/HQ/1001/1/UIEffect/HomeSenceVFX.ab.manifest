@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 3085950437
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ca5d15bbc5e2901db92855e2e8f56cf9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/UIEffect/HomeSenceVFX.prefab
+Dependencies: []

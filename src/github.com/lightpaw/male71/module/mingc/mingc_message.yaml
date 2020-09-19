@@ -1,0 +1,64 @@
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+  - "github.com/lightpaw/male7/pb/shared_proto/mingc.proto"
+  - "github.com/lightpaw/male7/pb/shared_proto/guild.proto"
+
+# 请求所有名城
+mingc_list:
+  c2s:
+    ver: int // 版本，刚上线，版本发送0
+  s2c:
+    ver: int // 版本，这个为0或者nil，表示你的版本没有变化
+    mingcs: shared_proto.MingcsProto // 所有名城
+  s2c_fail:
+    sever_error: 服务器繁忙，请稍后再试
+
+# 查看名城
+view_mingc:
+  c2s:
+    id: int
+  s2c:
+    mingc: shared_proto.MingcProto
+  s2c_fail:
+    invalid_id: 没有这座名城
+
+# 营建
+mc_build:
+  c2s:
+    mc_id: int
+  s2c:
+    mc_id: int
+    new_level: int // 名城民心等级
+    new_support: int // 名城民心
+    new_daily_added_support: int // 今天名城加过的民心
+    next_time: int // 下次营建时间
+  s2c_fail:
+    hero_level_limit: 君主等级不够
+    invalid_mc_id: 名城 id 错误
+    no_count: 没有次数了
+    in_cd: 在 cd 中
+    no_guild: 没有联盟
+
+# 请求营建记录
+mc_build_log:
+  c2s:
+    mc_id: int
+  s2c:
+    logs: shared_proto.GuildMcBuildProto // 营建记录
+  s2c_fail:
+    invalid_mc_id: 名城 id 错误
+
+# 名城每日重置
+reset_daily_mc:
+  s2c:
+
+# 名城当前占领盟数据
+mingc_host_guild:
+  c2s:
+    mc_id: int // 名城Id
+  s2c:
+    guild: shared_proto.GuildSnapshotProto // 占领盟
+  s2c_fail:
+    invalid_mc_id: 名城id错误

@@ -1,0 +1,18 @@
+language: go
+dist: precise
+sudo: required
+
+go:
+    - 1.9.x
+
+script:
+    - go test -race -v $(go list ./... | grep -v /vendor/github.com/aws/)
+    - go build
+
+notifications:
+    webhooks: 
+        urls:
+          - https://oapi.dingtalk.com/robot/send?access_token=1e67ff88478588bd5fa42cb1020d7a68dbe40d4d6b2a5349a45431666c74b4ad
+        on_failure: always
+        on_success: change
+

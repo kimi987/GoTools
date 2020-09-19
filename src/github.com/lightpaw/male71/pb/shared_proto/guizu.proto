@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message GuiZuLevelDataProto {
+    int32 level = 1; // 等级
+    int32 name = 4; // 名字
+    int32 icon = 5; // 图标
+
+    int32 history_jade = 2; // 历史获得的玉璧
+    PrizeProto prize = 3; // 贵族等级奖励
+}
+
+message HeroGuiZuProto {
+    repeated int32 collected_levels = 1 [packed = false]; // 领取了奖励的等级
+}

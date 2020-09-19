@@ -1,0 +1,35 @@
+权限	名称	填1表示要展示出来	
+perm_type	name	is_show	
+1	邀请入盟	1	PermInvateOther = 1; // true表示允许邀请他人入盟
+2	同意入盟	1	PermAgreeJoin = 2; // true表示允许同意申请入盟
+3	修改宣言	1	PermUpdateText = 3; // true表示允许修改联盟宣言
+4	修改联盟公告	1	PermUpdateInternalText = 4; // true表示允许修改联盟内部宣言
+5	修改联盟标签	0	PermUpdateLabel = 5; // true表示允许修改联盟联盟标签
+6	修改友盟	0	PermUpdateFriendGuild = 6; // true表示允许修改联盟友盟
+7	修改敌盟	0	PermUpdateEnemyGuild = 7; // true表示允许修改联盟敌盟
+8	修改阶级名称	0	PermUpdateClassName = 8; // true表示允许修改阶级名称
+9	修改联盟旗帜	0	PermUpdateFlagType = 9; // true表示允许修改联盟旗帜
+10	设置职位	1	PermUpdateLowerMemberClassLevel = 10; // true表示允许修改低等级盟友的阶级（变成副帮主之类的）
+11	修改职称	0	PermUpdateClassTitle = 11; // true表示允许修改职称
+12	允许踢人	1	PermKickLowerMember = 12; // true表示允许踢人（低阶级盟友）
+13	修改入盟条件	1	PermUpdateJoinCondition = 13; // true表示允许修改入盟条件
+14	弹劾npc盟主	0	PermImpeachNpcLeader = 14; // true表示允许修改弹劾NPC盟主
+15	联盟升级	1	PermUpgradeLevel = 15; // true表示允许升级联盟等级
+16	联盟升级加速	1	PermUpgradeLevelCdr = 16; // true表示允许加速联盟升级
+17	升级联盟建筑	0	PermUpgradeBuilding = 17; // true表示允许升级联盟建筑
+18	升级联盟科技	1	PermUpgradeTechnology = 18; // true表示允许升级联盟科技
+19	声望目标	0	PermUpdatePrestigeTarget = 19; // true表示允许修改声望目标
+20	开启抗击匈奴	0	PermOpenResistXiongNu = 20; // true表示允许开启抗击匈奴
+21	发全体消息	1	PermSendToAllMembers = 21; // true 表示允许发全体消息
+22	科技加速	1	PermUpgradeTechnologyCdr = 22; //  true表示允许科技加速
+23	修改联盟名称	1	PermUpdateName = 23; // 修改联盟名称
+24	修改联盟简称	1	PermUpdateFlagName = 24; // 修改联盟简称
+25	退出联盟	1	PermLeaveGuild = 25; // 退出联盟
+26	解散联盟	1	PermDismissGuild = 26; // 解散联盟
+27	禅让盟主	1	PermChangeLeader = 27; // 禅让盟主
+28	联盟标记	1	PermUpdateMark = 28; // 修改联盟标记
+29	使用银两	0	PermChangeYinliang = 29; // 使用银两
+30	成员召集	1	PermConveneMember = 30; // 成员召集
+31	查看在线情况	1	PermMembersOnlineInfo = 31 // 查看在线情况
+32	联盟工坊	0	PermWorkshop = 32; // 联盟工坊
+33	推荐营建名城	0	PermRecommendMcBuild = 33; // 推荐营建名城

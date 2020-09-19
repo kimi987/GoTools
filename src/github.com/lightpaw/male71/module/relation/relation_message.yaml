@@ -1,0 +1,149 @@
+client_pb_import:
+  "shared.proto"
+
+server_pb_import:
+ "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto"
+
+
+# HeroRelationProto {
+#    repeated bytes friend = 1; // 好友
+#    repeated bytes black = 2; // 黑名单
+#
+# 加好友/黑名单，加成功后，需要将该玩家从黑名单列表中移除（如果存在）
+add_relation:
+  c2s:
+    friend: bool // true-好友 false-黑名单
+    id: bytes // 添加玩家id
+  s2c:
+    friend: bool // true-好友 false-黑名单
+    id: bytes // 添加玩家id
+    proto: bytes // shared_proto.HeroBasicSnapshotProto
+    create_time: int // 创建时间
+  s2c_fail:
+    invalid_id: 无效的玩家id
+    self_id: 不能是自己的id
+    friend: 玩家已经是你的好友
+    black: 玩家已经是你的黑名单
+    limit: 好友个数已达上限
+
+# 加了一个仇人
+add_enemy:
+  s2c:
+    id: bytes // 添加玩家id
+
+# 移除仇人
+remove_enemy:
+  c2s:
+    id: bytes // 移除玩家id
+  s2c:
+    id: bytes // 移除玩家id
+  s2c_fail:
+    invalid_id: 无效的玩家id
+    self_id: 不能是自己的id
+
+# 移除好友/黑名单
+remove_relation:
+  c2s:
+    id: bytes // 移除玩家id
+  s2c:
+    id: bytes // 移除玩家id
+    rt: int // 类型 0-陌生人 1-好友 2-黑名单
+  s2c_fail:
+    invalid_id: 无效的玩家id
+    self_id: 不能是自己的id
+
+# 作废，用 new_list_relation
+# 请求好友列表
+# 每次打开好友面板，请求一次
+list_relation:
+  c2s:
+    version: int // 好友数据版本号，第一次发0
+  s2c:
+    version: int // 最新的好友数据版本号，每次拿到后，客户端存着这个值，下次请求时，带上这个值
+    proto: bytes[] // 好友数据（如果没有变化不会推送） shared_proto.HeroBasicProto
+
+# 请求好友列表
+# 每次打开好友面板 或 需要好友列表时，请求一次
+new_list_relation:
+  c2s:
+    version: int // 好友数据版本号，第一次发0
+  s2c:
+    version: int // 最新的好友数据版本号，每次拿到后，客户端存着这个值，下次请求时，带上这个值
+    proto: bytes[] // 好友数据（如果没有变化不会推送） shared_proto.HeroBasicSnapshotProto
+
+# 推荐好友列表
+# 换一批用分页实现
+recommend_hero_list:
+  c2s:
+    page: int // 页数，从0开始
+    need_loc: bool // 需要故乡条件
+    loc: int // 故乡id
+  s2c:
+    page: int // 页数，从0开始
+    heros: shared_proto.HeroBasicSnapshotProto[]
+  s2c_fail:
+    in_cd: 在刷新 CD 中
+    server_err: 服务器错误
+
+# 模糊搜索玩家
+# 前缀匹配。例：ab 匹配 ab,abc,abd, 不匹配 cab
+# 带翻页，1秒内最多请求1次
+search_heros:
+  c2s:
+    name: string // 模糊搜索关键字，hero_id == 0 时有效
+    page: int // 第几页， 0表示第1页。精确搜索时传0
+  s2c:
+    heros: shared_proto.HeroBasicSnapshotProto[]
+  s2c_fail:
+    invalid_arg: 参数错误
+    server_error: 服务器忙，请稍后再试
+    in_cd: 在刷新 CD 中
+
+# 精确搜索玩家
+search_hero_by_id:
+  c2s:
+    hero_id: bytes // 要精确搜索的玩家 id
+  s2c:
+    hero: shared_proto.HeroBasicSnapshotProto
+  s2c_fail:
+    no_hero: 没有这个人
+    invalid_arg: 参数错误
+    server_error: 服务器忙，请稍后再试
+    in_cd: 在刷新 CD 中
+
+##好友关键字搜索
+#search_relation:
+#  c2s:
+#    name: string // 关键字
+#  s2c:
+#    heros: shared_proto.HeroBasicSnapshotProto[]
+#  s2c_fail:
+#    in_cd: 操作频繁，请稍后再试
+#    empty_name: 输入栏不能为空
+#    empty_list: 没有搜索到任何与输入名字相匹配的好友
+
+# 设置星标好友
+set_important_friend:
+  c2s:
+    id: bytes // 好友id
+  s2c:
+    id: bytes
+    set_time: int // 设置时间
+  s2c_fail:
+    not_friend: 不是自己的好友
+    has_set: 已经是星标好友
+    invalid_id: 无效的玩家id
+    self_id: 不能是自己的id
+
+
+# 取消星标好友
+cancel_important_friend:
+  c2s:
+    id: bytes // 好友id
+  s2c:
+    id: bytes
+  s2c_fail:
+    not_friend: 不是自己的好友
+    has_cancel: 不是星标好友
+    invalid_id: 无效的玩家id
+    self_id: 不能是自己的id

@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 2580113613
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e4285a44a689b95903d7013a4c0ef51a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0605fe76d012b1a951d4b995dc7210fb
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/High/Effects/Buff_shuimian.prefab
+Dependencies: []

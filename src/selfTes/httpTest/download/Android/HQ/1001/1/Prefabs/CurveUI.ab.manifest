@@ -1,0 +1,38 @@
+ManifestFileVersion: 0
+CRC: 136665742
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b5e29401861e87e450c4cbdd819543d3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 38ecdf15106d56301dc4c9826d3bf3d9
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: b3400e85f1d9f924485a9891df04ec2c, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/CurveUI.prefab
+Dependencies: []

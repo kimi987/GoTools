@@ -1,0 +1,322 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message TaskMiscDataProto {
+    int32 max_show_achieve_count = 1; // 最大展示成就数量
+    string bwzl_bg_img = 2; // 霸王之路背景图
+}
+
+message TaskDataProto {
+    int32 id = 1; // 任务id
+    string name = 2; // 任务名字
+    string text = 3; // 任务内容
+    TaskTargetProto target = 4; // 任务目标
+    PrizeProto prize = 5; // 任务奖励，可能为空，如：活跃度任务，不给奖励
+    string icon = 6; // 任务图标
+    Quality quality = 7; // 任务品质
+    int32 order = 8; // 排序，根据这个字段排序
+
+    // 成就任务
+    int32 achieve_type = 20; // 成就任务类型
+    int32 star = 21; // 该任务的星数
+    int32 total_star = 22; // 完成该任务时，用来计算星数的值
+    int32 prev_task = 23; // 前置任务，可能为空，表示没有前置任务，表示在做该任务的时候，在成就面板里面要显示为灰色
+
+    // 活跃度任务
+    int32 add_degree = 30; // 每一点进度增加的活跃度，所以计算某个任务的活跃度的计算方法是 progress * add_degree，一个任务总共会给多少点活跃度的计算方式是: TaskTargetProto.total_progress * add_degree
+
+    // 霸王之路
+    int32 day = 40; // 霸王之路第几天的任务
+}
+
+message TaskTargetProto {
+    TaskTargetType type = 1; // 任务类型
+    int32 total_progress = 2; // 任务总进度
+
+    int32 sub_type = 11; // 客户端跳转使用，建筑类型/科技id
+    int32 sub_type_id = 12; // 客户端跳转使用，购买物品id
+}
+
+// 霸业目标阶段数据
+message BaYeStageDataProto {
+    int32 stage = 1; // 阶段
+    string stage_name = 6; // 阶段1的名字（第十一篇）
+    string name = 2; // 阶段名字
+    repeated int32 tasks = 3 [packed = false]; // 任务
+    PrizeProto prize = 4; // 奖励
+    int32 next = 5; // 下一个阶段，0表示没有下一阶段，用于客户端显示
+
+}
+
+// 活跃度奖励
+message ActiveDegreePrizeProto {
+    int32 degree = 1; // 活跃度
+    PrizeProto prize = 2; // 奖励
+}
+
+// 成就星数奖励
+message AchieveTaskStarPrizeProto {
+    int32 star = 1; // 需要的最小的星数
+    string icon = 2; // 奖励图标
+    string desc = 3; // 奖励描述
+    PrizeProto prize = 4; // 奖励
+}
+
+// 霸王之路完成任务奖励
+message BwzlPrizeDataProto {
+    int32 collect_prize_task_count = 1; // 领取了奖励的霸王之路任务
+    string icon = 2; // 奖励图标
+    PrizeProto prize = 3; // 奖励
+}
+
+// 每新增一个任务类型，如有需要请到 task_progress.go 的 increTaskTargetTypes/updateTaskProgressFuncs 添加类型处理
+enum TaskTargetType {
+    InvalidTaskTargetType = 0; // 兼容proto2
+    TASK_TARGET_BASE_LEVEL = 1; // 主城升到X级
+    TASK_TARGET_HERO_LEVEL = 2; // 君主升到X级
+    TASK_TARGET_TECH_LEVEL = 3; // 科技升到ID为X
+    TASK_TARGET_BUILDING_LEVEL = 4; // 建筑Y升到X级
+    TASK_TARGET_WORKER_SPEED_UP = 74; // 建筑队加速
+    TASK_TARGET_CAPTAIN_COUNT = 5; // 拥有X个武将
+    TASK_TARGET_CAPTAIN_LEVEL_COUNT = 6; // 拥有X个Z转Y级的武将
+    TASK_TARGET_CAPTAIN_QUALITY_COUNT = 7; // 拥有X个Y品质的武将
+    TASK_TARGET_CAPTAIN_EQUIPMENT = 8; // 拥有X个武将身上穿Y件Z级装备
+    TASK_TARGET_CAPTAIN_REFINED_TIMES = 9; // 强化武将历史总次数达到X
+    //    TASK_TARGET_TRAINING_USE_COUNT = 10; // 拥有X个武将在修炼
+    //    TASK_TARGET_TRAINING_LEVEL_COUNT = 11; // 拥有X个Y级的修炼位
+    TASK_TARGET_RECRUIT_SOLDIER_COUNT = 12; // 训练X个士兵
+    TASK_TARGET_HEAL_SOLDIER_COUNT = 13; // 治疗X个士兵
+    TASK_TARGET_ADD_CAPTAIN_SOLDIER = 80; // 补兵
+    TASK_TARGET_SOLDIER_LEVEL = 14; // 士兵等级升到X级
+    TASK_TARGET_TOWER_FLOOR = 15; // 千重楼通关X层
+    TASK_TARGET_RESOURCE_POINT_COUNT = 16; // 拥有X块Y类型资源（Y空表任意资源）
+    TASK_TARGET_COLLECT_RESOURCE = 17; // 收获X数量的Y资源（Y空表任意资源）
+    TASK_TARGET_JOIN_GUILD = 18; // 加入联盟
+
+    TASK_TARGET_UPGRADE_BUILDING_LEVEL = 19; //每日	任意建筑升级X次
+    TASK_TARGET_UPGRADE_TECH_LEVEL = 20; //每日	科技升级X次
+    TASK_TARGET_RECRUIT_SOLDIER = 21; //每日	军营征X次兵
+    TASK_TARGET_JIU_GUAN_CONSULT = 22; //每日	酒馆请教X次
+    TASK_TARGET_COLLECT_RESOURCE_TIMES = 23; //每日	官府收获X次任意资源
+    TASK_TARGET_CHALLENGE_DUNGEON = 24; //每日	推图X次
+    TASK_TARGET_CHALLENGE_TOWER = 25; //每日	重楼挑战X次
+    TASK_TARGET_CHALLENGE_SECRET_TOWER = 26; //每日	重楼密室参与X次
+    TASK_TARGET_HELP_SECRET_TOWER = 27; //每日	密室协助X次
+    TASK_TARGET_CHALLENGE_BAI_ZHAN = 28; //每日	百战挑战X次
+    TASK_TARGET_FIGHT_IN_JADE_REALM = 29; //每日 玉璧地区战斗X次
+    TASK_TARGET_CHAT_TIMES = 30; // 每日 任意聊天X次
+    TASK_TARGET_BUY_GOODS = 31; //每日	Y店铺购买X次物品
+    TASK_TARGET_BUY_GOODS_COUNT = 75; //每日	Y店铺购买X个Z物品
+    TASK_TARGET_BUILD_EQUIP_DAILY = 32; //每日	锻造装备X次
+    TASK_TARGET_SMELT_EQUIP = 33; //每日	熔炼装备X次
+    TASK_TARGET_COLLECT_XIU_LIAN_EXP = 35; //每日	领取修炼经验X次
+    TASK_TARGET_GUILD_DONATE = 37; //每日	联盟捐献X次
+    TASK_TARGET_ASSIST_GUILD_MEMBER = 38; //每日	出征援助盟友X次
+    TASK_TARGET_WATCH_VIDEO = 39; //每日	观看他人战斗录像X次
+    TASK_TARGET_FISHING = 71; //每日 进行X次钓鱼
+    //每日（暂无此功能）	与城内小人对话X次
+    //每日（暂无此功能）	限时商店购买X次
+    TASK_TARGET_HELP_GUILD_MEMBER = 72; //每日 盟友帮助X次
+    //每日（暂无此功能）	名城战X次
+
+    TASK_TARGET_BAI_ZHAN_JUN_XIAN = 40; //成就	百战军衔	最高纪录达到X军衔
+    TASK_TARGET_GUI_ZU_LEVEL = 41; //成就	贵族等级	贵族达到X级
+    TASK_TARGET_CAPTAIN_SOUL_COUNT = 42; //成就	将魂个数	任意X个将魂达到1级
+    TASK_TARGET_CAPTAIN_SOUL_QUALITY_COUNT = 43; //成就	将魂品质	任意X个将魂达到Y品质
+    TASK_TARGET_CAPTAIN_SOUL_LEVEL_COUNT = 44; //成就	将魂等级	任意X个将魂达到Y级
+    TASK_TARGET_ACCUM_JADE_ORE = 45; //成就	玉石矿	累计掠夺玉石矿数量
+    TASK_TARGET_ACCUM_JADE = 46; //成就	玉璧	累计获取玉璧数量X
+    TASK_TARGET_ACCUM_GUILD_CONTRIBUTION = 47; //成就	贡献	累计获得贡献数量X
+
+    TASK_TARGET_X_EQIUP_LEVEL_Y = 48; //成就	装备等级	任意X个穿上的装备达到Y级
+    TASK_TARGET_X_EQIUP_REFINE_LEVEL_Y = 49; //成就	装备强化	任意X个穿上的装备强化到Y级
+    TASK_TARGET_X_EQIUP_QUALITY_Y = 50; //成就	装备品质	任意穿上X色装备Y件
+    TASK_TARGET_ACCUM_GUILD_DONATE = 51; //成就	捐献	联盟捐献X次
+    TASK_TARGET_GUILD_LEVEL = 52; //成就	联盟等级	当前联盟等级达到X
+    TASK_TARGET_EXPEL = 53; //成就	驱逐敌人	帮助盟友驱逐敌人X次（不论是否胜利）
+    TASK_TARGET_DEFENSER_FIGHTING = 54; //成就	防守战力	主城防守战力达到X
+    TASK_TARGET_SET_DEFENSER = 116; // 设置防守队伍
+    TASK_TARGET_ACCUM_RECOVER_PROSPERITY = 55; //成就	繁荣度	累计恢复繁荣度X
+    TASK_TARGET_ACCUM_CONSULT = 56; //成就	酒馆请教	酒馆请教X次Y导师
+    TASK_TARGET_JADE_NPC = 57; //成就	玉石山寨NPC	击败X次Y级玉石地区的Z档NPC
+    //成就	好友（暂无此功能）	好友数量达到X
+    //成就	仇人（暂无此功能）	仇人数量达到X
+    //成就	盟友礼物（暂无此功能）	领取盟友礼物X次数
+    //成就	联盟宝箱（暂无此功能）	领取联盟大宝箱X次数
+    //成就	城中答题（暂无此功能）	城内小人答题答对X次数
+    //成就	分城（暂无此功能）	分城数量X
+    //成就	弹劾NPC盟主（暂无此功能）	所在联盟弹劾npc盟主完成（C盟直接完成）
+    //成就	武将转生（暂无此功能）	任意X个武将转生到Y
+    //成就	联盟帮助（暂无此功能）	帮助盟友累计X次
+    TASK_TARGET_HAS_CHALLENGE_DUNGEON = 58; // 通关X副本，配置成不更新进度
+    TASK_TARGET_FU_SHEN = 59; //给X个武将装上将魂
+    TASK_TARGET_BUILD_EQUIP = 60; //历史总打造X件装备
+    TASK_TARGET_KILL_HOME_NPC = 61; // 击杀玩家主城野怪X（ID）
+    TASK_TARGET_ACCUM_FISHING = 62; //历史总进行X次钓鱼
+    TASK_TARGET_ACCUM_BAI_ZHAN = 65; //历史总进行X次百战千军对战
+    TASK_TARGET_HISTORY_CHALLENGE_SECRET_TOWER = 66; //战胜X次Y层重楼密室
+    TASK_TARGET_ACCUM_BUY_GOODS = 67; //历史总在Y商店完成X次购买
+    TASK_TARGET_ACCUM_COLLECT_ACTIVE_BOX = 68; //历史总领取X个活跃度宝箱
+    TASK_TARGET_ACCUM_SMELT_EQUIP = 69; //历史总熔炼X件装备
+    TASK_TARGET_HOME_IN_GUILD_REGION = 70; //主城在自己的联盟地区
+    TASK_TARGET_ACCUM_BUY_GOODS_COUNT = 76; //历史总在Y店铺购买X个Z物品
+    TASK_TARGET_INVADE_MULTI_LEVEL_MONSTER = 77; // 出征野怪
+    TASK_TARGET_WIN_MULTI_LEVEL_MONSTER = 79; // 战胜Y级野怪X次
+    TASK_TARGET_ROB_MULTI_LEVEL_MONSTER = 115; // 累计讨伐野怪获取X数量的Y资源，Y不填表示皆可
+    TASK_TARGET_EXPEL_FIGHT_MONSTER = 126; // 驱逐怪物攻城
+    TASK_TARGET_ACTIVE_DEGREE = 78; // 活跃度
+    TASK_TARGET_COMPLETE_ZHENG_WU = 81; // 完成政务X次
+    TASK_TARGET_TREASURY_TREE = 82; // 摇钱树X次
+    TASK_TARGET_INVASE_KILL_SOLDIER = 83; // 进攻消灭士兵数
+    TASK_TARGET_ASSIST_KILL_SOLDIER = 84; // 援助消灭士兵数
+    TASK_TARGET_ACCUM_LOGIN_DAY = 85; // 登陆天数
+    TASK_TARGET_ALL_RIGHT_QUESTION_AMOUNT = 86; // 历史答对题数
+    TASK_TARGET_ACCUM_START_QUESTION = 87; // 成就 历史答题几次
+    TASK_TARGET_ACTIVE_START_QUESTION_COUNT = 88; // 活跃 答题几次
+    TASK_TARGET_ACCUM_HELP_WATER = 89; //累计帮助次数
+    TASK_TARGET_ACCUM_BASE_DEAD = 90; //流亡次数
+    TASK_TARGET_ACCUM_MOVE_BASE = 91; //迁城次数
+    TASK_TARGET_ACCUM_DESTROY_BASE = 92; //摧毁城池
+    TASK_TARGET_ACCUM_DESTROY_PROSPERITY = 93; //摧毁繁荣度
+    TASK_TARGET_ACCUM_ROBBING_RES = 94; // 掠夺资源总量（区分类型）
+    TASK_TARGET_ACCUM_INVESTIGATION = 95; //瞭望次数
+    TASK_TARGET_ACCUM_BEEN_INVESTIGATION = 96; //被瞭望次数
+    TASK_TARGET_ACCUM_REALM_PVP_ASSIST = 97; //援助并发生战争次数
+    TASK_TARGET_ACCUM_REALM_PVP_BEEN_ASSIST = 98; //被援助并发生战争次数
+    TASK_TARGET_FARM_HARVEST = 100; // 农场收获X数量的Y资源
+    TASK_TARGET_ZHANJIANG_START_TIMES = 101; // 参与过关斩将X次（每次进入1个关卡时算1次，同一个关卡内的小关卡不算）
+    TASK_TARGET_ZHANJIANG_GUANQIA_COMPLETE = 102; // 通关过关斩将X关卡，X填关卡编号
+    TASK_TARGET_CAPTAIN_OFFICIAL_UPDATE = 103; // 册封X个武将Y官职，Y不填表示皆可
+    TASK_TARGET_START_XIONGNU = 104; // 参与Y难度的抗击匈奴X次，Y不填表示皆可
+    TASK_TARGET_ACCUM_FARM_STEAL = 105; // 累积从他人农场偷取X数量的Y资源，Y不填表示皆可
+    TASK_TARGET_ACCUM_AUTO_DUNGEON = 106; // 累积幻境扫荡X次
+    TASK_TARGET_ACCUM_COUNT_DOWN_PRIZE = 107; // 累积领取马车奖励X次
+    TASK_TARGET_CAPTAIN_ABILITY_EXP = 108; // X个武将成长值达到Y
+    TASK_TARGET_ACCUM_BWZL_COMPLETE = 109; // 历史完成霸王之路任务X个
+    TASK_TARGET_ACCUM_INVASE_KILL_SOLDIER = 110; // 累计进攻消灭士兵数
+    TASK_TARGET_ACCUM_ASSIST_KILL_SOLDIER = 111; // 累计援助消灭士兵数
+    TASK_TARGET_ACCUM_DEFENSE_KILL_SOLDIER = 112; // 累计防守消灭士兵数
+    TASK_TARGET_ACCUM_USE_TU_FEI_GOODS = 113; // 累计使用突飞令
+    TASK_TARGET_ACCUM_HELP_GUILD_MEMBER = 114; // 累计帮助盟友次数
+    TASK_TARGET_UNLOCK_BAOWU = 117; // 开启X个Y级宝藏
+    TASK_TARGET_ROB_BAOWU = 118; // 抢夺玩家X个Y级宝藏
+    TASK_TARGET_ROB_NPC_BAOWU = 123; // 抢夺NpcX个Y级宝藏
+    TASK_TARGET_XUANYUAN_SCORE = 119; // 轩辕会武积分达到X
+    TASK_TARGET_CAPTAIN_UPSTAR = 99; // 将X个武将升至Y星
+    TASK_TARGET_RNDEVENT_HANDBOOKS = 73; // 成语图鉴激活数量达到X
+    TASK_TARGET_HEBI = 120; // 完成X个Y品质的玉璧合成
+    TASK_TARGET_HEBI_ROB = 121; // 抢夺X个Y品质玉璧
+    TASK_TARGET_GEM = 122; // 宝石等级 拥有X个Y级Z类型宝石
+    TASK_TARGET_UPGRADE_TITLE = 124; // 升级称号X
+    TASK_TARGET_FRIEND_AMOUNT = 125; // 好友数量
+    TASK_TARGET_TEAM_POWER = 127; // 最高队伍战力达到X
+    TASK_TARGET_ACCUM_MC_WAR_KILL_SOLDIER = 128; // 历史累积在名城战中消灭X个敌方士兵
+    TASK_TARGET_ACCUM_MC_WAR_WIN = 129; // 历史累积获得X次名城战胜利
+    TASK_TARGET_ACCUM_MC_WAR_DESTROY_BUILDING = 130; // 历史累积在名城战中破坏X点据点繁荣度
+    TASK_TARGET_BAOWU_SELL = 34; // 出售X个Y级宝物
+    TASK_TARGET_CAPTAIN_EXP_GOODS_USE = 131; // 使用X个武将经验道具
+    TASK_TARGET_STRATEGY_USE = 132; // 使用X次君主策略
+    TASK_TARGET_FARM_HARVEST_TIMES = 133; // 农场收获一次资源
+    TASK_TARGET_INVASE_BAOZ = 134; // 探索殷墟
+    TASK_TARGET_KILL_JUN_TUAN = 135; // 战胜Y级军团怪X次
+    TASK_TARGET_BOOL = 136; // BOOL类型任务
+    TASK_TARGET_MCWAR_JOIN = 137; // 加入名城战次数
+    TASK_TARGET_MCWAR_OCCUPY = 139; // 名城战结束后坐拥的名城数
+}
+
+message TaskBoxProto {
+    int32 id = 1; // 宝箱id
+    int32 count = 2; // 累积任务个数
+    PrizeProto prize = 3; // 宝箱奖励
+}
+
+// 从任务目标中可以获取任务总进度
+message HeroTaskProto {
+    int32 main_task_id = 1; // 主线任务id，0表示所有主线都清掉了
+    int32 main_task_progress = 2; // 主线任务进度
+
+    repeated int32 branch_task_id = 11 [packed = false]; // 支线任务id
+    repeated int32 branch_task_progress = 12 [packed = false]; // 支线任务进度
+
+    HeroBaYeStageProto ba_ye_stage = 20; // 霸业数据，可能为空，为空表示当前没有霸业目标
+
+    AchieveTaskListProto achieve_task_list = 30; // 成就任务列表
+    ActiveDegreeTaskListProto active_degree_task_list = 31; // 活跃度任务列表
+
+    BwzlTaskListProto bwzl_task_list = 40; // 霸王之路任务列表
+
+    TitleTaskListProto title_task_list = 45; // 称号任务
+
+    int32 collect_task_box_id = 99; // 已领取的宝箱id
+}
+
+// 玩家霸业数据
+message HeroBaYeStageProto {
+    int32 stage = 1; // 霸业阶段 BaYeStageDataProto.stage
+
+    repeated int32 task_id = 11 [packed = false]; // 霸业任务id，一一对应的
+    repeated int32 task_progress = 12 [packed = false]; // 霸业任务进度
+    repeated bool is_collected = 13 [packed = false]; // 霸业任务奖励是否领取
+}
+
+// 选择展示的成就，这里是用于他人查看的时候显示的成就任务
+message SelectShowAchievesProto {
+    repeated int32 achieve_task_id = 1 [packed = false]; // 成就任务id列表
+    repeated int32 achieve_task_reach_time = 2 [packed = false]; // 成就任务达成时间，跟上面的任务id一一对应
+    int32 total_star = 3; // 总星数
+}
+
+message AchieveTaskListProto {
+    repeated AchieveTaskProto list = 1; // 列表
+    repeated int32 collect_star_count = 2 [packed = false]; // 已经领取了的星级奖励
+    repeated int32 select_show_achieves = 3 [packed = false]; // 选中的成就类型列表，即 TaskDataProto 中的 achieve_type，这里需要客户端去遍历获得具体的展示的成就任务，跟别人查看是不同的处理方法
+}
+
+message OtherAchieveTaskListProto {
+    repeated AchieveTaskProto list = 1; // 列表
+    repeated int32 select_show_achieves = 3 [packed = false]; // 选中的成就类型列表，即 TaskDataProto 中的 achieve_type，这里需要客户端去遍历获得具体的展示的成就任务，跟别人查看是不同的处理方法
+}
+
+message AchieveTaskProto {
+    int32 id = 1; // 成就任务id
+    int32 progress = 2; // 成就任务进度
+    bool is_collected = 3; // 成就任务奖励是否领取
+    int32 reach_time = 4; // 达成时间，如果这是第一个任务(即 prevTask 为空，那么该值为0)
+}
+
+message ActiveDegreeTaskListProto {
+    repeated ActiveDegreeTaskProto list = 1; // 列表
+    repeated int32 collected_prize_index = 3 [packed = false]; // 领取了的活跃度奖励的下标
+}
+
+message ActiveDegreeTaskProto {
+    int32 id = 1; // 活跃度任务id
+    int32 progress = 2; // 活跃度任务进度
+}
+
+message BwzlTaskListProto {
+    repeated BwzlTaskProto list = 1; // 列表
+    repeated int32 collected_prizes = 2 [packed = false]; // 领取了的霸王之路领取任务奖励的奖励的id，即 BwzlPrizeDataProto.collect_prize_task_count
+}
+
+message BwzlTaskProto {
+    int32 id = 1; // 霸王之路任务id
+    int32 progress = 2; // 霸王之路任务进度
+    bool is_collected = 3; // 霸王之路任务奖励是否领取
+}
+
+message TitleTaskListProto {
+    int32 completed_title_id = 1; // 已完成的称号任务配置id（进行中的任务id = complete_title_id + 1）
+
+    repeated TitleTaskProto list = 2; // 进行中的任务列表
+}
+
+message TitleTaskProto {
+    int32 id = 1; // 任务id，对应 shared_proto.TitleTaskDataProto
+    int32 progress = 2; // 任务进度
+}

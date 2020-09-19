@@ -1,0 +1,34 @@
+ManifestFileVersion: 0
+CRC: 558699207
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 02c1d687765b38d0fd6538e3b9c8d64c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 38554ffbee1b7aba89daf71116505d66
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Low/Effects/BUFF_bingdongjiaoxia.prefab
+Dependencies: []

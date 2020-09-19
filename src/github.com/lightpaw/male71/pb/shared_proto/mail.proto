@@ -1,0 +1,275 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/combat.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/military.proto";
+
+// 邮件列表字段说明
+// proto.title 邮件标题，用在邮件列表中的上面那行字
+// proto.icon 邮件图标，用在邮件列表前面的图标
+// proto.keep 邮件收藏，如果是true，邮件列表要有个星星
+// proto.has_prize && !proto.collected 邮件附件，如果是true，邮件列表要有个礼包图标，点击可以领取
+// proto.has_report 邮件分类，如果为true表示战报分类，否则为系统分类
+// proto.report_tag 战报分类
+// 邮件标题下面那行字，先读取proto.sub_title，如果有值就显示
+// 如果没有则继续读取proto.text字段的值，显示前N个字，超出显示...
+
+// 系统邮件
+// proto.mail_type == MailNormal 说明这是个系统邮件
+// proto.title 邮件标题
+// proto.text 邮件正文，贴图下面那行字
+// proto.Prize 邮件附件
+// proto.image 邮件贴图(联盟邮件贴图等)
+// proto.sender_name 发件人，可能为空，如果为空，那么发件人默认为系统管理员
+//
+// proto.guild_name 联盟名字
+// proto.guild_flag_name 联盟旗号
+// 联盟邮件，这2个值不为空时候，要在联盟邮件贴图下面显示联盟名字
+
+// 战报详情说明
+// proto.mail_type == MailReport 说明这是个战报格式邮件
+// proto.title 邮件标题
+// proto.image 邮件贴图(胜利，失败，瞭望成功)
+// proto.image_word 邮件贴图
+// proto.text 邮件正文，贴图下面那行字
+// proto.Report.ShowPrize 现在掠夺野怪，也会产出装备等物品，因此原来战报中使用的资源数值改成PrizeProto对象
+// proto.Report.Desc 现在奖励只有一个文字描述（战胜获得，战败损失）
+// proto.Report.Defenser.WallCombatSoldier 城墙打之前的士兵数，0表示没有城墙
+// proto.Report.Defenser.WallAliveSoldier 城墙打完之后的士兵数
+// proto.Report.Defenser.WallKillSoldier 城墙击杀士兵数
+
+// 掠夺结束邮件详情说明
+// proto.mail_type == MailRobFinished 说明这是个掠夺结束格式邮件
+// proto.title 邮件标题
+// proto.image 邮件贴图(胜利，失败，瞭望成功)
+// proto.text 邮件正文，贴图下面那行字
+// proto.Report.ShowPrize 现在掠夺野怪，也会产出装备等物品，因此原来战报中使用的资源数值改成PrizeProto对象
+// proto.Report.Desc 现在奖励只有一个文字描述（收益，损失）
+// proto.Report.RobDuration 持续时间
+// proto.Report.DoneDesc 描述，损失的繁荣度/增加仇恨
+// proto.Report.DoneDescAmont 损失繁荣度/增加仇恨
+// 进攻方数据和防守方数据，参考战报邮件
+
+// 瞭望战报
+// proto.mail_type == MailInvestigation 说明这是个瞭望格式邮件
+// proto.title 邮件标题
+// proto.image 邮件贴图(胜利，失败，瞭望成功)
+// proto.text 邮件正文，贴图下面那行字
+// proto.Report.Defenser 瞭望城主数据
+// proto.Report.Defenser.WallLevel 城主城墙等级
+// proto.Report.ShowPrize 现在掠夺野怪，也会产出装备等物品，因此原来战报中使用的资源数值改成PrizeProto对象
+// proto.Report.Defenser.TotalFightAmont 队伍战力
+// proto.Report.Race 武将阵型，0表示该位置没有武将
+// proto.Report.BaseLevel 主城等级
+// proto.Report.Prosperity 当前繁荣度
+// proto.Report.ProsperityCapcity 繁荣度上限
+
+// 被瞭望战报
+// proto.mail_type == MailBeenInvestigation 说明这是个被瞭望格式邮件
+// proto.title 邮件标题
+// proto.image 邮件贴图(胜利，失败，瞭望成功)
+// proto.text 邮件正文，贴图下面那行字
+// proto.Report.Attacker 瞭望者数据
+
+// 联盟官员召集邮件
+// proto.mail_type == MailGuildCall 说明这是个被联盟召集邮件
+// proto.title 邮件标题
+// proto.text 邮件正文，包含一个特定的替换符，用于替换显示坐标，{{pos}}
+// guild_call_hero_id = 25; // 联盟召集邮件的英雄id
+// guild_call_pos_x = 26; // 联盟召集坐标
+// guild_call_pos_y = 27;
+
+// 集结掠夺战报
+// proto.mail_type == MailAssemblyReport 说明这是个集结战报格式邮件
+// proto.title 邮件标题
+// proto.text 邮件正文，贴图下面那行字
+// proto.Report.ShowPrize 展示奖励
+// proto.Report.Desc 现在奖励只有一个文字描述（战胜获得，战败损失）
+// proto.Fight 对战详情
+// proto.AttackerTroopCount 进攻队伍数
+// proto.DefenserTroopCount 防守队伍数
+// proto.AttackerTroopWinTimes 进攻胜利场次(防守失败场次)
+// proto.DefenserTroopWinTimes 防守胜利场次(进攻失败场次)
+// proto.Fight.WinTimes 3胜
+
+// 集结掠夺结束邮件
+// proto.mail_type == MailAssemblyRobFinished 说明这是个集结掠夺结束格式邮件
+// proto.title 邮件标题
+// proto.text 邮件正文，贴图下面那行字
+// proto.Report.ShowPrize 展示奖励
+// proto.Report.Desc 现在奖励只有一个文字描述（收益，损失）
+// proto.Report.RobDuration 持续时间
+// proto.Report.DoneDesc 描述，损失的繁荣度/增加仇恨
+// proto.Report.DoneDescAmont 损失繁荣度/增加仇恨
+// 进攻方数据和防守方数据，参考战报邮件
+// proto.AttackerTroopCount 进攻队伍数
+// proto.DefenserTroopCount 防守队伍数
+// proto.AttackerTroopTotalCount 进攻队伍总数，0不展示集结规模
+// proto.DefenserTroopTotalCount 防守队伍总数，0不展示集结规模
+// proto.Fight 集结详情
+// proto.Fight.Attacker 集结玩家（这里直接读取，不用根据id找）
+// proto.Fight.ShowPrize 集结玩家展示奖励
+
+message MailProto {
+    //    string id = 1; // 邮件id
+    bytes id = 23; // 邮件id
+    string title = 2; // 邮件标题
+    string sub_title = 4; // 邮件子标题
+    string text = 3; // 邮件正文
+    int32 send_time = 5; // 发送时间
+    int32 icon = 7; // 0-系统，1-攻城胜利，2-攻城失败，3-守城胜利，4-守城失败
+    string image = 15; // 邮件贴图
+    int32 image_word = 16; // 邮件贴图文字 0-无 1-险胜 2-胜利 3-完胜 4-惜败 5-失败 6-完败 7-掠夺 8-被掠夺
+
+    // 下面这几个值，系统邮件有效
+    string sender_name = 12; // 发件人，如果是空值，默认是系统管理员
+    string guild_name = 13; // 联盟名字
+    string guild_flag_name = 14; // 联盟旗号
+
+    bool keep = 6; // true表示这个邮件是收藏邮件
+    bool read = 8; // true表示这个邮件是已读邮件
+    bool has_report = 9; // true表示这个邮件是战报邮件
+    bool has_prize = 10; // true表示这个邮件是有奖励的邮件
+    bool collected = 11; // true表示这个邮件是已领取
+    int32 report_tag = 24; // 战报分类 0-普通战报 1-野外 2-殷墟宝藏
+
+    MailType mail_type = 20; // 邮件类型
+    FightReportProto report = 21; // 战报数据，FightReportProto
+    PrizeProto prize = 22; // 奖励数据，PrizeProto
+
+    bytes guild_call_hero_id = 25; // 联盟召集邮件的英雄id
+    int32 guild_call_pos_x = 26; // 联盟召集坐标
+    int32 guild_call_pos_y = 27;
+}
+
+enum MailType {
+    MailNormal = 0; // 普通文字邮件
+    MailReport = 1; // 战报邮件
+    MailRobFinished = 2; // 掠夺结束邮件
+    MailInvestigation = 3; // 瞭望邮件
+    MailBeenInvestigation = 4; // 被瞭望邮件
+    MailGuildCall = 5; // 联盟召集
+    MailAssemblyReport = 6; // 集结战报邮件
+    MailAssemblyRobFinished = 7; // 集结掠夺结束邮件
+}
+
+message FightReportProto {
+
+    PrizeProto show_prize = 6; // 累积获得的奖励
+
+    // 战斗发生的位置
+    int32 fight_x = 8;
+    int32 fight_y = 9;
+    int32 fight_type = 21; // 出征类型 0-出征 1-援助 2-驱逐
+
+    bytes fight_target_id = 22; // 城主的id
+    string fight_target_name = 23; // 城主的名字
+    string fight_target_flag_name = 24; // 城主的旗号
+
+
+    bool attacker_win = 10; // true表示进攻方胜利
+    ReportHeroProto attacker = 11;
+    ReportHeroProto defenser = 12;
+
+    string attacker_desc = 13; // 战胜获得，帮助夺回之类的
+    string defenser_desc = 14;
+
+    string desc = 15; // 只有一个的战胜获得，战败损失
+
+    // 战报
+    string replay_url = 41; // 战斗录像地址，特别的战报地址为空，不显示回放按钮（有的战报就是没有回放的）
+    bool attacker_side = 42; // true观看战斗回放，攻方为蓝色，守方为红色，false则反过来
+    CombatShareProto share = 43; // 战斗分享，为空，不显示分享按钮（有的战报就是没有回放的）
+
+    int32 score = 44; // 评分（attacker_win=true表示胜利，否则表示失败），0-险胜/败 1-小胜/败 2-大胜/败
+
+    int32 rob_duration = 51; // 掠夺持续时间
+    string done_desc = 52; // 损失的繁荣度/增加仇恨
+    int32 done_desc_amount = 53; // 繁荣度/仇恨值
+
+    // 集结战斗
+    repeated ReportHeroProto fight_hero = 60; // 对战玩家列表
+    repeated AssemblyFightProto fight = 61;
+    int32 attacker_troop_count = 62; // 进攻队伍数
+    int32 defenser_troop_count = 63; // 防守队伍数
+
+    int32 attacker_troop_total_count = 64; // 进攻队伍数
+    int32 defenser_troop_total_count = 65; // 防守队伍数
+
+    int32 attacker_troop_win_times = 66; // 进攻胜利场次(防守失败场次)
+    int32 defenser_troop_win_times = 67; // 防守胜利场次(进攻失败场次)
+
+    int32 multi_level_monster_count = 68; // 讨伐野怪次数
+}
+
+message AssemblyFightProto {
+
+    bytes attacker_id = 1; // 进攻方id
+    bytes defenser_id = 2; // 防守方id
+    int32 attacker_fight_amount = 3; // 进攻方战力
+    int32 defenser_fight_amount = 4; // 防守方战力
+
+    int32 attacker_alive_soldier = 14; // 进攻方存活兵力
+    int32 defenser_alive_soldier = 15; // 防守方存活兵力
+
+    int32 attacker_total_soldier = 16; // 进攻方总兵力
+    int32 defenser_total_soldier = 17; // 防守方总兵力
+
+    bool attacker_win = 10; // true表示进攻方胜利
+    ReportHeroProto attacker = 11; // 服务器不设值，客户端自己根据id从FightHero字段中获取
+    ReportHeroProto defenser = 12;
+
+    int32 win_times = 13; // 胜利场次，3胜
+
+    // 战报
+    CombatShareProto share = 43; // 战斗分享，为空，不显示分享按钮（有的战报就是没有回放的）
+
+    PrizeProto show_prize = 6; // 累积获得的奖励
+}
+
+message ReportHeroProto {
+    bytes id = 11; // 君主id
+    string name = 12; // 君主名字
+    int32 level = 10; // 君主等级
+    string head = 13; // 君主头像 通过 config.Icons去获得图标
+    int32 base_region = 19; // 城池所在的场景(同HeroBase.base_region)
+    string guild_flag_name = 20; // 对方联盟旗帜
+    int32 base_x = 14; // 主城位置
+    int32 base_y = 15;
+    int32 alive_soldier = 16; // 存活士兵
+    int32 total_soldier = 17; // 总士兵
+    bool is_tent = 18; // 出征的营地是否是军营
+    int32 total_fight_amount = 22; // 总战力
+    int32 country = 24; // 国家
+
+    repeated ReportCaptainProto captains = 21; // 武将数据
+
+    repeated Race race = 23 [packed = false]; // 武将阵型，0表示该位置没有武将
+
+    int32 wall_level = 31; // 城墙等级
+    int32 wall_combat_soldier = 32; // 城墙打之前的士兵数，0表示没有城墙
+    int32 wall_alive_soldier = 33; // 城墙打完之后的士兵数
+    int32 wall_kill_soldier = 34; // 城墙击杀士兵数
+
+    int32 base_level = 35; // 主城等级
+    int32 prosperity = 36; // 繁荣度
+    int32 prosperity_capcity = 37; // 繁荣度上限
+
+    bool is_copy = 38; // true表示分身
+}
+
+message ReportCaptainProto {
+    int32 index = 1; // 单位索引号，1-5
+    CaptainInfoProto captain = 2; // 武将信息
+    int32 combat_soldier = 3; // 打之前的士兵数
+    int32 alive_soldier = 4; // 打完之后的士兵数
+    int32 kill_soldier = 6; // 击杀士兵数
+    // 总士兵数 captain.TotalSoldier()
+
+    int32 fight_amount = 5; // 武将战力
+}
+

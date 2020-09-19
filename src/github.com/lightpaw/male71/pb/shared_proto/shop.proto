@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "shared_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/base.proto";
+
+message ShopProto {
+
+    // 商店类型
+    //1表示帮派商店
+    //2表示元宝商店
+    //3表示银两商店
+    //4表示玉璧商店
+    //5表示玲珑阁
+    //6表示VIP商店
+    int32 type = 1;
+
+    repeated NormalShopGoodsProto normal_goods = 2; // 普通商品
+    repeated ZhenBaoGeShopGoodsProto zhen_bao_ge_goods = 3; // 珍宝阁商品
+}
+
+message NormalShopGoodsProto {
+    int32 id = 1; // 商品id
+    int32 count_limit = 3; // 限购个数，0表示不限购
+    UnlockConditionProto unlock_condition = 4; // 解锁条件
+
+    int32 free_times = 7; // 免费次数
+
+    CostProto cost = 8; // 购买花费
+
+    PrizeProto prize = 9; // 奖励
+
+    int32 tag = 10; // 左上角标, 在 ShopGoodsTag 中定义
+
+    PrizeProto show_prize = 11; // 奖励
+
+    int32 show_sale = 12; // 展示用:打n/10折。0表示不打折，85表示打8.5折
+    CostProto show_origin_cost = 13; // 展示用:原价
+    int32 vip_daily_max_count = 14; // 每个人每日能买几个。0点重置
+
+    // 购买并使用物品
+    repeated int32 use_immediately_goods = 15 [packed=false];
+
+    int32 guild_event_prize = 16; // 联盟礼包
+
+}
+
+message ZhenBaoGeShopGoodsProto {
+    int32 id = 1; // 商品id
+    int32 count_limit = 3; // 限购个数，0表示不限购
+    UnlockConditionProto unlock_condition = 4; // 解锁条件
+
+    int32 free_times = 7; // 免费次数
+
+    repeated CostProto buy_costs = 8; // 购买花费，如果长度不为1的话，不可以一次购买多个
+
+    repeated PrizeProto prizes = 9; // 奖励
+    repeated int32 levels = 10 [packed = false]; // 跟prizes一一对应，官府等级>=该等级时，购买会获得该奖励
+    int32 tag = 11; // 左上角标, 在 ShopGoodsTag 中定义
+
+    // 购买并使用物品
+    repeated int32 use_immediately_goods = 15 [packed=false];
+}
+
+message HeroShopProto {
+    repeated int32 daily_shop_goods = 1 [packed = false]; // 每日购买物品id
+    repeated int32 daily_buy_times = 2 [packed = false]; // 每日已购买次数次数，用于限购使用
+}
+
+// 商品左上角标
+enum ShopGoodsTag {
+    INVALID_TYPE = 0; // 标签非法
+    CHAO_ZHI = 1; // 超值
+    HOT = 2; // 热卖
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "server_proto";
+option optimize_for = SPEED;
+
+import "github.com/lightpaw/male7/pb/shared_proto/red_packet.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/snapshot.proto";
+import "github.com/lightpaw/male7/pb/shared_proto/chat.proto";
+
+message HeroRedPacketServerProto {
+    repeated int64 grabbed_id = 1; // 抢过的红包
+    map<uint64, uint64> bought_red_packet_counts = 2;
+}
+
+message AllRedPacketServerProto {
+    int64 curr_id_prefix = 1;
+    repeated RedPacketServerProto red_packets = 2;
+}
+
+message RedPacketServerProto {
+    int64 id = 1;
+    uint64 data_id = 2;
+    int64 create_time = 3;
+    HeroBasicProto create_hero = 4;
+    string text = 5;
+    ChatType chat_type = 6;
+    repeated RedPacketPartServerProto parts = 8; // 每个小红包
+    map<int64, bool> grabbed_hero = 9; // 抢过红包的人
+    int64 chat_id = 10;
+}
+
+message RedPacketPartServerProto {
+    uint64 money = 1;
+    int64 grabbed_time = 2;
+    HeroBasicProto grabbed_hero = 3;
+}

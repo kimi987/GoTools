@@ -1,0 +1,32 @@
+mmm=$(pwd)
+echo $mmm
+cd /Users/liwei/Documents/svn/cehua/服务器配置/
+svn update
+
+cd $mmm
+echo $(pwd)
+env GOOS=windows GOARCH=amd64 go build -o male7_simu.exe cmd/combat/moni/moni.go
+
+rm -f /Users/liwei/Documents/svn/cehua/服务器配置/male7_simu.exe
+mv male7_simu.exe /Users/liwei/Documents/svn/cehua/服务器配置/
+
+echo $(pwd)
+env GOOS=windows GOARCH=amd64 go build -o male7_simux.exe cmd/combat/monix/monix.go
+
+rm -f /Users/liwei/Documents/svn/cehua/服务器配置/male7_simux.exe
+mv male7_simux.exe /Users/liwei/Documents/svn/cehua/服务器配置/
+
+env GOOS=windows GOARCH=amd64 go build -o male7check.exe cmd/male7check.go
+
+rm -f /Users/liwei/Documents/svn/cehua/服务器配置/male7check.exe
+mv male7check.exe /Users/liwei/Documents/svn/cehua/服务器配置/
+cp -rn conf /Users/liwei/Documents/svn/cehua/服务器配置/
+
+rm -f conf_server.zip
+zip -r conf_server.zip conf
+rm -f /Users/liwei/Documents/svn/cehua/服务器配置/conf_server.zip
+mv conf_server.zip /Users/liwei/Documents/svn/cehua/服务器配置/
+
+cd /Users/liwei/Documents/svn/cehua/服务器配置/
+svn add --force * --auto-props --parents --depth infinity -q
+svn commit -m 'auto commit'
