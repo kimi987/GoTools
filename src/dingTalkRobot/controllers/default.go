@@ -64,8 +64,20 @@ func parseCommand(nickname, webhook, command string) string {
 		switch commands[1] {
 		case "测试":
 			PostUpdateMsg(nickname, webhook, "develop1", "TE1", "TE1", "", "")
-		case "GP"
-			PostUpdateMsg(nickname, webhook, "develop1", "TE1", "TE1", "", "GP")
+		case "GP" :
+			PostUpdateMsg(nickname, webhook, "releaseGP", "GP", "GP", "", "GP")
+		case "GPInit" :
+			PostUpdateMsg(nickname, webhook, "releaseGP", "GPInit", "GPInit", "", "GPInit")	
+		case "GPIOS":
+			PostUpdateMsg(nickname, webhook, "releaseGP", "GPIOS", "GPIOS", "", "GPIOS")
+		case "GP1":
+			PostUpdateMsg(nickname, webhook, "releaseGP.1", "GP1", "GP1", "", "GP1")
+		case "GPIOS1":
+			PostUpdateMsg(nickname, webhook, "releaseGP.1", "GPIOS1", "GPIOS1", "", "GPIOS1")
+		case "CN":
+			PostUpdateMsg(nickname, webhook, "releaseCN", "CN", "CN", "", "CN")
+		case "CNIOS":
+			PostUpdateMsg(nickname, webhook, "releaseCN", "CNIOS", "CNIOS", "", "CNIOS")
 		case "正式":
 			PostUpdateMsg(nickname, webhook, "develop1", "CN", "CN", "", "")
 		case "版署":
@@ -77,7 +89,7 @@ func parseCommand(nickname, webhook, command string) string {
 		}
 	case "构建整包":
 		if len(commands) < 2 {
-			PostDingTalkDefineMsg(webhook, nickname, "参数错误, 请输入 [版署|测试|正式] 选择包体")
+			PostDingTalkDefineMsg(webhook, nickname, "参数错误, 请输入 [版署|测试|正式|GP] 选择包体")
 			return "参数错误"
 		}
 		if len(commands) < 3 {
@@ -104,6 +116,8 @@ func parseCommand(nickname, webhook, command string) string {
 			PostUpdateMsg(nickname, webhook, "develop1", "Test", fmt.Sprintf("[测试][channel=TE1][serverTag=%s][sdk=%s]", tag, sdk), tag, sdk)
 		case "正式":
 			PostUpdateMsg(nickname, webhook, "develop1", "Prod", fmt.Sprintf("[正式][channel=TE1][serverTag=%s][sdk=%s]", tag, sdk), tag, sdk)
+		case "GP":
+			PostUpdateMsg(nickname, webhook, "releaseGP", "GP-Prod", fmt.Sprintf("[正式][channel=GP][serverTag=%s][sdk=%s]", tag, sdk), tag, "GP")	
 		}
 
 	default:
