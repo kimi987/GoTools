@@ -74,10 +74,18 @@ func parseCommand(nickname, webhook, command string) string {
 			PostUpdateMsg(nickname, webhook, "releaseGP.1", "GP1", "GP1", "", "GP1")
 		case "GPIOS1":
 			PostUpdateMsg(nickname, webhook, "releaseGP.1", "GPIOS1", "GPIOS1", "", "GPIOS1")
+		case "TW":
+			PostUpdateMsg(nickname, webhook, "releaseTW", "TW", "TW", "", "TW")
+		case "TWIOS":
+			PostUpdateMsg(nickname, webhook, "releaseTW", "TWIOS", "TWIOS", "", "TWIOS")
 		case "CN":
 			PostUpdateMsg(nickname, webhook, "releaseCN", "CN", "CN", "", "CN")
 		case "CNIOS":
 			PostUpdateMsg(nickname, webhook, "releaseCN", "CNIOS", "CNIOS", "", "CNIOS")
+		case "ENG":
+			PostUpdateMsg(nickname, webhook, "releaseENG", "ENG", "ENG", "", "ENG")
+		case "ENGIOS":
+			PostUpdateMsg(nickname, webhook, "releaseENG", "ENGIOS", "ENGIOS", "", "ENGIOS")
 		case "正式":
 			PostUpdateMsg(nickname, webhook, "develop1", "CN", "CN", "", "")
 		case "版署":
@@ -114,6 +122,8 @@ func parseCommand(nickname, webhook, command string) string {
 			PostUpdateMsg(nickname, webhook, "develop_版署包", "Banshu", fmt.Sprintf("[版署][channel=CN][serverTag=%s][sdk=%s]", tag, sdk), tag, sdk)
 		case "测试":
 			PostUpdateMsg(nickname, webhook, "develop1", "Test", fmt.Sprintf("[测试][channel=TE1][serverTag=%s][sdk=%s]", tag, sdk), tag, sdk)
+		case "测试mono":
+			PostUpdateMsg(nickname, webhook, "develop1", "TestMono", fmt.Sprintf("[测试][channel=TE1][serverTag=%s][sdk=%s]", tag, sdk), tag, sdk)
 		case "正式":
 			PostUpdateMsg(nickname, webhook, "develop1", "Prod", fmt.Sprintf("[正式][channel=TE1][serverTag=%s][sdk=%s]", tag, sdk), tag, sdk)
 		case "GP":
