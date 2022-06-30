@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap-responsive.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/assets/DT_bootstrap.css" media="screen">
+
+    <link href="static/css/styles.css" rel="stylesheet" media="screen">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="static/vendors/jquery-1.9.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="static/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Admin Panel</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> KimiWang <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="sidebar">
+            <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+                <li class="active">
+                    <a href="/"><i class="icon-chevron-right"></i> 首页</a>
+                </li>
+                <li>
+                    <a href="ServerSystem"><i class="icon-chevron-right"></i> 服务器系统</a>
+                </li>
+                <li>
+                    <a href="stats.html"><i class="icon-chevron-right"></i> 服务器管理</a>
+                </li>
+                <li>
+                    <a href="MapData"><i class="icon-chevron-right"></i> 九层地图</a>
+                </li>
+                <li>
+                    <a href="MapDataRes"><i class="icon-chevron-right"></i> 九层地图资源</a>
+                </li>
+                <li>
+                    <a href="buttons.html"><i class="icon-chevron-right"></i> 怪物编辑</a>
+                </li>
+                <li>
+                    <a href="editors.html"><i class="icon-chevron-right"></i> 商城编辑</a>
+                </li>
+            </ul>
+        </div>
+        <div class="span9" id="content">
+            <div class="row-fluid">
+                <div class="block">
+                    {{range .ErrLogs}}
+                    <div>
+                        <h1>{{.LogTime}}</h1>
+                    </div>
+
+                    <div>
+                        <h3 style="color: red">{{.LogDetail}}</h3>
+                    </div>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; Kimi Wang 2016</p>
+    </footer>
+</div>
+</body>
+</html>

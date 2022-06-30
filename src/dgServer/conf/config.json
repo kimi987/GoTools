@@ -1,0 +1,10 @@
+{
+    "DBName" : ["DGDB", "DGCRM"], 
+    "ConnAddr" : ["root:07942990@tcp(127.0.0.1:3306)/dg_alpha?charset=utf8", "root:07942990@tcp(127.0.0.1:3306)/dgCRM?charset=utf8"],
+    "MaxOpenConn":1,
+    "MaxIdleConn":1,
+	"LogLevel": "debug",
+    "LogPath": "../../bin/log",
+    "Usernames": ["dgart", "cdwalker"],
+    "Passwords": ["dongguan666!", "1qaz@WSX3edc"]
+}

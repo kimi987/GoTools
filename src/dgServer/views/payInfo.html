@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap-responsive.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/assets/DT_bootstrap.css" media="screen">
+
+    <link rel="stylesheet" href="static/vendors/datepicker.css" media="screen">
+
+    <link href="static/css/styles.css" rel="stylesheet" media="screen">
+
+    <link href="static/vendors/daterangepicker.css" rel="stylesheet">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="static/vendors/jquery-1.9.1.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="static/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+
+
+    <script>
+       
+        $(document).ready(function(){
+
+            $("#i-search-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {   
+                            location.href = "/PayInfo?SearchType=" + 101 + "&SearchTime1=" + $("#SearchTime1").html();
+                        });       
+            });
+
+            $("#i-search-1-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {   
+                            location.href = "/PayInfo?SearchType=" + 101 + "&SearchTime1=" + $("#SearchTime1").html() + "&IsDownload=1";
+                        });       
+            });
+
+            $("#i-search-1-2", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {   
+                            location.href = "/PayInfo?SearchType=" + 102 + "&SearchTime1=" + $("#SearchTime1").html() + "&IsDownload=1";
+                        });       
+            });
+
+            $("#i-search-2", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {   
+                            location.href = "/PayInfo?SearchType=" + 301 + "&SearchTime2=" + $("#SearchTime2").html();
+                        });       
+            });
+
+            $("#i-search-2-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {   
+                            location.href = "/PayInfo?SearchType=" + 301 + "&SearchTime2=" + $("#SearchTime2").html() + "&IsDownload=1";
+                        });       
+            });
+
+            $("#i-search-3", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {    
+                            var search_id = $("#select01").find("option:selected").attr("id");
+                            location.href = "/PayInfo?SearchType=" + 401 + "&SearchTime3=" + $("#SearchTime3").html() + "&SearchTime4=" + $("#SearchTime4").html() + "&NumOfDay=" + search_id;
+                        });       
+            });
+
+            $("#i-search-3-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {   
+                            var search_id = $("#select01").find("option:selected").attr("id");
+                            location.href = "/PayInfo?SearchType=" + 401 + "&SearchTime3=" + $("#SearchTime3").html() + "&SearchTime4=" + $("#SearchTime4").html() + "&NumOfDay=" + search_id + "&IsDownload=1";
+                        });       
+            });
+
+            $("#i-tool-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {   
+                            location.href = "/PayInfo?SearchType=" + 1 + "&SearchTime5=" + $("#SearchTime5").html();
+                        });       
+            });
+
+            $("#i-tool-2", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {   
+                            location.href = "/PayInfo?SearchType=" + 2 + "&SearchTime6=" + $("#SearchTime6").html() + "&inputCourses=" + $("#inputCourses").val();
+                        });       
+            });
+            
+
+              $("#i-export-1", this).click(function(){
+                $("#example").table2excel({
+                        // 不被导出的表格行的CSS class类
+                        exclude: ".noExl",
+                        // 导出的Excel文档的名称
+                        name: "Excel Document Name",
+                        // Excel文件的名称
+                        filename: "缴费信息",
+                        //文件后缀名
+                        fileext: ".xls",
+                        //是否排除导出图片
+                        exclude_img: false,
+                        //是否排除导出超链接
+                        exclude_links: false,
+                        //是否排除导出输入框中的内容
+                        exclude_inputs: false
+                    }); 
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Admin Panel</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> KimiWang <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        {{template "sideMenu.html" .}}
+        <div class="span10" id="content">
+            
+            <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">学员缴费到期统计</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                                <div class="table-toolbar">
+                                    <button type="button" class="btn" id="daterange-btn">
+                                        <i class="fa fa-calendar"></i>
+                                        <span id="SearchTime1">时间</span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-info" id="i-search-1">提交查询</button>
+                                    </div>
+
+                                    <div class="btn-group pull-right">
+                                        <button class="btn" id="i-search-1-1">导出Excel</button>
+                                        <button class="btn" id="i-search-1-2">导出Excel(Add)</button>
+                                    </div>
+
+                                </div>
+                            {{if gt 150 .DataType}}       
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                            {{else}}
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="mainTable">
+                            {{end}}
+                                        <thead>
+                                                <tr>
+                                                    <th>编号</th>
+                                                    <th>用户名</th>
+                                                    <th>归档状态</th>
+                                                    <th>邮箱</th>
+                                                    <th>电话</th>
+                                                    <th>到期时间</th>
+                                                    <th>当前请假</th>
+                                                    <th>最后一次提交时间</th>
+                                                    <th>最后一次通道任务名字</th>
+                                                    <th>支付宝账号</th>
+                                                </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {{range .PayDatas}}
+                                                <tr>
+                                                    <td id="P_id"  >{{.P_id}}</td>
+                                                    <td id="P_name">{{.P_name}}</td>
+                                                    {{if eq 0 .P_delete}}
+                                                    <td id="P_delete"><font Color="green">正常</font></td>
+                                                    {{else}}
+                                                    <td id="P_delete"><font Color="red">归档</font></td>
+                                                    {{end}}
+                                                    <td id="P_mail">{{.P_mail}}</td>
+                                                    <td id="P_phone">{{.P_phone}}</td>
+                                                    <td id="P_end_time">{{.P_end_time}}</td>
+                                                    <td id="ReleaseTime">{{.ReleaseTime}}</td>
+                                                    <td id="M_last_submit">{{.P_last_submit}}</td>
+                                                    <td id="M_last_name">{{.P_last_name}}</td>
+                                                    <td id="P_aliPay">{{.P_aliPay}}</td>
+                                                </tr>
+                                            {{end}}
+                                        </tbody>
+
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">学员缴费记录</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                                <div class="table-toolbar">
+                                    <button type="button" class="btn" id="daterange-btn1">
+                                        <i class="fa fa-calendar"></i>
+                                        <span id="SearchTime2">时间</span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-info" id="i-search-2">提交查询</button>
+                                    </div>
+
+                                    <div class="btn-group pull-right">
+                                        <button class="btn" id="i-search-2-1">导出Excel</button>
+                                    </div>
+
+                                </div>
+                            {{if gt 350 .DataType}}       
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                            {{else}}
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="mainTable">
+                            {{end}}
+                                        <thead>
+                                                <tr>
+                                                    <!-- <th>编号</th> -->
+                                                    <th>用户名</th>
+                                                    <th>用户类型</th>
+                                                    <th>所开主线通道</th>
+                                                    <th>用户标签</th>
+                                                    <th>缴费类型</th>
+                                                    <th>缴费金额</th>
+                                                    <th>付费时间</th>
+                                                    <th>开始时间</th>
+                                                    <th>支付宝账号</th>
+                                                </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {{range .PayRecords}}
+                                                <tr>
+                                                    <!-- <td id="OR_id"  >{{.OR_id}}</td> -->
+                                                    <td id="OR_name">{{.OR_name}}</td>
+                                                    <td id="OR_user_type">{{.OR_user_type}}</td>
+                                                    <td id="OR_course">{{.OR_course}}</td>
+                                                    <td id="OR_tag">{{.OR_tag}}</td>
+                                                    {{if eq 3 .OR_type}}
+                                                    <td id="OR_type">季卡</td>
+                                                    {{else if eq 6 .OR_type}}
+                                                    <td id="OR_type">半年卡</td>
+                                                    {{else if eq 12 .OR_type}}
+                                                    <td id="OR_type">年卡</td>
+                                                    {{else}}
+                                                    <td id="OR_type">无效</td>
+                                                    {{end}}
+                                                    <td id="OR_price">{{.OR_price}}</td>
+                                                    <td id="OR_create_time">{{.OR_create_time}}</td>
+                                                    <td id="OR_start_time">{{.OR_start_time}}</td>
+                                                    <td id="OR_aliPay">{{.OR_aliPay}}</td>
+                                                </tr>
+                                            {{end}}
+                                        </tbody>
+
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">缴费学员连续未交状态</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                                <div class="table-toolbar">
+                                    提交作业时间段
+                                    <button type="button" class="btn" id="daterange-btn2">
+                                        <i class="fa fa-calendar"></i>
+                                        <span id="SearchTime3">有效时间</span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    最近一次缴费时间段
+                                    <button type="button" class="btn" id="daterange-btn3">
+                                        <i class="fa fa-calendar"></i>
+                                        <span id="SearchTime4">最近缴费</span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    
+                                    <label class="control-label" for="select01">选择连续未交时长(天)</label>
+                                    <div class="controls">
+                                         <select id="select01" class="chzn-select">
+                                             {{range $index := .SelectIndexs}}
+                                                {{if eq $index $.ChooseID}}
+                                                <option id={{$index}} selected="true">{{$index}}</option>
+                                                {{else}}
+                                                <option id={{$index}}>{{$index}}</option>
+                                                {{end}}
+                                             {{end}}
+                                        </select>                              
+                                    </div>
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-info" id="i-search-3">提交查询</button>
+                                    </div>
+
+                                    <div class="btn-group pull-right">
+                                        <button class="btn" id="i-search-3-1">导出Excel</button>
+                                    </div>
+
+                                </div>
+                            {{if gt 450 .DataType}}       
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                            {{else}}
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="mainTable">
+                            {{end}}
+                                        <thead>
+                                                <tr>
+                                                    <th>用户名</th>
+                                                    <th>用户类型</th>
+                                                    <th>最近缴费日期</th>
+                                                    <th>连续{{.ChooseID}}未交</th>
+                                                    <th>请假状态</th>
+                                                    <th>所开主线通道</th>
+                                                    <th>提交次数</th>
+                                                    <th>提交作业详情</th>
+                                                </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {{range .LazeUserRecords}}
+                                                <tr>
+                                                    <td id="LR_name">{{.LR_name}}</td>
+                                                    <td id="LR_user_type">{{.LR_user_type}}</td>
+                                                    <td id="LR_date">{{.LR_date}}</td>
+                                                    <td id="LR_last">{{.LR_last}}</td>
+                                                    <td id="LR_leave" >{{.LR_leave}}</td>
+                                                    <td id="LR_course" class="span3">{{.LR_course}}</td>
+                                                    <td id="LR_times">{{.LR_times}}</td>
+                                                    <td id="LR_work" class="span6">{{.LR_work}}</td>
+                                                </tr>
+                                            {{end}}
+                                        </tbody>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">缴费工具按钮</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        获取体验期用户&&没有缴费&&在环比中
+
+                        <button type="button" class="btn" id="daterange-btn4">
+                            <i class="fa fa-calendar"></i>
+                            <span id="SearchTime5">时间</span>
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+
+                        <div class="btn-group">
+                            <button class="btn btn-info" id="i-tool-1">导出excel</button>
+                        </div>
+                        <br>
+                        ----------------------------------------------------------------
+                    </div>
+
+                    <div class="block-content collapse in">
+                        用户提交作业次数
+
+                        <button type="button" class="btn" id="daterange-btn5">
+                            <i class="fa fa-calendar"></i>
+                            <span id="SearchTime6">起始时间</span>
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+
+                        <div class="control-group">
+                            <label class="control-label" for="inputCourses">输入课程IDs(逗号隔开)</label>
+                            <div class="controls">
+                                <input id="inputCourses" type="text" />
+                            </div>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn btn-info" id="i-tool-2">导出excel</button>
+                        </div>
+                        <br>
+                        ----------------------------------------------------------------
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+
+<script src="static/vendors/jquery-1.9.1.js"></script>
+<script src="static/bootstrap/js/bootstrap.min.js"></script>
+<script src="static/vendors/datatables/js/jquery.dataTables.js"></script>
+
+
+<script src="static/assets/scripts.js"></script>
+<script src="static/assets/DT_bootstrap.js"></script>
+
+
+<script src="static/vendors/bootstrap-datepicker.zh-CN.min.js"></script>
+
+<script src="static/vendors/bootstrap-datepicker.js"></script>
+
+<script src="static/vendors/moment.min.js"></script>
+<script src="static/vendors/daterangepicker.js"></script>
+
+<script src="static/js/jquery.table2excel.js"></script>
+<script>
+
+
+function init() {
+	//定义locale汉化插件
+	var locale = {
+		"format": 'YYYY-MM-DD',
+		"separator": " -222 ",
+		"applyLabel": "确定",
+		"cancelLabel": "取消",
+		"fromLabel": "起始时间",
+		"toLabel": "结束时间'",
+		"customRangeLabel": "自定义",
+		"weekLabel": "W",
+		"daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+		"monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+		"firstDay": 1
+    };
+	
+    {{if .SearchTime1}}
+    $('#daterange-btn span').html({{.SearchTime1}});
+    {{else}}
+    	//初始化显示当前时间
+	$('#daterange-btn span').html(moment().subtract('hours', 1).format('YYYY/MM/DD') + '-' + moment().format('YYYY/MM/DD'));
+    {{end}}
+	//日期控件初始化
+	$('#daterange-btn').daterangepicker(
+		{
+			'locale': locale,
+			//汉化按钮部分
+			ranges: {
+				'今日': [moment(), moment()],
+				'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'最近7日': [moment().subtract(6, 'days'), moment()],
+				'最近30日': [moment().subtract(29, 'days'), moment()],
+				'本月': [moment().startOf('month'), moment().endOf('month')],
+				'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		   },
+           {{if .SearchTime1}}
+            startDate: {{.SearchTime1}}.split("-")[0],
+			endDate: {{.SearchTime1}}.split("-")[1]
+           {{else}}
+           startDate: moment(),
+			endDate: moment()
+           {{end}}
+
+        },
+        
+        
+		function (start, end) {
+			$('#daterange-btn span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+		}
+   );
+
+   {{if .SearchTime2}}
+    $('#daterange-btn1 span').html({{.SearchTime2}});
+    {{else}}
+    	//初始化显示当前时间
+	$('#daterange-btn1 span').html(moment().subtract('hours', 1).format('YYYY/MM/DD') + '-' + moment().format('YYYY/MM/DD'));
+    {{end}}
+
+
+    $('#daterange-btn1').daterangepicker(
+		{
+			'locale': locale,
+			//汉化按钮部分
+			ranges: {
+				'今日': [moment(), moment()],
+				'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'最近7日': [moment().subtract(6, 'days'), moment()],
+				'最近30日': [moment().subtract(29, 'days'), moment()],
+				'本月': [moment().startOf('month'), moment().endOf('month')],
+				'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		   },
+           {{if .SearchTime2}}
+            startDate: {{.SearchTime2}}.split("-")[0],
+			endDate: {{.SearchTime2}}.split("-")[1]
+           {{else}}
+           startDate: moment(),
+			endDate: moment()
+           {{end}}
+		},
+		function (start, end) {
+			$('#daterange-btn1 span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+		}
+   );
+
+   {{if .SearchTime3}}
+    $('#daterange-btn2 span').html({{.SearchTime3}});
+    {{else}}
+    	//初始化显示当前时间
+	$('#daterange-btn2 span').html(moment().subtract('hours', 1).format('YYYY/MM/DD') + '-' + moment().format('YYYY/MM/DD'));
+    {{end}}
+
+
+    $('#daterange-btn2').daterangepicker(
+		{
+			'locale': locale,
+			//汉化按钮部分
+			ranges: {
+				'今日': [moment(), moment()],
+				'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'最近7日': [moment().subtract(6, 'days'), moment()],
+				'最近30日': [moment().subtract(29, 'days'), moment()],
+				'本月': [moment().startOf('month'), moment().endOf('month')],
+				'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		   },
+           {{if .SearchTime3}}
+            startDate: {{.SearchTime3}}.split("-")[0],
+			endDate: {{.SearchTime3}}.split("-")[1]
+           {{else}}
+           startDate: moment(),
+			endDate: moment()
+           {{end}}
+		},
+		function (start, end) {
+			$('#daterange-btn2 span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+		}
+   );
+
+   {{if .SearchTime4}}
+    $('#daterange-btn3 span').html({{.SearchTime4}});
+    {{else}}
+    	//初始化显示当前时间
+	$('#daterange-btn3 span').html(moment().subtract('hours', 1).format('YYYY/MM/DD') + '-' + moment().format('YYYY/MM/DD'));
+    {{end}}
+
+
+    $('#daterange-btn3').daterangepicker(
+		{
+			'locale': locale,
+			//汉化按钮部分
+			ranges: {
+				'今日': [moment(), moment()],
+				'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'最近7日': [moment().subtract(6, 'days'), moment()],
+				'最近30日': [moment().subtract(29, 'days'), moment()],
+				'本月': [moment().startOf('month'), moment().endOf('month')],
+				'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		   },
+           {{if .SearchTime4}}
+            startDate: {{.SearchTime4}}.split("-")[0],
+			endDate: {{.SearchTime4}}.split("-")[1]
+           {{else}}
+           startDate: moment(),
+			endDate: moment()
+           {{end}}
+		},
+		function (start, end) {
+			$('#daterange-btn3 span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+		}
+   );
+
+   {{if .SearchTime5}}
+    $('#daterange-btn4 span').html({{.SearchTime5}});
+    {{else}}
+    	//初始化显示当前时间
+	$('#daterange-btn4 span').html(moment().subtract('hours', 1).format('YYYY/MM/DD') + '-' + moment().format('YYYY/MM/DD'));
+    {{end}}
+
+
+    $('#daterange-btn4').daterangepicker(
+		{
+			'locale': locale,
+			//汉化按钮部分
+			ranges: {
+				'今日': [moment(), moment()],
+				'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'最近7日': [moment().subtract(6, 'days'), moment()],
+				'最近30日': [moment().subtract(29, 'days'), moment()],
+				'本月': [moment().startOf('month'), moment().endOf('month')],
+				'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		   },
+           {{if .SearchTime5}}
+            startDate: {{.SearchTime5}}.split("-")[0],
+			endDate: {{.SearchTime5}}.split("-")[1]
+           {{else}}
+           startDate: moment(),
+			endDate: moment()
+           {{end}}
+		},
+		function (start, end) {
+			$('#daterange-btn4 span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+		}
+   );
+
+   {{if .SearchTime6}}
+    $('#daterange-btn5 span').html({{.SearchTime6}});
+    {{else}}
+    	//初始化显示当前时间
+	$('#daterange-btn5 span').html(moment().subtract('hours', 1).format('YYYY/MM/DD') + '-' + moment().format('YYYY/MM/DD'));
+    {{end}}
+
+
+    $('#daterange-btn5').daterangepicker(
+		{
+			'locale': locale,
+			//汉化按钮部分
+			ranges: {
+				'今日': [moment(), moment()],
+				'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'最近7日': [moment().subtract(6, 'days'), moment()],
+				'最近30日': [moment().subtract(29, 'days'), moment()],
+				'本月': [moment().startOf('month'), moment().endOf('month')],
+				'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		   },
+           {{if .SearchTime6}}
+            startDate: {{.SearchTime6}}.split("-")[0],
+			endDate: {{.SearchTime6}}.split("-")[1]
+           {{else}}
+           startDate: moment(),
+			endDate: moment()
+           {{end}}
+		},
+		function (start, end) {
+			$('#daterange-btn5 span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+		}
+   );
+};
+
+
+
+$(document).ready(function() {
+        init(); 
+});
+</script>
+    <footer >
+        <p>&copy; Kimi Wang 2016</p>
+    </footer>
+
+</body>
+
+</html>

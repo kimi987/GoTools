@@ -1,0 +1,54 @@
+
+    <div class="span2" id="sidebar">
+        <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+            {{if eq 1 .Index}}
+            <li class="active">
+            {{else}}
+            <li>
+            {{end}}
+            <a href="/"><i class="icon-chevron-right"></i> 学员状态</a>
+            </li>
+            {{if eq 2 .Index}}
+            <li class="active">
+            {{else}}
+            <li>
+            {{end}}
+            <a href="/TaskStatus?SearchType=0"><i class="icon-chevron-right"></i> 任务状态</a>
+            </li>
+            {{if eq 3 .Index}}
+            <li class="active">
+            {{else}}
+            <li>
+            {{end}}
+            <a href="/PayInfo?SearchType=0"><i class="icon-chevron-right"></i> 缴费信息</a>
+            </li>
+            {{if eq 4 .Index}}
+            <li class="active">
+            {{else}}
+            <li>
+            {{end}}
+            <a href="/PayRate?SearchType=0"><i class="icon-chevron-right"></i> 用户留存</a>
+            </li>
+            {{if eq 5 .Index}}
+            <li class="active">
+            {{else}}
+            <li>
+            {{end}}
+            <a href="/TeacherStatus?SearchType=0"><i class="icon-chevron-right"></i> 点评师信息</a>
+            </li>
+            {{if eq 6 .Index}}
+            <li class="active">
+            {{else}}
+            <li>
+            {{end}}
+            <a href="/UserDetail?SearchType=0"><i class="icon-chevron-right"></i> 用户侧写</a>
+            </li>
+            {{if eq 7 .Index}}
+            <li class="active">
+            {{else}}
+            <li>
+            {{end}}
+            <a href="/"><i class="icon-chevron-right"></i> 其他信息</a>
+            </li>
+        </ul>
+    </div>

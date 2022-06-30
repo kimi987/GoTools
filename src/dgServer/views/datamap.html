@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>九层地图资源</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap-responsive.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/assets/DT_bootstrap.css" media="screen">
+
+    <link href="static/assets/styles.css" rel="stylesheet" media="screen">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="static/vendors/jquery-1.9.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="static/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+    <script>
+
+        var click_btn;
+        $(document).ready(function(){
+            $(".s-choose", this).click(function(){
+
+                click_btn = $(this);
+                $.post("MapData",
+                        {
+                            S_id:$("#select01").val()
+                        },
+                        function(data,status)
+                        {
+//                            $.get("MapData", {},
+//                            function(data1, status1) {
+//
+//                            });
+
+                            location.href = "MapData"
+                        });
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Admin Panel</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> KimiWang<i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="sidebar">
+            <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+                <li>
+                    <a href="/"><i class="icon-chevron-right"></i> 首页</a>
+                </li>
+                <li>
+                    <a href="ServerSystem"><i class="icon-chevron-right"></i> 服务器系统</a>
+                </li>
+                <li>
+                    <a href="stats.html"><i class="icon-chevron-right"></i> 服务器管理</a>
+                </li>
+                <li class="active">
+                    <a href="MapData"><i class="icon-chevron-right"></i> 九层地图</a>
+                </li>
+                <li>
+                    <a href="MapDataRes"><i class="icon-chevron-right"></i> 九层地图资源</a>
+                </li>
+                <li>
+                    <a href="MonsterRes"><i class="icon-chevron-right"></i> 怪物资源</a>
+                </li>
+                <li>
+                    <a href="editors.html"><i class="icon-chevron-right"></i> 商城编辑</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="span9" id="content">
+            <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted">
+                            <div class="control-group span3">
+                                <label class="control-label" for="select01">请选择服务器:</label>
+                                <div class="controls">
+                                    <select id="select01" class="chzn-select span6">
+                                        {{range .Servers}}
+                                        {{if eq $.Map_id .S_id}}
+                                        <option selected="selected">{{.S_id}}</option>
+                                        {{else}}
+                                        <option>{{.S_id}}</option>
+                                        {{end}}
+                                        {{end}}
+                                    </select>
+
+                                    <button class="btn s-choose">选择</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="main-table">
+                                <thead>
+                                <tr>
+                                    <th>地图ID</th>
+                                    <th>地图等级</th>
+                                    <th>在线人数</th>
+                                    <th>总人数</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{range .Mapdatas}}
+                                <tr>
+                                    <td>{{.M_id}}</td>
+                                    <td>{{.M_lv}}</td>
+                                    <td>{{.M_num}}</td>
+                                    <td>{{.M_total_num}}</td>
+                                </tr>
+                                {{end}}
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--/span-->
+    </div>
+
+    <footer>
+        <p>&copy; Kimi Wang 2016</p>
+    </footer>
+</div>
+
+
+<link href="static/vendors/datepicker.css" rel="stylesheet" media="screen">
+<link href="static/vendors/uniform.default.css" rel="stylesheet" media="screen">
+<link href="static/vendors/chosen.min.css" rel="stylesheet" media="screen">
+
+<link href="static/vendors/wysiwyg/bootstrap-wysihtml5.css" rel="stylesheet" media="screen">
+
+<script src="static/vendors/jquery-1.9.1.js"></script>
+<script src="static/bootstrap/js/bootstrap.min.js"></script>
+<script src="static/vendors/jquery.uniform.min.js"></script>
+<script src="static/vendors/chosen.jquery.min.js"></script>
+<script src="static/vendors/bootstrap-datepicker.js"></script>
+
+<script src="static/vendors/wysiwyg/wysihtml5-0.3.0.js"></script>
+<script src="static/vendors/wysiwyg/bootstrap-wysihtml5.js"></script>
+
+<script src="static/vendors/wizard/jquery.bootstrap.wizard.min.js"></script>
+
+<script type="text/javascript" src="static/vendors/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="static/assets/form-validation.js"></script>
+
+<script src="static/assets/scripts.js"></script>
+<script>
+
+    jQuery(document).ready(function() {
+        FormValidation.init();
+    });
+
+
+    $(function() {
+        $(".datepicker").datepicker();
+        $(".uniform_on").uniform();
+        $(".chzn-select").chosen();
+        $('.textarea').wysihtml5();
+
+        $('#rootwizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
+            var $total = navigation.find('li').length;
+            var $current = index+1;
+            var $percent = ($current/$total) * 100;
+            $('#rootwizard').find('.bar').css({width:$percent+'%'});
+            // If it's the last tab then hide the last button and show the finish instead
+            if($current >= $total) {
+                $('#rootwizard').find('.pager .next').hide();
+                $('#rootwizard').find('.pager .finish').show();
+                $('#rootwizard').find('.pager .finish').removeClass('disabled');
+            } else {
+                $('#rootwizard').find('.pager .next').show();
+                $('#rootwizard').find('.pager .finish').hide();
+            }
+        }});
+        $('#rootwizard .finish').click(function() {
+            alert('Finished!, Starting over!');
+            $('#rootwizard').find("a[href*='tab1']").trigger('click');
+        });
+    });
+
+
+</script>
+</body>
+
+</html>

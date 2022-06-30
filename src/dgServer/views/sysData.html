@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>运行状态</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap-responsive.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/assets/DT_bootstrap.css" media="screen">
+
+    <link href="static/assets/styles.css" rel="stylesheet" media="screen">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="static/vendors/jquery-1.9.1.min.js"></script>
+
+
+    <script src="static/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+    <script>
+
+        var SId;
+
+        function SetSId(sid) {
+            SId = sid
+        }
+
+    </script>
+</head>
+<body id={{.S_id}}>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Admin Panel</a>
+            <a class="brand" href="/">返回主页</a>
+            <a class="brand" href="#">{{.S_name}}</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> KimiWang<i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        {{template "sideMenu.html" .}}
+
+        <div class="span9" id="content">
+                <div class="row-fluid">
+                        <!-- block -->
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header">
+                                <div class="muted pull-left">基础信息</div>
+                            </div>
+                            <div class="block-content collapse in">
+                                <div class="span12">
+                                    <div id="base-graph" style="width:100%;height:230px"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header">
+                                <div class="muted pull-left">内存信息</div>
+                            </div>
+                            <div class="block-content collapse in">
+                                <div class="span12">
+                                    <div id="alloc-graph" style="width:100%;height:230px"></div>
+                                </div>
+                            </div>
+                         </div>
+
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header">
+                                <div class="muted pull-left">堆内存</div>
+                            </div>
+                            <div class="block-content collapse in">
+                                <div class="span12">
+                                    <div id="heapInUse-graph" style="width:100%;height:230px"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header">
+                                <div class="muted pull-left">堆对象</div>
+                            </div>
+                            <div class="block-content collapse in">
+                                <div class="span12">
+                                    <div id="heapObjects-graph" style="width:100%;height:230px"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header">
+                                <div class="muted pull-left">栈内存</div>
+                            </div>
+                            <div class="block-content collapse in">
+                                <div class="span12">
+                                    <div id="stackInUse-graph" style="width:100%;height:230px"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header">
+                                <div class="muted pull-left">GCCPU</div>
+                            </div>
+                            <div class="block-content collapse in">
+                                <div class="span12">
+                                    <div id="gccpu-graph" style="width:100%;height:230px"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="block">
+                                <div class="navbar navbar-inner block-header">
+                                    <div class="muted pull-left">GC次数</div>
+                                </div>
+                                <div class="block-content collapse in">
+                                    <div class="span12">
+                                        <div id="gc-num" style="width:100%;height:230px"></div>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header">
+                                <div class="muted pull-left">GC时间(256次)</div>
+                            </div>
+                            <div class="block-content collapse in">
+                                <div class="span12">
+                                    <div id="gc-time" style="width:100%;height:230px"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /block -->
+                </div>
+        </div>
+
+
+        <!--/span-->
+    </div>
+
+    <footer>
+        <p>&copy; Kimi Wang 2016</p>
+    </footer>
+</div>
+
+
+        <link rel="stylesheet" href="static/vendors/morris/morris.css">
+
+
+        <script src="static/vendors/jquery-1.9.1.min.js"></script>
+        <script src="static/vendors/jquery.knob.js"></script>
+        <script src="static/vendors/raphael-min.js"></script>
+        <script src="static/vendors/morris/morris.min.js"></script>
+
+        <script src="static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="static/vendors/flot/jquery.flot.js"></script>
+        <script src="static/vendors/flot/jquery.flot.categories.js"></script>
+        <script src="static/vendors/flot/jquery.flot.pie.js"></script>
+        <script src="static/vendors/flot/jquery.flot.time.js"></script>
+        <script src="static/vendors/flot/jquery.flot.stack.js"></script>
+        <script src="static/vendors/flot/jquery.flot.resize.js"></script>
+
+        <script src="static/assets/scripts.js"></script>
+<script>
+    $(function() {
+                // Morris Line Chart
+
+        var base_data = [];
+        var alloc_data= [];
+        var heapInUse_data= [];
+        var heapObjects_data = [];
+        var stackInUse_data= [];
+        var gc_cpu_percent = [];
+        var gc_num_data = [];
+        var gc_time_data = [];
+        var n = 0;
+        {{range .SysDatas}}
+        var data = {{.SDatas.memstats}};
+        var obj = JSON.parse(data);
+        if (n== 0) {
+            console.log(obj);
+            console.log({{.SDatas.SysDate}});
+        }
+
+       // base_data[n] = {"period":{{.SDatas.SysDate}}, "block": parseInt({{.SDatas.block}}),"goroutine": parseInt({{.SDatas.goroutine}}), "heap": parseInt({{.SDatas.heap}}), "mutex": parseInt({{.SDatas.mutex}}), "threadcreate":parseInt({{.SDatas.threadcreate}})};
+       base_data[n] = {"period":{{.SDatas.SysDate}}, "goroutine": parseInt({{.SDatas.NumGoroutine}})};
+        alloc_data[n] = {"period": {{.SDatas.SysDate}}, "Alloc": parseInt(obj.Alloc/1024/1024),"Sys":parseInt(obj.Sys/1024/1024)};
+        heapInUse_data[n]= {"period":{{.SDatas.SysDate}}, "heapInUse": parseInt(obj.HeapInuse/1024)};
+        heapObjects_data[n] = {"period":{{.SDatas.SysDate}}, "heapObjects": parseInt(obj.HeapObjects)};
+        stackInUse_data[n] = {"period":{{.SDatas.SysDate}}, "stackInUse": parseInt(obj.StackInuse/1024)};
+        gc_cpu_percent[n] = {"period":{{.SDatas.SysDate}}, "GCCPU": parseInt(obj.GCCPUFraction)};
+        gc_num_data[n] = {"period":{{.SDatas.SysDate}}, "GCNum": parseInt(obj.NumGC)};
+        var stops = 0;
+       for (var index = 0; index < obj.PauseNs.length; index++) {
+         stops += obj.PauseNs[index];       
+       } 
+       
+        gc_time_data[n] = {"period":{{.SDatas.SysDate}}, "GCTime": parseInt(stops/1000000)};
+        
+        n++;
+        {{end}}
+
+        //online_data[0] = {"period": "2017-10-23 06:00", "num": 1};
+        //online_data[1] = {"period": "2017-10-23 17:00", "num": 2};
+        //online_data[2] = {"p": "2017-10-1 02:00", "num": 3};
+        //online_data[3] = {"p": "2017-10-1 03:00", "num": 4};
+        //online_data[4] = {"p": "2017-10-1 04:00", "num": 5};
+        //online_data[5] = {"p": "2017-10-1 05:00", "num": 6};
+        // var tax_data = [
+        //     {"period": "2013-04", "visits": 2407, "signups": 660},
+        //     {"period": "2013-03", "visits": 3351, "signups": 729},
+        //     {"period": "2013-02", "visits": 2469, "signups": 1318},
+        //     {"period": "2013-01", "visits": 2246, "signups": 461},
+        //     {"period": "2012-12", "visits": 3171, "signups": 1676},
+        //     {"period": "2012-11", "visits": 2155, "signups": 681},
+        //     {"period": "2012-10", "visits": 1226, "signups": 620},
+        //     {"period": "2012-09", "visits": 2245, "signups": 500}
+        // ];
+        Morris.Line({
+            element: 'base-graph',
+            data: base_data,
+            xkey: 'period',
+            xLabels: "时间",
+            ykeys: ['goroutine'],
+            labels: ['goroutine']
+        });
+
+        Morris.Line({
+            element: 'alloc-graph',
+            data: alloc_data,
+            xkey: 'period',
+            xLabels: "时间",
+            ykeys: ['Sys','Alloc'],
+            labels: ['系统消耗','程序消耗']
+        });
+
+        Morris.Line({
+            element: 'heapInUse-graph',
+            data: heapInUse_data,
+            xkey: 'period',
+            xLabels: "时间",
+            ykeys: ['heapInUse'],
+            labels: ['堆内存(kb)']
+        });
+
+        Morris.Line({
+            element: 'heapObjects-graph',
+            data: heapObjects_data,
+            xkey: 'period',
+            xLabels: "时间",
+            ykeys: ['heapObjects'],
+            labels: ['堆对象']
+        });
+
+        Morris.Line({
+            element: 'stackInUse-graph',
+            data: stackInUse_data,
+            xkey: 'period',
+            xLabels: "时间",
+            ykeys: ['stackInUse'],
+            labels: ['栈内存(kb)']
+        });
+
+        Morris.Line({
+            element: 'gccpu-graph',
+            data: gc_cpu_percent,
+            xkey: 'period',
+            xLabels: "时间",
+            ykeys: ['GCCPU'],
+            labels: ['GCCPU']
+        });
+
+
+        Morris.Line({
+            element: 'gc-num',
+            data: gc_num_data,
+            xkey: 'period',
+            xLabels: "时间",
+            ykeys: ['GCNum'],
+            labels: ['GC次数']
+        });
+
+        Morris.Line({
+            element: 'gc-time',
+            data: gc_time_data,
+            xkey: 'period',
+            xLabels: "时间",
+            ykeys: ['GCTime'],
+            labels: ['GC时间(ms)']
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap-responsive.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/assets/DT_bootstrap.css" media="screen">
+
+    <link rel="stylesheet" href="static/vendors/datepicker.css" media="screen">
+
+    <link href="static/css/styles.css" rel="stylesheet" media="screen">
+
+    <link href="static/vendors/daterangepicker.css" rel="stylesheet">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="static/vendors/jquery-1.9.1.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="static/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+    <script>
+       
+        $(document).ready(function(){
+
+            {{if lt 200 .DataType}}   
+            $(document).scrollTop($("#SearchTime1").offset().top - 300);
+            {{end}}
+            
+            {{if lt 300 .DataType}}  
+            $(document).scrollTop($("#SearchTime2").offset().top);
+            {{end}}
+
+             $("#i-search-1-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 1;
+                        });       
+            });
+
+            $("#i-search-1-1-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 1 + "&IsDownload=1";
+                        });       
+            });
+
+            $("#i-search-1-2", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 2;
+                        });       
+            });
+
+            $("#i-search-1-2-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 2 + "&IsDownload=1";
+                        });       
+            });
+
+            $("#i-search-1-3", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 3;
+                        });       
+            });
+
+            $("#i-search-1-3-1", this).click(function(){
+                $.get("/",
+                {
+                    
+                },
+                function(data,status)
+                {
+                    location.href = "/UsersStatus?SearchType=" + 3 + "&IsDownload=1";
+                });       
+            });
+
+
+            $("#i-search-sub-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {    
+                            var search_id = $("#select03").find("option:selected").attr("id");
+                            location.href = "/UsersStatus?SearchType=" + 7 + "&SearchTime4=" + $("#SearchTime4").html() + "&SearchTime5=" + $("#SearchTime5").html() + "&NumOfDay=" + search_id;
+                        });       
+            });
+
+            $("#i-search-sub-1-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {   
+                            var search_id = $("#select03").find("option:selected").attr("id");
+                            location.href = "/UsersStatus?SearchType=" + 7 + "&SearchTime4=" + $("#SearchTime4").html() + "&SearchTime5=" + $("#SearchTime5").html() + "&NumOfDay=" + search_id + "&IsDownload=1";
+                        });       
+            });
+
+            $("#i-search-2-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 11;
+                        });       
+            });
+
+            $("#i-search-2-1-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 11 + "&IsDownload=1";
+                        });       
+            });
+
+            $("#i-search-2-2", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 12;
+                        });       
+            });
+
+            $("#i-search-2-2-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 12 + "&IsDownload=1";
+                        });       
+            });
+
+            $("#i-search-2-3", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 13;
+                        });       
+            });
+
+            $("#i-search-2-3-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 13 + "&IsDownload=1";
+                        });       
+            });
+
+            $("#i-search-sub-2", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 21  + "&SearchTime3=" + $("#SearchTime3").html();
+                        });       
+            });
+
+             $("#i-search-3-1", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 101 + "&EndTime=" + $(".datepicker").val();
+                        });       
+            });
+
+            $("#i-search-3-2", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {
+                            location.href = "/UsersStatus?SearchType=" + 102 + "&EndTime=" + $(".datepicker").val();
+                        });       
+            });
+
+
+            $("#i-search-4", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {   
+                            var search_id = $("#select01").find("option:selected").attr("id");
+                            
+                            location.href = "/UsersStatus?SearchType=" + 201 + "&ChooseID=" + search_id + "&SearchTime1=" + $("#SearchTime1").html();
+                        });       
+            });
+
+             $("#i-search-5", this).click(function(){
+                $.get("/",
+                        {
+                            
+                        },
+                        function(data,status)
+                        {   
+                            var search_id = $("#select02").find("option:selected").attr("id");
+                            //var x=$("#SearchTime2").offset();
+                            location.href = "/UsersStatus?SearchType=" + 301 + "&Choose01=" + search_id + "&SearchTime2=" + $("#SearchTime2").html();
+                        });       
+            });
+            $("#i-export-1", this).click(function(){
+                $("#example").table2excel({
+                        // 不被导出的表格行的CSS class类
+                        exclude: ".noExl",
+                        // 导出的Excel文档的名称
+                        name: "Excel Document Name",
+                        // Excel文件的名称
+                        filename: "正式学员催作业表",
+                        //文件后缀名
+                        fileext: ".xls",
+                        //是否排除导出图片
+                        exclude_img: false,
+                        //是否排除导出超链接
+                        exclude_links: false,
+                        //是否排除导出输入框中的内容
+                        exclude_inputs: false
+                    }); 
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Admin Panel</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> KimiWang <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        {{template "sideMenu.html" .}}
+        <div class="span10" id="content">
+            <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">正式学员催作业表</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                                <div class="table-toolbar">
+                                    
+                                        <div class="btn-group">
+                                            {{if eq 1 .DataType}}
+                                            <button class="btn btn-success" id="i-search-1-1">
+                                            {{else}}
+                                            <button class="btn" id="i-search-1-1">
+                                            {{end}}
+                                                7天内未交
+                                            </button>
+                                            {{if eq 2 .DataType}}
+                                            <button class="btn btn-success" id="i-search-1-2">
+                                            {{else}}
+                                            <button class="btn" id="i-search-1-2">
+                                            {{end}}
+                                            一个月内未交
+                                            </button>
+                                            {{if eq 3 .DataType}}
+                                            <button class="btn btn-success" id="i-search-1-3">
+                                            {{else}}
+                                            <button class="btn" id="i-search-1-3">
+                                            {{end}}
+                                            一个月以上未交
+                                            </button>
+                                        </div>
+                                        <div class="btn-group pull-right">
+                                            <button class="btn" id="i-search-1-1-1">导出Excel(7日)</button>
+                                            <button class="btn" id="i-search-1-2-1">导出Excel(一月内)</button>
+                                            <button class="btn" id="i-search-1-3-1">导出Excel(一月以上)</button>
+                                        </div>
+                                    </div>
+                            {{if gt 5 .DataType}}       
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                            {{else}}
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="mainTable">
+                            {{end}}
+                                <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>用户名</th>
+                                    <th>几天未交作业</th>
+                                    <th>所开通道</th>
+                                    <th>最后一次提交时间</th>
+                                    <th>最后一次通道任务名字</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{range .MainDatas}}
+                                    <tr>
+                                        
+                                        <td id="M_id">{{.M_id}}</td>
+                                        
+                                        <td id="M_name">{{.M_name}}
+                                                {{if eq 1 .M_leave}}
+                                                <font color="red">(请假中)</font>
+                                                {{end}}
+                                        </td>
+                           
+                                        
+                                        <td id="M_day">{{.M_day}}</td>
+                                        <td id="M_course" class="span6" >{{.M_course}}</td>
+                                        <td id="M_last_submit">{{.M_last_submit}}</td>
+                                        <td id="M_last_name">{{.M_last_name}}</td>
+                                    </tr>
+                                {{end}}
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">缴费学员连续未交状态</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                                <div class="table-toolbar">
+                                    提交作业时间段
+                                    <button type="button" class="btn" id="daterange-btn3">
+                                        <i class="fa fa-calendar"></i>
+                                        <span id="SearchTime4">有效时间</span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    最近一次缴费时间段
+                                    <button type="button" class="btn" id="daterange-btn4">
+                                        <i class="fa fa-calendar"></i>
+                                        <span id="SearchTime5">最近缴费</span>
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    
+                                    <label class="control-label" for="select03">选择连续未交时长(天)</label>
+                                    <div class="controls">
+                                         <select id="select03" class="chzn-select">
+                                             {{range $index := .SelectIndexs}}
+                                                {{if eq $index $.ChooseID}}
+                                                <option id={{$index}} selected="true">{{$index}}</option>
+                                                {{else}}
+                                                <option id={{$index}}>{{$index}}</option>
+                                                {{end}}
+                                             {{end}}
+                                        </select>                              
+                                    </div>
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-info" id="i-search-sub-1">提交查询</button>
+                                    </div>
+
+                                    <div class="btn-group pull-right">
+                                        <button class="btn" id="i-search-sub-1-1">导出Excel</button>
+                                    </div>
+
+                                </div>
+                            {{if gt 8 .DataType}}       
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                            {{else}}
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="mainTable">
+                            {{end}}
+                                        <thead>
+                                                <tr>
+                                                    <!-- <th>编号</th> -->
+                                                    <th>用户名</th>
+                                                    <th>用户类型</th>
+                                                    <th>最近缴费日期</th>
+                                                    <th>连续{{.ChooseID}}未交</th>
+                                                    <th>请假状态</th>
+                                                    <th>所开主线通道</th>
+                                                    <th>提交次数</th>
+                                                    <th>提交作业详情</th>
+                                                </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {{range .LazeUserRecords}}
+                                                <tr>
+                                                    <td id="LR_name">{{.LR_name}}</td>
+                                                    <td id="LR_user_type">{{.LR_user_type}}</td>
+                                                    <td id="LR_date">{{.LR_date}}</td>
+                                                    <td id="LR_last">{{.LR_last}}</td>
+                                                    <td id="LR_leave" >{{.LR_leave}}</td>
+                                                    <td id="LR_course" class="span3">{{.LR_course}}</td>
+                                                    <td id="LR_times">{{.LR_times}}</td>
+                                                    <td id="LR_work" class="span6">{{.LR_work}}</td>
+                                                </tr>
+                                            {{end}}
+                                        </tbody>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">体验期学员催作业表</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                                <div class="table-toolbar">
+
+                                    <div class="btn-group">
+                                        {{if eq 11 .DataType}}
+                                        <button class="btn btn-success" id="i-search-2-1">
+                                        {{else}}
+                                        <button class="btn" id="i-search-2-1">
+                                        {{end}}
+                                        2天内未交</button>
+                                        {{if eq 12 .DataType}}
+                                        <button class="btn btn-success" id="i-search-2-2">
+                                        {{else}}
+                                        <button class="btn" id="i-search-2-2">
+                                        {{end}}
+                                        7天内未交
+                                        {{if eq 13 .DataType}}
+                                        <button class="btn btn-success" id="i-search-2-3">
+                                        {{else}}
+                                        <button class="btn" id="i-search-2-3">
+                                        {{end}}
+                                        15天内未交
+                                        </button>
+                                        
+                                    </div>
+
+                                    <div class="btn-group pull-right">
+                                        <button class="btn" id="i-search-2-1-1">导出Excel(2天)</button>
+                                        <button class="btn" id="i-search-2-2-1">导出Excel(7天)</button>
+                                        <button class="btn" id="i-search-2-3-1">导出Excel(15天)</button>
+                                    </div>
+                                </div>
+
+                            {{if gt 20 .DataType}}       
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                            {{else}}
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="mainTable">
+                            {{end}}
+                                        <thead>
+                                                <tr>
+                                                        <!-- <th>编号</th> -->
+                                                        <th>用户名</th>
+                                                        <th>几天未交作业</th>
+                                                        <th>所开通道</th>
+                                                        <th>最后一次提交时间</th>
+                                                        <th>最后一次通道任务名字</th>
+                                                        <th>点评师</th>
+                                                    </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {{range .SubDatas}}
+                                                <tr>
+                                                    <!-- <td id="M_id"  >{{.M_id}}</td> -->
+                                                    <td id="M_name">{{.M_name}}
+                                                        {{if eq 1 .M_leave}}
+                                                        <font color="red">(请假中)</font>
+                                                        {{end}}
+                                                    </td>
+                                                    <td id="M_day">{{.M_day}}</td>
+                                                    <td id="M_course" class="span6" >{{.M_course}}</td>
+                                                    <td id="M_last_submit">{{.M_last_submit}}</td>
+                                                    <td id="M_last_name">{{.M_last_name}}</td>
+                                                    <td id="M_teacher">{{.M_teacher}}</td>
+                                                </tr>
+                                            {{end}}
+                                        </tbody>
+
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">体验期学员作业表</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                            <div class="table-toolbar">
+                                <button type="button" class="btn" id="daterange-btn2">
+                                    <i class="fa fa-calendar"></i>
+                                    <span id="SearchTime3">时间</span>
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div>
+
+                            <div class="btn-group">
+                                <button class="btn btn-info" id="i-search-sub-2">提交查询</button>
+                            </div>
+
+                            {{if gt 30 .DataType}}       
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                            {{else}}
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="mainTable">
+                            {{end}}
+                                        <thead>
+                                                <tr>
+                                                        <!-- <th>编号</th> -->
+                                                        <th>用户名</th>
+                                                        <th>体验期对应标签</th>
+                                                        <th>体验期开启时间</th>
+                                                        <th>所开主线通道</th>
+                                                        <th>提交次数</th>
+                                                        <th>提交作业详情</th>
+                                                    </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {{range .WorkDatas}}
+                                                <tr>
+                                                    <!-- <td id="M_id"  >{{.M_id}}</td> -->
+                                                    <td id="M_name" class="span2">{{.M_name}}</td>
+                                                    <td id="M_tag" class="span2">{{.M_tag}}</td>
+                                                    <td id="M_create" class="span2" >{{.M_create}}</td>
+                                                    <td id="M_course" class="span2" >{{.M_course}}</td>
+                                                    <td id="M_times" class="span1" >{{.M_times}}</td>      
+                                                    <td id="M_work" class="span6" >{{.M_work}}</td>
+                                                </tr>
+                                            {{end}}
+                                        </tbody>
+
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">连续提交作业</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                                <div class="table-toolbar">
+
+                                    <div class="btn-group">
+                                        {{if eq 101 .DataType}}
+                                        <button class="btn btn-success" id="i-search-3-1">
+                                        {{else}}
+                                        <button class="btn" id="i-search-3-1">
+                                        {{end}}
+                                        连续7天提交</button>
+                                        {{if eq 102 .DataType}}
+                                        <button class="btn btn-success" id="i-search-3-2">
+                                        {{else}}
+                                        <button class="btn" id="i-search-3-2">
+                                        {{end}}
+                                        连续30天提交
+                                        </button>
+                                        
+                                    </div>
+                                    
+                                    <div class="control-group collapse in">
+                                            <label for="date01"></label>截止时间:</label>
+                                            <div class="controls">
+                                              <input type="text" class="datepicker" id="date01" value={{.EndTime}}>
+                                            </div>
+                                    </div>
+
+                            {{if gt 150 .DataType}}       
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                            {{else}}
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="mainTable">
+                            {{end}}
+                                        <thead>
+                                                <tr>
+                                                        <th>编号</th>
+                                                        <th>用户名</th>
+                                                        <th>所开通道</th>
+                                                    </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {{range .ContinueDatas}}
+                                                <tr>
+                                                    <td id="M_id"  >{{.M_id}}</td>
+                                                    <td id="M_name">{{.M_name}}</td>
+                                                    <td id="M_course" class="span6" >{{.M_course}}</td>
+                                                </tr>
+                                            {{end}}
+                                        </tbody>
+
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">用户提交作业数</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                                <div class="table-toolbar">
+
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="select01">选择通道</label>
+                                        <div class="controls">
+                                             <select id="select01" class="chzn-select">
+                                            {{if eq 0 .ChooseID}}
+                                            <option id=0 select="true">所有通道</option>
+                                            {{else}}
+                                            <option id=0 >所有通道</option>
+                                            {{end}}
+                                            
+                                            {{range .CourseDatas}}
+                                            {{if eq $.ChooseID .ID}}
+                                            <option id={{.ID}} selected="true">{{.Title}}</option>
+                                            {{else}}
+                                            <option id={{.ID}}>{{.Title}}</option>
+                                            {{end}}
+                                            
+                                            {{end}}
+                                            </select>                              
+                                        </div>
+
+                                        <button type="button" class="btn" id="daterange-btn">
+                                                <i class="fa fa-calendar"></i>
+                                                <span id="SearchTime1">时间</span>
+                                                <i class="fa fa-caret-down"></i>
+                                        </button>
+                                        
+                                    </div>
+
+                                    
+                                    <div class="btn-group">
+                                        <button class="btn btn-info" id="i-search-4">提交查询</button>
+                                    </div>
+
+                                </div>
+                            {{if gt 250 .DataType}}       
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                            {{else}}
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="mainTable">
+                            {{end}}
+                                        <thead>
+                                                <tr>
+                                                    <th>编号</th>
+                                                    <th>用户名</th>
+                                                    <th>通道</th>
+                                                    <th>数量</th>
+                                                </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {{range .MaxDatas}}
+                                                <tr>
+                                                    <td id="M_id"  >{{.M_id}}</td>
+                                                    <td id="M_name">{{.M_name}}</td>
+                                                    <td id="M_course" class="span6" >{{.M_course}}</td>
+                                                    <td id="M_num" >{{.M_num}}</td>
+                                                </tr>
+                                            {{end}}
+                                        </tbody>
+
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">用户通道进度</div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                                <div class="table-toolbar">
+
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="select02">选择通道</label>
+                                        <div class="controls">
+                                             <select id="select02" class="chzn-select">
+                                            {{range .CourseDatas}}
+                                            {{if eq $.Choose01 .ID}}
+                                            <option id={{.ID}} selected="true">{{.Title}}</option>
+                                            {{else}}
+                                            <option id={{.ID}}>{{.Title}}</option>
+                                            {{end}}
+                                            
+                                            {{end}}
+                                            </select> 
+                                        </div>
+
+                                        <button type="button" class="btn" id="daterange-btn1">
+                                                <i class="fa fa-calendar"></i>
+                                                <span id="SearchTime2">时间</span>
+                                                <i class="fa fa-caret-down"></i>
+                                        </button>
+                                        
+                                    </div>
+
+                                    
+                                    <div class="btn-group">
+                                        <button class="btn btn-info" id="i-search-5">提交查询</button>
+                                    </div>
+
+                                </div>
+                            {{if gt 350 .DataType}}       
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+                            {{else}}
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="mainTable">
+                            {{end}}
+                                        <thead>
+                                                <tr>
+                                                    <th>编号</th>
+                                                    <th>用户名</th>
+                                                    <th>最快通道</th>
+                                                    <th>数量</th>
+                                                    <th>任务名</th>
+                                                </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {{range .FastDatas}}
+                                                <tr>
+                                                    <td id="M_id"  >{{.M_id}}</td>
+                                                    <td id="M_name">{{.M_name}}</td>
+                                                    <td id="M_course" >{{.M_course}}</td>
+                                                    <td id="M_num">{{.M_num}}</td>
+                                                    <td id="M_mission" class="span6">{{.M_mission}}</td>
+                                                </tr>
+                                            {{end}}
+                                        </tbody>
+
+                                </table>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+
+        <!--/span-->
+    </div>
+    <hr>
+</div>
+
+<script src="static/vendors/jquery-1.9.1.js"></script>
+<script src="static/bootstrap/js/bootstrap.min.js"></script>
+<script src="static/vendors/datatables/js/jquery.dataTables.js"></script>
+
+
+<script src="static/assets/scripts.js"></script>
+<script src="static/assets/DT_bootstrap.js"></script>
+
+
+<script src="static/vendors/bootstrap-datepicker.zh-CN.min.js"></script>
+
+<script src="static/vendors/bootstrap-datepicker.js"></script>
+
+<script src="static/vendors/moment.min.js"></script>
+<script src="static/vendors/daterangepicker.js"></script>
+
+
+<script src="static/js/jquery.table2excel.js"></script>
+<script>
+
+
+function init() {
+
+
+	//定义locale汉化插件
+	var locale = {
+		"format": 'YYYY-MM-DD',
+		"separator": " -222 ",
+		"applyLabel": "确定",
+		"cancelLabel": "取消",
+		"fromLabel": "起始时间",
+		"toLabel": "结束时间'",
+		"customRangeLabel": "自定义",
+		"weekLabel": "W",
+		"daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+		"monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+		"firstDay": 1
+    };
+	
+	$(".datepicker").datepicker({  
+		format: 'yyyy/mm/dd', 
+		locale: locale,
+        keyboardNavigation: true,
+        language: "zh-CN" ,
+        autoclose: true ,
+	});
+    {{if .SearchTime1}}
+    $('#daterange-btn span').html({{.SearchTime1}});
+    {{else}}
+    	//初始化显示当前时间
+	$('#daterange-btn span').html(moment().subtract('hours', 1).format('YYYY/MM/DD') + '-' + moment().format('YYYY/MM/DD'));
+    {{end}}
+	//日期控件初始化
+	$('#daterange-btn').daterangepicker(
+		{
+			'locale': locale,
+			//汉化按钮部分
+			ranges: {
+				'今日': [moment(), moment()],
+				'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'最近7日': [moment().subtract(6, 'days'), moment()],
+				'最近30日': [moment().subtract(29, 'days'), moment()],
+				'本月': [moment().startOf('month'), moment().endOf('month')],
+				'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		   },
+           {{if .SearchTime1}}
+            startDate: {{.SearchTime1}}.split("-")[0],
+			endDate: {{.SearchTime1}}.split("-")[1]
+           {{else}}
+           startDate: moment(),
+			endDate: moment()
+           {{end}}
+
+        },
+        
+        
+		function (start, end) {
+			$('#daterange-btn span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+		}
+   );
+
+    {{if .SearchTime2}}
+    $('#daterange-btn1 span').html({{.SearchTime2}});
+    {{else}}
+    	//初始化显示当前时间
+	$('#daterange-btn1 span').html(moment().subtract('hours', 1).format('YYYY/MM/DD') + '-' + moment().format('YYYY/MM/DD'));
+    {{end}}
+
+
+    $('#daterange-btn1').daterangepicker(
+		{
+			'locale': locale,
+			//汉化按钮部分
+			ranges: {
+				'今日': [moment(), moment()],
+				'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'最近7日': [moment().subtract(6, 'days'), moment()],
+				'最近30日': [moment().subtract(29, 'days'), moment()],
+				'本月': [moment().startOf('month'), moment().endOf('month')],
+				'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		   },
+           {{if .SearchTime2}}
+            startDate: {{.SearchTime2}}.split("-")[0],
+			endDate: {{.SearchTime2}}.split("-")[1]
+           {{else}}
+           startDate: moment(),
+			endDate: moment()
+           {{end}}
+		},
+		function (start, end) {
+			$('#daterange-btn1 span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+		}
+   );
+
+
+   {{if .SearchTime3}}
+    $('#daterange-btn2 span').html({{.SearchTime3}});
+    {{else}}
+    	//初始化显示当前时间
+	$('#daterange-btn2 span').html(moment().subtract('hours', 1).format('YYYY/MM/DD') + '-' + moment().format('YYYY/MM/DD'));
+    {{end}}
+
+
+    $('#daterange-btn2').daterangepicker(
+		{
+			'locale': locale,
+			//汉化按钮部分
+			ranges: {
+				'今日': [moment(), moment()],
+				'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'最近7日': [moment().subtract(6, 'days'), moment()],
+				'最近30日': [moment().subtract(29, 'days'), moment()],
+				'本月': [moment().startOf('month'), moment().endOf('month')],
+				'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		   },
+           {{if .SearchTime3}}
+            startDate: {{.SearchTime3}}.split("-")[0],
+			endDate: {{.SearchTime3}}.split("-")[1]
+           {{else}}
+           startDate: moment(),
+			endDate: moment()
+           {{end}}
+		},
+		function (start, end) {
+			$('#daterange-btn2 span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+		}
+   );
+
+
+   {{if .SearchTime4}}
+    $('#daterange-btn3 span').html({{.SearchTime4}});
+    {{else}}
+    	//初始化显示当前时间
+	$('#daterange-btn3 span').html(moment().subtract('hours', 1).format('YYYY/MM/DD') + '-' + moment().format('YYYY/MM/DD'));
+    {{end}}
+
+
+    $('#daterange-btn3').daterangepicker(
+		{
+			'locale': locale,
+			//汉化按钮部分
+			ranges: {
+				'今日': [moment(), moment()],
+				'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'最近7日': [moment().subtract(6, 'days'), moment()],
+				'最近30日': [moment().subtract(29, 'days'), moment()],
+				'本月': [moment().startOf('month'), moment().endOf('month')],
+				'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		   },
+           {{if .SearchTime4}}
+            startDate: {{.SearchTime4}}.split("-")[0],
+			endDate: {{.SearchTime4}}.split("-")[1]
+           {{else}}
+           startDate: moment(),
+			endDate: moment()
+           {{end}}
+		},
+		function (start, end) {
+			$('#daterange-btn3 span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+		}
+   );
+
+   {{if .SearchTime5}}
+    $('#daterange-btn4 span').html({{.SearchTime5}});
+    {{else}}
+    	//初始化显示当前时间
+	$('#daterange-btn4 span').html(moment().subtract('hours', 1).format('YYYY/MM/DD') + '-' + moment().format('YYYY/MM/DD'));
+    {{end}}
+
+
+    $('#daterange-btn4').daterangepicker(
+		{
+			'locale': locale,
+			//汉化按钮部分
+			ranges: {
+				'今日': [moment(), moment()],
+				'昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'最近7日': [moment().subtract(6, 'days'), moment()],
+				'最近30日': [moment().subtract(29, 'days'), moment()],
+				'本月': [moment().startOf('month'), moment().endOf('month')],
+				'上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+		   },
+           {{if .SearchTime5}}
+            startDate: {{.SearchTime5}}.split("-")[0],
+			endDate: {{.SearchTime5}}.split("-")[1]
+           {{else}}
+           startDate: moment(),
+			endDate: moment()
+           {{end}}
+		},
+		function (start, end) {
+			$('#daterange-btn4 span').html(start.format('YYYY/MM/DD') + '-' + end.format('YYYY/MM/DD'));
+		}
+   );
+};
+
+
+
+$(document).ready(function() {
+        init(); 
+});
+</script>
+    <footer >
+        <p>&copy; Kimi Wang 2016</p>
+    </footer>
+
+</body>
+
+</html>

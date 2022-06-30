@@ -1,0 +1,1 @@
+nohup ./diabloPack 1>log.txt &

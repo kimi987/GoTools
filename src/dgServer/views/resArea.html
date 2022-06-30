@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>服务器详情</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap-responsive.min.css" media="screen">
+
+    <link rel="stylesheet" href="static/assets/DT_bootstrap.css" media="screen">
+
+    <link href="static/assets/styles.css" rel="stylesheet" media="screen">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="static/vendors/jquery-1.9.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+    <script>
+
+        var click_btn;
+        $(document).ready(function(){
+            $(".s-choose", this).click(function(){
+
+                click_btn = $(this);
+                $.post("MapData",
+                        {
+                            S_id:$("#select01").val()
+                        },
+                        function(data,status)
+                        {
+//                            $.get("MapData", {},
+//                            function(data1, status1) {
+//
+//                            });
+
+                            location.href = "MapData"
+                        });
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Admin Panel</a>
+            <a class="brand" href="/">返回主页</a>
+            <a class="brand" href="#">{{.S_name}}</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> KimiWang<i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="login.html">Logout</a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        {{template "sideMenu.html" .}}
+
+        <div class="span9" id="content">
+                <div class="row-fluid">
+                        <!-- block -->
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header">
+                                <div class="muted pull-left">分布地图</div>
+                            </div>
+                            <div class="block-content collapse in">
+                                <div class="span12">
+                                    <canvas id="myCanvas" width="1300px" height="600px" style="border: 1px solid red;">
+                                            your browser does not support the canvas tag
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+        </div>
+
+
+        <!--/span-->
+    </div>
+
+    <footer>
+        <p>&copy; Kimi Wang 2016</p>
+    </footer>
+</div>
+
+
+        <link rel="stylesheet" href="static/vendors/morris/morris.css">
+
+
+        <script src="static/vendors/jquery-1.9.1.min.js"></script>
+        <script src="static/vendors/jquery.knob.js"></script>
+        <script src="static/vendors/raphael-min.js"></script>
+        <script src="static/vendors/morris/morris.min.js"></script>
+
+        <script src="static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="static/vendors/flot/jquery.flot.js"></script>
+        <script src="static/vendors/flot/jquery.flot.categories.js"></script>
+        <script src="static/vendors/flot/jquery.flot.pie.js"></script>
+        <script src="static/vendors/flot/jquery.flot.time.js"></script>
+        <script src="static/vendors/flot/jquery.flot.stack.js"></script>
+        <script src="static/vendors/flot/jquery.flot.resize.js"></script>
+        <script src="static/js/jquery.mousewheel.min.js"></script>
+
+        <script src="static/assets/scripts.js"></script>
+<script>
+    var canvas=document.getElementById('myCanvas');
+    var ctx=canvas.getContext('2d');
+    var bbox = canvas.getBoundingClientRect();  
+    var onPress = false;
+    var recordX = 0;
+    var recordY = 0;
+    var offsetX = 0; //偏移量x
+    var offsetY = 0; //偏移量y
+    var Scale = 1; //放大比率
+
+    ctx.fillStyle = '#000';
+       //ctx.strokeStyle = '#000'; //设置笔触的颜色
+    ctx.font = "20px Courier New";
+    ctx.textBaseline = 'hanging'; //在绘制文本时使用的当前文本基线
+    ctx.fillText("CodePlayer+111中文测试", 50, 50);
+
+    canvas.onmousemove = OnPointMove; 
+    canvas.onmousedown = OnPress;
+    canvas.onmouseup = OnUp;
+    //canvas.mousewheel = OnMouseWheel;
+    var map = {};
+
+    DrawAll();
+
+    // 这个方法用来储存每个圆圈对象
+    function Point(x, y, name, type) {
+      this.x = x;
+      this.y = y;
+      this.name = name;
+      this.type = type;
+    }
+
+    function GetPos(x,y){
+        return "pos"+x+"s"+y
+    }
+
+    function DrawAll() 
+    {
+        map = {};
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle='#EAEAEA';
+        ctx.fillRect(0,0,canvas.width,canvas.height); 
+
+        {{range .CityData}}
+            CreateAndDrawPoint({{.MR_X}},{{.MR_Y}},{{.MR_name}},1);
+        {{end}}
+        {{range .MonsterData}}
+            CreateAndDrawPoint({{.MR_X}},{{.MR_Y}},{{.MR_name}},2);
+        {{end}}
+
+        {{range .ResData}}
+            CreateAndDrawPoint({{.MR_X}},{{.MR_Y}},{{.MR_name}},3);
+        {{end}}
+       // CreateAndDrawPoint(100,100,"abac",1);
+        //CreateAndDrawPoint(105,105,"abac",1);
+        //CreateAndDrawPoint(107,107,"abac",1);
+        //CreateAndDrawPoint(109,109,"abac",1);
+    }
+
+    function CreateAndDrawPoint(x,y,name,type) {
+        var rx = x;
+        var ry = y;
+        if (x > canvas.width/2) {
+            x = canvas.width/2 + ((x - canvas.width/2) *Scale)
+        } else {
+            x = canvas.width/2 - ((canvas.width/2 - x) *Scale)
+        }
+        
+        if (y > canvas.height/2) {
+            y = canvas.height/2 + ((y - canvas.height/2) *Scale)
+        } else {
+            y = canvas.height/2 - ((canvas.height/2 - y) *Scale)
+        }
+
+        x = x + (offsetX *Scale);
+        y = y - (offsetY *Scale);
+
+        y =  canvas.height - y;
+        var point = new Point(rx, ry, name, type);
+
+        map[GetPos(parseInt(x),parseInt(y))] = point;
+        if (type == 1) {
+            //城市
+            ctx.fillStyle = 'green';     
+        } else if (type == 2 ) {
+            //怪物
+            ctx.fillStyle = '#FF0000';    
+        } else if (type == 3) {
+            //资源
+            ctx.fillStyle = 'blue';   
+        }
+        ctx.fillRect(x,y,Scale,Scale);
+    }
+
+    function OnPointMove(e) {
+        if (onPress) {
+            var CX = Math.round((e.offsetX) * (canvas.width/bbox.width));
+            var CY = Math.round((e.offsetY) * (canvas.height/bbox.height));
+
+            offsetX = offsetX +((CX  - recordX )/Scale);
+            offsetY = offsetY + ((CY - recordY)/Scale);
+
+
+            recordX = CX;
+            recordY = CY;
+
+            DrawAll();
+
+            return;
+        }
+      DrawAll();
+      var clickX = Math.round((e.offsetX) * (canvas.width/bbox.width));
+      var clickY =Math.round((e.offsetY) * (canvas.height/bbox.height));
+      var x  = 0;
+      var y  = 0;
+
+      for (var px = 0; px < Scale; px++) {
+          x = clickX - px;
+
+          for (var py = 0; py < Scale; py++) {
+            y = clickY - py;
+            var point = map[GetPos(x,y)];
+            if (point == null) {
+                 continue;
+            }
+            DrawTips(clickX,clickY,point);
+            return;
+          }
+      }
+
+      
+
+      //alert("point = " + point);
+    }
+
+    function DrawTips(x,y,point) {
+       ctx.fillStyle = '#FFFFF0';  //设置填充的背景颜色
+       ctx.fillRect(x,y,150,150); //
+     //设置字体样式
+     ctx.font = "20px Courier New";
+    //设置字体填充颜色
+    ctx.fillStyle = "blue";
+    //从坐标点(50,50)开始绘制文字
+    ctx.fillText("name=" + point.name, x + 10, y + 30);
+    ctx.fillText("type=" + point.type, x + 10, y + 50);
+    ctx.fillText("x=" + point.x, x + 10, y + 70);
+    ctx.fillText("y=" + point.y, x + 10, y + 90);
+    }
+
+    function OnPress(e) {
+        onPress = true;
+        recordX = Math.round((e.offsetX) * (canvas.width/bbox.width));
+        recordY =Math.round((e.offsetY) * (canvas.height/bbox.height));
+    }
+
+    function OnUp(e) {
+        onPress = false;
+    }
+
+
+    $('#myCanvas').bind('mousewheel', function(event, delta, deltaX, deltaY) {
+        if (window.console && console.log) {
+             console.log(delta, deltaX, deltaY);
+        }
+        Scale += delta;
+
+        if (Scale <= 0) {
+            Scale = 1;
+        }
+        DrawAll();
+        return false;
+    });
+
+    function OnMouseWheel(e, delta) {
+        console.log("delta = " + delta);
+    }
+
+
+</script>
+</body>
+
+</html>

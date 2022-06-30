@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<!--
+	Identity by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>DG Login</title>
+		<meta charset="utf-8" />
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+		<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+		<!-- <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css"> -->
+
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="static/vendors/jquery-1.9.1.min.js"></script>
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="static/bootstrap/js/bootstrap.min.js"></script>
+
+		<link href="static/css/app.css" rel="stylesheet">
+
+		<script>
+
+	$(document).ready(function(){
+
+		$("#submit", this).click(function(){
+			$.post("/login",
+					{
+						username:$("#username").val(),
+                        password:$("#inputPassword").val(),
+					},
+					function(data,status)
+					
+					{  
+						if (data != "success") {
+							alert(data)
+						}
+						
+						location.href = "/";
+						//  alert(status)
+						
+						// {{if .error}}
+						// 	alert({{.error}});
+						// 	location.href = "/login";
+						// {{else}}
+						// 	location.href = "/";
+						// {{end}}
+						
+						// location.href = "/PayInfo?SearchType=" + 101 + "&SearchTime1=" + $("#SearchTime1").html();
+					});       
+		});
+
+	});
+
+		</script>
+
+	</head>
+
+	<body>
+		<header class="main-header">
+
+		</header>
+
+		<div class="main-body">
+		<div class="container">
+			
+			<div class="col-md-12">
+				<section class="box"  style="background-color:#f2f2f2">
+					<!-- <span class="avatar">
+						<img src="static/img/avatar.jpg">
+					</span> -->
+					<div class="control-label">
+						DG账号登录
+					</div>
+					<br/>
+
+					<div class="form-horizontal" role="form" action="" method="post">
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="username">账号</label>
+						<div class="col-sm-10">
+							<input id="username" class="form-control" placeholder="ID" type="text" name="username">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="inputPassword">密码</label>
+
+					<div class="col-sm-10">
+						<input id="inputPassword" class="form-control" placeholder="Password" type="password" name="password"></div>
+					</div>
+
+					<div class="form-group" style="margin:0 auto;padding: 0">
+						<!-- <div class="col-sm-2"></div> -->
+						<div class="col-sm-12">
+						<button class="btn btn-primary btn-block" id="submit" contenteditable="true" type="submit">登陆</button></div>
+						<!-- <div class="col-sm-3">
+							<a>重置</a>
+						</div> -->
+					</div>
+					
+
+					</div>
+				</section>
+			</div>
+
+		</div>
+
+		</div>
+
+
+
+	</body>
+
+
+</html>

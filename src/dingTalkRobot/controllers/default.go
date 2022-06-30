@@ -82,6 +82,8 @@ func parseCommand(nickname, webhook, command string) string {
 			PostUpdateMsg(nickname, webhook, "releaseCN", "CN", "CN", "", "CN")
 		case "CNIOS":
 			PostUpdateMsg(nickname, webhook, "releaseCN", "CNIOS", "CNIOS", "", "CNIOS")
+		case "BC":
+			PostUpdateMsg(nickname, webhook, "releaseBaiCai", "BC", "BC", "", "BC")
 		case "ENG":
 			PostUpdateMsg(nickname, webhook, "releaseENG", "ENG", "ENG", "", "ENG")
 		case "ENGIOS":
